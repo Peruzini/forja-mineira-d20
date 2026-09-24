@@ -11,14 +11,14 @@ Build completa 1–20 para o Forja Mineira D20.
 
 == Instalação ==
 1. No WordPress: Plugins > Adicionar plugin > Enviar plugin.
-2. Envie o ZIP forja-mineira-builds-v2.0.1.zip.
+2. Envie o ZIP forja-mineira-builds-v2.3.21.zip.
 3. Se a versão anterior estiver instalada, use a opção do WordPress para substituir a versão atual pela enviada.
 4. Ative o plugin.
 5. Na página da build, use:
    [forja_build nome="voldemort"]
 
 Para definir manualmente o link do botão "Guia da classe Bruxo":
-   [forja_build nome="voldemort" guia_url="https://forjamineirad20.com.br/SEU-LINK/"]
+   [forja_build nome="voldemort" guia_url="https://forjamineirad20.com.br/melhores-itens-para-bruxo-dnd-5e/"]
 
 == Observações ==
 - Os níveis com arte grande continuam sem a sidebar compacta.
@@ -52,8 +52,8 @@ trevor_image=""
 Shortcode do Guia em Destaque da Home:
 [forja_home_featured_guide]
 
-URL opcional do futuro guia:
-[forja_home_featured_guide guide_url="https://..."]
+URL do guia em destaque:
+[forja_home_featured_guide guide_url="https://forjamineirad20.com.br/melhores-itens-para-bruxo-dnd-5e/"]
 
 Votação real:
 - O voto da Home é registrado no WordPress via REST.
