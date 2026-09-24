@@ -15,13 +15,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Builds assets
+      - name: Download production assets
         shell: bash
         run: |
           set -euo pipefail
-          BUILD_DIR="plugins/forja-mineira-builds/assets/images"
-          GUIDE_DIR="plugins/forja-mineira-guias/assets/images"
-          mkdir -p "$BUILD_DIR" "$GUIDE_DIR"
+          BUILD_ROOT="plugins/forja-mineira-builds/assets"
+          GUIDE_ROOT="plugins/forja-mineira-guias/assets"
+          BUILD_DIR="$BUILD_ROOT/images"
+          GUIDE_DIR="$GUIDE_ROOT/images"
+          mkdir -p "$BUILD_DIR" "$GUIDE_DIR" "$BUILD_ROOT/css" "$BUILD_ROOT/js" "$GUIDE_ROOT/css"
 
           base="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images"
           files=(
@@ -53,23 +55,26 @@ jobs:
 
           for file in "${files[@]}"; do
             echo "Downloading $file"
-            curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0" \
-              "$base/$file" -o "$BUILD_DIR/$file"
+            curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0"               "$base/$file" -o "$BUILD_DIR/$file"
           done
 
-          curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0" \
-            "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias/assets/images/guia-itens-bruxo-1-5.webp" \
-            -o "$GUIDE_DIR/guia-itens-bruxo-1-5.webp"
+          curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0"             "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias/assets/images/guia-itens-bruxo-1-5.webp"             -o "$GUIDE_DIR/guia-itens-bruxo-1-5.webp"
+
+          curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0"             "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/builds.css"             -o "$BUILD_ROOT/css/builds.css"
+
+          curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0"             "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/js/builds.js"             -o "$BUILD_ROOT/js/builds.js"
+
+          curl --fail --location --retry 3 --user-agent "Forja-Mineira-GitHub-Sync/1.0"             "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias/assets/css/guide-warlock-items.css"             -o "$GUIDE_ROOT/css/guide-warlock-items.css"
 
       - name: Commit assets
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add plugins/forja-mineira-builds/assets/images plugins/forja-mineira-guias/assets/images
+          git add plugins/forja-mineira-builds/assets plugins/forja-mineira-guias/assets
           if git diff --cached --quiet; then
             echo "No asset changes."
             exit 0
           fi
-          git commit -m "chore: sync production image assets"
+          git commit -m "chore: sync production assets"
           git push
