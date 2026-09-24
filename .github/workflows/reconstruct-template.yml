@@ -1,0 +1,39 @@
+name: Reconstruct source template
+
+on:
+  push:
+    paths:
+      - '.github/workflows/reconstruct-template.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reconstruct exact source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .staging/voldemort.part01 .staging/voldemort.part02 .staging/voldemort.part03 | base64 -d | gzip -d > plugins/forja-mineira-builds/templates/voldemort.php
+          base64 -d .staging/changelog.gz.b64 | gzip -d > plugins/forja-mineira-builds/CHANGELOG.txt
+
+          test "$(git hash-object plugins/forja-mineira-builds/templates/voldemort.php)" = "3d6a0fe3f93e5ffcfb8c40a7697deb2bcffa5e24"
+          test "$(git hash-object plugins/forja-mineira-builds/CHANGELOG.txt)" = "aca0c9b1f9f62ffe31ce848a6c7b7b5cd05724e0"
+
+      - name: Commit reconstructed files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugins/forja-mineira-builds/templates/voldemort.php plugins/forja-mineira-builds/CHANGELOG.txt
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "feat: add exact Voldemort template and changelog"
+          git push
