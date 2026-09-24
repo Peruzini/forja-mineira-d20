@@ -1,3 +1,10 @@
+= 2.3.22 =
+* Torna toda a arte panorâmica da Build em Destaque no Hub de Builds clicável.
+* O clique na progressão Tom Riddle → Voldemort leva diretamente para /voldemort-dnd-5e-build-bruxo/.
+* Adiciona hover discreto com leve zoom/clareamento para indicar interação.
+* Adiciona foco visível por teclado para acessibilidade.
+* Incrementa a versão do plugin para renovar o cache dos assets.
+
 = 2.3.21 =
 * Transforma a votação visual da Home em votação real persistente.
 * Registra cada voto no WordPress sem expor as parciais no front-end.
