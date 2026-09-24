@@ -91,11 +91,15 @@
         </div>
 
         <div class="fmb-progress-wrap" aria-hidden="true">
-          <div class="fmb-progress-track"><span class="fmb-progress-fill"></span></div>
+          <div class="fmb-progress-track">
+            <span class="fmb-progress-fill"></span>
+          </div>
           ${mascot ? `<img class="fmb-progress-cheese" src="${mascot}" alt="">` : `<span class="fmb-progress-cheese fmb-progress-cheese--fallback" aria-hidden="true">◈</span>`}
         </div>
 
-        <button class="fmb-level-menu-toggle" type="button" aria-expanded="false">Ir para o nível ▾</button>
+        <button class="fmb-level-menu-toggle" type="button" aria-expanded="false">
+          Ir para o nível ▾
+        </button>
 
         <div class="fmb-level-menu" aria-hidden="true">
           <div class="fmb-level-menu-head">
@@ -283,11 +287,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function safeStorageGet(key) {
-    try { return window.localStorage.getItem(key) || ''; } catch (error) { return ''; }
+    try {
+      return window.localStorage.getItem(key) || '';
+    } catch (error) {
+      return '';
+    }
   }
 
   function safeStorageSet(key, value) {
-    try { window.localStorage.setItem(key, value); } catch (error) { /* Cookie remains as fallback. */ }
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      /* Cookie remains as fallback. */
+    }
   }
 
   document.querySelectorAll('[data-fmb-vote]').forEach(function (voteRoot) {
@@ -303,8 +315,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let pollOpen = voteRoot.dataset.voteOpen !== '0';
     let submitting = false;
 
-    function storageKey() { return 'forja_mineira_build_vote_' + pollId; }
-    function cookieKey() { return 'fmb_build_vote_' + pollId; }
+    function storageKey() {
+      return 'forja_mineira_build_vote_' + pollId;
+    }
+
+    function cookieKey() {
+      return 'fmb_build_vote_' + pollId;
+    }
 
     function storedVote() {
       const value = safeStorageGet(storageKey()) || readCookie(cookieKey());
@@ -321,7 +338,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function setRadiosDisabled(disabled) {
-      radios.forEach(function (radio) { radio.disabled = disabled; });
+      radios.forEach(function (radio) {
+        radio.disabled = disabled;
+      });
     }
 
     function selectCard(candidateKey) {
@@ -336,63 +355,105 @@ document.addEventListener('DOMContentLoaded', function () {
     function showReady() {
       clearVisualSelection();
       setRadiosDisabled(false);
-      status.innerHTML = '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span><strong>ESCOLHA 1 DE 3</strong>';
+
+      status.innerHTML =
+        '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span>' +
+        '<strong>ESCOLHA 1 DE 3</strong>';
+
       button.disabled = true;
       button.classList.remove('is-confirmed', 'is-loading');
       button.textContent = 'Escolha um candidato';
-      note.innerHTML = '<span aria-hidden="true">🔒</span> O resultado permanece oculto até o encerramento da votação.';
+
+      note.innerHTML =
+        '<span aria-hidden="true">🔒</span> ' +
+        'O resultado permanece oculto até o encerramento da votação.';
     }
 
     function showClosed() {
       clearVisualSelection();
       voteRoot.classList.add('is-closed');
       setRadiosDisabled(true);
-      status.innerHTML = '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span><strong>VOTAÇÃO ENCERRADA</strong>';
+
+      status.innerHTML =
+        '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span>' +
+        '<strong>VOTAÇÃO ENCERRADA</strong>';
+
       button.disabled = true;
       button.classList.remove('is-confirmed', 'is-loading');
       button.textContent = 'Votação encerrada';
-      note.innerHTML = '<span aria-hidden="true">🔒</span> A votação desta rodada foi encerrada.';
+
+      note.innerHTML =
+        '<span aria-hidden="true">🔒</span> ' +
+        'A votação desta rodada foi encerrada.';
     }
 
     function showStoredVote(candidateKey) {
       const label = labels[candidateKey];
       if (!label) return;
+
       clearVisualSelection();
       selectCard(candidateKey);
       voteRoot.classList.add('has-selection', 'is-confirmed');
       setRadiosDisabled(true);
-      status.innerHTML = '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span><strong>VOCÊ VOTOU · ' + label + '</strong>';
+
+      status.innerHTML =
+        '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span>' +
+        '<strong>VOCÊ VOTOU · ' + label + '</strong>';
+
       button.disabled = true;
       button.classList.add('is-confirmed');
       button.textContent = '✓ Voto registrado';
-      note.innerHTML = '<span aria-hidden="true">🔒</span> Seu voto está salvo. As parciais continuam ocultas.';
+
+      note.innerHTML =
+        '<span aria-hidden="true">🔒</span> ' +
+        'Seu voto está salvo. As parciais continuam ocultas.';
     }
 
     function applyCurrentState() {
       const saved = storedVote();
-      if (saved) { showStoredVote(saved); return; }
-      if (!pollOpen) { showClosed(); return; }
+
+      if (saved) {
+        showStoredVote(saved);
+        return;
+      }
+
+      if (!pollOpen) {
+        showClosed();
+        return;
+      }
+
       showReady();
     }
 
     radios.forEach(function (radio) {
       radio.addEventListener('change', function () {
         if (!pollOpen || submitting || storedVote()) return;
+
         const candidateKey = radio.value;
         const label = labels[candidateKey] || 'candidato';
+
         voteRoot.classList.remove('is-confirmed', 'is-closed');
         voteRoot.classList.add('has-selection');
+
         selectCard(candidateKey);
-        status.innerHTML = '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span><strong>SELECIONADO · ' + label + '</strong>';
+
+        status.innerHTML =
+          '<span class="fmb-cycle-vote-status-dot" aria-hidden="true"></span>' +
+          '<strong>SELECIONADO · ' + label + '</strong>';
+
         button.disabled = false;
         button.classList.remove('is-confirmed', 'is-loading');
         button.innerHTML = 'Votar em ' + label + ' <span aria-hidden="true">→</span>';
-        note.innerHTML = '<span aria-hidden="true">🔒</span> Sua escolha está pronta. As parciais continuam ocultas.';
+
+        note.innerHTML =
+          '<span aria-hidden="true">🔒</span> ' +
+          'Sua escolha está pronta. As parciais continuam ocultas.';
       });
     });
 
     button.addEventListener('click', async function () {
       const selected = voteRoot.querySelector('input[name="fmb-next-character"]:checked');
+
       if (!selected || submitting || !pollOpen || storedVote()) return;
 
       submitting = true;
@@ -405,19 +466,32 @@ document.addEventListener('DOMContentLoaded', function () {
         const response = await fetch(endpoint, {
           method: 'POST',
           credentials: 'same-origin',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidate: selected.value, poll_id: Number(pollId) })
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            candidate: selected.value,
+            poll_id: Number(pollId)
+          })
         });
 
-        const data = await response.json().catch(function () { return {}; });
+        const data = await response.json().catch(function () {
+          return {};
+        });
 
         if (!response.ok || !data.registered) {
-          if (data.code === 'poll_closed') { pollOpen = false; showClosed(); return; }
+          if (data.code === 'poll_closed') {
+            pollOpen = false;
+            showClosed();
+            return;
+          }
+
           if (data.code === 'poll_changed') {
             note.textContent = data.message || 'A votação foi atualizada. Recarregue a página.';
             button.textContent = 'Recarregue a página';
             return;
           }
+
           throw new Error(data.message || 'Não foi possível registrar o voto.');
         }
 
@@ -429,26 +503,40 @@ document.addEventListener('DOMContentLoaded', function () {
         button.disabled = false;
         button.classList.remove('is-loading');
         button.innerHTML = 'Tentar registrar novamente';
-        note.innerHTML = '<span aria-hidden="true">⚠</span> ' + (error && error.message ? error.message : 'Não foi possível registrar o voto. Tente novamente.');
+
+        note.innerHTML =
+          '<span aria-hidden="true">⚠</span> ' +
+          (error && error.message ? error.message : 'Não foi possível registrar o voto. Tente novamente.');
       } finally {
         submitting = false;
       }
     });
 
+    /* Consulta somente ID/status da rodada. Nenhuma parcial é enviada ao navegador. */
     fetch(endpoint, {
       method: 'GET',
       credentials: 'same-origin',
-      headers: { 'Accept': 'application/json' }
+      headers: {
+        'Accept': 'application/json'
+      }
     })
       .then(function (response) {
         if (!response.ok) throw new Error('status');
         return response.json();
       })
       .then(function (data) {
-        if (data && data.poll_id) pollId = String(data.poll_id);
-        if (data && typeof data.open === 'boolean') pollOpen = data.open;
+        if (data && data.poll_id) {
+          pollId = String(data.poll_id);
+        }
+        if (data && typeof data.open === 'boolean') {
+          pollOpen = data.open;
+        }
         applyCurrentState();
       })
-      .catch(function () { applyCurrentState(); });
+      .catch(function () {
+        /* Fallback para os dados já renderizados pelo WordPress. */
+        applyCurrentState();
+      });
   });
 });
+
