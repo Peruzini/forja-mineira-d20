@@ -1,0 +1,198 @@
+= 2.3.21 =
+* Transforma a votação visual da Home em votação real persistente.
+* Registra cada voto no WordPress sem expor as parciais no front-end.
+* Mantém Guts, Duncan, o Alto e Trevor Belmont como candidatos permitidos.
+* Salva no navegador quem o visitante escolheu usando localStorage + cookie.
+* Ao retornar à Home, exibe “Você votou · Nome” e mantém o card marcado.
+* Adiciona endpoint REST público que devolve somente status/ID da rodada e aceita votos.
+* Adiciona painel administrativo “Forja Mineira” com contagem, total e status da votação.
+* Permite abrir/encerrar a votação e zerar os votos para iniciar uma nova rodada.
+* Nova rodada recebe novo ID, portanto votos antigos do navegador não bloqueiam o novo ciclo.
+
+= 2.3.20 =
+* Corrige os dois atalhos do painel “Na Forja Agora”.
+* “Melhores itens para Bruxo” agora abre /melhores-itens-para-bruxo-dnd-5e/.
+* “Escolha a próxima Build” agora rola a Home até a votação.
+* Adiciona o âncora #votacao-proxima-build e scroll-margin para não ficar atrás do cabeçalho.
+* Atualiza o texto do Guia para “NOVO GUIA” e adiciona CTAs visuais nos dois atalhos.
+* O shortcode [forja_home_hero] aceita guide_url opcional.
+
+= 2.3.19 =
+* Torna todo o banner “Guia em Destaque” clicável quando guide_url está preenchido.
+* Mantém “Ver guia →” como CTA visual, sem link aninhado inválido.
+* Adiciona hover com leve zoom da arte, borda dourada e elevação.
+* Adiciona foco visível por teclado e respeita prefers-reduced-motion.
+* Mantém o estado “Em breve” não clicável quando não há URL.
+
+= 2.3.18 =
+* Adiciona o bloco final “Guia em Destaque” da Home.
+* Usa a nova arte de grimórios, poções, corvo, crânio e velas como fundo editorial.
+* O texto do guia permanece em HTML para SEO e responsividade.
+* Novo shortcode [forja_home_featured_guide].
+* O botão fica “Em breve” enquanto nenhuma URL do guia for informada.
+* Layout responsivo preparado para desktop, tablet e celular.
+
+= 2.3.17 =
+* Reestrutura a votação para eliminar os grandes vazios laterais.
+* Cabeçalho fica acima, candidatos centralizados e CTA abaixo dos três cards.
+* Adiciona “Escolha 1 de 3” e estado “Selecionado · Nome”.
+* Candidato escolhido recebe check verde, borda e destaque visual.
+* Após confirmar, os demais candidatos ficam suavizados e o escolhido permanece em evidência.
+* CTA e mensagem inferior mudam de estado sem revelar resultados.
+* Esta etapa continua sendo a interação visual; persistência real dos votos será ativada separadamente.
+
+= 2.3.16 =
+* Build Atual ganha continuidade escura entre imagem e texto.
+* Remove a sensação de grande bloco creme desconectado da arte.
+* Reestrutura visualmente a votação com hover, foco e seleção marcada.
+* Candidato escolhido recebe borda dourada, check verde e maior destaque.
+* Botão passa de “Escolha um candidato” para “Votar em [nome]” após a seleção.
+* Clique no botão exibe confirmação visual sem revelar resultados.
+* A votação real/persistente continua reservada para a próxima etapa.
+
+= 2.3.15 =
+* Adiciona a arte final misteriosa da próxima build no bloco da Home.
+* Mantém a identidade oculta, com rosto encoberto e leitura visual de armadura/magia.
+* Ajusta o recorte e o contraste da imagem para desktop e mobile.
+* O campo next_image continua disponível para substituição manual futura.
+
+= 2.3.14 =
+* Atualiza o candidato Guts com a arte corrigida.
+* Olho direito perdido/fechado e olho esquerdo funcional.
+* Reenquadramento 4:5 para preservar o rosto no card.
+
+= 2.3.13 =
+* Ajusta o enquadramento da arte de Voldemort no card “Build Atual”.
+* O rosto passa a ficar totalmente visível, priorizando o topo da imagem.
+
+= 2.3.12 =
+* Reorganiza o bloco de ciclo: Build Atual e Próxima Build na primeira linha.
+* Move a votação para uma faixa de largura total abaixo, dando mais espaço aos três candidatos.
+* Reduz a sensação de colunas espremidas e melhora a leitura dos nomes.
+* Placeholder da próxima build recebe tratamento editorial de identidade oculta.
+* Mobile mantém a ordem: Atual → Próxima → Votação.
+
+= 2.3.11 =
+* Novo shortcode [forja_home_build_cycle].
+* Cria os campos/slots visuais para Build Atual, Próxima Build e votação.
+* Empacota as artes atuais de Guts, Duncan o Alto e Trevor Belmont.
+* O campo da arte da próxima build fica preparado para receber a versão final depois.
+* Resultados da votação não são exibidos; a lógica real de registro será adicionada após aprovação visual.
+
+= 2.3.10 =
+* Move a paisagem do castelo mais para trás da área textual do Hero.
+* O castelo/montanha começa mais cedo, sem invadir o card “Na Forja Agora”.
+* Reposiciona “Grandes histórias também nascem aqui.” para evitar corte junto ao card.
+* Ajusta o fade para preservar a leitura do H1 enquanto a arte aparece mais integrada.
+
+= 2.3.9 =
+* A paisagem do castelo agora termina antes do card “Na Forja Agora”.
+* A montanha passa a funcionar só como elemento de charme entre o texto e o card.
+* H1 e parágrafo reduzem antes em telas desktop menores para evitar aperto visual.
+* Tablet e celular mantêm a paisagem suavizada apenas atrás da área textual.
+
+= 2.3.8 =
+* Integra ao Hero da Home a paisagem de castelo/montanha já criada e aprovada no projeto.
+* Separa a arte da tipografia original e usa HTML/CSS para compor o conteúdo real da Home.
+* Adiciona transição clara → paisagem com gradientes para manter a leitura do H1.
+* Recria “Grandes histórias também nascem aqui.” como elemento HTML decorativo.
+* Layout responsivo: paisagem suavizada no tablet e celular, sem prejudicar o card “Na Forja Agora”.
+
+= 2.3.7 =
+* Remove o fundo preto da arte do D20 e preserva fumaça/brilho em transparência real.
+* O calor passa a ser composto pelo CSS do próprio card, eliminando a sensação de imagem colada.
+* Ajusta e valida o layout responsivo do card para tablet, celular e telefones estreitos.
+* Em mobile, a arte fica centralizada acima dos três conteúdos e os ícones/textos permanecem legíveis.
+
+= 2.3.6 =
+* Integra melhor o D20 fumegante ao card “Na Forja Agora” com calor, brilho e brasas em CSS.
+* Suaviza as bordas visuais da arte para evitar sensação de recorte.
+* Padroniza ícones próprios em SVG para Build, Guia e Votação/Sugestões.
+* Ajusta larguras do card para evitar quebra ruim em “Voldemort — Bruxo 1–20”.
+
+= 2.3.5 =
+* Atualiza o card “Na Forja Agora” da Home.
+* Adiciona a arte do D20 de pão de queijo fumegante com apenas o número 20.
+* Reestrutura o card em arte à esquerda e conteúdo editorial à direita.
+* Mantém o link da build apontando para /voldemort-dnd-5e-build-bruxo/.
+
+= 2.3.4 =
+* Novo shortcode [forja_home_next_build].
+* Adiciona teaser visual da próxima build sem revelar o personagem.
+* Cinco pistas editoriais em HTML para leitura, SEO e acessibilidade.
+* Imagem otimizada em WebP com lazy loading e dimensões definidas.
+
+= 2.3.3 =
+* Novo shortcode [forja_home_hero] para a abertura da Home.
+* Hero reorganizado com CTA para Builds e Ferramentas.
+* Card “Na Forja Agora” com Nova Build, Próximo Guia e futura votação.
+* Reutiliza o Pão de Queijo D20 oficial da identidade visual.
+
+= 2.3.2 =
+* Substitui o mascote improvisado pelo D20 de pão de queijo oficial já usado na identidade visual da Forja Mineira.
+* O dado foi recortado diretamente do logo aprovado, sem rosto, sem fatia e sem deformação.
+* Fundo transparente para integração limpa no bloco “Pão de Queijo D20 recomenda”.
+
+= 2.3.1 =
+* Corrige o callback do shortcode [forja_home_featured_build].
+* Restaura o Pão de Queijo D20 no bloco de destaque da Home.
+* Mantém as imagens do destaque usando os assets empacotados do plugin.
+* Prévia independente passa a incorporar as imagens em base64 para evitar links quebrados.
+
+= 2.3.0 =
+* Novo shortcode [forja_home_featured_build] para o bloco “Último da Forja” na página inicial.
+* Destaque da build Voldemort com arte das cinco fases e CTAs para a build e para /builds/.
+* URL padrão da build atualizada para /voldemort-dnd-5e-build-bruxo/.
+* SEO title e meta description da build individual alinhados com “Voldemort D&D 5e”.
+
+= 2.2.2 =
+* Build em Destaque passa a usar a arte com as cinco fases visuais da transformação.
+* A arte fica livre de texto sobreposto pela interface.
+* Título, tags e CTAs foram movidos para uma faixa inferior própria.
+* Melhor adaptação mobile da arte de progressão.
+
+= 2.2.1 =
+* Nova arte de destaque do Hub mostrando as cinco fases da progressão 1–20.
+* A vitrine passa a comunicar visualmente a transformação completa da build.
+* Kicker do destaque atualizado para reforçar a jornada de nível 1 a 20.
+
+= 2.2.0 =
+* Adicionado Hub de Builds com shortcode [forja_builds_hub].
+* Vitrine de Build em Destaque inspirada em lançamentos de personagens de MOBAs.
+* Catálogo preparado para futuras builds.
+* Estrutura pronta para filtros futuros por classe, regras e função.
+* SEO próprio para a página de Builds.
+
+= 2.1.1 =
+* Corrigido carregamento do Pão de Queijo D20 na navegação.
+* URL do mascote agora é montada integralmente no PHP.
+* Fallback visual evita ícone de imagem quebrada caso a URL falhe.
+
+= 2.1.0 =
+* Nova navegação da build com identidade Forja Mineira.
+* Pão de Queijo D20 funciona como marcador animado de progresso.
+* Dock flutuante mostra Fase e Nível atuais.
+* Menu de salto rápido para fases e níveis 1–20.
+* Botão Pão de Queijo D20 para voltar ao topo.
+* Navegação Anterior / Próximo adicionada ao final de cada nível.
+* Linha fina de progresso no topo da tela.
+* Navegação responsiva e compatível com prefers-reduced-motion.
+
+= 2.0.2 =
+* Corrigida a prévia consolidada: todas as artes agora são incorporadas no HTML e não dependem de caminhos relativos.
+* Verificada a presença de todas as artes referenciadas no ZIP do plugin.
+* Adicionado versionamento nas URLs das imagens para evitar cache quebrado após atualização.
+
+2.0.1
+- Correção de estilos na prévia consolidada e reforço de compatibilidade visual com temas WordPress.
+- Prévia agora incorpora o CSS no próprio HTML para evitar falha de carregamento relativo.
+- Correção textual do Carisma final no nível 20.
+
+2.0.0
+- Reconstrução do plugin a partir dos blocos aprovados individualmente.
+- Hero final e níveis 1–20 agrupados no shortcode único.
+- Progressão corrigida: DEX 14 / INT 13 no nível 1; Necromancy Adept no 12; Evocation Adept no 16; Boon of Fate +1 CAR no 19.
+- Wishlist progressiva de itens mágicos.
+- Arcanos Místicos na lateral dos níveis compactos de Tier 3/4.
+- Banner panorâmico do nível 18.
+- CSS de cada bloco isolado para evitar colisões entre layouts.
