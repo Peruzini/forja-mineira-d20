@@ -26,7 +26,11 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
   </section>
 
   <section class="fmb-featured-build fmb-featured-build--progression" aria-labelledby="fmb-featured-title">
-    <div class="fmb-featured-art-wrap">
+    <a
+      class="fmb-featured-art-wrap fmb-featured-art-link"
+      href="<?php echo esc_url( $build_url ); ?>"
+      aria-label="Abrir a build completa de Voldemort, do nível 1 ao 20"
+    >
       <img class="fmb-featured-art-full" src="<?php echo esc_url( $hero_image ); ?>" alt="Cinco fases visuais da progressão da build, do estudante ao poder absoluto">
       <div class="fmb-featured-art-glow" aria-hidden="true"></div>
 
@@ -40,7 +44,7 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
           <strong>01</strong>
         </div>
       </div>
-    </div>
+    </a>
 
     <div class="fmb-featured-footer">
       <div class="fmb-featured-footer-copy">
