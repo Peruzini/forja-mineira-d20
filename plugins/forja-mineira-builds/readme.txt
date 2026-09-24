@@ -4,14 +4,14 @@ Tags: dnd, dungeons-and-dragons, build, warlock, rpg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.3.21
+Stable tag: 2.3.22
 License: GPLv2 or later
 
 Build completa 1–20 para o Forja Mineira D20.
 
 == Instalação ==
 1. No WordPress: Plugins > Adicionar plugin > Enviar plugin.
-2. Envie o ZIP forja-mineira-builds-v2.3.21.zip.
+2. Envie o ZIP forja-mineira-builds-v2.3.22.zip.
 3. Se a versão anterior estiver instalada, use a opção do WordPress para substituir a versão atual pela enviada.
 4. Ative o plugin.
 5. Na página da build, use:
