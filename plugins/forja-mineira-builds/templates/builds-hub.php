@@ -31,8 +31,14 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
       <div class="fmb-featured-art-glow" aria-hidden="true"></div>
 
       <div class="fmb-featured-topline">
-        <div class="fmb-featured-label"><span class="fmb-live-dot" aria-hidden="true"></span>BUILD EM DESTAQUE</div>
-        <div class="fmb-featured-counter"><span>NOVA BUILD</span><strong>01</strong></div>
+        <div class="fmb-featured-label">
+          <span class="fmb-live-dot" aria-hidden="true"></span>
+          BUILD EM DESTAQUE
+        </div>
+        <div class="fmb-featured-counter">
+          <span>NOVA BUILD</span>
+          <strong>01</strong>
+        </div>
       </div>
     </div>
 
@@ -47,20 +53,31 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
         </p>
 
         <div class="fmb-featured-tags" aria-label="Características da build">
-          <span>Bruxo</span><span>Grande Antigo</span><span>Controle</span><span>Nível 1–20</span><span>2024</span>
+          <span>Bruxo</span>
+          <span>Grande Antigo</span>
+          <span>Controle</span>
+          <span>Nível 1–20</span>
+          <span>2024</span>
         </div>
       </div>
 
       <div class="fmb-featured-actions fmb-featured-actions--footer">
-        <a class="fmb-hub-btn fmb-hub-btn--primary" href="<?php echo esc_url( $build_url ); ?>">Ver build completa <span aria-hidden="true">→</span></a>
-        <a class="fmb-hub-btn fmb-hub-btn--ghost" href="<?php echo esc_url( $guide_url ); ?>">Guia do Bruxo</a>
+        <a class="fmb-hub-btn fmb-hub-btn--primary" href="<?php echo esc_url( $build_url ); ?>">
+          Ver build completa <span aria-hidden="true">→</span>
+        </a>
+        <a class="fmb-hub-btn fmb-hub-btn--ghost" href="<?php echo esc_url( $guide_url ); ?>">
+          Guia do Bruxo
+        </a>
       </div>
     </div>
   </section>
 
   <section class="fmb-build-catalog" aria-labelledby="fmb-catalog-title">
     <header class="fmb-catalog-head">
-      <div><span class="fmb-hub-eyebrow">CATÁLOGO</span><h2 id="fmb-catalog-title">Todas as Builds</h2></div>
+      <div>
+        <span class="fmb-hub-eyebrow">CATÁLOGO</span>
+        <h2 id="fmb-catalog-title">Todas as Builds</h2>
+      </div>
       <p>
         Por enquanto, sem filtros. Quando o catálogo crescer, esta página está pronta
         para receber filtros por <strong>classe</strong>, <strong>regras</strong>,
@@ -80,8 +97,16 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
             <div class="fmb-build-card-meta">BRUXO · 2024 · NÍVEL 1–20</div>
             <h3>Voldemort</h3>
             <p>Conhecimento, controle, servos e magia proibida em uma progressão completa.</p>
-            <div class="fmb-card-tags"><span>Controle</span><span>Grande Antigo</span><span>Arcano</span></div>
-            <div class="fmb-card-cta">Explorar build <span aria-hidden="true">→</span></div>
+
+            <div class="fmb-card-tags">
+              <span>Controle</span>
+              <span>Grande Antigo</span>
+              <span>Arcano</span>
+            </div>
+
+            <div class="fmb-card-cta">
+              Explorar build <span aria-hidden="true">→</span>
+            </div>
           </div>
         </a>
       </article>
@@ -91,7 +116,10 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
           <img src="<?php echo esc_url( $mascot ); ?>" alt="">
           <span>PRÓXIMAS FORJAS</span>
           <h3>Mais builds estão chegando</h3>
-          <p>Quando o catálogo crescer, novos personagens entram aqui sem precisar redesenhar a página.</p>
+          <p>
+            Quando o catálogo crescer, novos personagens entram aqui sem precisar
+            redesenhar a página.
+          </p>
         </div>
       </article>
     </div>

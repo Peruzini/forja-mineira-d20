@@ -29,17 +29,27 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
       </p>
 
       <div class="fmb-home-hero-actions">
-        <a class="fmb-home-hero-btn fmb-home-hero-btn--primary" href="<?php echo esc_url( $builds_url ); ?>">Explorar Builds</a>
-        <a class="fmb-home-hero-btn fmb-home-hero-btn--ghost" href="<?php echo esc_url( $tools_url ); ?>">Ver Ferramentas</a>
+        <a class="fmb-home-hero-btn fmb-home-hero-btn--primary" href="<?php echo esc_url( $builds_url ); ?>">
+          Explorar Builds
+        </a>
+        <a class="fmb-home-hero-btn fmb-home-hero-btn--ghost" href="<?php echo esc_url( $tools_url ); ?>">
+          Ver Ferramentas
+        </a>
       </div>
     </div>
 
     <div class="fmb-home-hero-quote" aria-hidden="true">
-      <span>Grandes histórias</span><span>também nascem aqui.</span><i></i>
+      <span>Grandes histórias</span>
+      <span>também nascem aqui.</span>
+      <i></i>
     </div>
 
     <aside class="fmb-forja-now" aria-label="Na Forja Agora">
-      <div class="fmb-forja-now-title"><span aria-hidden="true">🔥</span><strong>NA FORJA AGORA</strong></div>
+      <div class="fmb-forja-now-title">
+        <span aria-hidden="true">🔥</span>
+        <strong>NA FORJA AGORA</strong>
+      </div>
+
       <div class="fmb-forja-now-body">
         <div class="fmb-forja-now-art" aria-hidden="true">
           <span class="fmb-forja-now-heat fmb-forja-now-heat--1"></span>
@@ -47,7 +57,13 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
           <span class="fmb-forja-now-ember fmb-forja-now-ember--1"></span>
           <span class="fmb-forja-now-ember fmb-forja-now-ember--2"></span>
           <span class="fmb-forja-now-ember fmb-forja-now-ember--3"></span>
-          <img src="<?php echo esc_url( $smoke_d20 ); ?>" alt="" decoding="async" width="900" height="900">
+          <img
+            src="<?php echo esc_url( $smoke_d20 ); ?>"
+            alt=""
+            decoding="async"
+            width="900"
+            height="900"
+          >
         </div>
 
         <div class="fmb-forja-now-list">
@@ -58,34 +74,47 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
                 <path d="m12 2.8 4.1 7.1L12 21.2 7.9 9.9 12 2.8Zm-8.2 4.7h16.4M3.8 16.5l4.1-6.6h8.2l4.1 6.6"/>
               </svg>
             </span>
+
             <span class="fmb-forja-now-item-copy">
               <span class="fmb-forja-now-status fmb-forja-now-status--green">NOVA BUILD</span>
-              <strong>Voldemort — Bruxo 1–20</strong><small>Magia, estratégia e ambição.</small>
+              <strong>Voldemort — Bruxo 1–20</strong>
+              <small>Magia, estratégia e ambição.</small>
               <span class="fmb-forja-now-link">Ver build <b aria-hidden="true">→</b></span>
             </span>
           </a>
 
           <a class="fmb-forja-now-item fmb-forja-now-item--live" href="<?php echo esc_url( $guide_url ); ?>">
             <span class="fmb-forja-now-icon fmb-forja-now-icon--guide" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 4.8c2.9-.8 5.2-.4 8 1.2v13c-2.8-1.6-5.1-2-8-1.2v-13Zm16 0c-2.9-.8-5.2-.4-8 1.2v13c2.8-1.6 5.1-2 8-1.2v-13Z"/></svg>
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M4 4.8c2.9-.8 5.2-.4 8 1.2v13c-2.8-1.6-5.1-2-8-1.2v-13Zm16 0c-2.9-.8-5.2-.4-8 1.2v13c2.8-1.6 5.1-2 8-1.2v-13Z"/>
+              </svg>
             </span>
+
             <span class="fmb-forja-now-item-copy">
-              <span class="fmb-forja-now-status">NOVO GUIA</span><strong>Melhores itens para Bruxo</strong><small>Níveis 1–5</small>
+              <span class="fmb-forja-now-status">NOVO GUIA</span>
+              <strong>Melhores itens para Bruxo</strong>
+              <small>Níveis 1–5</small>
               <span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span>
             </span>
           </a>
 
           <a class="fmb-forja-now-item fmb-forja-now-item--live" href="<?php echo esc_url( $vote_url ); ?>">
             <span class="fmb-forja-now-icon fmb-forja-now-icon--vote" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M7 3h8l3 3-6.2 6.2-7.9-7.9L7 3Zm5 9.2 2.2 2.2L12.6 16H21v5H3v-5h6.8L12 12.2Z"/></svg>
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M7 3h8l3 3-6.2 6.2-7.9-7.9L7 3Zm5 9.2 2.2 2.2L12.6 16H21v5H3v-5h6.8L12 12.2Z"/>
+              </svg>
             </span>
+
             <span class="fmb-forja-now-item-copy">
-              <span class="fmb-forja-now-status">VOCÊ DECIDE</span><strong>Escolha a próxima Build</strong><small>Guts, Duncan ou Trevor</small>
+              <span class="fmb-forja-now-status">VOCÊ DECIDE</span>
+              <strong>Escolha a próxima Build</strong>
+              <small>Guts, Duncan ou Trevor</small>
               <span class="fmb-forja-now-link">Ir para votação <b aria-hidden="true">↓</b></span>
             </span>
           </a>
         </div>
       </div>
+
       <div class="fmb-forja-now-footer">Boas rolagens. Boas histórias.</div>
     </aside>
   </div>

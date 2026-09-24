@@ -95,7 +95,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
               <span class="fmb-cycle-candidate-card">
                 <span class="fmb-cycle-candidate-check" aria-hidden="true">✓</span>
                 <img src="<?php echo esc_url( $cycle_guts_image ); ?>" alt="Guts, de Berserk" loading="lazy" decoding="async">
-                <span class="fmb-cycle-candidate-copy"><strong>Guts</strong><small>Berserk</small></span>
+                <span class="fmb-cycle-candidate-copy">
+                  <strong>Guts</strong>
+                  <small>Berserk</small>
+                </span>
               </span>
             </label>
 
@@ -104,7 +107,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
               <span class="fmb-cycle-candidate-card">
                 <span class="fmb-cycle-candidate-check" aria-hidden="true">✓</span>
                 <img src="<?php echo esc_url( $cycle_duncan_image ); ?>" alt="Duncan, o Alto" loading="lazy" decoding="async">
-                <span class="fmb-cycle-candidate-copy"><strong>Duncan, o Alto</strong><small>Dunk &amp; Egg</small></span>
+                <span class="fmb-cycle-candidate-copy">
+                  <strong>Duncan, o Alto</strong>
+                  <small>Dunk &amp; Egg</small>
+                </span>
               </span>
             </label>
 
@@ -113,15 +119,22 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
               <span class="fmb-cycle-candidate-card">
                 <span class="fmb-cycle-candidate-check" aria-hidden="true">✓</span>
                 <img src="<?php echo esc_url( $cycle_trevor_image ); ?>" alt="Trevor Belmont" loading="lazy" decoding="async">
-                <span class="fmb-cycle-candidate-copy"><strong>Trevor Belmont</strong><small>Castlevania</small></span>
+                <span class="fmb-cycle-candidate-copy">
+                  <strong>Trevor Belmont</strong>
+                  <small>Castlevania</small>
+                </span>
               </span>
             </label>
           </div>
 
           <div class="fmb-cycle-vote-action">
-            <button class="fmb-cycle-vote-button" type="button" disabled data-fmb-vote-button>Escolha um candidato</button>
+            <button class="fmb-cycle-vote-button" type="button" disabled data-fmb-vote-button>
+              Escolha um candidato
+            </button>
+
             <p class="fmb-cycle-vote-note" data-fmb-vote-note>
-              <span aria-hidden="true">🔒</span> O resultado permanece oculto até o encerramento da votação.
+              <span aria-hidden="true">🔒</span>
+              O resultado permanece oculto até o encerramento da votação.
             </p>
           </div>
         </form>

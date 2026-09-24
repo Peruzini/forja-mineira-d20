@@ -36,23 +36,42 @@ $teaser_art = FMB_URL . 'assets/images/next-build-mystery-teaser.webp?ver=' . FM
         <div class="fmb-next-build-hints" aria-label="Pistas da próxima build">
           <article class="fmb-next-build-hint">
             <span>01</span>
-            <div><small>PISTA</small><strong>Sua armadura é tão importante quanto sua magia.</strong></div>
+            <div>
+              <small>PISTA</small>
+              <strong>Sua armadura é tão importante quanto sua magia.</strong>
+            </div>
           </article>
+
           <article class="fmb-next-build-hint">
             <span>02</span>
-            <div><small>PISTA</small><strong>Ciência e feitiçaria não são opostos para ele.</strong></div>
+            <div>
+              <small>PISTA</small>
+              <strong>Ciência e feitiçaria não são opostos para ele.</strong>
+            </div>
           </article>
+
           <article class="fmb-next-build-hint">
             <span>03</span>
-            <div><small>PISTA</small><strong>Ele não busca apenas poder. Ele governa.</strong></div>
+            <div>
+              <small>PISTA</small>
+              <strong>Ele não busca apenas poder. Ele governa.</strong>
+            </div>
           </article>
+
           <article class="fmb-next-build-hint">
             <span>04</span>
-            <div><small>PISTA</small><strong>Verde, metal e energia arcana fazem parte da sua identidade.</strong></div>
+            <div>
+              <small>PISTA</small>
+              <strong>Verde, metal e energia arcana fazem parte da sua identidade.</strong>
+            </div>
           </article>
+
           <article class="fmb-next-build-hint">
             <span>05</span>
-            <div><small>PISTA</small><strong>Tecnologia, magia e autoridade coexistem no mesmo personagem.</strong></div>
+            <div>
+              <small>PISTA</small>
+              <strong>Tecnologia, magia e autoridade coexistem no mesmo personagem.</strong>
+            </div>
           </article>
         </div>
 

@@ -263,21 +263,36 @@ final class FMB_Build_Voting {
             </div>
 
             <table class="form-table" role="presentation" style="max-width:760px;">
-                <tr><th scope="row">Rodada atual</th><td><strong>#<?php echo esc_html( $poll ); ?></strong></td></tr>
+                <tr>
+                    <th scope="row">Rodada atual</th>
+                    <td><strong>#<?php echo esc_html( $poll ); ?></strong></td>
+                </tr>
                 <tr>
                     <th scope="row">Status</th>
-                    <td><strong style="color:<?php echo $open ? '#18794e' : '#b32d2e'; ?>;"><?php echo $open ? 'ABERTA' : 'ENCERRADA'; ?></strong></td>
+                    <td>
+                        <strong style="color:<?php echo $open ? '#18794e' : '#b32d2e'; ?>;">
+                            <?php echo $open ? 'ABERTA' : 'ENCERRADA'; ?>
+                        </strong>
+                    </td>
                 </tr>
             </table>
 
             <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-top:20px;">
                 <input type="hidden" name="action" value="fmb_vote_settings">
                 <?php wp_nonce_field( 'fmb_vote_settings' ); ?>
+
                 <fieldset>
                     <legend class="screen-reader-text">Status da votação</legend>
-                    <label style="margin-right:18px;"><input type="radio" name="poll_open" value="1" <?php checked( $open ); ?>> Votação aberta</label>
-                    <label><input type="radio" name="poll_open" value="0" <?php checked( ! $open ); ?>> Votação encerrada</label>
+                    <label style="margin-right:18px;">
+                        <input type="radio" name="poll_open" value="1" <?php checked( $open ); ?>>
+                        Votação aberta
+                    </label>
+                    <label>
+                        <input type="radio" name="poll_open" value="0" <?php checked( ! $open ); ?>>
+                        Votação encerrada
+                    </label>
                 </fieldset>
+
                 <?php submit_button( 'Salvar status', 'primary', 'submit', false ); ?>
             </form>
 
@@ -292,7 +307,11 @@ final class FMB_Build_Voting {
             <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
                 <input type="hidden" name="action" value="fmb_vote_reset">
                 <?php wp_nonce_field( 'fmb_vote_reset' ); ?>
-                <button type="submit" class="button button-secondary" onclick="return confirm('Zerar todos os votos e iniciar uma nova rodada?');">
+                <button
+                    type="submit"
+                    class="button button-secondary"
+                    onclick="return confirm('Zerar todos os votos e iniciar uma nova rodada?');"
+                >
                     Zerar votos e criar nova rodada
                 </button>
             </form>
