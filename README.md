@@ -30,4 +30,6 @@ A primeira build completa é **Tom Riddle / Voldemort**, com progressão do nív
 
 A direção visual combina fantasia sombria editorial com a identidade mineira da marca, incluindo o **D20 de pão de queijo**.
 
-> Observação: as imagens versionadas no Git são cópias otimizadas para reduzir o peso do repositório. Os pacotes WordPress de produção continuam sendo a referência dos assets em resolução original.
+## Assets
+
+As artes, o CSS e o JavaScript desta base foram sincronizados a partir da versão de produção do site, preservando os arquivos originais usados pelo WordPress.
