@@ -1,0 +1,70 @@
+name: Sync Invocations v1.3.0 static assets
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-invocations-v130-assets.yml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download exact v1.3.0 static assets from production
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guia-invocacoes"
+          PLUGIN="plugins/forja-mineira-guia-invocacoes"
+
+          rm -rf "$PLUGIN/assets"
+          mkdir -p "$PLUGIN/assets/css" "$PLUGIN/assets/js" "$PLUGIN/assets/images"
+
+          curl -fsSL "$BASE/assets/css/guide-invocations.css" -o "$PLUGIN/assets/css/guide-invocations.css"
+          curl -fsSL "$BASE/assets/js/guide-invocations.js" -o "$PLUGIN/assets/js/guide-invocations.js"
+
+          for f in             corrente-background.webp             corrente-raven-skill-green.png             corrente-sphinx-wonder.webp             estilo-corrente-card.webp             estilo-lamina-card.webp             estilo-rajada-card.webp             estilo-tomo-card.webp             hero-invocacoes.webp             lamina-background.webp             lamina-pact-blade-skill.webp             rajada-darkness-core.webp             rajada-eldritch-blast-skill.webp             seletor-corrente.webp             seletor-lamina.webp             seletor-rajada.webp             seletor-tomo.webp             tomo-feature.webp             tomo-grimoire-skill.webp
+          do
+            curl -fsSL "$BASE/assets/images/$f" -o "$PLUGIN/assets/images/$f"
+          done
+
+          cat > /tmp/v130.sha256 <<'EOF'
+          1ab05659597a6bba281d531aa04dd6ad10ec1907b851c130892593e8540873db  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-background.webp
+          8e818569165ced91b24b7477509190dcfa9ea6574e543f022a1eb7a1141f6128  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-raven-skill-green.png
+          6b8ef393c8cbdf4f5a6e3cf658b2b3b69f2650f5d1b52f1f1fc6989d4356c9c1  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-sphinx-wonder.webp
+          de2dcf9e0900c57abb023e6ab840c1c23d3daa3538d0ab00a74cbb9a8f5d88bd  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-corrente-card.webp
+          badd9f5928adb181897a9bd00c33ff998bd53a328da65d146692e8b97580a225  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-lamina-card.webp
+          29712d3f2c85e579c393a5b0d51e95e8bd0d2438c924f95b4b445d8573836071  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-rajada-card.webp
+          c0b1d168ea2f5c6cfe8e49412d13b7db0fd0a9510a010e0eae2b8660f5258191  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-tomo-card.webp
+          645cba321ce1ddd31ed90b924df985062f9a88efcf3f1195225cb91663cddfce  plugins/forja-mineira-guia-invocacoes/assets/images/hero-invocacoes.webp
+          1918dbd63e4f709276af5c6f4026ab62fb4ec1816060bf290c464c8757115bc1  plugins/forja-mineira-guia-invocacoes/assets/images/lamina-background.webp
+          427906d30fdc34bfc848dbc887d718e187a70881775444d8242baea0eaa14ebe  plugins/forja-mineira-guia-invocacoes/assets/images/lamina-pact-blade-skill.webp
+          8d0a44b22696804b0f2782ba820a4634d88bff961f3c4cd14acbbb268c909d9b  plugins/forja-mineira-guia-invocacoes/assets/images/rajada-darkness-core.webp
+          0c59ebdad2ce1b22d2aba03e6097f410c30a5ec2f653efa4d7cb543adc737c7e  plugins/forja-mineira-guia-invocacoes/assets/images/rajada-eldritch-blast-skill.webp
+          f65ca97dd76168d5acd4cfc130a98421e36cd7cbaa4aa9e7a521b03c5a3a9f32  plugins/forja-mineira-guia-invocacoes/assets/images/seletor-corrente.webp
+          468ea64e43e3e8881744a94172987ee30d9427c24a7d43b00ef20409ef1d4852  plugins/forja-mineira-guia-invocacoes/assets/images/seletor-lamina.webp
+          6ff5bee38077d6bb2c4eba4534e6c9822b8883f4c305f43877a576ac4a987b16  plugins/forja-mineira-guia-invocacoes/assets/images/seletor-rajada.webp
+          693df3188c01caf3dff11c049a5e029ecefedde3bdb16717a92aff81e6b8f67b  plugins/forja-mineira-guia-invocacoes/assets/images/seletor-tomo.webp
+          79182bae8f281649a98ff5e9cae82a8450dceb3bf48b1d728a69caf2ede1a142  plugins/forja-mineira-guia-invocacoes/assets/images/tomo-feature.webp
+          f40643ece9c2e1c2a44a3650e70da550cf03faac9097f1a49e0ed253375ad58a  plugins/forja-mineira-guia-invocacoes/assets/images/tomo-grimoire-skill.webp
+          EOF
+
+          sha256sum -c /tmp/v130.sha256
+
+      - name: Commit exact production assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Forja Mineira Automation"
+          git config user.email "96450995+Peruzini@users.noreply.github.com"
+          git add plugins/forja-mineira-guia-invocacoes/assets
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+            exit 0
+          fi
+          git commit -m "sync: Guia de Invocações v1.3.0 assets"
+          git push
