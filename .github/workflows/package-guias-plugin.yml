@@ -1,0 +1,31 @@
+name: Package Forja Mineira Guias Plugin
+
+on:
+  push:
+    paths:
+      - 'plugins/forja-mineira-guias/**'
+      - '.github/workflows/package-guias-plugin.yml'
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package plugin
+        run: |
+          mkdir -p dist
+          cp -R plugins/forja-mineira-guias dist/forja-mineira-guias
+          cd dist
+          zip -r forja-mineira-guias-v1.1.0.zip forja-mineira-guias
+
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-guias-v1.1.0
+          path: dist/forja-mineira-guias-v1.1.0.zip
+          if-no-files-found: error
