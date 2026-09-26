@@ -1,0 +1,13 @@
+Forja Mineira D20 — Guia de Invocações
+
+1.3.0 — 2026-09-26
+- Nova versão visual consolidada do guia.
+- Mini builds finais integradas em seletor manual.
+- Novos ícones de Lâmina, Tomo e Corrente verde.
+- Padronização dos títulos das quatro builds.
+- Remoção de Legacy e FAQ.
+- CTAs finais compactos.
+- Assets extraídos de data URI para arquivos cacheáveis.
+
+1.2.0
+- Painel compacto inicial do Pacto da Corrente.
