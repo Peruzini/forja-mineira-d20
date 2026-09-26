@@ -1,3 +1,130 @@
+const buttons=[...document.querySelectorAll('.hub-style')];
+const panels=[...document.querySelectorAll('.hub-panel')];
+
+function resizeFrame(frame){
+  try{
+    const d=frame.contentDocument;
+    if(!d) return;
+    const h=Math.max(
+      d.documentElement.scrollHeight||0,
+      d.body ? d.body.scrollHeight : 0
+    );
+    if(h>100) frame.style.height=(h+4)+'px';
+  }catch(e){}
+}
+
+function showPanel(key){
+  buttons.forEach(btn=>{
+    const active=btn.dataset.panel===key;
+    btn.classList.toggle('is-active',active);
+    btn.setAttribute('aria-selected',active?'true':'false');
+  });
+  panels.forEach(panel=>{
+    const active=panel.dataset.panelView===key;
+    panel.hidden=!active;
+    if(active){
+      const frame=panel.querySelector('iframe');
+      requestAnimationFrame(()=>resizeFrame(frame));
+      setTimeout(()=>resizeFrame(frame),250);
+    }
+  });
+}
+
+buttons.forEach(btn=>btn.addEventListener('click',()=>showPanel(btn.dataset.panel)));
+document.querySelectorAll('.hub-frame').forEach(frame=>{
+  frame.addEventListener('load',()=>resizeFrame(frame));
+});
+window.addEventListener('resize',()=>{
+  const active=document.querySelector('.hub-panel:not([hidden]) .hub-frame');
+  if(active) resizeFrame(active);
+});
+
+(function(){
+  function allFrames(){ return Array.from(document.querySelectorAll('.hub-frame')); }
+
+  function clearSyncedWidth(){
+    allFrames().forEach(function(frame){
+      var doc = frame.contentDocument;
+      if (!doc) return;
+      var band = doc.querySelector('.title-band, .title');
+      if (!band) return;
+      band.style.removeProperty('width');
+      band.style.removeProperty('min-width');
+      band.style.removeProperty('max-width');
+    });
+  }
+
+  function syncTitleBandWidth(){
+    var rajada = document.querySelector('[data-panel-view="rajada"] .hub-frame') ||
+                 document.querySelector('.hub-frame[title="rajada"]');
+    if (!rajada || !rajada.contentDocument) return;
+
+    var doc = rajada.contentDocument;
+    var win = rajada.contentWindow;
+    if (!win) return;
+
+    /* No mobile, mantém a regra responsiva original de 100%. */
+    if (win.innerWidth <= 760) {
+      clearSyncedWidth();
+      return;
+    }
+
+    var band = doc.querySelector('.title-band, .title');
+    var title = doc.querySelector('.title-band h1, .title h1, .head h1, .headline h1');
+    if (!band || !title) return;
+
+    var range = doc.createRange();
+    range.selectNodeContents(title);
+    var textRect = range.getBoundingClientRect();
+    var bandRect = band.getBoundingClientRect();
+
+    /* A borda direita do fundo fica a aproximadamente 1 caractere (1ch) após o último glifo. */
+    var probe = doc.createElement('span');
+    var titleStyle = win.getComputedStyle(title);
+    probe.style.position = 'absolute';
+    probe.style.visibility = 'hidden';
+    probe.style.pointerEvents = 'none';
+    probe.style.font = titleStyle.font;
+    probe.style.width = '1ch';
+    probe.style.height = '0';
+    probe.style.overflow = 'hidden';
+    doc.body.appendChild(probe);
+    var extraCh = probe.getBoundingClientRect().width;
+    probe.remove();
+
+    var targetWidth = Math.ceil(textRect.right - bandRect.left + extraCh);
+
+    allFrames().forEach(function(frame){
+      var fdoc = frame.contentDocument;
+      if (!fdoc) return;
+      var fband = fdoc.querySelector('.title-band, .title');
+      if (!fband) return;
+      fband.style.setProperty('width', targetWidth + 'px', 'important');
+      fband.style.setProperty('min-width', targetWidth + 'px', 'important');
+      fband.style.setProperty('max-width', targetWidth + 'px', 'important');
+    });
+  }
+
+  function scheduleSync(){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(syncTitleBandWidth);
+    });
+  }
+
+  allFrames().forEach(function(frame){
+    frame.addEventListener('load', function(){
+      var fonts = frame.contentDocument && frame.contentDocument.fonts;
+      if (fonts && fonts.ready) fonts.ready.then(scheduleSync);
+      else scheduleSync();
+    });
+  });
+
+  window.addEventListener('load', scheduleSync);
+  window.addEventListener('resize', scheduleSync);
+  setTimeout(scheduleSync, 150);
+  setTimeout(scheduleSync, 600);
+})();
+
 (() => {
   'use strict';
 
