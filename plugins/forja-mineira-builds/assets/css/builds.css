@@ -8755,3 +8755,23 @@ a.fmb-featured-guide-button:hover{
 .fmb-cycle-vote.is-closed .fmb-cycle-candidate:hover .fmb-cycle-candidate-card img{
   transform:none!important;
 }
+
+
+/* ===== HOME 2.3.23 · Guia de Invocações em destaque ===== */
+.fmb-featured-guide-shell{display:grid;gap:18px}
+.fmb-featured-guide-card--invocations .fmb-featured-guide-art{object-position:center 52%}
+.fmb-featured-guide-card--invocations .fmb-featured-guide-overlay{
+  background:
+    linear-gradient(90deg,rgba(2,15,10,.99) 0%,rgba(2,15,10,.94) 25%,rgba(3,18,12,.78) 47%,rgba(3,18,12,.26) 70%,rgba(3,18,12,.04) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.16))
+}
+.fmb-forja-now-icon--invocations{
+  color:#63d58e!important;background:#0a2c1d!important;border-color:rgba(99,213,142,.24)!important
+}
+.fmb-forja-now-item--invocations .fmb-forja-now-item-copy strong{
+  white-space:normal!important;max-width:310px
+}
+@media(min-width:1080px){
+  .fmb-forja-now-item--invocations .fmb-forja-now-item-copy strong{font-size:15px;line-height:1.08}
+}
+@media(max-width:760px){.fmb-featured-guide-shell{gap:14px}}

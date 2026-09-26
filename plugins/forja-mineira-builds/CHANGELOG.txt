@@ -1,3 +1,10 @@
+== 2.3.23 ==
+* Home: Guia de Invocações Místicas passa ao primeiro lugar em "Na Forja Agora".
+* Home: Voldemort e Guia de Itens descem uma posição; votação sai desse painel.
+* Home: adiciona segundo banner editorial de Guia em Destaque para Invocações.
+* Home: URL do Guia de Invocações é localizada automaticamente pela página publicada que contém o shortcode do guia.
+* Novo asset: home-featured-guide-invocacoes.webp.
+
 = 2.3.22 =
 * Torna toda a arte panorâmica da Build em Destaque no Hub de Builds clicável.
 * O clique na progressão Tom Riddle → Voldemort leva diretamente para /voldemort-dnd-5e-build-bruxo/.

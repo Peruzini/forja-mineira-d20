@@ -45,6 +45,30 @@ final class FMB_Build_Shortcode {
         return home_url( '/?s=Bruxo' );
     }
 
+    private static function default_invocations_url() {
+        global $wpdb;
+
+        $needle = '%[' . $wpdb->esc_like( 'forja_guia_invocacoes_bruxo_2024' ) . '%';
+        $page_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT ID
+                 FROM {$wpdb->posts}
+                 WHERE post_type = 'page'
+                   AND post_status = 'publish'
+                   AND post_content LIKE %s
+                 ORDER BY post_modified_gmt DESC
+                 LIMIT 1",
+                $needle
+            )
+        );
+
+        if ( $page_id ) {
+            return get_permalink( (int) $page_id );
+        }
+
+        return add_query_arg( 's', 'Invocações Místicas Bruxo', home_url( '/' ) );
+    }
+
 
     public static function render_hub( $atts ) {
         $atts = shortcode_atts(
@@ -74,8 +98,10 @@ final class FMB_Build_Shortcode {
     public static function render_home_featured_guide( $atts ) {
         $atts = shortcode_atts(
             array(
-                'guide_url'   => '',
-                'guide_image' => '',
+                'guide_url'          => '',
+                'guide_image'        => '',
+                'invocations_url'    => '',
+                'invocations_image'  => '',
             ),
             $atts,
             'forja_home_featured_guide'
@@ -90,6 +116,14 @@ final class FMB_Build_Shortcode {
         $featured_guide_image = ! empty( $atts['guide_image'] )
             ? esc_url_raw( $atts['guide_image'] )
             : FMB_URL . 'assets/images/home-featured-guide-warlock-items.webp?ver=' . FMB_VERSION;
+
+        $featured_invocations_url = ! empty( $atts['invocations_url'] )
+            ? esc_url_raw( $atts['invocations_url'] )
+            : self::default_invocations_url();
+
+        $featured_invocations_image = ! empty( $atts['invocations_image'] )
+            ? esc_url_raw( $atts['invocations_image'] )
+            : FMB_URL . 'assets/images/home-featured-guide-invocacoes.webp?ver=' . FMB_VERSION;
 
         ob_start();
         include FMB_PATH . 'templates/home-featured-guide.php';
@@ -158,8 +192,9 @@ final class FMB_Build_Shortcode {
             array(
                 'build_url'      => '',
                 'builds_url'     => '',
-                'tools_url'      => '',
-                'guide_url'      => '',
+                'tools_url'       => '',
+                'guide_url'       => '',
+                'invocations_url' => '',
             ),
             $atts,
             'forja_home_hero'
@@ -182,6 +217,10 @@ final class FMB_Build_Shortcode {
         $home_guide_url = ! empty( $atts['guide_url'] )
             ? esc_url_raw( $atts['guide_url'] )
             : home_url( '/melhores-itens-para-bruxo-dnd-5e/' );
+
+        $home_invocations_url = ! empty( $atts['invocations_url'] )
+            ? esc_url_raw( $atts['invocations_url'] )
+            : self::default_invocations_url();
 
         ob_start();
         include FMB_PATH . 'templates/home-hero.php';
