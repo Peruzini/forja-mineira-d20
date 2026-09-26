@@ -24,12 +24,12 @@ jobs:
           rm -rf "$PLUGIN/assets"
           mkdir -p "$PLUGIN/assets/css" "$PLUGIN/assets/js" "$PLUGIN/assets/images"
 
-          curl -fsSL "$BASE/assets/css/guide-invocations.css" -o "$PLUGIN/assets/css/guide-invocations.css"
-          curl -fsSL "$BASE/assets/js/guide-invocations.js" -o "$PLUGIN/assets/js/guide-invocations.js"
+          curl --retry 5 --retry-delay 3 -A "Mozilla/5.0 (compatible; ForjaMineiraSync/1.0)" -H "Referer: https://forjamineirad20.com.br/" -fsSL "$BASE/assets/css/guide-invocations.css" -o "$PLUGIN/assets/css/guide-invocations.css"
+          curl --retry 5 --retry-delay 3 -A "Mozilla/5.0 (compatible; ForjaMineiraSync/1.0)" -H "Referer: https://forjamineirad20.com.br/" -fsSL "$BASE/assets/js/guide-invocations.js" -o "$PLUGIN/assets/js/guide-invocations.js"
 
           for f in             corrente-background.webp             corrente-raven-skill-green.png             corrente-sphinx-wonder.webp             estilo-corrente-card.webp             estilo-lamina-card.webp             estilo-rajada-card.webp             estilo-tomo-card.webp             hero-invocacoes.webp             lamina-background.webp             lamina-pact-blade-skill.webp             rajada-darkness-core.webp             rajada-eldritch-blast-skill.webp             seletor-corrente.webp             seletor-lamina.webp             seletor-rajada.webp             seletor-tomo.webp             tomo-feature.webp             tomo-grimoire-skill.webp
           do
-            curl -fsSL "$BASE/assets/images/$f" -o "$PLUGIN/assets/images/$f"
+            curl --retry 5 --retry-delay 3 -A "Mozilla/5.0 (compatible; ForjaMineiraSync/1.0)" -H "Referer: https://forjamineirad20.com.br/" -fsSL "$BASE/assets/images/$f" -o "$PLUGIN/assets/images/$f"
           done
 
           # CSS/JS e 17 das 18 imagens devem ser idênticos ao pacote v1.3.0 aprovado.
