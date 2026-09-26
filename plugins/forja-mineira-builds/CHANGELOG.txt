@@ -1,3 +1,10 @@
+== 2.3.24 ==
+* Home: substitui a arte do banner de Invocações pela versão final aprovada em verde-esmeralda/dourado.
+* Mantém o Guia de Invocações em primeiro lugar no painel "Na Forja Agora".
+* Mantém Voldemort em segundo e Melhores Itens para Bruxo em terceiro.
+* Mantém o segundo banner editorial do Guia de Invocações abaixo do banner de Itens.
+* Incrementa a versão para renovar o cache do asset na Home.
+
 == 2.3.23 ==
 * Home: Guia de Invocações Místicas passa ao primeiro lugar em "Na Forja Agora".
 * Home: Voldemort e Guia de Itens descem uma posição; votação sai desse painel.
