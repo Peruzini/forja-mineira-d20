@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download exact v1.3.0 static assets from production
+      - name: Download v1.3.0 static assets from production
         shell: bash
         run: |
           set -euo pipefail
@@ -32,9 +32,11 @@ jobs:
             curl -fsSL "$BASE/assets/images/$f" -o "$PLUGIN/assets/images/$f"
           done
 
+          # CSS/JS e 17 das 18 imagens devem ser idênticos ao pacote v1.3.0 aprovado.
           cat > /tmp/v130.sha256 <<'EOF'
+          e4248f5c5a78ebd1fed7128a2b0c73db2bbe3656b9ae66f34da20219857a163d  plugins/forja-mineira-guia-invocacoes/assets/css/guide-invocations.css
+          0bac3dc5570842422e3bcafd40a9f05ead3ed55d6a1e317341e2190fcf55c520  plugins/forja-mineira-guia-invocacoes/assets/js/guide-invocations.js
           1ab05659597a6bba281d531aa04dd6ad10ec1907b851c130892593e8540873db  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-background.webp
-          8e818569165ced91b24b7477509190dcfa9ea6574e543f022a1eb7a1141f6128  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-raven-skill-green.png
           6b8ef393c8cbdf4f5a6e3cf658b2b3b69f2650f5d1b52f1f1fc6989d4356c9c1  plugins/forja-mineira-guia-invocacoes/assets/images/corrente-sphinx-wonder.webp
           de2dcf9e0900c57abb023e6ab840c1c23d3daa3538d0ab00a74cbb9a8f5d88bd  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-corrente-card.webp
           badd9f5928adb181897a9bd00c33ff998bd53a328da65d146692e8b97580a225  plugins/forja-mineira-guia-invocacoes/assets/images/estilo-lamina-card.webp
@@ -55,7 +57,11 @@ jobs:
 
           sha256sum -c /tmp/v130.sha256
 
-      - name: Commit exact production assets
+          echo "Production raven checksum:"
+          sha256sum "$PLUGIN/assets/images/corrente-raven-skill-green.png"
+          stat -c 'Production raven size: %s bytes' "$PLUGIN/assets/images/corrente-raven-skill-green.png"
+
+      - name: Commit production assets
         shell: bash
         run: |
           set -euo pipefail
