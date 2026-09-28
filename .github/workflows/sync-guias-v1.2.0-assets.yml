@@ -16,15 +16,29 @@ jobs:
         with:
           ref: main
 
-      - name: Download exact validated v1.2.0 image assets
+      - name: Download exact validated v1.2.0 static assets
         shell: bash
         run: |
           set -euo pipefail
-          DIR="plugins/forja-mineira-guias/assets/images"
-          BASE="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias/assets/images"
-          mkdir -p "$DIR"
+          PLUGIN="plugins/forja-mineira-guias"
+          BASE="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias"
+          mkdir -p "$PLUGIN/assets/images" "$PLUGIN/assets/css" "$PLUGIN/assets/js"
 
-          cat > /tmp/fmg-assets.sha256 <<'EOF'
+          UA="Mozilla/5.0 (compatible; ForjaMineiraSync/1.0)"
+          REF="https://forjamineirad20.com.br/"
+
+          curl --retry 5 --retry-delay 3 -A "$UA" -H "Referer: $REF" -fsSL             "$BASE/assets/css/guide-warlock-items.css" -o "$PLUGIN/assets/css/guide-warlock-items.css"
+          curl --retry 5 --retry-delay 3 -A "$UA" -H "Referer: $REF" -fsSL             "$BASE/assets/css/guides-hub.css" -o "$PLUGIN/assets/css/guides-hub.css"
+          curl --retry 5 --retry-delay 3 -A "$UA" -H "Referer: $REF" -fsSL             "$BASE/assets/js/guides-hub.js" -o "$PLUGIN/assets/js/guides-hub.js"
+
+          cat > /tmp/fmg-static.sha256 <<'EOF'
+          c97d886e4620f97a593c8db2ef558e630d9a45925fb83ece5ccdccda8d5e49be  plugins/forja-mineira-guias/assets/css/guide-warlock-items.css
+          1f1b1fe33d2839d2f91b4cfea21317adc2836430e32a4c1204fe10da801f5ae5  plugins/forja-mineira-guias/assets/css/guides-hub.css
+          9b8c007786c57b439d2fd1ab6b5d5ca8abc0546d7d2f9b051b6dbc91f7815d25  plugins/forja-mineira-guias/assets/js/guides-hub.js
+          EOF
+          sha256sum --check /tmp/fmg-static.sha256
+
+          cat > /tmp/fmg-images.sha256 <<'EOF'
           2435fbddda0fbd9ec276330b24f81ce8b9f573f3734dbb8dbd26f3cf3cf4e717  backgrounds.webp
           253ffd220b1a1991d7743c6621173c1594d4392b4e6146838ff994c5fd6eda77  bruxo-warlock.webp
           5906f5599f4209c98736fa8b0b2ba51a79cd8fe5e5eb6061de17d84cc58259db  builds.webp
@@ -42,24 +56,24 @@ jobs:
           EOF
 
           while read -r hash file; do
-            curl --retry 5 --retry-delay 3               -A "Mozilla/5.0 (compatible; ForjaMineiraSync/1.0)"               -H "Referer: https://forjamineirad20.com.br/"               -fsSL "$BASE/$file" -o "$DIR/$file"
-          done < /tmp/fmg-assets.sha256
+            curl --retry 5 --retry-delay 3 -A "$UA" -H "Referer: $REF" -fsSL               "$BASE/assets/images/$file" -o "$PLUGIN/assets/images/$file"
+          done < /tmp/fmg-images.sha256
 
           (
-            cd "$DIR"
-            sha256sum --check /tmp/fmg-assets.sha256
+            cd "$PLUGIN/assets/images"
+            sha256sum --check /tmp/fmg-images.sha256
           )
 
-      - name: Commit exact image assets
+      - name: Commit exact static assets
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "Forja Mineira Automation"
           git config user.email "96450995+Peruzini@users.noreply.github.com"
-          git add plugins/forja-mineira-guias/assets/images
+          git add plugins/forja-mineira-guias/assets
           if git diff --cached --quiet; then
-            echo "Assets already match v1.2.0."
+            echo "Static assets already match v1.2.0."
             exit 0
           fi
-          git commit -m "release: sync validated Guias v1.2.0 assets"
+          git commit -m "release: sync validated Guias v1.2.0 static assets"
           git push origin HEAD:main
