@@ -1,4 +1,4 @@
-Forja Mineira D20 — Guias v1.2.0
+Forja Mineira D20 — Guias v1.2.1
 
 SHORTCODE DO HUB
 [forja_guias_hub]
@@ -59,3 +59,18 @@ VALIDAÇÃO RECOMENDADA
 - Ausência de H1 duplicado do tema.
 
 Este pacote preserva o shortcode e o Guia de Itens existentes da v1.1.0.
+
+NOVIDADES DA v1.2.1 — RANK MATH
+- Integração oficial com a Content Analysis API do Rank Math para a página do Hub.
+- O analisador passa a considerar o conteúdo editorial renderizado por [forja_guias_hub].
+- Quando o Rank Math está ativo, ele assume título SEO, meta description, canonical, Open Graph e Schema.
+- O SEO básico próprio do plugin continua apenas como fallback quando o Rank Math não está ativo.
+- Nenhuma alteração visual no Hero, cards, filtros, assets ou layout da v1.2.0.
+- Rollback seguro: tag Git v1.2.0 e ZIP v1.2.0 validado.
+
+VALIDAÇÃO DA v1.2.1
+1. Instalar/substituir o plugin no WordPress.
+2. Abrir a página Guias no editor.
+3. Confirmar que o Rank Math reconhece texto, headings e links do Hub além do shortcode.
+4. Abrir /guias/ e confirmar que o visual permanece idêntico à v1.2.0.
+5. Conferir o código-fonte e garantir uma única saída de meta description/Schema sob controle do Rank Math.
