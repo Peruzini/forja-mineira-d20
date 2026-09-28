@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forja Mineira D20 — Guias
  * Description: Guias editoriais e Hub de Guias da Forja Mineira D20.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Forja Mineira D20
  */
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FMG_VERSION', '1.1.0' );
+define( 'FMG_VERSION', '1.2.0' );
 define( 'FMG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMG_URL', plugin_dir_url( __FILE__ ) );
 
@@ -71,6 +71,14 @@ function fmg_enqueue_hub_assets() {
         array(),
         FMG_VERSION
     );
+
+    wp_enqueue_script(
+        'forja-mineira-guias-hub',
+        FMG_URL . 'assets/js/guides-hub.js',
+        array(),
+        FMG_VERSION,
+        true
+    );
 }
 
 function fmg_render_warlock_items_guide( $atts = array() ) {
@@ -89,6 +97,8 @@ function fmg_render_guides_hub( $atts = array() ) {
         array(
             'invocacoes_url' => '',
             'itens_url'      => '',
+            'builds_url'     => '',
+            'ferramentas_url'=> '',
         ),
         $atts,
         'forja_guias_hub'
@@ -107,8 +117,70 @@ function fmg_render_guides_hub( $atts = array() ) {
         ? esc_url_raw( $atts['itens_url'] )
         : home_url( '/melhores-itens-para-bruxo-dnd-5e/' );
 
-    $hub_invocations_image = FMG_URL . 'assets/images/guia-invocacoes-bruxo-2024.webp?ver=' . FMG_VERSION;
-    $hub_items_image       = FMG_URL . 'assets/images/guia-itens-bruxo-1-5.webp?ver=' . FMG_VERSION;
+    $hub_builds_url = ! empty( $atts['builds_url'] )
+        ? esc_url_raw( $atts['builds_url'] )
+        : home_url( '/builds/' );
+
+    $hub_tools_url = ! empty( $atts['ferramentas_url'] )
+        ? esc_url_raw( $atts['ferramentas_url'] )
+        : home_url( '/ferramentas/' );
+
+    $hub_home_url = home_url( '/' );
+
+    $img = function( $filename ) {
+        return FMG_URL . 'assets/images/' . $filename . '?ver=' . FMG_VERSION;
+    };
+
+    $hub_assets = array(
+        'hero'        => $img( 'hub-guias-hero-aprovado.webp' ),
+        'classes'     => $img( 'classes.webp' ),
+        'spells'      => $img( 'spells.webp' ),
+        'feats'       => $img( 'feats.webp' ),
+        'backgrounds' => $img( 'backgrounds.webp' ),
+        'items'       => $img( 'itens.webp' ),
+        'warlock'     => $img( 'bruxo-warlock.webp' ),
+        'dnd2024'     => $img( 'dnd-5e-2024.webp' ),
+        'builds'      => $img( 'builds.webp' ),
+        'compass'     => $img( 'forja-bussola-institucional.webp' ),
+        'featured'    => $img( 'maera-banner-referencia-aprovada.webp' ),
+        'invocations' => $img( 'home-featured-guide-invocacoes.webp' ),
+        'items_card'  => $img( 'elyra-guia-itens-card-aprovada.webp' ),
+    );
+
+    $hub_guides = array(
+        array(
+            'title'       => 'Melhores Invocações Místicas para Bruxo',
+            'edition'     => 'D&D 5e 2024',
+            'url'         => $hub_invocations_url,
+            'image'       => $hub_assets['invocations'],
+            'image_pos'   => '74% center',
+            'category'    => 'Invocações',
+            'class'       => 'Bruxo (Warlock)',
+            'system'      => 'D&D 5e 2024',
+            'levels'      => '1-5 6-10 11-16 17-20',
+            'styles'      => 'Dano Controle Suporte Utilidade Gish',
+            'search'      => 'bruxo warlock invocações eldritch invocations rajada lâmina tomo corrente',
+            'description' => 'As melhores Invocações Místicas organizadas por estilo de jogo, com dicas práticas e exemplos de uso.',
+            'meta_icon'   => $hub_assets['builds'],
+            'meta_label'  => 'Builds',
+        ),
+        array(
+            'title'       => 'Melhores Itens para Bruxo nos Níveis 1–5',
+            'edition'     => 'D&D 5e 2024',
+            'url'         => $hub_items_url,
+            'image'       => $hub_assets['items_card'],
+            'image_pos'   => 'center 26%',
+            'category'    => 'Itens',
+            'class'       => 'Bruxo (Warlock)',
+            'system'      => 'D&D 5e 2024',
+            'levels'      => '1-5',
+            'styles'      => 'Defesa Utilidade Gish',
+            'search'      => 'bruxo warlock itens equipamentos foco arcano defesa consumíveis níveis 1 5 elyra',
+            'description' => 'Itens, equipamentos e prioridades práticas para fortalecer o Bruxo (Warlock) nos primeiros níveis.',
+            'meta_icon'   => $hub_assets['items'],
+            'meta_label'  => 'Itens',
+        ),
+    );
 
     ob_start();
     include FMG_PATH . 'templates/guides-hub.php';
