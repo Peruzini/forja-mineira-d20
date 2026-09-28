@@ -13,7 +13,7 @@ Site: https://forjamineirad20.com.br/
 ## Versões atuais
 
 - **Forja Mineira — Builds:** v2.3.24
-- **Forja Mineira D20 — Guias:** v1.1.0
+- **Forja Mineira D20 — Guias:** v1.2.0
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
 
 ## URLs canônicas consolidadas
@@ -76,7 +76,7 @@ A versão v1.3.0 usa a arquitetura compacta final das quatro mini-builds, com se
 
 ### Hub de Guias
 
-O plugin de Guias v1.1.0 inclui uma página-catálogo por meio de `[forja_guias_hub]`, atualmente destacando:
+O plugin de Guias v1.2.0 inclui o Hub publicado e validado no WordPress por meio de `[forja_guias_hub]`, atualmente destacando:
 
 - Melhores Invocações Místicas para Bruxo
 - Melhores Itens para Bruxo nos Níveis 1–5
