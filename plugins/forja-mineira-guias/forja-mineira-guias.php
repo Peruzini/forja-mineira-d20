@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forja Mineira D20 — Guias
  * Description: Guias editoriais e Hub de Guias da Forja Mineira D20.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Forja Mineira D20
  */
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FMG_VERSION', '1.2.0' );
+define( 'FMG_VERSION', '1.2.1' );
 define( 'FMG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMG_URL', plugin_dir_url( __FILE__ ) );
 
@@ -188,8 +188,110 @@ function fmg_render_guides_hub( $atts = array() ) {
 }
 add_shortcode( 'forja_guias_hub', 'fmg_render_guides_hub' );
 
-/* SEO básico apenas nas páginas dos shortcodes deste plugin. */
+/**
+ * Detecta o Rank Math sem criar dependência obrigatória.
+ * A checagem ocorre no momento de uso, depois do carregamento dos plugins.
+ */
+function fmg_rank_math_active() {
+    return defined( 'RANK_MATH_VERSION' ) || function_exists( 'rank_math' );
+}
+
+/**
+ * Verifica shortcodes em uma página no painel sem depender da query do front-end.
+ */
+function fmg_admin_post_has_shortcode( $post_id, $shortcode ) {
+    $post = get_post( $post_id );
+
+    return $post instanceof WP_Post
+        && 'page' === $post->post_type
+        && has_shortcode( $post->post_content, $shortcode );
+}
+
+/**
+ * Conteúdo textual real do Hub enviado somente ao analisador do Rank Math.
+ * Não é impresso no front-end e não cria texto oculto para buscadores.
+ */
+function fmg_get_guides_hub_analysis_content() {
+    $invocations_url = fmg_find_page_by_shortcode(
+        'forja_guia_invocacoes_bruxo_2024',
+        home_url( '/' )
+    );
+    $items_url = home_url( '/melhores-itens-para-bruxo-dnd-5e/' );
+    $builds_url = home_url( '/builds/' );
+    $tools_url = home_url( '/ferramentas/' );
+
+    ob_start();
+    ?>
+    <h1>Guias de RPG para levar direto à mesa.</h1>
+    <p>Conteúdo prático para escolher melhor, montar personagens e entender como cada decisão funciona em jogo.</p>
+
+    <h2>Melhores Invocações Místicas para Bruxo</h2>
+    <p>D&amp;D 5e 2024. Escolha Invocações Místicas (Eldritch Invocations) por nível, função e estilo de jogo, com foco no que realmente funciona na mesa.</p>
+    <p>Bruxo (Warlock). Quatro estilos de jogo: Rajada &amp; Controle, Pacto da Lâmina (Pact of the Blade), Pacto do Tomo (Pact of the Tome) e Pacto da Corrente (Pact of the Chain).</p>
+    <p><a href="<?php echo esc_url( $invocations_url ); ?>">Ler guia de Invocações Místicas</a></p>
+
+    <h2>Biblioteca da Forja</h2>
+    <p>Pesquise por conteúdo ou refine a biblioteca por categoria, nível, função e estilo de jogo.</p>
+
+    <h3>Melhores Invocações Místicas para Bruxo</h3>
+    <p>As melhores Invocações Místicas organizadas por estilo de jogo, com dicas práticas e exemplos de uso.</p>
+
+    <h3>Melhores Itens para Bruxo nos Níveis 1–5</h3>
+    <p>D&amp;D 5e 2024. Itens, equipamentos e prioridades práticas para fortalecer o Bruxo (Warlock) nos primeiros níveis.</p>
+    <p><a href="<?php echo esc_url( $items_url ); ?>">Ler guia de itens para Bruxo</a></p>
+
+    <h2>Continue na Forja</h2>
+    <p>Explore outras áreas da Forja Mineira D20 quando quiser ir além dos guias.</p>
+    <p><a href="<?php echo esc_url( $builds_url ); ?>">Explorar Builds</a></p>
+    <p><a href="<?php echo esc_url( $tools_url ); ?>">Ver Ferramentas</a></p>
+    <?php
+
+    return trim( ob_get_clean() );
+}
+
+/**
+ * Integra o shortcode do Hub à Content Analysis API do Rank Math.
+ * Carrega somente ao editar a página que contém [forja_guias_hub].
+ */
+function fmg_enqueue_rank_math_analysis( $hook_suffix ) {
+    if ( ! fmg_rank_math_active() || 'post.php' !== $hook_suffix ) {
+        return;
+    }
+
+    $post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
+
+    if ( ! $post_id || ! fmg_admin_post_has_shortcode( $post_id, 'forja_guias_hub' ) ) {
+        return;
+    }
+
+    if ( ! wp_script_is( 'rank-math-analyzer', 'registered' ) && ! wp_script_is( 'rank-math-analyzer', 'enqueued' ) ) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'forja-mineira-guias-rank-math',
+        FMG_URL . 'assets/js/rank-math-integration.js',
+        array( 'wp-hooks', 'rank-math-analyzer' ),
+        FMG_VERSION,
+        true
+    );
+
+    wp_localize_script(
+        'forja-mineira-guias-rank-math',
+        'fmgRankMathAnalysis',
+        array(
+            'content' => fmg_get_guides_hub_analysis_content(),
+        )
+    );
+}
+add_action( 'admin_enqueue_scripts', 'fmg_enqueue_rank_math_analysis', 99 );
+
+/* SEO fallback: só é emitido quando o Rank Math não está ativo. */
 add_filter( 'document_title_parts', function( $parts ) {
+    if ( fmg_rank_math_active() ) {
+        return $parts;
+    }
+
     if ( fmg_has_guides_hub() ) {
         $parts['title'] = 'Guias de RPG para D&D 5e 2024';
     } elseif ( fmg_has_warlock_items_guide() ) {
@@ -199,6 +301,10 @@ add_filter( 'document_title_parts', function( $parts ) {
 } );
 
 add_action( 'wp_head', function() {
+    if ( fmg_rank_math_active() ) {
+        return;
+    }
+
     if ( fmg_has_guides_hub() ) {
         $description = 'Guias de RPG da Forja Mineira D20: D&D 5e 2024, Bruxo, Invocações Místicas, itens e conteúdo prático para levar direto à mesa.';
         echo "\n<meta name=\"description\" content=\"" . esc_attr( $description ) . "\">\n";
