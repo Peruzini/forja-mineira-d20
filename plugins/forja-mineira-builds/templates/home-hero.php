@@ -6,6 +6,7 @@ $builds_url = ! empty( $home_builds_url ) ? $home_builds_url : home_url( '/build
 $tools_url  = ! empty( $home_tools_url )  ? $home_tools_url  : home_url( '/ferramentas/' );
 $guide_url       = ! empty( $home_guide_url )       ? $home_guide_url       : home_url( '/melhores-itens-para-bruxo-dnd-5e/' );
 $invocations_url = ! empty( $home_invocations_url ) ? $home_invocations_url : add_query_arg( 's', 'Invocações Místicas Bruxo', home_url( '/' ) );
+$spells_url      = ! empty( $home_spells_url )      ? $home_spells_url      : add_query_arg( 's', 'Melhores Magias para Bruxo D&D 5e 2024', home_url( '/' ) );
 
 $smoke_d20 = FMB_URL . 'assets/images/pao-de-queijo-d20-fumegante-transparente.webp?ver=' . FMB_VERSION;
 $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSION;
@@ -67,6 +68,21 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
         </div>
 
         <div class="fmb-forja-now-list">
+          <a class="fmb-forja-now-item fmb-forja-now-item--live fmb-forja-now-item--spells" href="<?php echo esc_url( $spells_url ); ?>">
+            <span class="fmb-forja-now-icon fmb-forja-now-icon--spells" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M12 2.8 14 8l5.2 2-5.2 2-2 5.2-2-5.2-5.2-2 5.2-2 2-5.2Z"/>
+                <path d="M18.2 14.2 19.3 17l2.7 1-2.7 1-1.1 2.8-1-2.8-2.8-1 2.8-1 1-2.8Z"/>
+              </svg>
+            </span>
+            <span class="fmb-forja-now-item-copy">
+              <span class="fmb-forja-now-status fmb-forja-now-status--green">NOVO GUIA</span>
+              <strong>Melhores Magias para Bruxo</strong>
+              <small>D&amp;D 5e 2024 · 94 magias analisadas</small>
+              <span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span>
+            </span>
+          </a>
+
           <a class="fmb-forja-now-item fmb-forja-now-item--live fmb-forja-now-item--invocations" href="<?php echo esc_url( $invocations_url ); ?>">
             <span class="fmb-forja-now-icon fmb-forja-now-icon--invocations" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="img" focusable="false">
@@ -75,7 +91,7 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
               </svg>
             </span>
             <span class="fmb-forja-now-item-copy">
-              <span class="fmb-forja-now-status fmb-forja-now-status--green">NOVO GUIA</span>
+              <span class="fmb-forja-now-status fmb-forja-now-status--green">GUIA</span>
               <strong>Melhores Invocações Místicas para Bruxo</strong>
               <small>D&amp;D 5e 2024 · por nível e build</small>
               <span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span>
@@ -90,24 +106,10 @@ $hero_castle = FMB_URL . 'assets/images/home-hero-castelo.webp?ver=' . FMB_VERSI
               </svg>
             </span>
             <span class="fmb-forja-now-item-copy">
-              <span class="fmb-forja-now-status fmb-forja-now-status--green">NOVA BUILD</span>
+              <span class="fmb-forja-now-status fmb-forja-now-status--green">BUILD</span>
               <strong>Voldemort — Bruxo 1–20</strong>
               <small>Magia, estratégia e ambição.</small>
               <span class="fmb-forja-now-link">Ver build <b aria-hidden="true">→</b></span>
-            </span>
-          </a>
-
-          <a class="fmb-forja-now-item fmb-forja-now-item--live" href="<?php echo esc_url( $guide_url ); ?>">
-            <span class="fmb-forja-now-icon fmb-forja-now-icon--guide" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img" focusable="false">
-                <path d="M4 4.8c2.9-.8 5.2-.4 8 1.2v13c-2.8-1.6-5.1-2-8-1.2v-13Zm16 0c-2.9-.8-5.2-.4-8 1.2v13c2.8-1.6 5.1-2 8-1.2v-13Z"/>
-              </svg>
-            </span>
-            <span class="fmb-forja-now-item-copy">
-              <span class="fmb-forja-now-status">GUIA</span>
-              <strong>Melhores itens para Bruxo</strong>
-              <small>Níveis 1–5</small>
-              <span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span>
             </span>
           </a>
         </div>

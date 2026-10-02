@@ -4,14 +4,14 @@ Tags: dnd, dungeons-and-dragons, build, warlock, rpg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.3.24
+Stable tag: 2.3.25
 License: GPLv2 or later
 
 Build completa 1–20 para o Forja Mineira D20.
 
 == Instalação ==
 1. No WordPress: Plugins > Adicionar plugin > Enviar plugin.
-2. Envie o ZIP forja-mineira-builds-v2.3.24.zip.
+2. Envie o ZIP forja-mineira-builds-v2.3.25.zip.
 3. Se a versão anterior estiver instalada, use a opção do WordPress para substituir a versão atual pela enviada.
 4. Ative o plugin.
 5. Na página da build, use:
@@ -52,8 +52,10 @@ trevor_image=""
 Shortcode do Guia em Destaque da Home:
 [forja_home_featured_guide]
 
-URL do guia em destaque:
-[forja_home_featured_guide guide_url="https://forjamineirad20.com.br/melhores-itens-para-bruxo-dnd-5e/"]
+URLs opcionais dos guias em destaque:
+[forja_home_featured_guide guide_url="https://forjamineirad20.com.br/melhores-itens-para-bruxo-dnd-5e/" spells_url="..." invocations_url="..."]
+
+Se spells_url não for informado, o plugin localiza automaticamente a página publicada com [forja_guia_magias_bruxo_2024].
 
 Votação real:
 - O voto da Home é registrado no WordPress via REST.

@@ -8775,3 +8775,40 @@ a.fmb-featured-guide-button:hover{
   .fmb-forja-now-item--invocations .fmb-forja-now-item-copy strong{font-size:15px;line-height:1.08}
 }
 @media(max-width:760px){.fmb-featured-guide-shell{gap:14px}}
+
+
+/* ===== HOME v2.3.25 · Guia de Magias / Spells ===== */
+.fmb-featured-guide-card--spells .fmb-featured-guide-art{
+  object-position:center 48%;
+}
+.fmb-featured-guide-card--spells .fmb-featured-guide-overlay{
+  background:
+    linear-gradient(90deg,
+      #06110d 0%,
+      #06110d 29%,
+      rgba(6,17,13,.97) 38%,
+      rgba(6,17,13,.76) 50%,
+      rgba(6,17,13,.28) 66%,
+      rgba(6,17,13,.04) 100%),
+    linear-gradient(0deg,rgba(2,8,5,.22),transparent 54%);
+}
+.fmb-forja-now-icon--spells{
+  color:#70e49b!important;
+  background:#082a1b!important;
+  border-color:rgba(112,228,155,.26)!important;
+}
+.fmb-forja-now-item--spells .fmb-forja-now-item-copy strong{
+  white-space:normal!important;
+  max-width:310px;
+}
+@media(min-width:1080px){
+  .fmb-forja-now-item--spells .fmb-forja-now-item-copy strong{
+    font-size:15px;
+    line-height:1.08;
+  }
+}
+@media(max-width:700px){
+  .fmb-featured-guide-card--spells .fmb-featured-guide-art{
+    object-position:66% 48%;
+  }
+}

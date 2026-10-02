@@ -69,6 +69,30 @@ final class FMB_Build_Shortcode {
         return add_query_arg( 's', 'Invocações Místicas Bruxo', home_url( '/' ) );
     }
 
+    private static function default_spells_url() {
+        global $wpdb;
+
+        $needle = '%[' . $wpdb->esc_like( 'forja_guia_magias_bruxo_2024' ) . '%';
+        $page_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT ID
+                 FROM {$wpdb->posts}
+                 WHERE post_type = 'page'
+                   AND post_status = 'publish'
+                   AND post_content LIKE %s
+                 ORDER BY post_modified_gmt DESC
+                 LIMIT 1",
+                $needle
+            )
+        );
+
+        if ( $page_id ) {
+            return get_permalink( (int) $page_id );
+        }
+
+        return add_query_arg( 's', 'Melhores Magias para Bruxo D&D 5e 2024', home_url( '/' ) );
+    }
+
 
     public static function render_hub( $atts ) {
         $atts = shortcode_atts(
@@ -102,6 +126,8 @@ final class FMB_Build_Shortcode {
                 'guide_image'        => '',
                 'invocations_url'    => '',
                 'invocations_image'  => '',
+                'spells_url'         => '',
+                'spells_image'       => '',
             ),
             $atts,
             'forja_home_featured_guide'
@@ -124,6 +150,14 @@ final class FMB_Build_Shortcode {
         $featured_invocations_image = ! empty( $atts['invocations_image'] )
             ? esc_url_raw( $atts['invocations_image'] )
             : FMB_URL . 'assets/images/home-featured-guide-invocacoes.webp?ver=' . FMB_VERSION;
+
+        $featured_spells_url = ! empty( $atts['spells_url'] )
+            ? esc_url_raw( $atts['spells_url'] )
+            : self::default_spells_url();
+
+        $featured_spells_image = ! empty( $atts['spells_image'] )
+            ? esc_url_raw( $atts['spells_image'] )
+            : FMB_URL . 'assets/images/home-featured-guide-magias.webp?ver=' . FMB_VERSION;
 
         ob_start();
         include FMB_PATH . 'templates/home-featured-guide.php';
@@ -195,6 +229,7 @@ final class FMB_Build_Shortcode {
                 'tools_url'       => '',
                 'guide_url'       => '',
                 'invocations_url' => '',
+                'spells_url'      => '',
             ),
             $atts,
             'forja_home_hero'
@@ -221,6 +256,10 @@ final class FMB_Build_Shortcode {
         $home_invocations_url = ! empty( $atts['invocations_url'] )
             ? esc_url_raw( $atts['invocations_url'] )
             : self::default_invocations_url();
+
+        $home_spells_url = ! empty( $atts['spells_url'] )
+            ? esc_url_raw( $atts['spells_url'] )
+            : self::default_spells_url();
 
         ob_start();
         include FMB_PATH . 'templates/home-hero.php';

@@ -1,3 +1,10 @@
+2.3.25 - 2026-10-02
+- Home: adiciona o banner de "Melhores Magias para Bruxo D&D 5e 2024" com arte da Maera e texto/CTA em HTML/CSS.
+- Home: "Na Forja Agora" passa para Magias → Invocações → Voldemort, mantendo três itens.
+- Home: Guia de Itens permanece publicado e em seu banner, saindo apenas do bloco de conteúdos recentes.
+- Home: URL do Guia de Magias é descoberta pela página publicada que contém [forja_guia_magias_bruxo_2024], evitando slug duplicado.
+- Preserva shortcodes e demais blocos da Home.
+
 == 2.3.24 ==
 * Home: substitui a arte do banner de Invocações pela versão final aprovada em verde-esmeralda/dourado.
 * Mantém o Guia de Invocações em primeiro lugar no painel "Na Forja Agora".
