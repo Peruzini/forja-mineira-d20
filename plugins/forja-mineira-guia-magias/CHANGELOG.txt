@@ -1,0 +1,42 @@
+Forja Mineira D20 — Guia de Magias
+
+= 1.0.5 — 2026-10-01 =
+- Cria um card pai explícito (`.fmmg-detail-card`) para o painel detalhado da direita.
+- A moldura principal deixa de depender da classe genérica `.detail`, evitando interferência do tema.
+- O card pai replica a referência HTML aprovada: fundo branco, borda, raio, sombra e padding.
+- `.detail` passa a funcionar apenas como conteúdo dinâmico interno.
+- Nenhuma alteração em dados, filtros, Hero, mobile ou proporção 41/59.
+
+= 1.0.4 — 2026-10-01 =
+- Foco exclusivo no painel detalhado da direita.
+- Reforça contraste da área externa do painel.
+- Restaura o card principal com fundo próprio, borda, raio e sombra mais perceptíveis.
+- Nenhuma mudança no Hero, filtros, conteúdo, proporção 41/59 ou CSS adicional do tema.
+
+= 1.0.3 — 2026-10-01 =
+- Remove “Filtre as 94 magias.” do cabeçalho do catálogo.
+- Remove o texto explicativo redundante ao lado do catálogo.
+- Reforça no desktop a moldura, fundo, raio e sombra do painel detalhado da direita.
+- Garante o fundo editorial creme/pergaminho dentro do componente.
+- Retira do plugin as correções específicas de espaçamento do tema; elas passam a CSS adicional do site.
+
+= 1.0.2 — 2026-10-01 =
+- Remove o bloco redundante de métricas 94 / 91 Core / 3 Heroes of Faerûn / 10 faixas de nível após o Hero.
+- O fluxo passa diretamente de Hero para Catálogo Interativo.
+- Remove o excesso de espaço entre os cards finais e o footer.
+- Preserva apenas 24 px de respiro editorial após o trio de continuidade (20 px no mobile).
+- Resets inferiores ficam restritos à página do shortcode.
+
+= 1.0.1 — 2026-10-01 =
+- Remove margem/padding superior herdados do tema na página do shortcode.
+- Hero passa a encostar corretamente no topo útil da área de conteúdo.
+- Ajuste é restrito à classe de página `fmmg-guide-page`.
+
+= 1.0.0 — 2026-10-01 =
+- Primeira versão candidata do plugin.
+- Base visual aprovada a partir do preview v16.
+- 94 magias consolidadas.
+- Hero full-bleed controlado e cantos retos.
+- Catálogo mestre–detalhe responsivo.
+- Filtros desktop/mobile e estados vazios.
+- Trio de continuidade com ícones oficiais da Forja.
