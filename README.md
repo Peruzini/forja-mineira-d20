@@ -9,12 +9,14 @@ Site: https://forjamineirad20.com.br/
 - `plugins/forja-mineira-builds/` — builds, Home, Hub de Builds e votação da próxima build.
 - `plugins/forja-mineira-guias/` — guias editoriais e Hub de Guias.
 - `plugins/forja-mineira-guia-invocacoes/` — Guia de Invocações Místicas para Bruxo D&D 5e 2024.
+- `plugins/forja-mineira-guia-magias/` — Guia interativo de Magias para Bruxo D&D 5e 2024.
 
 ## Versões atuais
 
 - **Forja Mineira — Builds:** v2.3.24
 - **Forja Mineira D20 — Guias:** v1.2.1
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
+- **Forja Mineira D20 — Guia de Magias:** v1.0.5
 
 ## URLs canônicas consolidadas
 
@@ -53,6 +55,12 @@ Página recomendada para o Hub de Guias:
 
 O plugin preserva o shortcode acima como identificador principal da página do guia.
 
+### Guia de Magias
+
+- `[forja_guia_magias_bruxo_2024]`
+
+Base atual: 94 magias, sendo 91 Core 2024 + 3 Heroes of Faerûn (HoF), com catálogo mestre–detalhe e filtros por função, escola, fonte, nível e prioridade.
+
 ## Conteúdo atual
 
 ### Build Voldemort
@@ -73,6 +81,10 @@ Guia de **D&D 5e 2024** organizado por nível, estilo e função, com filtros, a
 - Pacto da Corrente (Pact of the Chain)
 
 A versão v1.3.0 usa a arquitetura compacta final das quatro mini-builds, com seletor manual e um painel principal por vez.
+
+### Guia de Magias para Bruxo
+
+Guia de **D&D 5e 2024** com 94 magias auditadas, Hero editorial, filtros e painel detalhado em card pai próprio (`.fmmg-detail-card`). A versão v1.0.5 é a referência de plugin para futuras bases de magias da Forja.
 
 ### Hub de Guias
 
