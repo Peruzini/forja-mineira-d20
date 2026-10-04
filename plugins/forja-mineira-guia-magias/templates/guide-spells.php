@@ -47,45 +47,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
       <div class="detail-wrap"><article class="fmmg-detail-card"><div class="detail" id="fmmg-detail"></div></article></div>
     </div>
   </section>
-<section id="fmmg-continue-na-forja" aria-labelledby="fmmg-continue-title">
-    <span class="section-kicker">CONTINUE NA FORJA</span>
-    <h2 id="fmmg-continue-title">Continue explorando seu Bruxo.</h2>
-    <div class="forge-links">
-      <a class="forge-link forge-link--guide" href="<?php echo esc_url( $items_url ); ?>">
-        <div class="forge-link-icon" aria-hidden="true">
-          <img src="<?php echo esc_url( $asset_base ); ?>images/itens.webp" alt="">
-        </div>
-        <div class="forge-link-copy">
-          <span>GUIA COMPLEMENTAR</span>
-          <strong>Melhores Itens para Bruxo</strong>
-          <p>Defesa, foco arcano e equipamentos que complementam suas escolhas de magia.</p>
-          <b>Ver guia de itens →</b>
-        </div>
-      </a>
-      <a class="forge-link forge-link--build" href="<?php echo esc_url( $build_url ); ?>">
-        <div class="forge-link-icon" aria-hidden="true">
-          <img src="<?php echo esc_url( $asset_base ); ?>images/builds.webp" alt="">
-        </div>
-        <div class="forge-link-copy">
-          <span>BUILD COMPLETA</span>
-          <strong>Voldemort — Bruxo 1–20</strong>
-          <p>Veja essas decisões aplicadas em uma progressão completa, nível a nível.</p>
-          <b>Explorar build →</b>
-        </div>
-      </a>
-      <a class="forge-link forge-link--library" href="<?php echo esc_url( $guides_url ); ?>">
-        <div class="forge-link-icon" aria-hidden="true">
-          <img src="<?php echo esc_url( $asset_base ); ?>images/forja-bussola-institucional.webp" alt="">
-        </div>
-        <div class="forge-link-copy">
-          <span>BIBLIOTECA DE GUIAS</span>
-          <strong>Mais Guias da Forja</strong>
-          <p>Continue por Invocações, Itens, Classes e outros conteúdos publicados.</p>
-          <b>Abrir Guias →</b>
-        </div>
-      </a>
-    </div>
-  </section>
+<?php
+/**
+ * Slot estrutural do Cluster de Bruxo.
+ * O Guia continua funcional se o plugin Clusters estiver desativado;
+ * nesse caso, do_action() simplesmente não renderiza o módulo.
+ */
+do_action( 'forja_d20_cluster_slot', 'bruxo', 'magias' );
+?>
 
 </div>
 

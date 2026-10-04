@@ -1,5 +1,13 @@
 Forja Mineira D20 — Guia de Magias
 
+= 1.0.6 — 2026-10-04 =
+- Substitui o bloco manual estrutural `Continue na Forja` pelo slot desacoplado do plugin Clusters.
+- Integra `do_action( 'forja_d20_cluster_slot', 'bruxo', 'magias' );` no mesmo ponto estrutural.
+- Remove da renderização do Guia de Magias os três cards manuais de Itens, Voldemort e Hub de Guias.
+- Preserva todo o catálogo, Hero, filtros, 94 magias, painel mestre–detalhe, mobile e shortcode principal.
+- O Guia continua funcional se Clusters estiver desativado; apenas o módulo de continuidade não é renderizado.
+- Versão promovida para produção após auditoria estrutural/visual do Cluster em 04/10/2026.
+
 = 1.0.5 — 2026-10-01 =
 - Cria um card pai explícito (`.fmmg-detail-card`) para o painel detalhado da direita.
 - A moldura principal deixa de depender da classe genérica `.detail`, evitando interferência do tema.

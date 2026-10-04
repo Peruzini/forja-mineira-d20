@@ -16,7 +16,7 @@ Site: https://forjamineirad20.com.br/
 - **Forja Mineira — Builds:** v2.3.26
 - **Forja Mineira D20 — Guias:** v1.2.3
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
-- **Forja Mineira D20 — Guia de Magias:** v1.0.5
+- **Forja Mineira D20 — Guia de Magias:** v1.0.6
 
 ## Estado operacional em 04/10/2026
 
@@ -24,7 +24,7 @@ O GitHub mantém as versões canônicas de produção. Candidatas TESTE ativas n
 
 - **Builds:** GitHub/produção canônica em v2.3.26; v2.3.25 preservada como rollback imediato. A Build Voldemort integra o Clusters nativamente.
 - **Guia de Invocações:** GitHub/produção canônica em v1.3.0; v1.3.8 TESTE está ativa no WordPress e validada com Clusters.
-- **Guia de Magias:** GitHub/produção canônica em v1.0.5; v1.0.6 TESTE permanece em validação no WordPress.
+- **Guia de Magias:** GitHub/produção canônica em v1.0.6; integração nativa do Cluster aprovada e v1.0.5 preservada como rollback imediato.
 - **Clusters:** v1.0.5 TESTE está ativo no WordPress para integração gradual, mas ainda não foi promovido para o GitHub.
 - **Guia de Itens:** integração nativa do Cluster concluída no plugin Guias v1.2.3; a ponte temporária do tema foi removida e v1.2.2 ficou como rollback imediato.
 - **Rollback do tema:** `forja-mineira-d20-wpvibe-backup`.
@@ -96,7 +96,7 @@ A versão v1.3.0 usa a arquitetura compacta final das quatro mini-builds, com se
 
 ### Guia de Magias para Bruxo
 
-Guia de **D&D 5e 2024** com 94 magias auditadas, Hero editorial, filtros e painel detalhado em card pai próprio (`.fmmg-detail-card`). A versão v1.0.5 é a referência de plugin para futuras bases de magias da Forja.
+Guia de **D&D 5e 2024** com 94 magias auditadas, Hero editorial, filtros e painel detalhado em card pai próprio (`.fmmg-detail-card`). A versão v1.0.6 é a referência de plugin para futuras bases de magias da Forja, incluindo o slot desacoplado do Clusters.
 
 ### Hub de Guias
 
