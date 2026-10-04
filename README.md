@@ -13,7 +13,7 @@ Site: https://forjamineirad20.com.br/
 
 ## Versões atuais
 
-- **Forja Mineira — Builds:** v2.3.25
+- **Forja Mineira — Builds:** v2.3.26
 - **Forja Mineira D20 — Guias:** v1.2.2
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
 - **Forja Mineira D20 — Guia de Magias:** v1.0.5
@@ -22,12 +22,13 @@ Site: https://forjamineirad20.com.br/
 
 O GitHub mantém as versões canônicas de produção. Candidatas TESTE ativas no WordPress continuam fora do `main` até promoção explícita.
 
+- **Builds:** GitHub/produção canônica em v2.3.26; v2.3.25 preservada como rollback imediato. A Build Voldemort integra o Clusters nativamente.
 - **Guia de Invocações:** GitHub/produção canônica em v1.3.0; v1.3.8 TESTE está ativa no WordPress e validada com Clusters.
 - **Guia de Magias:** GitHub/produção canônica em v1.0.5; v1.0.6 TESTE permanece em validação no WordPress.
 - **Clusters:** v1.0.5 TESTE está ativo no WordPress para integração gradual, mas ainda não foi promovido para o GitHub.
 - **Guia de Itens:** o plugin Guias permanece em v1.2.2. A integração atual com Clusters foi publicada por uma ponte temporária no tema, sem bump de versão do plugin.
 - **Rollback do tema:** `forja-mineira-d20-wpvibe-backup`.
-- **Próximo consumidor do Cluster:** Voldemort.
+- **Voldemort:** integração nativa do Cluster concluída na Builds v2.3.26. O plugin Clusters v1.0.5 continua TESTE até a auditoria/promoção final.
 
 ## URLs canônicas consolidadas
 

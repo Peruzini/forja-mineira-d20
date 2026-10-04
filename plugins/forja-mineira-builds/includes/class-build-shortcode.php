@@ -312,6 +312,11 @@ final class FMB_Build_Shortcode {
 
         ob_start();
         include FMB_PATH . 'templates/voldemort.php';
+
+        // Slot estrutural do cluster de Bruxo. Se o plugin Clusters estiver
+        // desativado, do_action() não produz saída e a Build segue funcional.
+        do_action( 'forja_d20_cluster_slot', 'bruxo', 'voldemort' );
+
         return ob_get_clean();
     }
 }

@@ -1,3 +1,10 @@
+2.3.26 - 2026-10-04
+- Build Voldemort: adiciona integração nativa com o Cluster de Bruxo por `do_action( 'forja_d20_cluster_slot', 'bruxo', 'voldemort' )` após o template da build.
+- Preserva fallback desacoplado: sem o plugin Clusters ativo, a Build continua funcionando normalmente.
+- Hero Voldemort: neutraliza padding/gap herdados do tema e corrige o enquadramento da arte no desktop.
+- Hero Voldemort: consolida comportamento responsivo em tablet/mobile, removendo faixas vazias antes/depois da arte e preservando `object-fit: cover`.
+- Não altera conteúdo mecânico, níveis 1–20, shortcode principal, Home, Hub de Builds ou votação.
+
 2.3.25 - 2026-10-02
 - Home: adiciona o banner de "Melhores Magias para Bruxo D&D 5e 2024" com arte da Maera e texto/CTA em HTML/CSS.
 - Home: "Na Forja Agora" passa para Magias → Invocações → Voldemort, mantendo três itens.
