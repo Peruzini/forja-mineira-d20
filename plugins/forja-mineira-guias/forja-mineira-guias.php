@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forja Mineira D20 — Guias
  * Description: Guias editoriais e Hub de Guias da Forja Mineira D20.
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Forja Mineira D20
  */
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FMG_VERSION', '1.2.2' );
+define( 'FMG_VERSION', '1.2.3' );
 define( 'FMG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMG_URL', plugin_dir_url( __FILE__ ) );
 

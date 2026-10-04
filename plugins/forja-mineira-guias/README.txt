@@ -1,4 +1,4 @@
-Forja Mineira D20 — Guias v1.2.2 — TESTE
+Forja Mineira D20 — Guias v1.2.3 — PRODUÇÃO
 
 SHORTCODE DO HUB
 [forja_guias_hub]
@@ -104,3 +104,15 @@ AJUSTE FINAL DA v1.2.2 — CARDS CLICÁVEIS SEM SUBLINHADO
 - Nenhuma mudança na v1.2.1 de rollback.
 
 - Hotfix de compatibilidade: remove sublinhado herdado do tema WordPress em todos os links do Hub, preservando cards inteiros clicáveis.
+
+
+NOVIDADES DA v1.2.3 — CLUSTER NATIVO EM ITENS
+- Migra a continuidade do Guia de Itens da ponte temporária do tema para o próprio plugin consumidor.
+- Remove o callout estrutural antigo `.fmg-build-callout` do Guia de Itens.
+- Remove o footer interno `.fmg-guide-footer`; o fechamento passa a usar apenas o footer global do tema.
+- Adiciona o slot nativo `do_action( 'forja_d20_cluster_slot', 'bruxo', 'itens' );` no fechamento do Guia.
+- Se o plugin Clusters estiver desativado, o Guia continua funcional e apenas o módulo de continuidade não aparece.
+- O shortcode `[forja_guia_itens_bruxo_1_5]`, a URL canônica, o Hub de Guias, o Rank Math e os assets aprovados permanecem inalterados.
+- A ponte temporária do tema foi removida após validação da integração nativa; o CSS externo de espaçamento da página foi preservado.
+- Rollback imediato: v1.2.2.
+- Integração nativa validada estrutural e visualmente antes da promoção para produção/GitHub.

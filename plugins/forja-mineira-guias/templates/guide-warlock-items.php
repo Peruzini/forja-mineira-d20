@@ -289,14 +289,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
         </div>
       </section>
 
-      <section class="fmg-build-callout">
-        <div>
-          <span>QUER VER ISSO EM UMA BUILD COMPLETA?</span>
-          <h2>Veja como essas prioridades entram em uma progressão de Bruxo do nível 1 ao 20.</h2>
-        </div>
-        <a href="/voldemort-dnd-5e-build-bruxo/">Ver Build de Bruxo →</a>
-      </section>
-
       <section class="fmg-faq">
         <div class="fmg-section-label">FAQ</div>
         <h2>Dúvidas rápidas</h2>
@@ -360,8 +352,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
     </aside>
   </div>
 
-  <footer class="fmg-guide-footer">
-    <span>FORJA MINEIRA D20</span>
-    <p>Guia editorial para D&amp;D 5e 2024. Disponibilidade de itens mágicos depende da campanha e do Mestre.</p>
-  </footer>
+  <?php
+  /**
+   * Slot estrutural do cluster de Bruxo. O plugin Clusters decide o conteúdo.
+   * Sem Clusters ativo, do_action() não produz saída e o Guia continua funcional.
+   */
+  do_action( 'forja_d20_cluster_slot', 'bruxo', 'itens' );
+  ?>
 </article>
