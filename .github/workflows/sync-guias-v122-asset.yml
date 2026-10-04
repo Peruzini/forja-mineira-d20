@@ -1,0 +1,33 @@
+name: One-time sync Guias v1.2.2 asset
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-guias-v122-asset.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download approved Elyra asset
+        run: |
+          set -euo pipefail
+          mkdir -p plugins/forja-mineira-guias/assets/images
+          curl -fL --retry 3 --retry-delay 2             -o plugins/forja-mineira-guias/assets/images/elyra-guia-magias-portal-aprovada.webp             https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guias/assets/images/elyra-guia-magias-portal-aprovada.webp
+          echo "1caf2e994fab7513177e9b5f311fe64b706c0cc4eb92a888f50ad2e66ab0fb14  plugins/forja-mineira-guias/assets/images/elyra-guia-magias-portal-aprovada.webp" | sha256sum -c -
+
+      - name: Commit asset and remove one-time workflow
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugins/forja-mineira-guias/assets/images/elyra-guia-magias-portal-aprovada.webp
+          git rm .github/workflows/sync-guias-v122-asset.yml
+          git commit -m "assets: sync Elyra guide card for Guias v1.2.2"
+          git push
