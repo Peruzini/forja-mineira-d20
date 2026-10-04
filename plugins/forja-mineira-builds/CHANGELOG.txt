@@ -1,3 +1,11 @@
+2.3.27 - 2026-10-04
+- Home: alinha verticalmente os títulos dos cards “Build Atual” e “Próxima Build” no bloco “Agora, depois e o que vem em seguida”.
+- Desktop/tablet: iguala a altura das duas áreas de arte em 390px.
+- Desktop/tablet: remove a centralização vertical exclusiva do conteúdo da Próxima Build e faz os dois blocos de texto começarem pelo topo.
+- Mobile permanece com a geometria já aprovada de 300px.
+- Não altera artes, textos, votação, links, Hub de Builds ou Build Voldemort.
+- Promovida para produção após validação visual na Home real; v2.3.26 preservada como rollback imediato.
+
 2.3.26 - 2026-10-04
 - Build Voldemort: adiciona integração nativa com o Cluster de Bruxo por `do_action( 'forja_d20_cluster_slot', 'bruxo', 'voldemort' )` após o template da build.
 - Preserva fallback desacoplado: sem o plugin Clusters ativo, a Build continua funcionando normalmente.

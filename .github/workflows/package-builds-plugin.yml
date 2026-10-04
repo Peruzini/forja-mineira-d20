@@ -15,17 +15,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Package plugin
         run: |
           mkdir -p dist
           cp -R plugins/forja-mineira-builds dist/forja-mineira-builds
           cd dist
-          zip -r forja-mineira-builds-v2.3.26.zip forja-mineira-builds
+          zip -r forja-mineira-builds-v2.3.27.zip forja-mineira-builds
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-builds-v2.3.26
-          path: dist/forja-mineira-builds-v2.3.26.zip
+          name: forja-mineira-builds-v2.3.27
+          path: dist/forja-mineira-builds-v2.3.27.zip
+          if-no-files-found: error
+
+      - name: Package v2.3.26 rollback
+        run: |
+          mkdir -p rollback
+          git archive --format=tar --prefix=forja-mineira-builds/ HEAD^:plugins/forja-mineira-builds | tar -x -C rollback
+          cd rollback
+          zip -r ../dist/forja-mineira-builds-v2.3.26-ROLLBACK.zip forja-mineira-builds
+
+      - name: Upload rollback artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-builds-v2.3.26-ROLLBACK
+          path: dist/forja-mineira-builds-v2.3.26-ROLLBACK.zip
           if-no-files-found: error

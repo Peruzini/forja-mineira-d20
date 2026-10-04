@@ -8813,3 +8813,24 @@ a.fmb-featured-guide-button:hover{
     object-position:66% 48%;
   }
 }
+
+
+/* ===== HOME v2.3.27 · ALINHAMENTO DOS CARDS DO CICLO ===== */
+/* Desktop/tablet: Build Atual e Próxima Build passam a iniciar o conteúdo textual
+   na mesma linha visual. Mobile preserva a geometria aprovada de 300px. */
+@media(min-width:761px){
+  .fmb-build-cycle .fmb-cycle-current-media,
+  .fmb-build-cycle .fmb-cycle-current-media img,
+  .fmb-build-cycle .fmb-cycle-next-media,
+  .fmb-build-cycle .fmb-cycle-next-media img{
+    min-height:390px!important;
+    height:390px!important;
+  }
+
+  .fmb-build-cycle .fmb-cycle-current .fmb-cycle-card-copy,
+  .fmb-build-cycle .fmb-cycle-next .fmb-cycle-card-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:flex-start!important;
+  }
+}
