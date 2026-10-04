@@ -1,5 +1,49 @@
 Forja Mineira D20 — Guia de Invocações
 
+1.3.8 — 2026-10-04
+- Reintegração do Cluster de Bruxo na base corrigida v1.3.7.
+- Hook: `do_action( 'forja_d20_cluster_slot', 'bruxo', 'invocacoes' );`
+- Slot inserido após o último mini build.
+- Nenhuma outra alteração visual ou funcional.
+- Promovida para produção após validação visual/estrutural no WordPress.
+- v1.3.0 preservada como rollback estável de produção; v1.3.7 TESTE permanece apenas como histórico de desenvolvimento.
+
+1.3.7 TESTE — 2026-10-03
+- Correção única nos mini builds embutidos.
+- Remove `min-height:100vh` dos HTMLs internos (2 ocorrências).
+- Aplica `min-height:0!important; height:auto!important`.
+- Mantém o `resizeFrame()` existente e todo o restante inalterado.
+- Cluster ainda não reinserido.
+
+1.3.6 TESTE — 2026-10-03
+- Correção única no fechamento dos mini builds.
+- Remove `margin-bottom:48px` dos wrappers internos (5 ocorrências).
+- Reduz apenas o padding inferior de `.fmgi-final-mini .hub` para 6px.
+- Nenhuma outra alteração.
+- Cluster ainda não reinserido.
+
+1.3.5 TESTE — 2026-10-03
+- Corrige o vazio residual abaixo do último mini build.
+- `resizeFrame()` passa a reduzir o iframe antes de medir `scrollHeight`, permitindo altura real do conteúdo.
+- Remove apenas padding/margem inferior do shell e wrappers da página do Guia.
+- Template e imagens preservados.
+- Cluster ainda não reinserido.
+
+1.3.4 TESTE — 2026-10-03
+- Baseada na v1.3.3 TESTE validada.
+- Remove o footer interno redundante do plugin.
+- Reduz apenas o padding inferior antes do footer real do tema.
+- Mantém filtros 12/15/18 corrigidos.
+- Cluster ainda não reinserido.
+- Todo o conteúdo acima do fechamento permanece preservado.
+
+1.3.3 TESTE — 2026-10-03
+- Baseada diretamente na v1.3.0 correta.
+- Remove os dois blocos finais aprovados antes da futura reintegração do Cluster.
+- Corrige a quebra visual dos níveis 12, 15 e 18 no filtro.
+- Nenhuma alteração no Cluster; ele ainda não foi reinserido nesta candidata.
+- Restante do Guia preservado.
+
 1.3.0 — 2026-09-26
 - Nova versão visual consolidada do guia.
 - Mini builds finais integradas em seletor manual.

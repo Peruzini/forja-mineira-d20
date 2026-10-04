@@ -1559,7 +1559,7 @@
 .fmgi-final-mini{--cream:#efe6d5;--gold:#d2a04d;--ink:#211a14;box-sizing:border-box;margin:0;background:radial-gradient(circle at 18% 8%,rgba(255,255,255,.72),transparent 25%),linear-gradient(rgba(244,235,218,.94),rgba(244,235,218,.94));color:var(--ink);font-family:Arial,Helvetica,sans-serif;border-radius:24px;overflow:hidden}
 .fmgi-final-mini *{box-sizing:border-box}
 
-.fmgi-final-mini .hub{max-width:1880px;margin:0 auto;padding:18px}
+.fmgi-final-mini .hub{max-width:1880px;margin:0 auto;padding:18px 18px 6px;}
 .fmgi-final-mini .hub-nav{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:12px;margin-bottom:18px;
@@ -1624,3 +1624,55 @@
     width:calc(100vw - 20px);
   }
 }
+
+/* v1.3.3 TESTE — correção cirúrgica dos níveis de dois dígitos.
+   Mantém a geometria do filtro; apenas impede 12/15/18 de quebrarem em duas linhas. */
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="12"],
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="15"],
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="18"]{
+  width:38px!important;
+  min-width:38px!important;
+}
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="12"] b,
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="15"] b,
+.fmgi-filter-panel-v16 .fmgi-level-ruler--compact button[data-fmgi-level-filter="18"] b{
+  width:38px!important;
+  min-width:38px!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  white-space:nowrap!important;
+  flex-wrap:nowrap!important;
+}
+
+/* v1.3.4 TESTE — fechamento compacto.
+   Altera somente o espaço inferior do shell; nenhuma geometria interna acima é modificada. */
+.fmgi-guide .fmgi-shell{
+  padding-bottom:24px!important;
+}
+@media(max-width:760px){
+  .fmgi-guide .fmgi-shell{
+    padding-bottom:20px!important;
+  }
+}
+
+/* v1.3.5 TESTE — remove somente o vazio residual após o último mini build.
+   1) o iframe passa a ser dimensionado pelo JS ao conteúdo real;
+   2) elimina padding/margem inferior do contêiner do shortcode/página.
+   Nenhuma largura, proporção, arte ou geometria interna dos blocos é alterada. */
+.fmgi-guide .fmgi-shell{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+
+.fmgi-guide-page .wp-block-shortcode:has(.fmgi-guide),
+.fmgi-guide-page .wp-block-post-content:has(.fmgi-guide),
+.fmgi-guide-page .entry-content:has(.fmgi-guide){
+  margin-bottom:0!important;
+  padding-bottom:0!important;
+}
+
+.fmgi-guide-page .site-main > article:has(.fmgi-guide){
+  margin-bottom:0!important;
+  padding-bottom:0!important;
+}
+

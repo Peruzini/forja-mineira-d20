@@ -15,7 +15,7 @@ Site: https://forjamineirad20.com.br/
 
 - **Forja Mineira — Builds:** v2.3.26
 - **Forja Mineira D20 — Guias:** v1.2.4
-- **Forja Mineira D20 — Guia de Invocações:** v1.3.0
+- **Forja Mineira D20 — Guia de Invocações:** v1.3.8
 - **Forja Mineira D20 — Guia de Magias:** v1.0.6
 
 ## Estado operacional em 04/10/2026
@@ -23,7 +23,7 @@ Site: https://forjamineirad20.com.br/
 O GitHub mantém as versões canônicas de produção. Candidatas TESTE ativas no WordPress continuam fora do `main` até promoção explícita.
 
 - **Builds:** GitHub/produção canônica em v2.3.26; v2.3.25 preservada como rollback imediato. A Build Voldemort integra o Clusters nativamente.
-- **Guia de Invocações:** GitHub/produção canônica em v1.3.0; v1.3.8 TESTE está ativa no WordPress e validada com Clusters.
+- **Guia de Invocações:** GitHub/produção canônica em v1.3.8; integração nativa do Cluster aprovada e v1.3.0 preservada como rollback estável imediato.
 - **Guia de Magias:** GitHub/produção canônica em v1.0.6; integração nativa do Cluster aprovada e v1.0.5 preservada como rollback imediato.
 - **Clusters:** v1.0.5 TESTE está ativo no WordPress para integração gradual, mas ainda não foi promovido para o GitHub.
 - **Guias / Itens:** plugin Guias v1.2.4 em produção/GitHub; preserva a integração nativa do Cluster em Itens e consolida no próprio plugin o padrão visual da navegação geral do Hub. v1.2.3 é o rollback imediato.
@@ -92,7 +92,7 @@ Guia de **D&D 5e 2024** organizado por nível, estilo e função, com filtros, a
 - Pacto do Tomo (Pact of the Tome)
 - Pacto da Corrente (Pact of the Chain)
 
-A versão v1.3.0 usa a arquitetura compacta final das quatro mini-builds, com seletor manual e um painel principal por vez.
+A versão v1.3.8 preserva a arquitetura compacta das quatro mini-builds, corrige o fechamento responsivo e integra nativamente o Cluster de Bruxo após o último mini build.
 
 ### Guia de Magias para Bruxo
 

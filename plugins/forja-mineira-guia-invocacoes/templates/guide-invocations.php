@@ -248,7 +248,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 *{box-sizing:border-box}
 html,body{margin:0;background:#efe6d5;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 body{
-  min-height:100vh;
+  min-height:0!important;height:auto!important;
   background:
     radial-gradient(circle at 18% 8%,rgba(255,255,255,.76),transparent 25%),
     linear-gradient(rgba(244,235,218,.92),rgba(244,235,218,.92)),
@@ -592,7 +592,7 @@ body{background:transparent!important}
 .head{margin-left:4.8%!important;transform:translateY(-2px)!important;}
 
 /* FORJA: mesma caixa de página da referência Corrente */
-.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 48px!important;padding:0!important;}
+.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 0!important;padding:0!important;}
 @media(min-width:761px){.title-band,.title{width:424px!important;min-width:0!important;max-width:100%!important;}}
 
 /* FORJA: calibração final do cabeçalho */
@@ -814,7 +814,7 @@ body{background:transparent!important}
 .head{margin-left:7%!important;transform:none!important;}
 
 /* FORJA: mesma caixa de página da referência Corrente */
-.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 48px!important;padding:0!important;}
+.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 0!important;padding:0!important;}
 @media(min-width:761px){.title-band,.title{width:424px!important;min-width:0!important;max-width:100%!important;}}
 
 /* FORJA: calibração final do cabeçalho */
@@ -897,7 +897,7 @@ body{background:transparent!important}
 *{box-sizing:border-box}
 html,body{margin:0;background:#efe6d5;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 body{
-  min-height:100vh;
+  min-height:0!important;height:auto!important;
   background:
     radial-gradient(circle at 18% 8%,rgba(255,255,255,.76),transparent 25%),
     linear-gradient(rgba(244,235,218,.92),rgba(244,235,218,.92)),
@@ -1241,7 +1241,7 @@ body{background:transparent!important}
 .head{margin-left:4.8%!important;transform:translateY(-2px)!important;}
 
 /* FORJA: mesma caixa de página da referência Corrente */
-.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 48px!important;padding:0!important;}
+.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 0!important;padding:0!important;}
 @media(min-width:761px){.title-band,.title{width:424px!important;min-width:0!important;max-width:100%!important;}}
 
 /* FORJA: calibração final do cabeçalho */
@@ -1368,7 +1368,7 @@ body{
 }
 .wrap{
   width:min(1560px,calc(100% - 30px));
-  margin:20px auto 48px;
+  margin:20px auto 0;
 }
 
 /* seletor de estilo */
@@ -1902,7 +1902,7 @@ body{background:transparent!important}
 .headline{margin-left:4%!important;transform:none!important;}
 
 /* FORJA: mesma caixa de página da referência Corrente */
-.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 48px!important;padding:0!important;}
+.wrap{width:min(1560px,calc(100% - 30px))!important;margin:20px auto 0!important;padding:0!important;}
 @media(min-width:761px){.title-band,.title{width:424px!important;min-width:0!important;max-width:100%!important;}}
 
 /* FORJA: calibração final do cabeçalho */
@@ -1990,37 +1990,11 @@ body{background:transparent!important}
 
   </div>
 </section>
-<section class="fmgi-section fmgi-links">
-<span class="fmgi-kicker">CONTINUE NA FORJA</span>
-<h2>Use o guia dentro de uma build real.</h2>
-<div class="fmgi-link-grid">
-<a href="<?php echo esc_url( $build_url ); ?>">
-<span>BUILD COMPLETA</span>
-<strong>Voldemort — Bruxo 1–20</strong>
-<p>Veja Invocações entrando na progressão real de um personagem.</p>
-<b>Explorar build →</b>
-</a>
-<a href="<?php echo esc_url( $items_url ); ?>">
-<span>GUIA COMPLEMENTAR</span>
-<strong>Melhores Itens para Bruxo</strong>
-<p>Defesa, foco arcano, consumíveis e prioridades nos níveis iniciais.</p>
-<b>Ver guia →</b>
-</a>
-</div>
-</section>
-<section class="fmgi-method">
-<strong>Como este guia foi montado</strong>
-<p>Base mecânica: regras de Bruxo 2024 e lista oficial de Invocações. A leitura editorial considera frequência de uso, custo de oportunidade, dependência da rota, função na build e consenso de otimização. “Núcleo” significa essencial para aquele estilo, não para todo Bruxo.</p>
-<div class="fmgi-source-links">
-<a href="https://www.dndbeyond.com/sources/dnd/br-2024/character-classes" rel="nofollow noopener" target="_blank">Regras básicas 2024 — D&amp;D Beyond</a>
-<a href="https://rpgbot.net/2024-dnd/classes/warlock/invocations/" rel="nofollow noopener" target="_blank">Referência de otimização — RPGBOT</a>
-<a href="https://jogaod20.com/2024/07/06/dnd-2024-bruxo/" rel="nofollow noopener" target="_blank">Contexto brasileiro — Joga o D20</a>
-</div>
-</section>
 </main>
 </div>
-<footer class="fmgi-footer">
-<span>FORJA MINEIRA D20</span>
-<p>Guias práticos, builds completas e ferramentas para levar ideias melhores à mesa.</p>
-</footer>
+
+<?php
+do_action( 'forja_d20_cluster_slot', 'bruxo', 'invocacoes' );
+?>
+
 <div aria-hidden="true" class="fmgi-analysis-wrap" data-fmgi-analysis-wrap=""><button aria-label="Fechar análise" class="fmgi-analysis-backdrop" data-fmgi-analysis-close="" type="button"></button><aside aria-labelledby="fmgi-analysis-title" aria-modal="true" class="fmgi-analysis-drawer" role="dialog"><div class="fmgi-analysis-head"><div><span class="fmgi-analysis-kicker">ANÁLISE DA FORJA</span><h2 data-fmgi-analysis-title="" id="fmgi-analysis-title">Invocação</h2><em data-fmgi-analysis-en="">Eldritch Invocation</em></div><button aria-label="Fechar análise" class="fmgi-analysis-close" data-fmgi-analysis-close="" type="button">×</button></div><div class="fmgi-analysis-meta"><span data-fmgi-analysis-level=""></span><span data-fmgi-analysis-tier=""></span><span data-fmgi-analysis-tags=""></span></div><div class="fmgi-analysis-body"><section><h3>Por que pegar</h3><p data-fmgi-analysis-why=""></p></section><section><h3>Quando pegar</h3><p data-fmgi-analysis-when=""></p></section><section><h3>Quando evitar</h3><p data-fmgi-analysis-avoid=""></p></section><section><h3>Sinergias</h3><p data-fmgi-analysis-synergy=""></p></section><section><h3>Quando trocar</h3><p data-fmgi-analysis-swap=""></p></section></div><div class="fmgi-analysis-note">Leitura editorial da Forja: considere sempre composição do grupo, campanha e o que sua mesa realmente valoriza.</div></aside></div></article>

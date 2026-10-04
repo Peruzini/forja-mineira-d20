@@ -3,12 +3,20 @@ const panels=[...document.querySelectorAll('.hub-panel')];
 
 function resizeFrame(frame){
   try{
+    if(!frame) return;
     const d=frame.contentDocument;
     if(!d) return;
+
+    /* Permite que o frame ENCOLHA antes da medição.
+       Com a altura inicial de 900px, scrollHeight nunca ficava menor
+       que o próprio viewport do iframe, preservando um vazio no fim. */
+    frame.style.height='1px';
+
     const h=Math.max(
-      d.documentElement.scrollHeight||0,
-      d.body ? d.body.scrollHeight : 0
+      d.documentElement ? d.documentElement.scrollHeight||0 : 0,
+      d.body ? d.body.scrollHeight||0 : 0
     );
+
     if(h>100) frame.style.height=(h+4)+'px';
   }catch(e){}
 }

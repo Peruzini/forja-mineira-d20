@@ -1,0 +1,48 @@
+name: Package Forja Mineira Guia de Invocações Plugin
+
+on:
+  push:
+    paths:
+      - 'plugins/forja-mineira-guia-invocacoes/**'
+      - '.github/workflows/package-guia-invocacoes-plugin.yml'
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Package production plugin
+        run: |
+          mkdir -p dist
+          cp -R plugins/forja-mineira-guia-invocacoes dist/forja-mineira-guia-invocacoes
+          cd dist
+          zip -r forja-mineira-guia-invocacoes-v1.3.8.zip forja-mineira-guia-invocacoes
+
+      - name: Package v1.3.0 rollback
+        run: |
+          mkdir -p rollback
+          git archive --format=tar --prefix=forja-mineira-guia-invocacoes/ HEAD^:plugins/forja-mineira-guia-invocacoes | tar -x -C rollback
+          cd rollback
+          zip -r ../dist/forja-mineira-guia-invocacoes-v1.3.0-ROLLBACK.zip forja-mineira-guia-invocacoes
+
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-guia-invocacoes-v1.3.8
+          path: dist/forja-mineira-guia-invocacoes-v1.3.8.zip
+          if-no-files-found: error
+
+      - name: Upload rollback artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-guia-invocacoes-v1.3.0-ROLLBACK
+          path: dist/forja-mineira-guia-invocacoes-v1.3.0-ROLLBACK.zip
+          if-no-files-found: error
