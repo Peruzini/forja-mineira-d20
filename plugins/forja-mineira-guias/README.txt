@@ -1,4 +1,4 @@
-Forja Mineira D20 — Guias v1.2.1
+Forja Mineira D20 — Guias v1.2.2 — TESTE
 
 SHORTCODE DO HUB
 [forja_guias_hub]
@@ -19,6 +19,7 @@ REGRAS DO HUB
 - Hero mantém Classes, Spells, Feats, Backgrounds e Itens como legendas editoriais, não como botões.
 
 GUIAS ATUAIS
+- Melhores Magias para Bruxo D&D 5e 2024
 - Melhores Invocações Místicas para Bruxo
 - Melhores Itens para Bruxo nos Níveis 1–5
 
@@ -30,7 +31,7 @@ Guia de itens canônico:
 https://forjamineirad20.com.br/melhores-itens-para-bruxo-dnd-5e/
 
 Atributos opcionais:
-[forja_guias_hub invocacoes_url="" itens_url="" builds_url="" ferramentas_url=""]
+[forja_guias_hub magias_url="" invocacoes_url="" itens_url="" builds_url="" ferramentas_url=""]
 
 SHORTCODE DO GUIA DE ITENS
 [forja_guia_itens_bruxo_1_5]
@@ -74,3 +75,32 @@ VALIDAÇÃO DA v1.2.1
 3. Confirmar que o Rank Math reconhece texto, headings e links do Hub além do shortcode.
 4. Abrir /guias/ e confirmar que o visual permanece idêntico à v1.2.0.
 5. Conferir o código-fonte e garantir uma única saída de meta description/Schema sob controle do Rank Math.
+
+
+NOVIDADES DA v1.2.2 — TESTE MAGIAS
+- Adiciona “Melhores Magias para Bruxo” em “Todos os Guias”.
+- Ordem da biblioteca: Magias → Invocações → Itens.
+- Nova arte aprovada da Elyra abrindo um portal, sem texto rasterizado.
+- Categoria “Magias” entra automaticamente nos filtros derivados da biblioteca.
+- Guia em Destaque permanece Invocações Místicas com Maera, sem alteração.
+- Bloco final “Continue na Forja” e seus links permanecem inalterados.
+- Integração do Hub com Rank Math passa a considerar também o Guia de Magias.
+- Esta é uma candidata de TESTE; não substitui automaticamente a v1.2.1.
+- Rollback seguro: forja-mineira-guias-v1.2.1-ROLLBACK.zip.
+
+
+AJUSTE DE INTERAÇÃO — CANDIDATA v1.2.2
+- O banner inteiro de “Guia em Destaque” passa a ser clicável e leva ao Guia de Invocações.
+- Cada card de “Todos os Guias” passa a ser um único link acessível para o respectivo guia.
+- “Ler guia →” permanece como CTA visual, sem link aninhado.
+- Hover/focus do card inteiro reforça a interação com borda, elevação e zoom mínimo da arte.
+- Badges e metadados continuam informativos e não viram links independentes.
+
+AJUSTE FINAL DA v1.2.2 — CARDS CLICÁVEIS SEM SUBLINHADO
+- Banner inteiro do Guia em Destaque permanece clicável.
+- Cards de Magias, Invocações e Itens permanecem clicáveis por inteiro.
+- Remove sublinhados herdados do tema WordPress em títulos, descrição, edição, metadados e CTAs internos.
+- Mantém hover, foco por teclado, bordas, botões e identidade visual do Hub.
+- Nenhuma mudança na v1.2.1 de rollback.
+
+- Hotfix de compatibilidade: remove sublinhado herdado do tema WordPress em todos os links do Hub, preservando cards inteiros clicáveis.

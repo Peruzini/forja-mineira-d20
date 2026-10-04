@@ -13,10 +13,21 @@ Site: https://forjamineirad20.com.br/
 
 ## Versões atuais
 
-- **Forja Mineira — Builds:** v2.3.24
-- **Forja Mineira D20 — Guias:** v1.2.1
+- **Forja Mineira — Builds:** v2.3.25
+- **Forja Mineira D20 — Guias:** v1.2.2
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
 - **Forja Mineira D20 — Guia de Magias:** v1.0.5
+
+## Estado operacional em 04/10/2026
+
+O GitHub mantém as versões canônicas de produção. Candidatas TESTE ativas no WordPress continuam fora do `main` até promoção explícita.
+
+- **Guia de Invocações:** GitHub/produção canônica em v1.3.0; v1.3.8 TESTE está ativa no WordPress e validada com Clusters.
+- **Guia de Magias:** GitHub/produção canônica em v1.0.5; v1.0.6 TESTE permanece em validação no WordPress.
+- **Clusters:** v1.0.5 TESTE está ativo no WordPress para integração gradual, mas ainda não foi promovido para o GitHub.
+- **Guia de Itens:** o plugin Guias permanece em v1.2.2. A integração atual com Clusters foi publicada por uma ponte temporária no tema, sem bump de versão do plugin.
+- **Rollback do tema:** `forja-mineira-d20-wpvibe-backup`.
+- **Próximo consumidor do Cluster:** Voldemort.
 
 ## URLs canônicas consolidadas
 
@@ -88,8 +99,9 @@ Guia de **D&D 5e 2024** com 94 magias auditadas, Hero editorial, filtros e paine
 
 ### Hub de Guias
 
-O plugin de Guias v1.2.1 inclui o Hub publicado e validado no WordPress por meio de `[forja_guias_hub]`, com integração de análise ao Rank Math, atualmente destacando:
+O plugin de Guias v1.2.2 inclui o Hub publicado e validado no WordPress por meio de `[forja_guias_hub]`, com integração ao Rank Math, cards e banner de destaque inteiros clicáveis e o Guia de Magias incorporado em `Todos os Guias`. Atualmente destaca:
 
+- Melhores Magias para Bruxo
 - Melhores Invocações Místicas para Bruxo
 - Melhores Itens para Bruxo nos Níveis 1–5
 

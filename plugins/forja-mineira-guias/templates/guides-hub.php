@@ -48,7 +48,10 @@ $guide_count = count( $hub_guides );
   </header>
 
   <section class="fmg-guides-hub__featured" aria-labelledby="fmg-featured-title">
-    <article class="fmg-guides-hub__featured-card">
+    <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;"
+      class="fmg-guides-hub__featured-card"
+      href="<?php echo esc_url( $hub_invocations_url ); ?>"
+      aria-label="Abrir guia: Melhores Invocações Místicas para Bruxo">
       <img class="fmg-guides-hub__featured-art" src="<?php echo esc_url( $hub_assets['featured'] ); ?>" alt="" aria-hidden="true" decoding="async">
       <span class="fmg-guides-hub__featured-overlay" aria-hidden="true"></span>
 
@@ -77,11 +80,11 @@ $guide_count = count( $hub_guides );
           </span>
         </div>
 
-        <a class="fmg-guides-hub__featured-cta" href="<?php echo esc_url( $hub_invocations_url ); ?>">
+        <span class="fmg-guides-hub__featured-cta">
           Ler guia <span aria-hidden="true">→</span>
-        </a>
+        </span>
       </div>
-    </article>
+    </a>
   </section>
 
   <div class="fmg-guides-hub__transition" aria-hidden="true"></div>
@@ -155,8 +158,10 @@ $guide_count = count( $hub_guides );
 
       <div class="fmg-guides-hub__guide-grid" id="guideGrid">
         <?php foreach ( $hub_guides as $guide ) : ?>
-          <article
+          <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;"
             class="fmg-guides-hub__guide-card"
+            href="<?php echo esc_url( $guide['url'] ); ?>"
+            aria-label="Abrir guia: <?php echo esc_attr( $guide['title'] ); ?>"
             data-title="<?php echo esc_attr( $guide['title'] ); ?>"
             data-system="<?php echo esc_attr( $guide['system'] ); ?>"
             data-category="<?php echo esc_attr( $guide['category'] ); ?>"
@@ -190,11 +195,11 @@ $guide_count = count( $hub_guides );
                 </span>
               </div>
 
-              <a class="fmg-guides-hub__guide-cta" href="<?php echo esc_url( $guide['url'] ); ?>">
+              <span class="fmg-guides-hub__guide-cta">
                 Ler guia <span aria-hidden="true">→</span>
-              </a>
+              </span>
             </div>
-          </article>
+          </a>
         <?php endforeach; ?>
       </div>
 
@@ -215,7 +220,7 @@ $guide_count = count( $hub_guides );
       </header>
 
       <div class="fmg-guides-hub__end-grid">
-        <a class="fmg-guides-hub__end-card" href="<?php echo esc_url( $hub_builds_url ); ?>">
+        <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;" class="fmg-guides-hub__end-card" href="<?php echo esc_url( $hub_builds_url ); ?>">
           <img src="<?php echo esc_url( $hub_assets['builds'] ); ?>" alt="" aria-hidden="true">
           <span class="fmg-guides-hub__end-copy">
             <strong>Builds</strong>
@@ -224,7 +229,7 @@ $guide_count = count( $hub_guides );
           </span>
         </a>
 
-        <a class="fmg-guides-hub__end-card" href="<?php echo esc_url( $hub_tools_url ); ?>">
+        <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;" class="fmg-guides-hub__end-card" href="<?php echo esc_url( $hub_tools_url ); ?>">
           <img src="<?php echo esc_url( $hub_assets['compass'] ); ?>" alt="" aria-hidden="true">
           <span class="fmg-guides-hub__end-copy">
             <strong>Ferramentas</strong>
@@ -233,7 +238,7 @@ $guide_count = count( $hub_guides );
           </span>
         </a>
 
-        <a class="fmg-guides-hub__end-card" href="#biblioteca">
+        <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;" class="fmg-guides-hub__end-card" href="#biblioteca">
           <img src="<?php echo esc_url( $hub_assets['classes'] ); ?>" alt="" aria-hidden="true">
           <span class="fmg-guides-hub__end-copy">
             <strong>Guias de Classe</strong>
@@ -248,7 +253,7 @@ $guide_count = count( $hub_guides );
           <span>Forja Mineira D20</span>
           <strong>Quer voltar ao início da Forja?</strong>
         </div>
-        <a href="<?php echo esc_url( $hub_home_url ); ?>">Voltar ao início →</a>
+        <a style="text-decoration:none!important;text-decoration-line:none!important;text-decoration-color:transparent!important;" href="<?php echo esc_url( $hub_home_url ); ?>">Voltar ao início →</a>
       </div>
     </section>
   </main>

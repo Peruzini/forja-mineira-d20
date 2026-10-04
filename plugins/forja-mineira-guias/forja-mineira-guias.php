@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forja Mineira D20 — Guias
  * Description: Guias editoriais e Hub de Guias da Forja Mineira D20.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Forja Mineira D20
  */
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FMG_VERSION', '1.2.1' );
+define( 'FMG_VERSION', '1.2.2' );
 define( 'FMG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMG_URL', plugin_dir_url( __FILE__ ) );
 
@@ -95,6 +95,7 @@ add_shortcode( 'forja_guia_itens_bruxo_1_5', 'fmg_render_warlock_items_guide' );
 function fmg_render_guides_hub( $atts = array() ) {
     $atts = shortcode_atts(
         array(
+            'magias_url'     => '',
             'invocacoes_url' => '',
             'itens_url'      => '',
             'builds_url'     => '',
@@ -111,6 +112,13 @@ function fmg_render_guides_hub( $atts = array() ) {
         : fmg_find_page_by_shortcode(
             'forja_guia_invocacoes_bruxo_2024',
             add_query_arg( 's', 'Invocações Místicas Bruxo', home_url( '/' ) )
+        );
+
+    $hub_spells_url = ! empty( $atts['magias_url'] )
+        ? esc_url_raw( $atts['magias_url'] )
+        : fmg_find_page_by_shortcode(
+            'forja_guia_magias_bruxo_2024',
+            home_url( '/melhores-magias-para-bruxo-dd-5e-2024/' )
         );
 
     $hub_items_url = ! empty( $atts['itens_url'] )
@@ -144,10 +152,27 @@ function fmg_render_guides_hub( $atts = array() ) {
         'compass'     => $img( 'forja-bussola-institucional.webp' ),
         'featured'    => $img( 'maera-banner-referencia-aprovada.webp' ),
         'invocations' => $img( 'home-featured-guide-invocacoes.webp' ),
+        'spells_card' => $img( 'elyra-guia-magias-portal-aprovada.webp' ),
         'items_card'  => $img( 'elyra-guia-itens-card-aprovada.webp' ),
     );
 
     $hub_guides = array(
+        array(
+            'title'       => 'Melhores Magias para Bruxo',
+            'edition'     => 'D&D 5e 2024',
+            'url'         => $hub_spells_url,
+            'image'       => $hub_assets['spells_card'],
+            'image_pos'   => 'center 38%',
+            'category'    => 'Magias',
+            'class'       => 'Bruxo (Warlock)',
+            'system'      => 'D&D 5e 2024',
+            'levels'      => '1-5 6-10 11-16 17-20',
+            'styles'      => 'Dano Controle Defesa Utilidade Exploração Social',
+            'search'      => 'bruxo warlock magias spells truques pacto magia eldritch grimório níveis 2024 elyra',
+            'description' => 'Seleção de magias para Bruxo com escolhas por nível, função e uso prático em D&D 5e 2024.',
+            'meta_icon'   => $hub_assets['spells'],
+            'meta_label'  => 'Magias',
+        ),
         array(
             'title'       => 'Melhores Invocações Místicas para Bruxo',
             'edition'     => 'D&D 5e 2024',
@@ -216,6 +241,10 @@ function fmg_get_guides_hub_analysis_content() {
         'forja_guia_invocacoes_bruxo_2024',
         home_url( '/' )
     );
+    $spells_url = fmg_find_page_by_shortcode(
+        'forja_guia_magias_bruxo_2024',
+        home_url( '/melhores-magias-para-bruxo-dd-5e-2024/' )
+    );
     $items_url = home_url( '/melhores-itens-para-bruxo-dnd-5e/' );
     $builds_url = home_url( '/builds/' );
     $tools_url = home_url( '/ferramentas/' );
@@ -232,6 +261,10 @@ function fmg_get_guides_hub_analysis_content() {
 
     <h2>Biblioteca da Forja</h2>
     <p>Pesquise por conteúdo ou refine a biblioteca por categoria, nível, função e estilo de jogo.</p>
+
+    <h3>Melhores Magias para Bruxo D&amp;D 5e 2024</h3>
+    <p>Seleção de magias para Bruxo com escolhas por nível, função e uso prático em D&amp;D 5e 2024.</p>
+    <p><a href="<?php echo esc_url( $spells_url ); ?>">Ler guia de melhores magias para Bruxo</a></p>
 
     <h3>Melhores Invocações Místicas para Bruxo</h3>
     <p>As melhores Invocações Místicas organizadas por estilo de jogo, com dicas práticas e exemplos de uso.</p>
@@ -306,7 +339,7 @@ add_action( 'wp_head', function() {
     }
 
     if ( fmg_has_guides_hub() ) {
-        $description = 'Guias de RPG da Forja Mineira D20: D&D 5e 2024, Bruxo, Invocações Místicas, itens e conteúdo prático para levar direto à mesa.';
+        $description = 'Guias de RPG da Forja Mineira D20: D&D 5e 2024, Bruxo, magias, Invocações Místicas, itens e conteúdo prático para levar direto à mesa.';
         echo "\n<meta name=\"description\" content=\"" . esc_attr( $description ) . "\">\n";
 
         $data = array(

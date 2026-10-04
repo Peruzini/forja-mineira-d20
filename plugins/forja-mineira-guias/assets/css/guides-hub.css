@@ -555,7 +555,20 @@
   border:1px solid rgba(173,107,8,.42);
   border-radius:22px;
   background:#07110d;
+  color:inherit!important;
+  text-decoration:none!important;
+  cursor:pointer;
   box-shadow:0 20px 46px rgba(20,15,10,.14);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fmg-guides-hub__featured-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(224,171,80,.78);
+  box-shadow:0 24px 54px rgba(20,15,10,.20);
+}
+.fmg-guides-hub__featured-card:focus-visible{
+  outline:3px solid #d7ab59;
+  outline-offset:4px;
 }
 .fmg-guides-hub__featured-art{
   position:absolute;
@@ -564,6 +577,12 @@
   height:100%;
   object-fit:cover;
   object-position:center;
+  transition:transform .28s ease,filter .28s ease;
+}
+.fmg-guides-hub__featured-card:hover .fmg-guides-hub__featured-art,
+.fmg-guides-hub__featured-card:focus-visible .fmg-guides-hub__featured-art{
+  transform:scale(1.012);
+  filter:brightness(1.035);
 }
 .fmg-guides-hub__featured-overlay{
   position:absolute;
@@ -661,12 +680,9 @@
   text-transform:uppercase;
   box-shadow:0 8px 20px rgba(0,0,0,.18);
 }
-.fmg-guides-hub__featured-cta:hover{
-  filter:brightness(1.05);
-}
-.fmg-guides-hub__featured-cta:focus-visible{
-  outline:3px solid #f0c56f;
-  outline-offset:3px;
+.fmg-guides-hub__featured-card:hover .fmg-guides-hub__featured-cta,
+.fmg-guides-hub__featured-card:focus-visible .fmg-guides-hub__featured-cta{
+  filter:brightness(1.08);
 }
 
 @media(max-width:900px){
@@ -777,7 +793,20 @@
   border:1px solid rgba(214,180,109,.22);
   border-radius:16px;
   background:linear-gradient(180deg,#0b1410 0%, #111a15 100%);
+  color:inherit!important;
+  text-decoration:none!important;
+  cursor:pointer;
   box-shadow:0 12px 28px rgba(0,0,0,.14);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fmg-guides-hub__guide-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(224,171,80,.65);
+  box-shadow:0 17px 34px rgba(0,0,0,.22);
+}
+.fmg-guides-hub__guide-card:focus-visible{
+  outline:3px solid #d7ab59;
+  outline-offset:3px;
 }
 .fmg-guides-hub__guide-card.is-hidden{display:none}
 .fmg-guides-hub__guide-media{
@@ -790,6 +819,12 @@
   height:100%;
   object-fit:cover;
   display:block;
+  transition:transform .25s ease,filter .25s ease;
+}
+.fmg-guides-hub__guide-card:hover .fmg-guides-hub__guide-media img,
+.fmg-guides-hub__guide-card:focus-visible .fmg-guides-hub__guide-media img{
+  transform:scale(1.025);
+  filter:brightness(1.04);
 }
 .fmg-guides-hub__guide-body{
   display:flex;
@@ -852,7 +887,8 @@
   text-transform:uppercase;
   align-self:flex-start;
 }
-.fmg-guides-hub__guide-cta:hover{filter:brightness(1.05)}
+.fmg-guides-hub__guide-card:hover .fmg-guides-hub__guide-cta,
+.fmg-guides-hub__guide-card:focus-visible .fmg-guides-hub__guide-cta{filter:brightness(1.08)}
 .fmg-guides-hub__empty{
   margin-top:20px;
 }
@@ -1127,4 +1163,72 @@
     align-items:flex-start;
     flex-direction:column;
   }
+}
+
+
+/* v1.2.2 TESTE — biblioteca com três guias publicados */
+@media(min-width:1180px){
+  .fmg-guides-hub__guide-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+  .fmg-guides-hub__guide-card{
+    grid-template-columns:minmax(132px,40%) minmax(0,1fr)!important;
+    min-height:352px;
+  }
+  .fmg-guides-hub__guide-media{min-height:352px!important}
+  .fmg-guides-hub__guide-body{padding:17px 15px 15px}
+  .fmg-guides-hub__guide-body h4{font-size:21px;line-height:1.02}
+  .fmg-guides-hub__guide-body p{font-size:12px;line-height:1.45}
+  .fmg-guides-hub__guide-meta{gap:9px;margin-top:15px}
+  .fmg-guides-hub__guide-meta img{width:25px;height:25px}
+}
+@media(min-width:901px) and (max-width:1179px){
+  .fmg-guides-hub__guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+
+/* v1.2.2 TESTE — neutraliza sublinhados herdados do tema nos cards clicáveis */
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card:link,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card:visited,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card:hover,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card:focus,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card:link,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card:visited,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card:hover,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card:focus,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card:link,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card:visited,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card:hover,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card:focus,
+.fmg-guide.fmg-guides-hub .fmg-guides-hub__end-cta > a,
+.fmg-guide.fmg-guides-hub .fmg-guides-hub__end-cta > a:hover,
+.fmg-guide.fmg-guides-hub .fmg-guides-hub__end-cta > a:focus{
+  text-decoration:none!important;
+  text-decoration-line:none!important;
+  text-decoration-color:transparent!important;
+}
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__featured-card *,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__guide-card *,
+.fmg-guide.fmg-guides-hub a.fmg-guides-hub__end-card *,
+.fmg-guide.fmg-guides-hub .fmg-guides-hub__end-cta > a *{
+  text-decoration:none!important;
+  text-decoration-line:none!important;
+  text-decoration-color:transparent!important;
+}
+
+
+/* v1.2.2 hotfix — neutraliza sublinhado herdado do tema WordPress */
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a,
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a:link,
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a:visited,
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a:hover,
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a:focus,
+.fmg-guide.fmg-guides-hub[data-fmg-guides-hub] a:active{
+  text-decoration:none!important;
+  text-decoration-line:none!important;
+  text-decoration-color:transparent!important;
 }
