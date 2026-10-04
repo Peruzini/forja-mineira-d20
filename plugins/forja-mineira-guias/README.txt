@@ -1,4 +1,4 @@
-Forja Mineira D20 — Guias v1.2.3 — PRODUÇÃO
+Forja Mineira D20 — Guias v1.2.4 — PRODUÇÃO
 
 SHORTCODE DO HUB
 [forja_guias_hub]
@@ -116,3 +116,15 @@ NOVIDADES DA v1.2.3 — CLUSTER NATIVO EM ITENS
 - A ponte temporária do tema foi removida após validação da integração nativa; o CSS externo de espaçamento da página foi preservado.
 - Rollback imediato: v1.2.2.
 - Integração nativa validada estrutural e visualmente antes da promoção para produção/GitHub.
+
+
+NOVIDADES DA v1.2.4 — HUB / NAVEGAÇÃO GERAL
+- Consolida no plugin Guias o padrão visual aprovado para os cards finais Builds, Ferramentas e Guias de Classe.
+- O bloco continua sendo navegação geral do Hub e NÃO integra o Cluster semântico de Bruxo.
+- A linguagem visual é irmã do Clusters: card creme/dourado, faixa lateral, ícone em moldura, hover/focus e densidade compacta.
+- Responsividade: 3 colunas no desktop; 2 + 1 no tablet; 1 coluna compacta no mobile.
+- Reduz o padding inferior interno de .fmg-guides-hub__shell de 82 px para 32 px.
+- O tema fica responsável apenas pelo espaçamento externo da página /guias/: margem do artigo, parágrafo Gutenberg vazio e distância para o footer global.
+- Nenhuma alteração no conteúdo, URLs, Rank Math, shortcode [forja_guias_hub], cards de biblioteca ou integração nativa de Itens.
+- Promovida para PRODUÇÃO/GitHub em 04/10/2026 após validação visual do Hub com tema limpo.
+- Rollback imediato: v1.2.3.

@@ -14,7 +14,7 @@ Site: https://forjamineirad20.com.br/
 ## Versões atuais
 
 - **Forja Mineira — Builds:** v2.3.26
-- **Forja Mineira D20 — Guias:** v1.2.3
+- **Forja Mineira D20 — Guias:** v1.2.4
 - **Forja Mineira D20 — Guia de Invocações:** v1.3.0
 - **Forja Mineira D20 — Guia de Magias:** v1.0.6
 
@@ -26,7 +26,7 @@ O GitHub mantém as versões canônicas de produção. Candidatas TESTE ativas n
 - **Guia de Invocações:** GitHub/produção canônica em v1.3.0; v1.3.8 TESTE está ativa no WordPress e validada com Clusters.
 - **Guia de Magias:** GitHub/produção canônica em v1.0.6; integração nativa do Cluster aprovada e v1.0.5 preservada como rollback imediato.
 - **Clusters:** v1.0.5 TESTE está ativo no WordPress para integração gradual, mas ainda não foi promovido para o GitHub.
-- **Guia de Itens:** integração nativa do Cluster concluída no plugin Guias v1.2.3; a ponte temporária do tema foi removida e v1.2.2 ficou como rollback imediato.
+- **Guias / Itens:** plugin Guias v1.2.4 em produção/GitHub; preserva a integração nativa do Cluster em Itens e consolida no próprio plugin o padrão visual da navegação geral do Hub. v1.2.3 é o rollback imediato.
 - **Rollback do tema:** `forja-mineira-d20-wpvibe-backup`.
 - **Voldemort:** integração nativa do Cluster concluída na Builds v2.3.26. O plugin Clusters v1.0.5 continua TESTE até a auditoria/promoção final.
 
@@ -100,7 +100,7 @@ Guia de **D&D 5e 2024** com 94 magias auditadas, Hero editorial, filtros e paine
 
 ### Hub de Guias
 
-O plugin de Guias v1.2.3 inclui o Hub publicado e validado no WordPress por meio de `[forja_guias_hub]`, com integração ao Rank Math, cards e banner de destaque inteiros clicáveis, o Guia de Magias incorporado em `Todos os Guias` e integração nativa do Cluster no Guia de Itens. Atualmente destaca:
+O plugin de Guias v1.2.4 inclui o Hub publicado e validado no WordPress por meio de `[forja_guias_hub]`, com integração ao Rank Math, cards e banner de destaque inteiros clicáveis, o Guia de Magias incorporado em `Todos os Guias`, integração nativa do Cluster no Guia de Itens e navegação geral final com linguagem visual irmã do Clusters. Atualmente destaca:
 
 - Melhores Magias para Bruxo
 - Melhores Invocações Místicas para Bruxo
