@@ -8834,3 +8834,323 @@ a.fmb-featured-guide-button:hover{
     justify-content:flex-start!important;
   }
 }
+
+
+/* ===== HUB BUILDS v2.3.28 · PRODUÇÃO APROVADA ===== */
+/* Escopo restrito ao Hub de Builds. Não altera Home, Build Voldemort ou votação. */
+.fmb-hub .fmb-hub-intro{
+  padding:30px 0 18px;
+}
+
+.fmb-hub .fmb-featured-art-full{
+  aspect-ratio:2.45/1;
+  object-fit:cover;
+  object-position:center 32%;
+}
+
+.fmb-hub .fmb-featured-footer{
+  padding:22px 26px 24px;
+}
+
+.fmb-hub .fmb-build-catalog{
+  margin:40px auto 0;
+  padding-bottom:18px;
+}
+
+.fmb-hub .fmb-catalog-head{
+  gap:32px;
+  padding-bottom:17px;
+}
+
+.fmb-hub .fmb-build-grid{
+  grid-template-columns:minmax(0,1fr) minmax(280px,.43fr);
+  gap:16px;
+  margin-top:18px;
+}
+
+.fmb-hub .fmb-build-card-link{
+  grid-template-columns:40% minmax(0,60%);
+  min-height:318px;
+}
+
+.fmb-hub .fmb-build-card-body{
+  padding:24px 28px;
+}
+
+.fmb-hub .fmb-build-card--future{
+  min-height:318px;
+}
+
+.fmb-hub .fmb-future-inner{
+  padding:24px;
+}
+
+.fmb-hub .fmb-future-inner img{
+  width:74px;
+  height:74px;
+}
+
+/* Continue na Forja — padrão canônico do Hub de Builds. */
+.fmb-builds-continue{
+  width:min(1320px,calc(100% - 40px));
+  margin:14px auto 46px;
+  color:var(--hub-body);
+}
+
+.fmb-builds-divider{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  width:100%;
+  margin:5px 0 16px;
+}
+
+.fmb-builds-divider-line{
+  display:block;
+  height:1px;
+}
+
+.fmb-builds-divider-line--left{
+  background:linear-gradient(90deg,rgba(201,149,63,0) 0%,rgba(201,149,63,.28) 18%,rgba(201,149,63,.58) 72%,rgba(216,179,106,.88) 100%);
+}
+
+.fmb-builds-divider-line--right{
+  background:linear-gradient(90deg,rgba(216,179,106,.88) 0%,rgba(201,149,63,.58) 28%,rgba(201,149,63,.28) 82%,rgba(201,149,63,0) 100%);
+}
+
+.fmb-builds-divider-diamond{
+  display:grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+}
+
+.fmb-builds-divider-diamond svg{
+  display:block;
+  width:14px;
+  height:14px;
+  fill:none;
+  stroke:#c9953f;
+  stroke-width:1.2;
+  stroke-linejoin:round;
+}
+
+.fmb-builds-continue-head{
+  max-width:860px;
+  margin:0 auto 18px;
+  text-align:center;
+}
+
+.fmb-builds-continue-head .fmb-hub-eyebrow{
+  text-align:center;
+}
+
+.fmb-builds-continue-head h2{
+  margin:6px 0 0;
+  color:var(--hub-ink);
+  font-size:36px;
+  line-height:1.02;
+}
+
+.fmb-builds-continue-head p{
+  max-width:720px;
+  margin:10px auto 0;
+  color:var(--hub-muted);
+  font-size:13px;
+  line-height:1.55;
+}
+
+.fmb-builds-continue-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.fmb-builds-continue-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:82px minmax(0,1fr);
+  gap:14px;
+  align-items:center;
+  min-height:132px;
+  padding:15px 16px;
+  overflow:hidden;
+  border:1px solid #d7cfbd;
+  border-radius:15px;
+  background:#fffdfa;
+  color:inherit!important;
+  box-shadow:0 7px 20px rgba(43,34,23,.04);
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+
+.fmb-builds-continue-card:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:12px;
+  bottom:12px;
+  width:3px;
+  border-radius:3px;
+  background:linear-gradient(#b98939,#d3b36e);
+}
+
+.fmb-builds-continue-card:hover,
+.fmb-builds-continue-card:focus-visible{
+  transform:translateY(-2px);
+  border-color:#c8b68e;
+  box-shadow:0 10px 26px rgba(43,34,23,.08);
+  outline:none;
+}
+
+.fmb-builds-icon-frame{
+  display:grid;
+  place-items:center;
+  width:76px;
+  height:76px;
+  overflow:hidden;
+  border:1px solid #d9c79d;
+  border-radius:14px;
+  background:#F7F0DF;
+}
+
+.fmb-builds-icon-frame img{
+  display:block;
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  transform:scale(1.10);
+}
+
+.fmb-builds-card-copy{
+  display:block;
+  min-width:0;
+}
+
+.fmb-builds-card-kicker{
+  display:block;
+  color:var(--hub-gold);
+  font:800 8px/1.15 Arial,sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.fmb-builds-card-copy>strong{
+  display:block;
+  margin-top:4px;
+  color:var(--hub-ink);
+  font:700 20px/1.05 Georgia,"Times New Roman",serif;
+}
+
+.fmb-builds-card-copy>span:not(.fmb-builds-card-kicker){
+  display:block;
+  margin-top:6px;
+  color:var(--hub-muted);
+  font:400 11px/1.45 Arial,sans-serif;
+}
+
+.fmb-builds-card-copy>b{
+  display:block;
+  margin-top:8px;
+  color:var(--hub-green);
+  font:800 9px/1 Arial,sans-serif;
+}
+
+.fmb-builds-return-strip{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-top:12px;
+  padding:11px 14px;
+  border:1px solid #d8cfbf;
+  border-radius:12px;
+  background:#f3ede1;
+}
+
+.fmb-builds-return-strip span{
+  color:#6a5f53;
+  font:800 9px/1.2 Arial,sans-serif;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.fmb-builds-return-strip a{
+  color:var(--hub-green)!important;
+  font:800 10px/1 Arial,sans-serif;
+}
+
+@media(max-width:900px){
+  .fmb-hub .fmb-build-grid{
+    grid-template-columns:1fr;
+  }
+  .fmb-hub .fmb-build-card--future{
+    min-height:230px;
+  }
+  .fmb-builds-continue-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .fmb-builds-continue-card:last-child{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:680px){
+  .fmb-hub .fmb-hub-intro{
+    padding-top:24px;
+  }
+  .fmb-hub .fmb-featured-art-full{
+    aspect-ratio:1.2/1;
+    object-position:center 26%;
+  }
+  .fmb-hub .fmb-featured-footer{
+    padding:19px 17px 21px;
+  }
+  .fmb-hub .fmb-build-catalog{
+    margin-top:30px;
+  }
+  .fmb-hub .fmb-build-card-link{
+    grid-template-columns:1fr;
+    min-height:auto;
+  }
+  .fmb-hub .fmb-build-card-art{
+    height:260px;
+  }
+  .fmb-hub .fmb-build-card-body{
+    padding:21px 18px;
+  }
+  .fmb-builds-continue{
+    width:calc(100% - 22px);
+    margin-top:8px;
+  }
+  .fmb-builds-divider{
+    gap:7px;
+    margin:3px 0 12px;
+  }
+  .fmb-builds-continue-head h2{
+    font-size:29px;
+  }
+  .fmb-builds-continue-grid{
+    grid-template-columns:1fr;
+  }
+  .fmb-builds-continue-card:last-child{
+    grid-column:auto;
+  }
+  .fmb-builds-continue-card{
+    grid-template-columns:72px minmax(0,1fr);
+    min-height:118px;
+    padding:12px;
+  }
+  .fmb-builds-icon-frame{
+    width:66px;
+    height:66px;
+  }
+  .fmb-builds-icon-frame img{
+    width:60px;
+    height:60px;
+  }
+  .fmb-builds-return-strip{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}

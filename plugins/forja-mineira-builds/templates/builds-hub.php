@@ -9,9 +9,18 @@ $guide_url = ! empty( $hub_guide_url )
     ? $hub_guide_url
     : home_url( '/?s=Bruxo' );
 
+$guides_url = home_url( '/guias/' );
+$tools_url  = home_url( '/ferramentas/' );
+$vote_url   = home_url( '/#votacao-proxima-build' );
+$home_url   = home_url( '/' );
+
 $hero_image = FMB_URL . 'assets/images/voldemort-featured-five-stages.webp?ver=' . FMB_VERSION;
 $card_image = FMB_URL . 'assets/images/voldemort-l17-img1-bffe22434a23.webp?ver=' . FMB_VERSION;
-$mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
+$mascot     = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
+
+$icon_guides = FMB_URL . 'assets/images/forja-bussola-institucional.webp?ver=' . FMB_VERSION;
+$icon_tools  = FMB_URL . 'assets/images/regras.webp?ver=' . FMB_VERSION;
+$icon_builds = FMB_URL . 'assets/images/builds.webp?ver=' . FMB_VERSION;
 ?>
 <div class="fmb-hub" id="forja-builds">
   <section class="fmb-hub-intro">
@@ -83,9 +92,8 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
         <h2 id="fmb-catalog-title">Todas as Builds</h2>
       </div>
       <p>
-        Por enquanto, sem filtros. Quando o catálogo crescer, esta página está pronta
-        para receber filtros por <strong>classe</strong>, <strong>regras</strong>,
-        <strong>função</strong> e outros critérios.
+        Sem filtros por enquanto. Conforme o catálogo crescer, entram filtros por
+        <strong>classe</strong>, <strong>regras</strong>, <strong>função</strong> e estilo de jogo — sem ocupar espaço agora.
       </p>
     </header>
 
@@ -120,24 +128,74 @@ $mascot = FMB_URL . 'assets/images/pao-de-queijo-d20.png?ver=' . FMB_VERSION;
           <img src="<?php echo esc_url( $mascot ); ?>" alt="">
           <span>PRÓXIMAS FORJAS</span>
           <h3>Mais builds estão chegando</h3>
-          <p>
-            Quando o catálogo crescer, novos personagens entram aqui sem precisar
-            redesenhar a página.
-          </p>
+          <p>Novos personagens entram aqui conforme o catálogo crescer.</p>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="fmb-hub-future">
-    <div class="fmb-hub-future-copy">
-      <span class="fmb-hub-eyebrow">PRÓXIMA EVOLUÇÃO</span>
-      <h2>Filtros quando houver catálogo para filtrar</h2>
+  <section class="fmb-builds-continue" aria-labelledby="fmb-builds-continue-title">
+    <div class="fmb-builds-divider" aria-hidden="true">
+      <span class="fmb-builds-divider-line fmb-builds-divider-line--left"></span>
+      <span class="fmb-builds-divider-diamond">
+        <svg viewBox="0 0 16 16" focusable="false" aria-hidden="true">
+          <path d="M8 1.5 14.5 8 8 14.5 1.5 8Z"/>
+          <path d="M8 5 11 8 8 11 5 8Z"/>
+        </svg>
+      </span>
+      <span class="fmb-builds-divider-line fmb-builds-divider-line--right"></span>
+    </div>
+
+    <header class="fmb-builds-continue-head">
+      <span class="fmb-hub-eyebrow">CONTINUE NA FORJA</span>
+      <h2 id="fmb-builds-continue-title">A build é só o começo</h2>
       <p>
-        A estrutura já fica preparada para, depois, separar por Classe,
-        D&D 5e 2014 / 2024, função da build, estilo de jogo e nível de complexidade.
-        Por enquanto, mantemos a experiência limpa e focada nas builds disponíveis.
+        Depois da progressão, continue por guias, ferramentas e pela escolha da próxima
+        personagem a entrar na Forja.
       </p>
+    </header>
+
+    <div class="fmb-builds-continue-grid">
+      <a class="fmb-builds-continue-card" href="<?php echo esc_url( $guides_url ); ?>">
+        <span class="fmb-builds-icon-frame">
+          <img src="<?php echo esc_url( $icon_guides ); ?>" alt="" loading="lazy" decoding="async">
+        </span>
+        <span class="fmb-builds-card-copy">
+          <span class="fmb-builds-card-kicker">NAVEGAÇÃO</span>
+          <strong>Guias</strong>
+          <span>Classes, magias, itens e decisões de personagem reunidos em um só lugar.</span>
+          <b>Explorar Guias →</b>
+        </span>
+      </a>
+
+      <a class="fmb-builds-continue-card" href="<?php echo esc_url( $tools_url ); ?>">
+        <span class="fmb-builds-icon-frame">
+          <img src="<?php echo esc_url( $icon_tools ); ?>" alt="" loading="lazy" decoding="async">
+        </span>
+        <span class="fmb-builds-card-copy">
+          <span class="fmb-builds-card-kicker">UTILIDADES</span>
+          <strong>Ferramentas</strong>
+          <span>Calculadoras e recursos rápidos para usar antes e durante a mesa.</span>
+          <b>Ver Ferramentas →</b>
+        </span>
+      </a>
+
+      <a class="fmb-builds-continue-card" href="<?php echo esc_url( $vote_url ); ?>">
+        <span class="fmb-builds-icon-frame">
+          <img src="<?php echo esc_url( $icon_builds ); ?>" alt="" loading="lazy" decoding="async">
+        </span>
+        <span class="fmb-builds-card-copy">
+          <span class="fmb-builds-card-kicker">PRÓXIMA FORJA</span>
+          <strong>Escolha a próxima Build</strong>
+          <span>Ajude a decidir qual personagem será o próximo a ganhar uma progressão completa.</span>
+          <b>Ir para a votação →</b>
+        </span>
+      </a>
+    </div>
+
+    <div class="fmb-builds-return-strip">
+      <span>Forja Mineira D20 · Quer voltar ao início da Forja?</span>
+      <a href="<?php echo esc_url( $home_url ); ?>">Voltar ao início →</a>
     </div>
   </section>
 </div>

@@ -7,6 +7,11 @@ on:
       - '.github/workflows/package-builds-plugin.yml'
   workflow_dispatch:
 
+env:
+  PLUGIN_VERSION: '2.3.28'
+  ROLLBACK_VERSION: '2.3.27'
+  ROLLBACK_REF: 'a4ab07beb1b2a095938eb05e99fe0d5f1e895b37'
+
 jobs:
   package:
     runs-on: ubuntu-latest
@@ -16,32 +21,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Package plugin
         run: |
           mkdir -p dist
           cp -R plugins/forja-mineira-builds dist/forja-mineira-builds
           cd dist
-          zip -r forja-mineira-builds-v2.3.27.zip forja-mineira-builds
+          zip -r "forja-mineira-builds-v${PLUGIN_VERSION}.zip" forja-mineira-builds
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-builds-v2.3.27
-          path: dist/forja-mineira-builds-v2.3.27.zip
+          name: forja-mineira-builds-v${{ env.PLUGIN_VERSION }}
+          path: dist/forja-mineira-builds-v${{ env.PLUGIN_VERSION }}.zip
           if-no-files-found: error
 
-      - name: Package v2.3.26 rollback
+      - name: Package rollback
         run: |
           mkdir -p rollback
-          git archive --format=tar --prefix=forja-mineira-builds/ HEAD^:plugins/forja-mineira-builds | tar -x -C rollback
+          git archive --format=tar --prefix=forja-mineira-builds/ "${ROLLBACK_REF}:plugins/forja-mineira-builds" | tar -x -C rollback
           cd rollback
-          zip -r ../dist/forja-mineira-builds-v2.3.26-ROLLBACK.zip forja-mineira-builds
+          zip -r "../dist/forja-mineira-builds-v${ROLLBACK_VERSION}-ROLLBACK.zip" forja-mineira-builds
 
       - name: Upload rollback artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-builds-v2.3.26-ROLLBACK
-          path: dist/forja-mineira-builds-v2.3.26-ROLLBACK.zip
+          name: forja-mineira-builds-v${{ env.ROLLBACK_VERSION }}-ROLLBACK
+          path: dist/forja-mineira-builds-v${{ env.ROLLBACK_VERSION }}-ROLLBACK.zip
           if-no-files-found: error

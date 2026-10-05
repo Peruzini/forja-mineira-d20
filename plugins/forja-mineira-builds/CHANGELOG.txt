@@ -1,3 +1,13 @@
+2.3.28 - 2026-10-05
+- Hub de Builds aprovado visualmente no WordPress real e promovido para produção.
+- Reduz espaços verticais do intro, catálogo e cards.
+- Amplia levemente a área panorâmica do destaque e desce o enquadramento para preservar “Tom Riddle” sem cortar o texto inferior da arte.
+- Remove o bloco público “Próxima evolução / filtros”.
+- Adiciona seção “Continue na Forja” com Guias, Ferramentas e votação da próxima Build.
+- Usa ícones oficiais da Biblioteca em WebP otimizado, sem alteração visual.
+- Consolida o divisor aprovado: linha esquerda + dois losangos concêntricos centrais + linha direita, com fade apenas nas pontas externas.
+- v2.3.27 passa a ser o rollback imediato.
+
 2.3.27 - 2026-10-04
 - Home: alinha verticalmente os títulos dos cards “Build Atual” e “Próxima Build” no bloco “Agora, depois e o que vem em seguida”.
 - Desktop/tablet: iguala a altura das duas áreas de arte em 390px.
