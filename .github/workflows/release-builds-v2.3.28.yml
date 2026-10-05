@@ -1,0 +1,38 @@
+name: Release Forja Mineira Builds v2.3.28
+
+on:
+  push:
+    branches:
+      - release-builds-v2.3.28
+    paths:
+      - '.github/workflows/release-builds-v2.3.28.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production commit
+        uses: actions/checkout@v4
+        with:
+          ref: 97082b8215052322047e91eb59c7c59450995e49
+
+      - name: Package production plugin
+        run: |
+          mkdir -p dist
+          cp -R plugins/forja-mineira-builds dist/forja-mineira-builds
+          cd dist
+          zip -r forja-mineira-builds-v2.3.28.zip forja-mineira-builds
+
+      - name: Publish release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view builds-v2.3.28 >/dev/null 2>&1 || \
+            gh release create builds-v2.3.28 \
+              --target 97082b8215052322047e91eb59c7c59450995e49 \
+              --title "Forja Mineira Builds v2.3.28" \
+              --notes "Produção aprovada em 05/10/2026. Rollback imediato: v2.3.27."
+          gh release upload builds-v2.3.28 dist/forja-mineira-builds-v2.3.28.zip --clobber
