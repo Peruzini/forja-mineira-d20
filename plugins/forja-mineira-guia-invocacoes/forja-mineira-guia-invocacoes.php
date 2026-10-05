@@ -3,14 +3,14 @@
  * Plugin Name: Forja Mineira D20 — Guia de Invocações
  * Plugin URI: https://forjamineirad20.com.br/
  * Description: Guia editorial das melhores Invocações Místicas para Bruxo em D&D 5e 2024, organizado por nível, função e mini builds navegáveis.
- * Version: 1.3.9-TESTE
+ * Version: 1.3.9
  * Author: Forja Mineira D20
  * Text Domain: forja-mineira-guia-invocacoes
  */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'FMGI_VERSION', '1.3.9-TESTE' );
+define( 'FMGI_VERSION', '1.3.9' );
 define( 'FMGI_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMGI_URL', plugin_dir_url( __FILE__ ) );
 
