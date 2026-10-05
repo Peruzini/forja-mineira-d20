@@ -4,10 +4,21 @@ Tags: dnd, dungeons-and-dragons, build, warlock, rpg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.3.27
+Stable tag: 2.3.28
 License: GPLv2 or later
 
 Build completa 1–20 para o Forja Mineira D20.
+
+
+== 2.3.28 — PRODUÇÃO ==
+- Hub de Builds aprovado visualmente no WordPress real e promovido para produção em 05/10/2026.
+- Hub de Builds: reduz espaços verticais excessivos sem alterar Home ou Build Voldemort.
+- Arte panorâmica do destaque ganha mais altura e enquadramento inferior para preservar “Tom Riddle” e o texto da composição.
+- Remove do Hub o bloco editorial público “Próxima evolução / filtros”.
+- Adiciona “Continue na Forja” com Guias, Ferramentas e Escolha a próxima Build.
+- Usa ícones oficiais da Biblioteca, empacotados em WebP otimizado sem alteração visual: forja-bussola-institucional.webp, regras.webp e builds.webp.
+- Divisor canônico: linha fina esquerda + dois losangos concêntricos no centro + linha fina direita, com fade somente nas extremidades externas.
+- v2.3.27 passa a ser o rollback imediato.
 
 == 2.3.27 — PRODUÇÃO ==
 - Ajuste isolado na Home para alinhar o início dos títulos “Voldemort — Bruxo 1–20” e “Você consegue descobrir quem é?”.
@@ -18,7 +29,7 @@ Build completa 1–20 para o Forja Mineira D20.
 
 == Instalação ==
 1. No WordPress: Plugins > Adicionar plugin > Enviar plugin.
-2. Envie o ZIP forja-mineira-builds-v2.3.27-PRODUCAO.zip.
+2. Envie o ZIP forja-mineira-builds-v2.3.28-PRODUCAO.zip.
 3. Se a versão anterior estiver instalada, use a opção do WordPress para substituir a versão atual pela enviada.
 4. Ative o plugin.
 5. Na página da build, use:
