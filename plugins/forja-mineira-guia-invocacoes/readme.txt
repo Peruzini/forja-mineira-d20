@@ -1,4 +1,4 @@
-Forja Mineira D20 — Guia de Invocações v1.3.9-TESTE
+Forja Mineira D20 — Guia de Invocações v1.3.9 — PRODUÇÃO
 
 Shortcode:
 [forja_guia_invocacoes_bruxo_2024]
@@ -79,10 +79,11 @@ Atualização 1.3.8 — PRODUÇÃO:
 - integração nativa do Cluster aprovada no WordPress em 04/10/2026.
 
 
-Atualização 1.3.9 TESTE:
+Atualização 1.3.9 — PRODUÇÃO:
 - parte diretamente da v1.3.8 de produção;
 - corrige somente o hover do CTA "QUANDO VALE?" nos cards do catálogo;
 - remove qualquer fundo/borda/transformação verde no hover para impedir sobreposição visual sobre o texto;
 - preserva apenas mudança de cor + sublinhado do CTA;
 - não altera conteúdo, filtros, análises, mini builds, Cluster, imagens ou JavaScript;
-- v1.3.8 permanece como produção e rollback imediato enquanto esta candidata é validada.
+- validada visualmente no WordPress em 05/10/2026;
+- v1.3.8 passa a ser o rollback imediato de produção.
