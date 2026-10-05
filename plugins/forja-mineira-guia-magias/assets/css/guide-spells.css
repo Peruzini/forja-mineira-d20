@@ -998,6 +998,7 @@
   font-size:32px;
   line-height:1.06;
   color:var(--ink);
+}
 
 /* --- v1.0.7: painel canônico compacto aprovado --- */
 @media (min-width:821px){
@@ -1105,4 +1106,39 @@
   .fmmg-guide .detail-title-block h2{margin:0 !important}
   .fmmg-guide .school-inline{white-space:normal !important}
   .fmmg-guide .detail .en-name{margin-top:3px !important;font-size:10.5px !important}
+}
+
+
+/* --- v1.0.8: restaura estrutura dos cards mestre–detalhe --- */
+@media (min-width:821px){
+  .fmmg-guide .detail-wrap{
+    align-items:flex-start;
+  }
+
+  .fmmg-guide .fmmg-detail-card{
+    width:100%;
+    margin:0;
+  }
+
+  .fmmg-guide .detail{
+    min-height:0 !important;
+    max-height:none !important;
+    height:auto !important;
+  }
+
+  .fmmg-guide .master{
+    margin:10px 0 12px 12px;
+    border:1px solid #d7cfbd;
+    border-radius:16px;
+    background:#fffefa;
+    overflow:hidden;
+  }
+
+  .fmmg-guide .master-head{
+    background:#fbf8f1;
+  }
+
+  .fmmg-guide .spell-list{
+    background:#fffefa;
+  }
 }
