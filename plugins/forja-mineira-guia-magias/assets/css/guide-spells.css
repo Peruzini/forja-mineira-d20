@@ -998,3 +998,111 @@
   font-size:32px;
   line-height:1.06;
   color:var(--ink);
+
+/* --- v1.0.7: painel canônico compacto aprovado --- */
+@media (min-width:821px){
+  .fmmg-guide .fmmg-detail-card{
+    padding-top:5px !important;
+    padding-bottom:6px !important;
+  }
+  .fmmg-guide .detail{
+    padding:4px 10px 6px !important;
+    overflow:hidden !important;
+  }
+  .fmmg-guide .detail-top{
+    align-items:start !important;
+    gap:8px !important;
+    padding-top:0 !important;
+    padding-bottom:4px !important;
+  }
+  .fmmg-guide .detail-title-block{
+    align-self:start !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  .fmmg-guide .detail-title-block h2{
+    margin:0 !important;
+    padding:0 !important;
+    line-height:.98 !important;
+  }
+  .fmmg-guide .school-inline{
+    font-size:.60em !important;
+    font-weight:700 !important;
+    color:#59645f !important;
+    white-space:nowrap !important;
+  }
+  .fmmg-guide .detail .en-name{
+    margin-top:2px !important;
+    font-size:10.5px !important;
+    line-height:1.05 !important;
+    color:#66706b !important;
+    font-style:italic !important;
+  }
+  .fmmg-guide .detail-chips{
+    align-self:start !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  .fmmg-guide .what-does{
+    margin-top:5px !important;
+  }
+  .fmmg-guide .detail-summary{
+    margin:5px 0 6px !important;
+    padding:5px 8px !important;
+    line-height:1.28 !important;
+  }
+  .fmmg-guide .mech{
+    padding:3px 6px !important;
+  }
+  .fmmg-guide .mech label{
+    margin-bottom:1px !important;
+    font-size:7px !important;
+    line-height:1 !important;
+  }
+  .fmmg-guide .mech div{
+    font-size:9.7px !important;
+    line-height:1.12 !important;
+  }
+  .fmmg-guide .secondary-grid,
+  .fmmg-guide .analysis-grid,
+  .fmmg-guide .notes-row{
+    gap:5px !important;
+    margin-top:5px !important;
+  }
+  .fmmg-guide .data-block{
+    padding:5px 7px !important;
+  }
+  .fmmg-guide .data-block label,
+  .fmmg-guide .editor-card label{
+    margin-bottom:2px !important;
+  }
+  .fmmg-guide .data-block div{
+    line-height:1.18 !important;
+  }
+  .fmmg-guide .editor-card{
+    padding:5px 8px !important;
+    min-height:0 !important;
+  }
+  .fmmg-guide .editor-card div{
+    line-height:1.22 !important;
+  }
+  .fmmg-guide .notes-row .data-block,
+  .fmmg-guide .notes-row .editor-card{
+    padding:4px 7px !important;
+  }
+  .fmmg-guide .notes-row .data-block div,
+  .fmmg-guide .notes-row .editor-card div{
+    font-size:9.8px !important;
+    line-height:1.16 !important;
+  }
+  .fmmg-guide .notes-row .source-link{
+    margin-top:3px !important;
+    font-size:9px !important;
+    line-height:1.05 !important;
+  }
+}
+@media (max-width:820px){
+  .fmmg-guide .detail-title-block h2{margin:0 !important}
+  .fmmg-guide .school-inline{white-space:normal !important}
+  .fmmg-guide .detail .en-name{margin-top:3px !important;font-size:10.5px !important}
+}
