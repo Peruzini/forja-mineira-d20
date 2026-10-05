@@ -1676,3 +1676,17 @@
   padding-bottom:0!important;
 }
 
+
+
+/* ===== V19 · HOVER CTA QUANDO VALE · TESTE APROVADO ===== */
+/* Mantém o CTA inline sem criar placa verde sobre o texto vizinho. */
+.fmgi-card-toggle:hover,
+.fmgi-card-toggle:focus-visible{
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  color:#0f3a2a!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
