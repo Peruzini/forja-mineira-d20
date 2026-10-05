@@ -24,7 +24,7 @@ jobs:
           mkdir -p dist
           cp -R plugins/forja-mineira-guia-invocacoes dist/forja-mineira-guia-invocacoes
           cd dist
-          zip -r forja-mineira-guia-invocacoes-v1.3.9-TESTE.zip forja-mineira-guia-invocacoes
+          zip -r forja-mineira-guia-invocacoes-v1.3.9.zip forja-mineira-guia-invocacoes
 
       - name: Package v1.3.8 rollback
         run: |
@@ -36,8 +36,8 @@ jobs:
       - name: Upload production artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-guia-invocacoes-v1.3.9-TESTE
-          path: dist/forja-mineira-guia-invocacoes-v1.3.9-TESTE.zip
+          name: forja-mineira-guia-invocacoes-v1.3.9
+          path: dist/forja-mineira-guia-invocacoes-v1.3.9.zip
           if-no-files-found: error
 
       - name: Upload rollback artifact
