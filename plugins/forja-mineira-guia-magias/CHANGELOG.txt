@@ -1,5 +1,13 @@
 Forja Mineira D20 — Guia de Magias
 
+= 1.0.8 — 2026-10-05 =
+- Corrige uma chave de fechamento ausente no CSS legado da seção "Continue na Forja".
+- Preserva os ajustes compactos do painel aprovados na PREVIEW TEST v4.
+- Faz o card de detalhe acompanhar a altura real do conteúdo, sem vazio branco forçado.
+- Restaura o card branco arredondado da coluna esquerda (lista/master), com borda e fundo próprios.
+- Mantém a largura externa da página fora do plugin para preservar reutilização em outros temas.
+- Rollback imediato: v1.0.7.
+
 = 1.0.7 — 2026-10-05 =
 - Sincroniza o dataset do plugin com a Base de Magias canônica, mantendo 94/94 registros completos.
 - Remove truncamentos literais dos campos editoriais e mecânicos do catálogo.
