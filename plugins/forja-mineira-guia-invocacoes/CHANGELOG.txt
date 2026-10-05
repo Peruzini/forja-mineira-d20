@@ -1,5 +1,13 @@
 Forja Mineira D20 — Guia de Invocações
 
+1.3.9 — 2026-10-05
+- Corrige exclusivamente o hover do CTA "QUANDO VALE?" nos cards do catálogo.
+- O CTA permanece inline e transparente; no hover/foco muda apenas de cor e recebe sublinhado.
+- Impede que regras antigas de fundo verde cubram o texto do card.
+- Nenhuma alteração em conteúdo, filtros, análises, mini builds, Cluster, imagens ou JavaScript.
+- Validada visualmente no WordPress e promovida para produção em 05/10/2026.
+- v1.3.8 passa a ser o rollback imediato.
+
 1.3.8 — 2026-10-04
 - Reintegração do Cluster de Bruxo na base corrigida v1.3.7.
 - Hook: `do_action( 'forja_d20_cluster_slot', 'bruxo', 'invocacoes' );`
