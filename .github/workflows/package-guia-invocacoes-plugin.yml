@@ -29,7 +29,7 @@ jobs:
       - name: Package v1.3.8 rollback
         run: |
           mkdir -p rollback
-          git archive --format=tar --prefix=forja-mineira-guia-invocacoes/ main:plugins/forja-mineira-guia-invocacoes | tar -x -C rollback
+          git archive --format=tar --prefix=forja-mineira-guia-invocacoes/ 97082b8215052322047e91eb59c7c59450995e49:plugins/forja-mineira-guia-invocacoes | tar -x -C rollback
           cd rollback
           zip -r ../dist/forja-mineira-guia-invocacoes-v1.3.8-ROLLBACK.zip forja-mineira-guia-invocacoes
 
