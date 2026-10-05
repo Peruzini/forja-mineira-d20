@@ -66,7 +66,7 @@ function rowTemplate(s){
 function detailTemplate(s, mobile=false){
   return `<div class="fmmg-detail">
     <div class="detail-top">
-      <div><h2>${esc(s.nomePt)} <span class="school-inline">(${esc(s.escola)})</span></h2><div class="en-name">${esc(s.nomeEn)}</div></div>
+      <div class="detail-title-block"><h2>${esc(s.nomePt)} <span class="school-inline">· ${esc(s.escola)}</span></h2><div class="en-name">${esc(s.nomeEn)}</div></div>
       <div class="detail-chips">
         <span class="chip">${esc(s.nivelLabel)}</span>
         <span class="chip ${sourceClass(s.tagFonte)}">${esc(s.tagFonte)}</span>
