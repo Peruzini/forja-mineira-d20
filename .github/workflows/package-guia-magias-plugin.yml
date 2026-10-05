@@ -21,13 +21,13 @@ jobs:
           mkdir -p dist
           cp -R plugins/forja-mineira-guia-magias dist/forja-mineira-guia-magias
           cd dist
-          zip -r forja-mineira-guia-magias-v1.0.7.zip forja-mineira-guia-magias
+          zip -r forja-mineira-guia-magias-v1.0.8.zip forja-mineira-guia-magias
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-guia-magias-v1.0.7
-          path: dist/forja-mineira-guia-magias-v1.0.7.zip
+          name: forja-mineira-guia-magias-v1.0.8
+          path: dist/forja-mineira-guia-magias-v1.0.8.zip
           if-no-files-found: error
 
       - name: Prepare installable artifact
@@ -38,6 +38,6 @@ jobs:
       - name: Upload installable plugin artifact
         uses: actions/upload-artifact@v4
         with:
-          name: forja-mineira-guia-magias-v1.0.7-installable
+          name: forja-mineira-guia-magias-v1.0.8-installable
           path: deploy
           if-no-files-found: error
