@@ -29,3 +29,15 @@ jobs:
           name: forja-mineira-guia-magias-v1.0.7
           path: dist/forja-mineira-guia-magias-v1.0.7.zip
           if-no-files-found: error
+
+      - name: Prepare installable artifact
+        run: |
+          mkdir -p deploy
+          cp -R dist/forja-mineira-guia-magias deploy/forja-mineira-guia-magias
+
+      - name: Upload installable plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-guia-magias-v1.0.7-installable
+          path: deploy
+          if-no-files-found: error
