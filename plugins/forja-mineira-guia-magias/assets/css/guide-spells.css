@@ -1142,3 +1142,40 @@
     background:#fffefa;
   }
 }
+
+
+/* --- v1.0.9: estado visual aprovado consolidado --- */
+@media (min-width:821px){
+  .fmmg-guide .detail-wrap{
+    padding:12px 14px 16px !important;
+    background:var(--panel) !important;
+    align-items:flex-start !important;
+  }
+
+  .fmmg-guide .fmmg-detail-card{
+    width:100% !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    padding:12px 14px 14px !important;
+    border:1px solid #d7cfbd !important;
+    border-radius:20px !important;
+    background:#ffffff !important;
+    box-shadow:0 14px 34px rgba(33,38,36,.08) !important;
+    overflow:hidden !important;
+  }
+
+  .fmmg-guide .fmmg-detail-card > .detail{
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    min-height:0 !important;
+    max-height:none !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+}

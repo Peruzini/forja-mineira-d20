@@ -2,7 +2,7 @@
 Contributors: forjamineirad20
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: Proprietary / projeto Forja Mineira D20
 
 Guia interativo das melhores Magias para Bruxo em D&D 5e 2024.
@@ -71,3 +71,15 @@ Se o plugin Clusters estiver desativado, o Guia de Magias continua funcionando; 
 - Restaura o card branco arredondado da coluna mestre/lista de magias.
 - Não altera a largura externa da página; essa integração permanece responsabilidade do tema.
 - Rollback imediato: v1.0.7.
+
+
+== Produção 1.0.9 ==
+
+- Consolida no plugin o estado visual aprovado em produção.
+- Mantém o painel compacto da PREVIEW TEST v4.
+- Preserva o card branco arredondado externo que envolve toda a magia selecionada.
+- Mantém o card de detalhe com altura real do conteúdo.
+- Preserva a estrutura visual aprovada da coluna mestre/lista.
+- Remove a dependência dos hotfixes temporários de painel no CSS adicional da página.
+- A largura externa da página continua sendo integração específica do tema.
+- Rollback imediato: v1.0.8.
