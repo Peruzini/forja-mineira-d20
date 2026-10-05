@@ -3,14 +3,14 @@
  * Plugin Name: Forja Mineira D20 — Guia de Magias
  * Plugin URI: https://forjamineirad20.com.br/
  * Description: Guia interativo das melhores Magias para Bruxo em D&D 5e 2024, com 94 magias, filtros e análise mestre–detalhe.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Forja Mineira D20
  * Text Domain: forja-mineira-guia-magias
  */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'FMMG_VERSION', '1.0.6' );
+define( 'FMMG_VERSION', '1.0.7' );
 define( 'FMMG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMMG_URL', plugin_dir_url( __FILE__ ) );
 

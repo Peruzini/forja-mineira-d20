@@ -1,5 +1,14 @@
 Forja Mineira D20 — Guia de Magias
 
+= 1.0.7 — 2026-10-05 =
+- Sincroniza o dataset do plugin com a Base de Magias canônica, mantendo 94/94 registros completos.
+- Remove truncamentos literais dos campos editoriais e mecânicos do catálogo.
+- Consolida O que faz, Leitura Forja, Quando perde valor, Melhor quando, Sinergias, Trade-offs e Observações 2024.
+- Consolida também Dano, Escalonamento e correções pontuais de Duração e Material.
+- Move o título da magia para o topo do painel, exibe Escola na mesma linha e mantém o nome original menor logo abaixo.
+- Compacta a linha de mecânicas e os blocos inferiores para preservar todo o conteúdo dentro da moldura em desktop, sem rolagem interna.
+- Versão promovida após validação visual da PREVIEW TEST v4.
+
 = 1.0.6 — 2026-10-04 =
 - Substitui o bloco manual estrutural `Continue na Forja` pelo slot desacoplado do plugin Clusters.
 - Integra `do_action( 'forja_d20_cluster_slot', 'bruxo', 'magias' );` no mesmo ponto estrutural.

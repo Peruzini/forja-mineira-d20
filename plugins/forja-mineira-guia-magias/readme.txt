@@ -2,7 +2,7 @@
 Contributors: forjamineirad20
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: Proprietary / projeto Forja Mineira D20
 
 Guia interativo das melhores Magias para Bruxo em D&D 5e 2024.
@@ -51,3 +51,13 @@ Se o plugin Clusters estiver desativado, o Guia de Magias continua funcionando; 
 - Destinos: Invocações, Voldemort e Itens.
 - Canonical preservada em /melhores-magias-para-bruxo-dd-5e-2024/.
 - Rollback imediato: v1.0.5.
+
+
+== Produção 1.0.7 ==
+
+- Base canônica sincronizada com 94/94 magias.
+- Campos editoriais e mecânicos sem truncamentos por reticências.
+- Cabeçalho do painel detalhado compactado: nome PT + escola na mesma linha e nome original logo abaixo.
+- Linha de mecânicas, blocos editoriais, Observações 2024 e Fonte compactados para caber integralmente no card em desktop.
+- Sem rolagem interna no painel de referência.
+- Rollback imediato: v1.0.6.
