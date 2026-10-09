@@ -10,8 +10,17 @@ Site: https://forjamineirad20.com.br/
 - `plugins/forja-mineira-guias/` — guias editoriais e Hub de Guias.
 - `plugins/forja-mineira-guia-invocacoes/` — Guia de Invocações Místicas para Bruxo D&D 5e 2024.
 - `plugins/forja-mineira-guia-magias/` — Guia interativo de Magias para Bruxo D&D 5e 2024.
+- `plugins/forja-mineira-clusters/` — links internos estruturais e continuidade do cluster de Bruxo.
 
-## Versões atuais
+## Clusters — regularização de produção em 09/10/2026
+
+- **Forja Mineira D20 — Clusters v1.0.5** confirmado pelo responsável como **PRODUÇÃO**.
+- Plugin ativo no WordPress e código sincronizado no GitHub `main` em `plugins/forja-mineira-clusters/`.
+- Os dez arquivos PHP/CSS/TXT foram confrontados com a instalação ativa; os quinze arquivos de runtime no GitHub têm Git blobs iguais aos do pacote preservado na Biblioteca.
+- Pacote canônico de recuperação na Biblioteca: `Projeto/Plugins/forja-mineira-clusters-v1.0.5-PRODUCAO.zip`. O pacote histórico `v1.0.5-TESTE` permanece preservado.
+- `v1.0.4-TESTE` é apenas histórico; não está homologado como rollback estável. A promoção não exigiu reinstalação do WordPress.
+
+## Versões registradas no marco de 04/10/2026
 
 - **Forja Mineira — Builds:** v2.3.27
 - **Forja Mineira D20 — Guias:** v1.2.4
