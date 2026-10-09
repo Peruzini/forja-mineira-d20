@@ -1,0 +1,73 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+return array(
+    'label' => 'Bruxo (Warlock)',
+    'system' => 'D&D 5e 2024',
+    'nodes' => array(
+        'magias' => array(
+            'title' => 'Melhores Magias para Bruxo',
+            'label' => 'Magias',
+            'role' => 'guide',
+            'variant' => 'guide',
+            'eyebrow' => 'GUIA DE MAGIAS',
+            'description' => 'Escolhas por nível, função e uso prático para aproveitar melhor seus espaços de Magia de Pacto.',
+            'cta' => 'Ver guia de magias →',
+            'icon' => 'spells.webp',
+            'shortcode' => 'forja_guia_magias_bruxo_2024',
+            'fallback_path' => '/melhores-magias-para-bruxo-dd-5e-2024/',
+        ),
+        'invocacoes' => array(
+            'title' => 'Melhores Invocações Místicas para Bruxo',
+            'label' => 'Invocações',
+            'role' => 'guide',
+            'variant' => 'guide',
+            'eyebrow' => 'GUIA DE INVOCAÇÕES',
+            'description' => 'Compare Invocações Místicas (Eldritch Invocations) por nível, função e estilo de jogo.',
+            'cta' => 'Ver guia de invocações →',
+            'icon' => 'bruxo-warlock.webp',
+            'shortcode' => 'forja_guia_invocacoes_bruxo_2024',
+            'fallback_query' => 'Invocações Místicas Bruxo',
+        ),
+        'itens' => array(
+            'title' => 'Melhores Itens para Bruxo',
+            'label' => 'Itens',
+            'role' => 'guide',
+            'variant' => 'guide',
+            'eyebrow' => 'GUIA COMPLEMENTAR',
+            'description' => 'Defesa, foco arcano e equipamentos que complementam suas escolhas e sua build.',
+            'cta' => 'Ver guia de itens →',
+            'icon' => 'itens.webp',
+            'fallback_path' => '/melhores-itens-para-bruxo-dnd-5e/',
+        ),
+        'voldemort' => array(
+            'title' => 'Voldemort — Bruxo 1–20',
+            'label' => 'Build',
+            'role' => 'build',
+            'variant' => 'build',
+            'eyebrow' => 'BUILD COMPLETA',
+            'description' => 'Veja essas decisões aplicadas em uma progressão completa, nível a nível.',
+            'cta' => 'Explorar build →',
+            'icon' => 'builds.webp',
+            'fallback_path' => '/voldemort-dnd-5e-build-bruxo/',
+        ),
+        'guias' => array(
+            'title' => 'Mais Guias da Forja',
+            'label' => 'Guias',
+            'role' => 'navigation',
+            'variant' => 'library',
+            'eyebrow' => 'BIBLIOTECA DE GUIAS',
+            'description' => 'Continue por Magias, Invocações, Itens, Classes e outros conteúdos publicados.',
+            'cta' => 'Abrir Guias →',
+            'icon' => 'forja-bussola-institucional.webp',
+            'fallback_path' => '/guias/',
+        ),
+    ),
+    'relations' => array(
+        // Build no centro quando faz parte do trio: replica a hierarquia visual aprovada no Guia de Magias.
+        'magias' => array( 'invocacoes', 'voldemort', 'itens' ),
+        'invocacoes' => array( 'magias', 'voldemort', 'itens' ),
+        'itens' => array( 'magias', 'voldemort', 'invocacoes' ),
+        'voldemort' => array( 'magias', 'invocacoes', 'itens' ),
+    ),
+);
