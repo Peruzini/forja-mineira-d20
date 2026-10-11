@@ -1,10 +1,8 @@
 name: PERF-HOME-06 Mobile LCP Diagnostics
 
+# Disabled on PR after observed site HTTP 403 from GitHub runner.
+# Manual-only to avoid waste and repeated blocked runs.
 on:
-  pull_request:
-    paths:
-      - 'qa/perf-home-06/**'
-      - '.github/workflows/perf-home-06-mobile.yml'
   workflow_dispatch:
 
 permissions:
