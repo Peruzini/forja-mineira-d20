@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  PLUGIN_VERSION: '2.3.29-rc.1'
+  PLUGIN_VERSION: '2.3.30-rc.1'
   ROLLBACK_VERSION: '2.3.27'
   ROLLBACK_REF: 'a4ab07beb1b2a095938eb05e99fe0d5f1e895b37'
 
