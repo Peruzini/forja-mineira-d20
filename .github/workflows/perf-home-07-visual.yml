@@ -1,0 +1,35 @@
+name: PERF-HOME-07 Offline Visual Parity
+
+on:
+  pull_request:
+    paths:
+      - 'qa/perf-home-07/**'
+      - '.github/workflows/perf-home-07-visual.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-home-css:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install local screenshot dependencies
+        run: |
+          node --version
+          google-chrome --version
+          npm install --prefix /tmp/forja-perf-home-07 --no-audit --no-fund --silent puppeteer-core@24 pixelmatch@7 pngjs@7
+      - name: Compare original versus Home CSS, four widths
+        run: |
+          node --check qa/perf-home-07/compare.cjs
+          node qa/perf-home-07/compare.cjs
+      - name: Save visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-home-07-visual-parity
+          path: reports/perf-home-07/
+          if-no-files-found: warn
+          retention-days: 7
