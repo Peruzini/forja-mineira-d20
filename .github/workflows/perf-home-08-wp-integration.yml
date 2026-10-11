@@ -1,0 +1,44 @@
+name: PERF-HOME-08 Isolated WordPress Integration
+
+on:
+  pull_request:
+    paths:
+      - 'qa/perf-home-08/**'
+      - '.github/workflows/perf-home-08-wp-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration-wp-local:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: forjaperf08
+          MYSQL_USER: perf08
+          MYSQL_PASSWORD: perf08_only_local
+          MYSQL_ROOT_PASSWORD: rootlocal_only
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -prootlocal_only"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Checkout candidate without deployment
+        uses: actions/checkout@v4
+      - name: Verify PHP and MySQL module
+        run: |
+          php --version
+          php -m | grep -Ei 'mysqli|pdo_mysql'
+      - name: Boot local WordPress, check routes, assets and voting
+        run: |
+          bash -n qa/perf-home-08/wordpress-integration.sh
+          bash qa/perf-home-08/wordpress-integration.sh
+      # No artifact upload: keep GitHub storage usage low.
+      # No connection to production WordPress; local runtime is disposable.
