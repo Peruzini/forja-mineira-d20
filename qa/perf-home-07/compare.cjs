@@ -41,9 +41,11 @@ page.on('request',r=>r.url().startsWith('file:')?r.continue():r.abort());
 await page.goto(pathToFileURL(local).href,{waitUntil:'load',timeout:30000});
 await page.addStyleTag({content:'*, *::before, *::after{animation:none !important; transition:none !important; scroll-behavior:auto !important; caret-color:transparent !important}'});
 await page.evaluate(async()=>{
-const imgs=[...document.images];
-imgs.forEach(img=>img.loading='eager');
-await Promise.all(imgs.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,5000);})));
+  const imgs=[...document.images];
+  imgs.forEach(img=>img.loading='eager');
+  await Promise.all(imgs.map(img=>img.decode().catch(()=>{})));
+  await document.fonts.ready;
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
 });
 const imgs=await page.evaluate(()=>[...document.images].map(x=>({src:x.currentSrc||x.src,ok:x.complete&&x.naturalWidth>0})));
 const failed=imgs.filter(i=>!i.ok);
@@ -60,10 +62,20 @@ await page.evaluate(async(filename)=>{
 },name);
 }
 await applyStyle('builds.css');
+await page.screenshot({fullPage:true,animations:'disabled'}); // warm-up lazy/image paint
+await page.evaluate(async()=>{
+  await Promise.all([...document.images].map(img=>img.decode().catch(()=>{})));
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+});
 const beforeStyle=await page.evaluate(styleSnapshot,selectList,props);
 const beforePath=path.join(outputDir,'original-'+width+'.png');
 await page.screenshot({path:beforePath,fullPage:true,animations:'disabled'});
 await applyStyle('home.css');
+await page.screenshot({fullPage:true,animations:'disabled'}); // equivalent warm-up
+await page.evaluate(async()=>{
+  await Promise.all([...document.images].map(img=>img.decode().catch(()=>{})));
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+});
 const afterStyle=await page.evaluate(styleSnapshot,selectList,props);
 const afterPath=path.join(outputDir,'candidate-'+width+'.png');
 await page.screenshot({path:afterPath,fullPage:true,animations:'disabled'});
