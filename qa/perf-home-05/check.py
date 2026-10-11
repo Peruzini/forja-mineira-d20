@@ -33,7 +33,7 @@ def balanced(text):
         elif quote:
             if escaped:
                 escaped = False
-            elif ch == "\\\\":
+            elif ch == "\\":
                 escaped = True
             elif ch == quote:
                 quote = None
@@ -56,7 +56,7 @@ for selector in [".fmb-home-hero", ".fmb-forja-now", ".fmb-build-cycle", ".fmb-c
     assert selector in home_css, f"Missing Home selector {selector}"
 for name in ["render_home_featured_guide", "render_home_build_cycle", "render_home_next_build", "render_home_hero", "render_home_featured"]:
     start = shortcodes.index("public static function " + name + "(")
-    next_start = shortcodes.find("\\n    public static function ", start + 20)
+    next_start = shortcodes.find("\n    public static function ", start + 20)
     if next_start < 0:
         next_start = len(shortcodes)
     section = shortcodes[start:next_start]
