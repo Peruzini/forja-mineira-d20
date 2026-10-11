@@ -27,7 +27,7 @@ const selectList=[
 '.fmb-featured-guide','.fmb-featured-guide-card','.fmb-featured-guide-content'
 ];
 const props=['display','position','boxSizing','width','height','fontFamily','fontSize','fontWeight','lineHeight','color','backgroundColor','backgroundImage','padding','margin','borderRadius','border','transform','opacity','visibility','gridTemplateColumns','flexDirection','gap','overflow'];
-function styleSnapshot(){const result={};for(const selector of selectList){const el=document.querySelector(selector);if(!el){result[selector]={missing:true};continue}const styles=getComputedStyle(el);result[selector]=Object.fromEntries(props.map(p=>[p,styles[p]]));}return result;}
+function styleSnapshot(selectors,properties){const result={};for(const selector of selectors){const el=document.querySelector(selector);if(!el){result[selector]={missing:true};continue}const styles=getComputedStyle(el);result[selector]=Object.fromEntries(properties.map(p=>[p,styles[p]]));}return result;}
 (async()=>{
 const pixelmatch=(await import(pathToFileURL('/tmp/forja-perf-home-07/node_modules/pixelmatch/index.js').href)).default;
 const browser=await puppeteer.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--allow-file-access-from-files','--disable-gpu','--no-first-run']});
@@ -60,11 +60,11 @@ await page.evaluate(async(filename)=>{
 },name);
 }
 await applyStyle('builds.css');
-const beforeStyle=await page.evaluate(styleSnapshot);
+const beforeStyle=await page.evaluate(styleSnapshot,selectList,props);
 const beforePath=path.join(outputDir,'original-'+width+'.png');
 await page.screenshot({path:beforePath,fullPage:true,animations:'disabled'});
 await applyStyle('home.css');
-const afterStyle=await page.evaluate(styleSnapshot);
+const afterStyle=await page.evaluate(styleSnapshot,selectList,props);
 const afterPath=path.join(outputDir,'candidate-'+width+'.png');
 await page.screenshot({path:afterPath,fullPage:true,animations:'disabled'});
 const b=PNG.sync.read(fs.readFileSync(beforePath)),a=PNG.sync.read(fs.readFileSync(afterPath));
