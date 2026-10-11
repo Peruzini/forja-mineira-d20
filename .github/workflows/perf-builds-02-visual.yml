@@ -1,0 +1,42 @@
+name: PERF-BUILDS-02 Isolated Hub CSS Visual QA
+
+on:
+  pull_request:
+    paths:
+      - 'qa/perf-builds-02/**'
+      - '.github/workflows/perf-builds-02-visual.yml'
+      - 'plugins/forja-mineira-builds/assets/css/hub.css'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hub-css-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+      - name: Install image regression dependencies
+        run: |
+          node --version
+          google-chrome --version
+          npm install --prefix /tmp/forja-perf-home-07 --no-audit --no-fund --silent puppeteer-core@24 pixelmatch@7 pngjs@7
+      - name: Original versus Hub-only CSS across four viewports
+        run: |
+          node --check qa/perf-builds-02/compare.cjs
+          node qa/perf-builds-02/compare.cjs
+      - name: Package tested plugin for staging only (never deploy)
+        if: success()
+        run: |
+          cd plugins
+          zip -q -r "$GITHUB_WORKSPACE/reports/perf-builds-02/forja-mineira-builds-2.3.30-rc.1-staging-only.zip" forja-mineira-builds
+      - name: Upload PNG, JSON and staging candidate ZIP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-builds-02-evidence-and-staging-zip
+          path: reports/perf-builds-02/
+          if-no-files-found: warn
+          retention-days: 7

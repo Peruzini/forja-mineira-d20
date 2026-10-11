@@ -14,17 +14,18 @@ final class FMB_Build_Shortcode {
     }
 
     /**
-     * PERF-HOME-05 staging candidate: Home shortcodes load dedicated CSS.
-     * Build and Hub retain the existing full stylesheet unchanged.
-     * If the Home CSS file is missing, the previous full sheet is used.
-     * JS keeps its existing WordPress handle and is deduplicated by WP.
+     * PERF-HOME-05 + PERF-BUILDS-02: independent style handles by shortcode.
+     * Missing segmented asset falls back to original full CSS and JS.
+     * Hub only has no build-navigation or voting widget.
      */
     private static function enqueue_assets( $context = 'full' ) {
         $home_css = FMB_PATH . 'assets/css/home.css';
-        $is_home = ( 'home' === $context ) && file_exists( $home_css );
-        $relative_css = $is_home ? 'assets/css/home.css' : 'assets/css/builds.css';
+        $hub_css  = FMB_PATH . 'assets/css/hub.css';
+        $is_home  = ( 'home' === $context ) && file_exists( $home_css );
+        $is_hub   = ( 'hub' === $context ) && file_exists( $hub_css );
+        $relative_css = $is_home ? 'assets/css/home.css' : ( $is_hub ? 'assets/css/hub.css' : 'assets/css/builds.css' );
         $css = FMB_PATH . $relative_css;
-        $css_handle = $is_home ? 'forja-mineira-builds-home' : 'forja-mineira-builds';
+        $css_handle = $is_home ? 'forja-mineira-builds-home' : ( $is_hub ? 'forja-mineira-builds-hub' : 'forja-mineira-builds' );
 
         wp_enqueue_style(
             $css_handle,
@@ -32,6 +33,12 @@ final class FMB_Build_Shortcode {
             array(),
             file_exists( $css ) ? (string) filemtime( $css ) : FMB_VERSION
         );
+
+        // Home and character Builds keep the approved JS. Hub-only no longer needs it.
+        // If hub.css is absent, the old full-CSS/full-JS loading path is restored.
+        if ( $is_hub ) {
+            return;
+        }
 
         $js = FMB_PATH . 'assets/js/builds.js';
         wp_enqueue_script(
@@ -111,7 +118,7 @@ final class FMB_Build_Shortcode {
             'forja_builds_hub'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'hub' );
 
         $hub_build_url = ! empty( $atts['voldemort_url'] )
             ? esc_url_raw( $atts['voldemort_url'] )
