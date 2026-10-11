@@ -54,9 +54,10 @@ expect 'data-fmb-vote' /tmp/forja-home-08-candidate.html
 expect 'data-vote-endpoint=' /tmp/forja-home-08-candidate.html
 expect 'assets/css/builds.css' /tmp/forja-home-08-build.html
 reject 'assets/css/home.css' /tmp/forja-home-08-build.html
-expect 'assets/css/builds.css' /tmp/forja-home-08-hub.html
-reject 'assets/css/home.css' /tmp/forja-home-08-hub.html
-say 'PASS — Home/Build/Hub correctly route CSS; Home renders and enqueues JS'
+expect 'assets/css/hub.css' /tmp/forja-home-08-hub.html
+reject 'assets/css/builds.css' /tmp/forja-home-08-hub.html
+reject 'assets/js/builds.js' /tmp/forja-home-08-hub.html
+say 'PASS — Home and Build retain JS; Hub uses hub.css without unnecessary JS'
 
 curl --fail --silent --show-error \
   "http://127.0.0.1:$PORT/wp-content/plugins/forja-mineira-builds/assets/css/home.css" \
@@ -77,6 +78,24 @@ mv "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/home.css.test-hid
   "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/home.css"
 say 'PASS — if home.css is missing, WordPress uses approved builds.css fallback'
 
+# Dedicated Hub CSS must serve correct bytes and revert cleanly if absent.
+curl --fail --silent --show-error \
+  "http://127.0.0.1:$PORT/wp-content/plugins/forja-mineira-builds/assets/css/hub.css" \
+  -o /tmp/forja-builds-02-loaded-hub.css
+cmp /tmp/forja-builds-02-loaded-hub.css "$ROOT/plugins/forja-mineira-builds/assets/css/hub.css" \
+  || fail 'Served Hub CSS mismatch'
+mv "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/hub.css" \
+  "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/hub.css.test-hidden"
+curl --fail --silent --show-error "http://127.0.0.1:$PORT/?page_id=$hub_id" \
+  -o /tmp/forja-builds-02-hub-fallback.html
+expect 'assets/css/builds.css' /tmp/forja-builds-02-hub-fallback.html
+expect 'assets/js/builds.js' /tmp/forja-builds-02-hub-fallback.html
+reject 'assets/css/hub.css' /tmp/forja-builds-02-hub-fallback.html
+mv "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/hub.css.test-hidden" \
+  "$WP_DIR/wp-content/plugins/forja-mineira-builds/assets/css/hub.css"
+say 'PASS — Hub CSS file is served exactly and fallback restores full CSS + JS'
+
+
 # REST voting tested exclusively on localhost disposable database.
 VOTE="http://127.0.0.1:$PORT/?rest_route=/forja-mineira/v1/vote"
 curl --fail --silent --show-error "$VOTE" -o /tmp/forja-home-08-vote-get.json
@@ -96,9 +115,9 @@ cat <<SUMMARY | tee -a "$GITHUB_STEP_SUMMARY"
 # PERF-HOME-08 — Staging WordPress efêmero
 - Instalação WordPress + MySQL própria; endpoint HTTP somente no loopback 127.0.0.1:$PORT.
 - Home: home.css e builds.js, shortcodes Hero/Cycle/Featured: PASS.
-- Build Voldemort e Hub: builds.css, não home.css: PASS.
+- Build Voldemort: builds.css e builds.js; Hub: hub.css sem builds.js: PASS.
 - Entrega dos arquivos CSS/JS pelo servidor: PASS.
-- Simulação da ausência de home.css / fallback aprovado: PASS.
+- Simulação da ausência de home.css e de hub.css / fallbacks originais: PASS.
 - Votação REST GET, POST Guts e rejeição de voto após encerramento (403): PASS.
 - Produção NÃO alterada. Não reproduz tema Hostinger nem mede LCP do site real.
 SUMMARY
