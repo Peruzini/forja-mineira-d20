@@ -11,7 +11,7 @@ fail(){ echo "::error title=PERF-HOME-08::$*" >&2; exit 1; }
 expect(){ grep -Fq "$1" "$2" || fail "Expected $1 missing from $2"; }
 reject(){ if grep -Fq "$1" "$2"; then fail "Unexpected $1 in $2"; fi; }
 curl -fLsS --retry 2 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /tmp/forja-perf-wp-cli.phar
-$WP --info | head -12
+$WP --info
 $WP core download --path="$WP_DIR"
 $WP config create --path="$WP_DIR" --dbname=forjaperf08 --dbuser=perf08 \
   --dbpass=perf08_only_local --dbhost=127.0.0.1:3306 --skip-check
