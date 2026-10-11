@@ -27,11 +27,16 @@ jobs:
         run: |
           node --check qa/perf-builds-02/compare.cjs
           node qa/perf-builds-02/compare.cjs
-      - name: Upload PNG and JSON evidence
+      - name: Package tested plugin for staging only (never deploy)
+        if: success()
+        run: |
+          cd plugins
+          zip -q -r "$GITHUB_WORKSPACE/reports/perf-builds-02/forja-mineira-builds-2.3.30-rc.1-staging-only.zip" forja-mineira-builds
+      - name: Upload PNG, JSON and staging candidate ZIP
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: perf-builds-02-visual-parity
+          name: perf-builds-02-evidence-and-staging-zip
           path: reports/perf-builds-02/
           if-no-files-found: warn
           retention-days: 7
