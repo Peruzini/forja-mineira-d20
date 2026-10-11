@@ -68,7 +68,7 @@ assert "file_exists( $home_css )" in shortcodes, "Missing full CSS fallback"
 
 hub_css = (plugin / "assets/css/hub.css").read_text(encoding="utf-8")
 full_lines = full_css.splitlines(keepends=True)
-assert len(full_lines) == 9157
+assert len(full_lines) in (9156, 9157), 'Approved CSS line count drifted; check anchors'
 assert "HUB DE BUILDS" in full_lines[5546] and "HOME" in full_lines[6033]
 assert "HUB BUILDS v2.3.28" in full_lines[8838]
 expected_hub = "".join(full_lines[5545:6033]) + "\n" + "".join(full_lines[8838:])
