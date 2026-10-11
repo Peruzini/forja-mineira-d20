@@ -2,7 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 final class FMB_Build_Shortcode {
-    private static $assets_loaded = false;
 
     public static function register() {
         add_shortcode( 'forja_build', array( __CLASS__, 'render' ) );
@@ -14,12 +13,22 @@ final class FMB_Build_Shortcode {
         add_shortcode( 'forja_home_featured_guide', array( __CLASS__, 'render_home_featured_guide' ) );
     }
 
-    private static function enqueue_assets() {
-        if ( self::$assets_loaded ) { return; }
-        $css = FMB_PATH . 'assets/css/builds.css';
+    /**
+     * PERF-HOME-05 staging candidate: Home shortcodes load dedicated CSS.
+     * Build and Hub retain the existing full stylesheet unchanged.
+     * If the Home CSS file is missing, the previous full sheet is used.
+     * JS keeps its existing WordPress handle and is deduplicated by WP.
+     */
+    private static function enqueue_assets( $context = 'full' ) {
+        $home_css = FMB_PATH . 'assets/css/home.css';
+        $is_home = ( 'home' === $context ) && file_exists( $home_css );
+        $relative_css = $is_home ? 'assets/css/home.css' : 'assets/css/builds.css';
+        $css = FMB_PATH . $relative_css;
+        $css_handle = $is_home ? 'forja-mineira-builds-home' : 'forja-mineira-builds';
+
         wp_enqueue_style(
-            'forja-mineira-builds',
-            FMB_URL . 'assets/css/builds.css',
+            $css_handle,
+            FMB_URL . $relative_css,
             array(),
             file_exists( $css ) ? (string) filemtime( $css ) : FMB_VERSION
         );
@@ -32,8 +41,6 @@ final class FMB_Build_Shortcode {
             file_exists( $js ) ? (string) filemtime( $js ) : FMB_VERSION,
             true
         );
-
-        self::$assets_loaded = true;
     }
 
     private static function default_guide_url() {
@@ -133,7 +140,7 @@ final class FMB_Build_Shortcode {
             'forja_home_featured_guide'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $featured_guide_url = ! empty( $atts['guide_url'] )
             ? esc_url_raw( $atts['guide_url'] )
@@ -178,7 +185,7 @@ final class FMB_Build_Shortcode {
             'forja_home_build_cycle'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $cycle_current_url = ! empty( $atts['current_url'] )
             ? esc_url_raw( $atts['current_url'] )
@@ -214,7 +221,7 @@ final class FMB_Build_Shortcode {
     }
 
     public static function render_home_next_build( $atts ) {
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         ob_start();
         include FMB_PATH . 'templates/home-next-build.php';
@@ -235,7 +242,7 @@ final class FMB_Build_Shortcode {
             'forja_home_hero'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $home_build_url = ! empty( $atts['build_url'] )
             ? esc_url_raw( $atts['build_url'] )
@@ -276,7 +283,7 @@ final class FMB_Build_Shortcode {
             'forja_home_featured_build'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $home_build_url = ! empty( $atts['build_url'] )
             ? esc_url_raw( $atts['build_url'] )

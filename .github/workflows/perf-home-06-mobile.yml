@@ -1,0 +1,47 @@
+name: PERF-HOME-06 Mobile LCP Diagnostics
+
+# Disabled on PR after observed site HTTP 403 from GitHub runner.
+# Manual-only to avoid waste and repeated blocked runs.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse-mobile-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout diagnostics
+        uses: actions/checkout@v4
+
+      - name: Verify Chrome installation
+        run: |
+          google-chrome --version || chromium --version
+
+      - name: Lighthouse mobile — public Home only (read-only)
+        run: |
+          mkdir -p reports
+          npx --yes lighthouse@12 https://forjamineirad20.com.br/ \
+            --only-categories=performance \
+            --preset=perf \
+            --form-factor=mobile \
+            --screenEmulation.mobile=true \
+            --throttling-method=simulate \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --output=json \
+            --output-path=reports/perf-home-06-mobile.json \
+            --quiet
+
+      - name: Extract LCP node, render path, and CSS timing
+        run: node qa/perf-home-06/extract-lcp.cjs reports/perf-home-06-mobile.json
+
+      - name: Save diagnostic JSON
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf-home-06-lcp-diagnostics
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 14

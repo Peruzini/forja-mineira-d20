@@ -1,0 +1,25 @@
+name: PERF-HOME-05 Staging CSS QA
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/forja-mineira-builds/**'
+      - 'qa/perf-home-05/**'
+      - '.github/workflows/perf-home-05-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+      - name: PHP syntax
+        run: |
+          php -l plugins/forja-mineira-builds/forja-mineira-builds.php
+          php -l plugins/forja-mineira-builds/includes/class-build-shortcode.php
+      - name: CSS isolation and fallback assertions
+        run: python3 qa/perf-home-05/check.py

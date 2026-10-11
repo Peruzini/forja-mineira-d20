@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>PERF-HOME-05 — Preview isolado — Forja Mineira D20</title>
+<link rel="stylesheet" href="https://forjamineirad20.com.br/wp-content/themes/forja-mineira-d20/style.css">
+<link id="fmb-preview-style" rel="stylesheet" href="../../plugins/forja-mineira-builds/assets/css/home.css">
+<style>
+  .perf-previewbar{position:relative;z-index:9000;background:#13251d;color:#fff;padding:12px 20px;font:14px/1.5 Arial,sans-serif;display:flex;gap:15px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  .perf-previewbar strong{color:#f0dbad}.perf-previewbar button{background:#dfc38b;border:1px solid #9c814a;border-radius:9px;padding:9px 13px;color:#14241d;font-weight:bold;cursor:pointer}
+  .perf-previewbar button[aria-pressed="true"]{background:#fff;outline:2px solid #9c814a}
+  .perf-previewbar p{margin:0;font-size:12px;max-width:570px;color:#e0e5dc}
+  .perf-warning{text-align:center;padding:8px;background:#fff1c7;font:12px/1.5 Arial,sans-serif}
+</style>
+</head>
+<body class="home page">
+<div class="perf-previewbar">
+  <div><strong>PERF-HOME-05 — prévia estática</strong><p>Compare somente o CSS. Os elementos abaixo são representativos da Home; o WordPress real e os recursos dinâmicos não estão simulados.</p></div>
+  <div role="group" aria-label="Comparar CSS">
+    <button type="button" id="css-before" aria-pressed="false">CSS original</button>
+    <button type="button" id="css-after" aria-pressed="true">CSS Home candidato</button>
+  </div>
+</div>
+<div class="perf-warning">Ambiente de demonstração: nenhuma ação da votação é enviada para a produção. As imagens são carregadas do site original.</div>
+<main class="wrap" id="conteudo"><article class="article"><div class="article-content">
+<section class="fmb-home-hero" aria-labelledby="fmb-home-hero-title">
+  <img class="fmb-home-hero-landscape" src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-hero-castelo.webp?ver=2.3.28" alt="" aria-hidden="true" decoding="async" fetchpriority="high" width="1400" height="1591">
+  <div class="fmb-home-hero-shell">
+    <div class="fmb-home-hero-copy">
+      <span class="fmb-home-hero-eyebrow">RPG COM RAÍZES BRASILEIRAS</span>
+      <h1 id="fmb-home-hero-title">Sua próxima aventura começa na forja.</h1>
+      <p>Builds de RPG, guias, ferramentas e ideias para criar personagens e melhorar suas histórias de mesa.</p>
+      <div class="fmb-home-hero-actions">
+        <a class="fmb-home-hero-btn fmb-home-hero-btn--primary" href="#builds">Explorar Builds</a>
+        <a class="fmb-home-hero-btn fmb-home-hero-btn--ghost" href="#guias">Ver Guias</a>
+      </div>
+    </div>
+    <div class="fmb-home-hero-quote" aria-hidden="true"><span>Grandes histórias</span><span>também nascem aqui.</span><i></i></div>
+    <aside class="fmb-forja-now" aria-label="Na Forja Agora">
+      <div class="fmb-forja-now-title"><span aria-hidden="true">🔥</span><strong>NA FORJA AGORA</strong></div>
+      <div class="fmb-forja-now-body">
+        <div class="fmb-forja-now-art" aria-hidden="true">
+          <span class="fmb-forja-now-heat fmb-forja-now-heat--1"></span><span class="fmb-forja-now-heat fmb-forja-now-heat--2"></span>
+          <span class="fmb-forja-now-ember fmb-forja-now-ember--1"></span><span class="fmb-forja-now-ember fmb-forja-now-ember--2"></span><span class="fmb-forja-now-ember fmb-forja-now-ember--3"></span>
+          <img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/pao-de-queijo-d20-fumegante-transparente.webp?ver=2.3.28" alt="" decoding="async" width="900" height="900">
+        </div>
+        <div class="fmb-forja-now-list">
+          <a class="fmb-forja-now-item fmb-forja-now-item--live fmb-forja-now-item--spells" href="#guias"><span class="fmb-forja-now-icon fmb-forja-now-icon--spells" aria-hidden="true">✦</span><span class="fmb-forja-now-item-copy"><span class="fmb-forja-now-status fmb-forja-now-status--green">NOVO GUIA</span><strong>Melhores Magias para Bruxo</strong><small>D&amp;D 5e 2024 · 94 magias analisadas</small><span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span></span></a>
+          <a class="fmb-forja-now-item fmb-forja-now-item--live fmb-forja-now-item--invocations" href="#guias"><span class="fmb-forja-now-icon fmb-forja-now-icon--invocations" aria-hidden="true">◇</span><span class="fmb-forja-now-item-copy"><span class="fmb-forja-now-status fmb-forja-now-status--green">GUIA</span><strong>Melhores Invocações Místicas para Bruxo</strong><small>D&amp;D 5e 2024 · por nível e build</small><span class="fmb-forja-now-link">Ver guia <b aria-hidden="true">→</b></span></span></a>
+          <a class="fmb-forja-now-item fmb-forja-now-item--live" href="#builds"><span class="fmb-forja-now-icon fmb-forja-now-icon--build" aria-hidden="true">✧</span><span class="fmb-forja-now-item-copy"><span class="fmb-forja-now-status fmb-forja-now-status--green">BUILD</span><strong>Voldemort — Bruxo 1–20</strong><small>Magia, estratégia e ambição.</small><span class="fmb-forja-now-link">Ver build <b aria-hidden="true">→</b></span></span></a>
+        </div>
+      </div>
+      <div class="fmb-forja-now-footer">Boas rolagens. Boas histórias.</div>
+    </aside>
+  </div>
+</section>
+<section class="fmb-build-cycle" id="builds" aria-labelledby="fmb-build-cycle-title">
+  <div class="fmb-build-cycle-shell">
+    <div class="fmb-build-cycle-heading"><span class="fmb-build-cycle-eyebrow">DA FORJA PARA A MESA</span><h2 id="fmb-build-cycle-title">Agora, depois e o que vem em seguida.</h2></div>
+    <div class="fmb-build-cycle-grid">
+      <article class="fmb-cycle-card fmb-cycle-current">
+        <a class="fmb-cycle-current-media" href="#builds"><img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/voldemort-l17-img1-bffe22434a23.webp?ver=2.3.28" alt="Build atual de Voldemort" loading="lazy" decoding="async"><span class="fmb-cycle-badge">BUILD ATUAL</span></a>
+        <div class="fmb-cycle-card-copy"><span class="fmb-cycle-kicker">JÁ SAIU DA FORJA</span><h3>Voldemort — Bruxo 1–20</h3><p>Controle, ambição e magia sombria em uma progressão completa até o nível 20.</p><a class="fmb-cycle-cta" href="#builds">Ver build completa <span aria-hidden="true">→</span></a></div>
+      </article>
+      <article class="fmb-cycle-card fmb-cycle-next">
+        <div class="fmb-cycle-next-media"><img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-next-build-mystery-final.webp?ver=2.3.28" alt="Prévia misteriosa da próxima build" loading="lazy" decoding="async"><span class="fmb-cycle-badge fmb-cycle-badge--next">PRÓXIMA BUILD · EM DESENVOLVIMENTO</span></div>
+        <div class="fmb-cycle-card-copy"><span class="fmb-cycle-kicker">UMA NOVA LENDA ENTROU NA FORJA</span><h3>Você consegue descobrir quem é?</h3><div class="fmb-cycle-clues"><span>Armadura e magia.</span><span>Ciência e feitiçaria.</span><span>Ele não apenas luta. Ele governa.</span></div><p class="fmb-cycle-next-note">A identidade será revelada quando a build estiver pronta.</p></div>
+      </article>
+      <aside class="fmb-cycle-vote" id="votacao-proxima-build" aria-labelledby="fmb-cycle-vote-title">
+        <div class="fmb-cycle-vote-head"><span class="fmb-cycle-vote-icon" aria-hidden="true">✦</span><div class="fmb-cycle-vote-heading-copy"><span>VOCÊ ESCOLHE O PRÓXIMO</span><h3 id="fmb-cycle-vote-title">Quem entra na Forja depois?</h3><p>Escolha quem deve receber uma build completa.</p></div></div>
+        <div class="fmb-cycle-vote-status"><span class="fmb-cycle-vote-status-dot"></span><strong>ESCOLHA 1 DE 3</strong></div>
+        <div class="fmb-cycle-vote-form"><div class="fmb-cycle-vote-options">
+          <label class="fmb-cycle-candidate"><input type="radio" name="vote-preview" disabled><span class="fmb-cycle-candidate-card"><span class="fmb-cycle-candidate-check">✓</span><img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-vote-guts.webp?ver=2.3.28" alt="Guts" loading="lazy"><span class="fmb-cycle-candidate-copy"><strong>Guts</strong><small>Berserk</small></span></span></label>
+          <label class="fmb-cycle-candidate"><input type="radio" name="vote-preview" disabled><span class="fmb-cycle-candidate-card"><span class="fmb-cycle-candidate-check">✓</span><img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-vote-duncan.webp?ver=2.3.28" alt="Duncan" loading="lazy"><span class="fmb-cycle-candidate-copy"><strong>Duncan, o Alto</strong><small>Dunk &amp; Egg</small></span></span></label>
+          <label class="fmb-cycle-candidate"><input type="radio" name="vote-preview" disabled><span class="fmb-cycle-candidate-card"><span class="fmb-cycle-candidate-check">✓</span><img src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-vote-trevor.webp?ver=2.3.28" alt="Trevor Belmont" loading="lazy"><span class="fmb-cycle-candidate-copy"><strong>Trevor Belmont</strong><small>Castlevania</small></span></span></label>
+        </div><div class="fmb-cycle-vote-action"><button class="fmb-cycle-vote-button" type="button" disabled>Votação desativada no preview</button><p class="fmb-cycle-vote-note">🔒 Prévia isolada: nenhum voto é enviado</p></div></div>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="fmb-featured-guide" id="guias" aria-label="Guias em destaque da Forja"><div class="fmb-featured-guide-shell">
+  <a class="fmb-featured-guide-card fmb-featured-guide-card--link fmb-featured-guide-card--spells" href="#guias"><img class="fmb-featured-guide-art fmb-featured-guide-art--spells" src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-featured-guide-magias.webp?ver=2.3.28" alt="" aria-hidden="true" loading="lazy"><div class="fmb-featured-guide-overlay"></div><div class="fmb-featured-guide-content"><span class="fmb-featured-guide-icon">✦</span><div class="fmb-featured-guide-copy"><span class="fmb-featured-guide-kicker">NOVO GUIA EM DESTAQUE</span><h2>Melhores Magias para Bruxo D&amp;D 5e 2024</h2><p>Compare 94 magias por nível, função, escola, fonte e prioridade — com mecânicas, sinergias e leitura prática para a mesa.</p></div><div class="fmb-featured-guide-action"><span class="fmb-featured-guide-button">Ver guia →</span></div></div></a>
+  <a class="fmb-featured-guide-card fmb-featured-guide-card--link fmb-featured-guide-card--invocations" href="#guias"><img class="fmb-featured-guide-art fmb-featured-guide-art--invocations" src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-featured-guide-invocacoes.webp?ver=2.3.28" alt="" loading="lazy"><div class="fmb-featured-guide-overlay"></div><div class="fmb-featured-guide-content"><span class="fmb-featured-guide-icon">◇</span><div class="fmb-featured-guide-copy"><span class="fmb-featured-guide-kicker">GUIA EM DESTAQUE</span><h2>Melhores Invocações Místicas para Bruxo</h2><p>Escolha por nível, estilo e função — com mini-builds para Rajada, Lâmina, Tomo e Corrente.</p></div><div class="fmb-featured-guide-action"><span class="fmb-featured-guide-button">Ver guia →</span></div></div></a>
+  <a class="fmb-featured-guide-card fmb-featured-guide-card--link fmb-featured-guide-card--items" href="#guias"><img class="fmb-featured-guide-art" src="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/home-featured-guide-warlock-items.webp?ver=2.3.28" alt="" loading="lazy"><div class="fmb-featured-guide-overlay"></div><div class="fmb-featured-guide-content"><span class="fmb-featured-guide-icon">▣</span><div class="fmb-featured-guide-copy"><span class="fmb-featured-guide-kicker">GUIA EM DESTAQUE</span><h2>Melhores Itens para Bruxo nos Níveis 1–5</h2><p>Itens, dicas e combinações para fortalecer seu Bruxo desde os primeiros níveis.</p></div><div class="fmb-featured-guide-action"><span class="fmb-featured-guide-button">Ver guia →</span></div></div></a>
+</div></section>
+</div></article></main>
+<script>
+(function(){
+  var file=document.getElementById('fmb-preview-style');
+  var before=document.getElementById('css-before');
+  var after=document.getElementById('css-after');
+  function select(candidate){
+    file.href=candidate?'../../plugins/forja-mineira-builds/assets/css/home.css':'../../plugins/forja-mineira-builds/assets/css/builds.css';
+    before.setAttribute('aria-pressed',String(!candidate));
+    after.setAttribute('aria-pressed',String(candidate));
+  }
+  before.addEventListener('click',function(){select(false)});
+  after.addEventListener('click',function(){select(true)});
+})();
+</script>
+</body></html>
