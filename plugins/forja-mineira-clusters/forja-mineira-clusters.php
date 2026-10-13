@@ -3,14 +3,14 @@
  * Plugin Name: Forja Mineira D20 — Clusters
  * Plugin URI: https://forjamineirad20.com.br/
  * Description: Centraliza links internos estruturais entre conteúdos relacionados da Forja Mineira D20.
- * Version: 1.0.5
+ * Version: 1.0.6-TESTE
  * Author: Forja Mineira D20
  * Text Domain: forja-mineira-clusters
  */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'FMC_VERSION', '1.0.5' );
+define( 'FMC_VERSION', '1.0.6-TESTE' );
 define( 'FMC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FMC_URL', plugin_dir_url( __FILE__ ) );
 
