@@ -1,0 +1,14 @@
+{
+  "task": "PERF-ITENS-07",
+  "target": "wp-content/themes/forja-mineira-d20/header.php",
+  "source_date": "2026-11-07",
+  "original_sha256": "5f8ad0728ac92e235f9d57693673e48d4b2aac163ff0c6a22f55e140e759f696",
+  "patched_sha256": "5fbd5032c6a451adb65016e4663060bca71b9533b3509230e433cd913984f9f8",
+  "scope": "theme mobile header, no plugin edits",
+  "changes": [
+    "critical CSS",
+    "early JS feature class"
+  ],
+  "production_changed": false,
+  "fallback": "header.php.rollback"
+}
