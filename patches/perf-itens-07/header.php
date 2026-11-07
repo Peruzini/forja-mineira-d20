@@ -1,0 +1,21 @@
+<?php defined('ABSPATH') || exit; ?><!doctype html>
+<html <?php language_attributes(); ?>>
+<head><meta charset="<?php bloginfo('charset'); ?>"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- PERF-ITENS-07: evita o deslocamento do header antes do JS de navegação (mobile). -->
+<style id="fmd20-nav-first-paint">
+@media (max-width: 600px) {
+  html.fmd20-nav-early .site-header .menu-toggle { display: block; }
+  html.fmd20-nav-early .site-header .menu-toggle[aria-expanded="false"] + #menu-principal { display: none; }
+}
+</style>
+<script id="fmd20-nav-first-paint-init">document.documentElement.classList.add('fmd20-nav-early');</script>
+<?php wp_head(); ?></head>
+<body <?php body_class(); ?>><?php wp_body_open(); ?>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header"><div class="wrap header-row">
+<?php if(has_custom_logo()): the_custom_logo(); else: ?>
+<a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Forja Mineira D20 — início"><img src="<?php echo esc_url(get_theme_file_uri('/assets/marca.png')); ?>" alt="Forja Mineira" width="1776" height="888"><span>D20</span></a>
+<?php endif; ?>
+<button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-principal">Menu</button>
+<nav class="site-nav" id="menu-principal" aria-label="Menu principal"><?php wp_nav_menu(array('theme_location'=>'principal','container'=>false,'fallback_cb'=>'fmd20_fallback_menu','depth'=>2)); ?></nav>
+</div></header>
