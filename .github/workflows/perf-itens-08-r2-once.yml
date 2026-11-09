@@ -6,7 +6,8 @@ on:
 permissions: {}
 jobs:
   capture:
-    if: github.event.head_commit.message == 'diag: run PERF-ITENS-08-R2 once'
+    if: >-
+      github.event.head_commit.message == 'Run PERF-ITENS-08-R2 once'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
