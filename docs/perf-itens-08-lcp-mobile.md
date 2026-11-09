@@ -67,3 +67,69 @@ Fases apresentadas visualmente: TTFB 30 ms; resource load delay 370 ms; resource
 **Limites da coleta:** este ambiente possui Chromium e Playwright, porém sem resolução de DNS para o domínio público, logo não permite navegação e captura local. O navegador remoto conseguiu executar a medição PSI, mas não permite exportar LHR JSON/DevTools Performance Trace acessível nesta sessão. O GitHub contém somente workflows de empacotamento de plugins, sem pipeline de diagnóstico Lighthouse/trace já disponível. **Não foram obtidos Lighthouse JSON nem trace**. Nenhum arquivo do WordPress, plugin, tema ou cache foi modificado.
 
 **Conclusão:** a persistência do LCP alto foi reconfirmada, com CLS zero, mas o diagnóstico causal continua **EVIDÊNCIA INSUFICIENTE**. A próxima coleta deverá ser executada em um ambiente com Chrome DevTools Protocol e rede pública funcionais (por exemplo, runner autorizado), exportando LHR e trace na **mesma navegação fria** antes de propor correção.
+
+## PERF-ITENS-08-R2 — Captura de 09/11/2026
+
+**EVIDÊNCIA PARCIAL quanto à causa do atraso histórico.** O LCP e o gargalo da captura R2 estão confirmados por dados brutos. Os 1.830 ms de renderização do relatório anterior não se reproduziram nesta execução.
+
+### Captura e integridade
+
+- [Execução 42670511180](https://github.com/Peruzini/forja-mineira-d20/actions/runs/42670511180) e [artefato original](https://github.com/Peruzini/forja-mineira-d20/actions/runs/42670511180/artifacts/13699420575), com os três arquivos. [Cópia do ZIP](https://chatgpt.com/library?file_id=libfile_fdcbb84801608191b98f25db4a99997c&account_id=personal).
+- Captura UTC de 18:03:24.829 a 18:04:33.923. Chrome 156.0.8078.79, CDP 1.3, Node 22.23.4 e Lighthouse 13.6.0. URL inicial e final iguais à página pública do Guia de Itens.
+- Lighthouse e trace vieram da **mesma navegação**, em viewport 412 × 823 px, DPR 1,75, UA Chrome Mobile Android reduzido e throttling `devtools`. Limites de rede configurados em 1.474,56 kbps de download, 675 kbps de upload, latência de requisição de 562,5 ms e CPU 4×.
+- O pré-teste do Chrome confirmou HTTP 200 e `section.hero`. O cache HTTP local do Chrome foi limpo via CDP antes da medição e o Lighthouse manteve o reset padrão de armazenamento. Sessão pública e possíveis conexões reaproveitadas foram mantidas. O documento medido respondeu HTTP 200, com `x-hcdn-cache-status: HIT` e `X-LiteSpeed-Cache: hit`. Isso representa cache frio de recursos no navegador, com cache público do servidor ativo.
+- O Chrome for Testing no Windows falhou na inicialização gráfica. A [primeira execução](https://github.com/Peruzini/forja-mineira-d20/actions/runs/42669752671) parou na validação do YAML, corrigida antes da coleta. As [tentativas com UA Lighthouse](https://github.com/Peruzini/forja-mineira-d20/actions/runs/42669980865) e [UA móvel reduzido](https://github.com/Peruzini/forja-mineira-d20/actions/runs/42670267468) foram invalidadas por HTTP 403 na navegação medida, embora o pré-teste Node respondesse 200. A segunda mostrou 403 seguido de 200 para o documento. O pré-teste no Chrome resolveu o impedimento na execução válida.
+- [Código reproduzível do workflow temporário](https://github.com/Peruzini/forja-mineira-d20/blob/2a56a4ca586ed6f4d01380c7b38eb48bd7c3bf12/.github/workflows/perf-itens-08-r2-once.yml). Foi iniciado por commit deliberado, com branch, caminho e mensagem exclusivos, pois `workflow_dispatch` exige definição na branch padrão. O workflow foi removido da branch temporária no commit `c0e726bfc319e56736f0ec1b47cd216bfc3eb602`. Nenhuma modificação em produção ou na PR #10.
+
+| Arquivo original | Bytes | SHA-256 verificado |
+| --- | ---: | --- |
+| `PERF-ITENS-08-R2-LIGHTHOUSE-MOBILE.json` | 716.533 | `62193a6458df9e1630481e9935d4c530c6e88c5a4690f1290c4a56db63d6756e` |
+| `PERF-ITENS-08-R2-CHROME-TRACE.json` | 21.761.357 | `d0484a45343372133018cacaf116ff215b238a22c7d754302637c0a9c10735af` |
+| `PERF-ITENS-08-R2-RUN-METADATA.json` | 1.605 | `7f82cc32906bea1b75a557bdaf11f06322e669e55d2fd458bd59ddc3f2576304` |
+
+O ZIP original coincide com o digest do GitHub Actions, `5577f51cc1e877f95ffa881afde326d9a54ba41466d7fb5c8fb5350e70856405`. Os hashes do LHR e do trace também coincidem com os metadados da execução.
+
+### Nó, recurso e fases
+
+**A e B — Confirmado.** O LCP é uma **imagem de fundo CSS** do hero. O evento final `largestContentfulPaint::Candidate`, índice 2, identifica o nó **43** e o tipo `image`. O evento `LargestImagePaint::Candidate` no mesmo timestamp liga o nó 43 a [hero-vaeros-mobile-1280.webp](https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-1280.webp). `PaintImage` confirma `isCSS: true` e o pseudo-elemento `::before` (nó 44). O seletor do LHR é `div.article-content > div.fmic-screen-shell > div.forja-page > section.hero`, com `aria-labelledby="hero-title"`.
+
+| Marco, relativo ao início da navegação | Tempo |
+| --- | ---: |
+| TTFB do documento | 130,662 ms |
+| `ResourceSendRequest` da imagem | 649,949 ms |
+| Descoberta registrada no candidato LCP | 650,800 ms |
+| Início da rede no audit `network-requests` | 651,519 ms |
+| Evento `ResourceReceiveResponse` da imagem | 1.250,480 ms |
+| Fim efetivo do recurso pelo `ResourceFinish.finishTime` | 2.425,875 ms |
+| `PaintImage` do fundo durante a pintura do hero | 2.430,296 ms |
+| Evento LCP e `numericValue` do Lighthouse | **2.449,302 ms** |
+
+`navigationStart.ts = 45.625.541 µs` e `largestContentfulPaint::Candidate.ts = 48.074.843 µs`, na navegação `1D3F526D60E84498063E55ACB2089201`. Os marcos de envio, descoberta e início de rede são eventos diferentes e não devem ser substituídos entre si.
+
+| Fase no `lcp-breakdown-insight` | Tempo observado |
+| --- | ---: |
+| TTFB | 130,662 ms |
+| Atraso até solicitação do recurso | 519,287 ms |
+| Duração do carregamento, incluindo espera de rede | **1.775,926 ms** |
+| Atraso até a pintura | 23,427 ms |
+| **Total** | **2.449,302 ms** |
+
+A pontuação foi **94/100**, FCP 1.518,644 ms, CLS **0**, TBT 182,692 ms e Speed Index 1.772 ms. `metrics.observedLargestContentfulPaint` arredonda o LCP para 2.449 ms. Nesta captura o throttling foi aplicado durante a navegação e não há LCP simulado no JSON. Os 4.600 ms aproximados do PSI anterior são simulados. A soma arredondada de 2.540 ms é das fases exibidas para a cronologia original daquele relatório. Nenhuma fase foi acrescentada à soma.
+
+### O que ocupou a janela de renderização
+
+**C — Confirmado.** O carregamento de rede do fundo do hero ocupou **72,5%** do LCP. A requisição HTTP/3 respondeu 200, transferiu 105.551 bytes e saiu com prioridade alta. O `lcp-discovery-insight` confirma descoberta pelo documento inicial, prioridade alta e carregamento imediato, sem lazy loading do LCP. O resultado identifica a fase dominante e não separa causa estrutural de rede de efeitos do throttling.
+
+**D — Não confirmado para o PSI anterior.** A R2 tem apenas 23,427 ms do fim do recurso ao LCP. A janela contém 5,609 ms cobertos por `RunTask` na thread principal, incluindo `PrePaint` de 0,025 ms e `Paint` com 1,470 ms de cobertura sem somar eventos aninhados. `ImageDecodeTask` de 3,451 ms aparece em outra thread. Essa tarefa coincide temporalmente com a janela, sem vínculo individual de causalidade no evento. Não há tarefa longa, execução JavaScript identificada, recálculo de estilo ou layout na thread principal durante essa janela. O trace histórico do PSI é necessário para explicar seus 1.830 ms.
+
+| Recurso | Evidência na R2 |
+| --- | --- |
+| `r6-perf.css?ver=1.0.6` | Identificado como bloqueante, mas terminou em 1.376,427 ms, antes do fim da imagem. O insight de bloqueio atribuiu economia de 0 ms ao LCP desta execução. |
+| `r6.js?ver=1.0.6` | Rede de 2.425,773 a 3.084,328 ms. Sua transferência termina depois do LCP e o trace não mostra execução de JS na janela de pintura. |
+| `navigation.js?ver=0.1.0` | Rede iniciada a 2.703,455 ms, depois do LCP. |
+| Pérola do Poder (Pearl of Power) | A variante do card iniciou rede a 2.997,528 ms e o original a 4.594,485 ms. Ambos após o LCP. |
+| Scripts globais e long tasks | As duas tarefas atribuídas ao Google Tag Manager começaram a 5.154,450 e 5.275,612 ms. As outras duas long tasks do audit começaram a 598,022 e 1.394,430 ms e acabaram antes da janela de pintura. |
+
+**E — Não confirmado.** CLS permaneceu zero. A execução única com o PERF-ITENS-07 ativo e as diferenças de ambiente e throttling entre R2 e PSI não permitem inferir regressão causal do patch.
+
+**F — Provável oportunidade, sem implementação.** Medir em ambiente isolado uma versão mobile menor do mesmo fundo, com proporção, geometria do hero e prioridade de preload equivalentes. O teste deve demonstrar queda no tempo de carregamento com CLS zero antes de justificar uma troca. O relatório de imagens não estimou uma economia específica para esse WebP. Não há suporte nesta captura para retirar `r6-perf.css`, atrasar `r6.js` ou reverter o PERF-ITENS-07.
