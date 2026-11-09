@@ -7,7 +7,7 @@ permissions: {}
 jobs:
   capture:
     if: >-
-      github.event.head_commit.message == 'Run PERF-ITENS-08-R2 with standard mobile UA once'
+      github.event.head_commit.message == 'Run PERF-ITENS-08-R2 after public browser preflight once'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -69,6 +69,18 @@ jobs:
               console.log('Browser document HTTP:', response.status(), response.url(),
                 JSON.stringify({server: h.server, cache: h['x-hcdn-cache-status'], litespeed: h['x-litespeed-cache'], contentType: h['content-type']}));
             });
+            const preflightPage = await browser.newPage();
+            await preflightPage.setUserAgent(mobileUA);
+            const reachable = preflightPage.waitForResponse(response =>
+              response.url() === url && response.status() === 200 &&
+              response.request().isNavigationRequest(), {timeout: 18000});
+            await Promise.all([reachable, preflightPage.goto(url, {waitUntil: 'domcontentloaded', timeout: 18000})]);
+            await preflightPage.waitForSelector('section.hero', {timeout: 10000});
+            console.log('Browser preflight: public document 200 and section.hero present.');
+            await preflightPage.close();
+            const cacheSession = await page.createCDPSession();
+            await cacheSession.send('Network.clearBrowserCache');
+            await cacheSession.detach();
             const result = await lighthouse(url, {throttlingMethod: 'devtools', emulatedUserAgent: mobileUA, logLevel: 'error'}, undefined, page);
             if (!result?.lhr || result.lhr.runtimeError) throw new Error(JSON.stringify(result?.lhr?.runtimeError ?? 'No Lighthouse result'));
             const {lhr, artifacts} = result;
@@ -93,7 +105,7 @@ jobs:
               chrome, cdp: cdpVersion.protocolVersion, node: process.version, lighthouse: lhr.lighthouseVersion,
               userAgent: lhr.environment?.networkUserAgent ?? lhr.userAgent,
               viewport: lhr.configSettings.screenEmulation, throttlingMethod: lhr.configSettings.throttlingMethod,
-              throttling: lhr.configSettings.throttling, cache: 'fresh temporary Chrome profile, default Lighthouse storage reset; production cache untouched',
+              throttling: lhr.configSettings.throttling, cache: 'temporary Chrome profile; public preflight before collection; browser HTTP cache cleared with CDP before measured navigation, Lighthouse default storage reset; public session and possibly warm connections retained; production cache untouched',
               sameNavigation: true, traceEventCount: trace.traceEvents.length, exported,
             };
             await writeFile(join(output, names.metadata), JSON.stringify(metadata, null, 2));
