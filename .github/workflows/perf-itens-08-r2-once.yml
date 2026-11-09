@@ -7,7 +7,7 @@ permissions: {}
 jobs:
   capture:
     if: >-
-      github.event.head_commit.message == 'Run PERF-ITENS-08-R2 once'
+      github.event.head_commit.message == 'Run PERF-ITENS-08-R2 with standard mobile UA once'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -61,7 +61,15 @@ jobs:
             const cdpVersion = await cdp.send('Browser.getVersion');
             await cdp.detach();
             console.log('Chrome / CDP / Node:', chrome, cdpVersion.protocolVersion, process.version);
-            const result = await lighthouse(url, {throttlingMethod: 'devtools', logLevel: 'error'}, undefined, page);
+            const major = chrome.match(/\/(\d+)/)?.[1];
+            const mobileUA = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + major + '.0.0.0 Mobile Safari/537.36';
+            page.on('response', response => {
+              if (!response.request().isNavigationRequest() || response.frame() !== page.mainFrame()) return;
+              const h = response.headers();
+              console.log('Browser document HTTP:', response.status(), response.url(),
+                JSON.stringify({server: h.server, cache: h['x-hcdn-cache-status'], litespeed: h['x-litespeed-cache'], contentType: h['content-type']}));
+            });
+            const result = await lighthouse(url, {throttlingMethod: 'devtools', emulatedUserAgent: mobileUA, logLevel: 'error'}, undefined, page);
             if (!result?.lhr || result.lhr.runtimeError) throw new Error(JSON.stringify(result?.lhr?.runtimeError ?? 'No Lighthouse result'));
             const {lhr, artifacts} = result;
             const trace = artifacts.Trace;
