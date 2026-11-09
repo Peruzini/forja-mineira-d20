@@ -45,3 +45,25 @@ O teste pretendido usou Lighthouse 13.6.0 e Chrome headless em perfil novo com t
 ## Correção mínima
 
 Ainda não há evidência para escolher um patch de produção. A primeira hipótese a validar é retirar do caminho crítico somente o recurso bloqueante que o trace mostrar entre o fim do carregamento do hero e a pintura. Caso o trace identifique CSS, a intervenção deve se limitar às regras comprovadamente não críticas à primeira pintura. A coleta de confirmação deve usar uma única navegação mobile com perfil frio, throttling DevTools e exportação conjunta do LHR e do trace. O diagnóstico foi somente leitura em produção.
+
+## Rechecagem somente leitura — 09/11/2026
+
+Uma **única nova execução mobile** do PageSpeed Insights foi realizada pelo navegador remoto:
+[PageSpeed mobile de 09/11/2026](https://pagespeed.web.dev/analysis/https-forjamineirad20-com-br-itens-magicos-conjuradores-dnd-2024/a3lvocu0f3?form_factor=mobile).
+
+| Métrica | Valor |
+| --- | ---: |
+| Performance | 75/100 |
+| FCP | 2,9 s |
+| LCP | **4,6 s** |
+| TBT | 40 ms |
+| CLS | **0** |
+| Speed Index | 5,1 s |
+
+O relatório visual voltou a identificar a região `section.hero` e apontou `hero-vaeros-mobile-1280.webp` como imagem principal associada ao Hero. **A identidade exata do nó/recurso LCP não foi confirmada por dados brutos do trace**, portanto não deve ser considerada demonstrada.
+
+Fases apresentadas visualmente: TTFB 30 ms; resource load delay 370 ms; resource load duration 310 ms; element render delay 1.830 ms. **Somam 2.540 ms, não 4.600 ms**: a diferença de 2.060 ms segue sem reconciliação por artefato bruto. Não atribuir esse valor a uma nova fase nem presumir causalidade de CSS, JS ou imagem.
+
+**Limites da coleta:** este ambiente possui Chromium e Playwright, porém sem resolução de DNS para o domínio público, logo não permite navegação e captura local. O navegador remoto conseguiu executar a medição PSI, mas não permite exportar LHR JSON/DevTools Performance Trace acessível nesta sessão. O GitHub contém somente workflows de empacotamento de plugins, sem pipeline de diagnóstico Lighthouse/trace já disponível. **Não foram obtidos Lighthouse JSON nem trace**. Nenhum arquivo do WordPress, plugin, tema ou cache foi modificado.
+
+**Conclusão:** a persistência do LCP alto foi reconfirmada, com CLS zero, mas o diagnóstico causal continua **EVIDÊNCIA INSUFICIENTE**. A próxima coleta deverá ser executada em um ambiente com Chrome DevTools Protocol e rede pública funcionais (por exemplo, runner autorizado), exportando LHR e trace na **mesma navegação fria** antes de propor correção.
