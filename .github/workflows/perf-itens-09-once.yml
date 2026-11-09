@@ -1,0 +1,351 @@
+name: PERF-ITENS-09 Hero mobile experiment
+on:
+  push:
+    branches: [diag/perf-itens-09-hero-mobile-experiment-20261109]
+    paths: ['.github/workflows/perf-itens-09-once.yml']
+permissions: {}
+jobs:
+  compare:
+    if: >-
+      github.event.head_commit.message == 'Run PERF-ITENS-09 once'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.4'
+      - name: Install pinned diagnostic dependencies
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          node --version
+          google-chrome --version
+          npm install --ignore-scripts --no-audit --no-fund lighthouse@13.6.0
+          python -m pip install --disable-pip-version-check Pillow==12.1.0
+      - name: Capture the control and variants on a frozen loopback fixture
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          cat > images09.py <<'PERF09_PY'
+          import hashlib
+          import json
+          import math
+          import sys
+          import urllib.request
+          from pathlib import Path
+          
+          from PIL import Image, ImageChops, ImageStat, __version__
+          
+          evidence = Path(sys.argv[2]) / "evidence"
+          evidence.mkdir(parents=True, exist_ok=True)
+          
+          if sys.argv[1] == "prepare":
+              url = (
+                  "https://forjamineirad20.com.br/wp-content/plugins/"
+                  "forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-1280.webp"
+              )
+              request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  control = response.read()
+              expected = "8ec2a353f1e0395c52b5b4dc32e1be37b1d112f594bebeaf8b4c7b9b03747199"
+              assert hashlib.sha256(control).hexdigest() == expected, "Control differs from R2"
+              (evidence / "control.webp").write_bytes(control)
+              with Image.open(evidence / "control.webp") as image:
+                  rgb = image.convert("RGB")
+                  assert rgb.size == (1280, 512), rgb.size
+                  rgb.save(evidence / "A.webp", "WEBP", quality=80, method=6)
+                  smaller = rgb.resize((960, 384), Image.Resampling.LANCZOS)
+                  smaller.save(evidence / "B.webp", "WEBP", quality=82, method=6)
+              sizes = {name: (evidence / f"{name}.webp").stat().st_size for name in ("control", "A", "B")}
+              assert sizes["A"] < sizes["control"] and sizes["B"] < sizes["control"], sizes
+              print(json.dumps({"pillow": __version__, "bytes": sizes}))
+          
+          if sys.argv[1] == "compare":
+              control = Image.open(evidence / "control.png").convert("RGB")
+              meta = json.loads((evidence / "run-metadata.json").read_text())
+              view = meta["visualResults"]["control"]
+              scale = meta["config"]["viewport"]["deviceScaleFactor"]
+              box = view["box"]
+              crop = tuple(round(v * scale) for v in (
+                  box["x"], box["y"], box["x"] + box["width"], box["y"] + box["height"]
+              ))
+              differences = {}
+              for name in ("A", "B"):
+                  variant = Image.open(evidence / f"{name}.png").convert("RGB")
+                  delta = ImageChops.difference(control.crop(crop), variant.crop(crop))
+                  stats = ImageStat.Stat(delta)
+                  mse = sum(value ** 2 for value in stats.rms) / 3
+                  differences[name] = {
+                      "mean_absolute_rgb_difference": sum(stats.mean) / 3,
+                      "psnr_db": 10 * math.log10(255 ** 2 / mse) if mse else None,
+                      "geometry_identical": all(
+                          meta["visualResults"][name][key] == value
+                          for key, value in view.items() if key != "imageDimensions"
+                      ),
+                  }
+                  size = (412, 823)
+                  pair = Image.new("RGB", (size[0] * 2, size[1]))
+                  pair.paste(control.resize(size, Image.Resampling.LANCZOS), (0, 0))
+                  pair.paste(variant.resize(size, Image.Resampling.LANCZOS), (size[0], 0))
+                  pair.save(evidence / f"controle-vs-{name}.png")
+              (evidence / "visual-differences.json").write_text(json.dumps(differences, indent=2))
+          PERF09_PY
+          cat > measure09.mjs <<'PERF09_NODE'
+          import {createServer} from 'node:http';
+          import {mkdir, mkdtemp, readFile, writeFile} from 'node:fs/promises';
+          import {tmpdir} from 'node:os';
+          import {join} from 'node:path';
+          import {createHash} from 'node:crypto';
+          import {gzipSync} from 'node:zlib';
+          import puppeteer from 'puppeteer-core';
+          import lighthouse from 'lighthouse';
+          
+          const upstream = 'https://forjamineirad20.com.br';
+          const target = '/itens-magicos-conjuradores-dnd-2024/';
+          const heroPath = '/wp-content/plugins/forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-1280.webp';
+          const root = process.argv[2];
+          const chromePath = process.argv[3];
+          const evidence = join(root, 'evidence');
+          const raw = join(root, 'raw');
+          await mkdir(raw, {recursive: true});
+          const sha256 = data => createHash('sha256').update(data).digest('hex');
+          const json = (file, value) => writeFile(file, JSON.stringify(value, null, 2));
+          const images = Object.fromEntries(await Promise.all(['control', 'A', 'B'].map(async name => [
+            name, await readFile(join(evidence, name + '.webp')),
+          ])));
+          const viewport = {width: 412, height: 823, deviceScaleFactor: 1.75, isMobile: true, hasTouch: true};
+          const startedAt = new Date().toISOString();
+          const snapshot = new Map();
+          const misses = new Set();
+          const external = new Set();
+          const results = [];
+          const order = [['control', 'A', 'B'], ['A', 'B', 'control'], ['B', 'control', 'A']];
+          let frozen = false;
+          let scenario = 'control';
+          let origin, ua;
+          
+          async function readUpstream(path) {
+            const url = new URL(path, upstream);
+            if (url.origin !== upstream) throw new Error('Non-site URL: ' + url);
+            const response = await fetch(url, {
+              redirect: 'manual', signal: AbortSignal.timeout(20000),
+              headers: {'user-agent': ua, 'accept-language': 'pt-BR,pt;q=0.9'},
+            });
+            const type = response.headers.get('content-type') || 'application/octet-stream';
+            const original = Buffer.from(await response.arrayBuffer());
+            const isText = /(?:text\/|javascript|json)/i.test(type);
+            let bytes = original;
+            if (isText) {
+              const escaped = s => s.replaceAll('/', '\\/');
+              bytes = gzipSync(original.toString('utf8').replaceAll(upstream, origin)
+                .replaceAll(escaped(upstream), escaped(origin)));
+            }
+            const location = response.headers.get('location');
+            return {
+              status: response.status, originalSha256: sha256(original), originalBytes: original.length,
+              body: bytes, headers: {
+                'content-type': type,
+                ...(isText ? {'content-encoding': 'gzip'} : {}),
+                ...(location ? {location: location.replaceAll(upstream, origin)} : {}),
+              },
+            };
+          }
+          
+          const server = createServer(async (request, response) => {
+            try {
+              const path = new URL(request.url, origin);
+              const key = path.pathname + path.search;
+              let resource;
+              if (path.pathname === heroPath) {
+                resource = {status: 200, headers: {'content-type': 'image/webp'}, body: images[scenario]};
+              } else {
+                if (!snapshot.has(key) && !frozen) snapshot.set(key, readUpstream(key));
+                if (!snapshot.has(key)) {
+                  misses.add(key);
+                  response.writeHead(404).end();
+                  return;
+                }
+                resource = await snapshot.get(key);
+              }
+              response.writeHead(resource.status, {
+                ...resource.headers, 'content-length': resource.body.length, 'cache-control': 'no-store',
+              }).end(resource.body);
+            } catch (error) {
+              console.error(request.url, error.message);
+              response.writeHead(502).end();
+            }
+          });
+          await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+          origin = 'http://127.0.0.1:' + server.address().port;
+          const url = origin + target;
+          const heroUrl = origin + heroPath;
+          
+          async function withPage(task) {
+            const browser = await puppeteer.launch({
+              executablePath: chromePath, headless: true, pipe: true,
+              userDataDir: await mkdtemp(join(tmpdir(), 'perf09-')), timeout: 20000,
+            });
+            try {
+              const chrome = await browser.version();
+              const major = chrome.match(/\/(\d+)/)[1];
+              ua = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' +
+                major + '.0.0.0 Mobile Safari/537.36';
+              const page = await browser.newPage();
+              await page.setUserAgent(ua);
+              await page.setViewport(viewport);
+              await page.setRequestInterception(true);
+              page.on('request', request => {
+                const parsed = new URL(request.url());
+                if (['http:', 'https:'].includes(parsed.protocol) && parsed.origin !== origin) {
+                  external.add(parsed.origin + parsed.pathname);
+                  void request.abort().catch(() => {});
+                } else {
+                  void request.continue().catch(() => {});
+                }
+              });
+              return await task(page, chrome);
+            } finally {
+              await browser.close();
+            }
+          }
+          
+          async function visual(page, label) {
+            const response = await page.goto(url, {waitUntil: 'networkidle0', timeout: 45000});
+            if (response.status() !== 200) throw new Error('Fixture document HTTP ' + response.status());
+            const hero = await page.waitForSelector('section.hero');
+            const view = await hero.evaluate(async (element, heroUrl) => {
+              await document.fonts.ready;
+              const background = getComputedStyle(element, '::before');
+              const preload = [...document.querySelectorAll('link[rel=preload]')].find(link =>
+                link.href === heroUrl && link.as === 'image');
+              if (!preload || !matchMedia(preload.media).matches || !background.backgroundImage.includes(heroUrl)) {
+                throw new Error('Mobile preload/background mismatch: ' + background.backgroundImage);
+              }
+              const image = new Image();
+              image.src = heroUrl;
+              await image.decode();
+              const box = node => {
+                const {x, y, width, height} = node.getBoundingClientRect();
+                return {x, y, width, height};
+              };
+              return {
+                box: box(element), title: element.querySelector('h1')?.innerText,
+                titleBox: box(element.querySelector('h1')),
+                backgroundSize: background.backgroundSize, backgroundPosition: background.backgroundPosition,
+                preload: {media: preload.media, priority: preload.fetchPriority},
+                imageDimensions: [image.naturalWidth, image.naturalHeight],
+                articleHeight: document.documentElement.scrollHeight,
+              };
+            }, heroUrl);
+            if (label) await page.screenshot({path: join(evidence, label + '.png')});
+            return view;
+          }
+          
+          function metrics(lhr, trace) {
+            const audits = lhr.audits;
+            const m = id => audits[id].numericValue;
+            const observed = audits.metrics.details.items[0];
+            const candidate = trace.traceEvents.find(event => event.name === 'largestContentfulPaint::Candidate' &&
+              event.ts === observed.observedLargestContentfulPaintTs);
+            const nodeId = candidate?.args?.data?.nodeId;
+            const image = trace.traceEvents.find(event => event.name === 'LargestImagePaint::Candidate' &&
+              event.ts === candidate?.ts && event.args.data.nodeId === nodeId);
+            const network = audits['network-requests'].details.items.find(item => item.url === heroUrl);
+            const node = audits['lcp-breakdown-insight']?.details?.items?.find(item => item.type === 'node');
+            return {
+              score: lhr.categories.performance.score * 100,
+              fcp: m('first-contentful-paint'), lcp: m('largest-contentful-paint'),
+              cls: m('cumulative-layout-shift'), tbt: m('total-blocking-time'), speedIndex: m('speed-index'),
+              heroRequestStart: network?.networkRequestTime, heroRequestEnd: network?.networkEndTime,
+              heroRequestDuration: network ? network.networkEndTime - network.networkRequestTime : null,
+              heroHttp: network?.statusCode, heroResourceSize: network?.resourceSize,
+              lcpPaint: observed.observedLargestContentfulPaint, lcpTraceTimestampUs: candidate?.ts,
+              lcpNodeId: nodeId, lcpNode: node, lcpImage: image?.args?.data?.imageUrl,
+              heroIsLcp: image?.args?.data?.imageUrl === heroUrl &&
+                Boolean(node?.selector?.includes('section.hero')),
+            };
+          }
+          
+          try {
+            await withPage(page => visual(page));
+            frozen = true;
+            const snapshotResources = await Promise.all([...snapshot].map(async ([path, promise]) => {
+              const {status, originalSha256, originalBytes} = await promise;
+              return {path, status, originalSha256, originalBytes};
+            }));
+            console.log('Frozen snapshot:', snapshotResources.length, 'resources');
+            const visualResults = {};
+            for (const name of ['control', 'A', 'B']) {
+              scenario = name;
+              visualResults[name] = await withPage(page => visual(page, name));
+            }
+          
+            let config;
+            for (const [index, round] of order.entries()) {
+              for (const name of round) {
+                scenario = name;
+                const id = (index + 1) + '-' + name;
+                await withPage(async (page, chrome) => {
+                  const result = await lighthouse(url, {
+                    onlyCategories: ['performance'], throttlingMethod: 'devtools',
+                    emulatedUserAgent: ua, logLevel: 'error',
+                  }, undefined, page);
+                  if (!result?.lhr || result.lhr.runtimeError) {
+                    throw new Error(id + ' ' + JSON.stringify(result?.lhr?.runtimeError ?? 'No Lighthouse result'));
+                  }
+                  const {lhr, artifacts: {Trace: trace}} = result;
+                  const reports = {
+                    [id + '-lighthouse.json']: JSON.stringify(lhr),
+                    [id + '-trace.json']: JSON.stringify(trace),
+                  };
+                  const exported = {};
+                  for (const [file, data] of Object.entries(reports)) {
+                    await writeFile(join(raw, file), data);
+                    exported[file] = {sha256: sha256(data), bytes: Buffer.byteLength(data)};
+                  }
+                  config = {
+                    chrome, node: process.version, lighthouse: lhr.lighthouseVersion, ua,
+                    viewport: lhr.configSettings.screenEmulation,
+                    throttlingMethod: lhr.configSettings.throttlingMethod, throttling: lhr.configSettings.throttling,
+                    cache: 'fresh Chrome profile per navigation; fixture no-store; Lighthouse storage reset',
+                  };
+                  const row = {id, scenario: name, startedAt: lhr.fetchTime, ...metrics(lhr, trace), exported};
+                  results.push(row);
+                  await json(join(evidence, 'measurements.json'), results);
+                  console.log(id, JSON.stringify({...row, exported: undefined, lcpNode: undefined}));
+                });
+              }
+            }
+          
+            await json(join(evidence, 'run-metadata.json'), {
+              startedAt, finishedAt: new Date().toISOString(), runId: process.env.GITHUB_RUN_ID,
+              upstreamUrl: upstream + target, fixtureUrl: url, config, order,
+              images: Object.fromEntries(Object.entries(images).map(([name, data]) => [
+                name, {bytes: data.length, sha256: sha256(data)},
+              ])),
+              visualResults, snapshotResources, excludedExternal: [...external].sort(), snapshotMisses: [...misses].sort(),
+              sameNavigationForTraceAndLighthouse: true,
+            });
+          } finally {
+            server.close();
+          }
+          PERF09_NODE
+          python images09.py prepare "$RUNNER_TEMP/perf09"
+          node measure09.mjs "$RUNNER_TEMP/perf09" "$(command -v google-chrome)"
+          python images09.py compare "$RUNNER_TEMP/perf09"
+      - name: Archive visual and measurement evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PERF-ITENS-09-EVIDENCIAS
+          path: ${{ runner.temp }}/perf09/evidence
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Archive paired Lighthouse reports and Chrome traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PERF-ITENS-09-LIGHTHOUSE-TRACES
+          path: ${{ runner.temp }}/perf09/raw
+          if-no-files-found: warn
+          retention-days: 30
