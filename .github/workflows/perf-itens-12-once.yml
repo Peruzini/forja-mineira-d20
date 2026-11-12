@@ -1,0 +1,68 @@
+name: PERF-ITENS-12 isolated A-B noncritical image loading
+on:
+  push:
+    branches: [diag/perf-itens-12-ab-imagens-20261112]
+    paths: ['.github/workflows/perf-itens-12-once.yml']
+permissions: {}
+jobs:
+  experiment:
+    if: github.event.head_commit.message == 'Run PERF-ITENS-12 isolated A-B once'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install controlled experiment dependencies
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          node --version
+          google-chrome --version
+          npm install --ignore-scripts --no-audit --no-fund lighthouse@13.6.0 puppeteer-core@24.26.1
+          python -m pip install --disable-pip-version-check Pillow==12.1.0
+      - name: Syntax check and isolated A-B experiment
+        run: |
+          set -euo pipefail
+          cp "$GITHUB_WORKSPACE/scripts/perf-itens-12-ab.mjs" "$RUNNER_TEMP/perf-itens-12-ab.mjs"
+          cd "$RUNNER_TEMP"
+          node --check perf-itens-12-ab.mjs
+          node perf-itens-12-ab.mjs "$(command -v google-chrome)"
+      - name: First-viewport visual pixel comparison
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from PIL import Image, ImageChops, ImageStat
+          from pathlib import Path
+          import json, os
+          root=Path(os.environ['RUNNER_TEMP'])/'perf12'/'evidence'
+          a=Image.open(root/'A-first-viewport.png').convert('RGB')
+          b=Image.open(root/'B-first-viewport.png').convert('RGB')
+          assert a.size==b.size,(a.size,b.size)
+          diff=ImageChops.difference(a,b)
+          stat=ImageStat.Stat(diff)
+          result={'size':a.size,'mean_absolute_rgb_difference':sum(stat.mean)/3,
+                  'bbox_of_visual_differences':diff.getbbox()}
+          (root/'first-viewport-pixel-diff.json').write_text(json.dumps(result,indent=2))
+          print('VISUAL_PIXEL_QA',json.dumps(result))
+          PY
+      - name: Archive measured traces, reports and images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PERF-ITENS-12-AB-EVIDENCE
+          path: ${{ runner.temp }}/perf12/evidence
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Archive original Lighthouse reports and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PERF-ITENS-12-AB-RAW
+          path: ${{ runner.temp }}/perf12/raw
+          if-no-files-found: warn
+          retention-days: 30
