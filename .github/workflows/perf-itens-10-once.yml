@@ -51,7 +51,6 @@ jobs:
           });
           try {
             const chrome = await browser.version();
-            const protocol = (await browser.createCDPSession())._connection ? undefined : undefined;
             const major = chrome.match(/\/(\d+)/)?.[1] || '156';
             const mobileUA = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'+major+'.0.0.0 Mobile Safari/537.36';
             console.log('Chrome:',chrome,'Node:',process.version);
