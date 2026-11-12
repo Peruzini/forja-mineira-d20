@@ -1,0 +1,169 @@
+name: PERF-ITENS-10 single mobile cold capture
+on:
+  push:
+    branches: [diag/perf-itens-10-mobile-cold-once-20261112]
+    paths: ['.github/workflows/perf-itens-10-once.yml']
+permissions: {}
+jobs:
+  capture:
+    if: github.event.head_commit.message == 'Run PERF-ITENS-10 mobile cold capture once'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Lighthouse and Puppeteer in runner temp
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          node --version
+          google-chrome --version
+          npm install --ignore-scripts --no-audit --no-fund lighthouse@13.6.0 puppeteer-core@24.26.1
+      - name: One cold-browser mobile Lighthouse navigation and its original Chrome trace
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          cat > collect10.mjs <<'PERF10_SCRIPT'
+          import {lookup} from 'node:dns/promises';
+          import {mkdir, mkdtemp, writeFile} from 'node:fs/promises';
+          import {join} from 'node:path';
+          import {tmpdir} from 'node:os';
+          import {createHash} from 'node:crypto';
+          import puppeteer from 'puppeteer-core';
+          import lighthouse from 'lighthouse';
+
+          const url = 'https://forjamineirad20.com.br/itens-magicos-conjuradores-dnd-2024/';
+          const hero = 'https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-960-v1.0.7.webp';
+          const output = join(process.env.RUNNER_TEMP, 'perf-itens-10');
+          const fileNames = ['PERF-ITENS-10-LIGHTHOUSE-MOBILE.json', 'PERF-ITENS-10-CHROME-TRACE.json', 'PERF-ITENS-10-SUMMARY.json'];
+          await mkdir(output,{recursive:true});
+          const startedAt = new Date().toISOString();
+          const dns = await lookup(new URL(url).hostname,{all:true});
+          const firstHttp = await fetch(url,{signal:AbortSignal.timeout(20000)});
+          if (!firstHttp.ok) throw new Error('Public HTTPS preflight status '+firstHttp.status);
+          await firstHttp.body?.cancel();
+          console.log('PREFLIGHT Node HTTPS:',firstHttp.status,'DNS addresses:',dns.length);
+          const browser = await puppeteer.launch({
+            executablePath: process.argv[2], headless: true, pipe: true,
+            userDataDir: await mkdtemp(join(tmpdir(),'perf10-chrome-')),
+            timeout: 20000,
+          });
+          try {
+            const chrome = await browser.version();
+            const protocol = (await browser.createCDPSession())._connection ? undefined : undefined;
+            const major = chrome.match(/\/(\d+)/)?.[1] || '156';
+            const mobileUA = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'+major+'.0.0.0 Mobile Safari/537.36';
+            console.log('Chrome:',chrome,'Node:',process.version);
+            const preflightPage = await browser.newPage();
+            await preflightPage.setUserAgent(mobileUA);
+            const preflightResponse = await preflightPage.goto(url,{waitUntil:'domcontentloaded',timeout:25000});
+            if (preflightResponse?.status() !== 200) throw new Error('Chrome public preflight status '+preflightResponse?.status());
+            await preflightPage.waitForSelector('section.hero',{timeout:10000});
+            await preflightPage.close();
+            console.log('Chrome preflight: HTTP 200, section.hero found (NOT measured).');
+
+            const page = await browser.newPage();
+            const cdp = await page.createCDPSession();
+            const cdpVersion = await cdp.send('Browser.getVersion');
+            await cdp.send('Network.clearBrowserCache');
+            await cdp.detach();
+            const documentResponses=[];
+            page.on('response', response => {
+              if (response.request().isNavigationRequest() && response.frame()===page.mainFrame()) {
+                const headers=response.headers();
+                const row={status:response.status(),url:response.url(),server:headers.server,
+                  hcdn:headers['x-hcdn-cache-status'],litespeed:headers['x-litespeed-cache'],
+                  contentType:headers['content-type']};
+                documentResponses.push(row);
+                console.log('MEASURED_DOCUMENT_HTTP',JSON.stringify(row));
+              }
+            });
+            // Exactly one Lighthouse measurement. DevTools throttling is applied in-navigation.
+            const result = await lighthouse(url,{
+              throttlingMethod:'devtools',emulatedUserAgent:mobileUA,logLevel:'error',
+              onlyCategories:['performance']
+            },undefined,page);
+            if (!result?.lhr || result.lhr.runtimeError) throw Error('Lighthouse failed '+JSON.stringify(result?.lhr?.runtimeError||null));
+            const {lhr,artifacts}=result, trace=artifacts.Trace;
+            if (!trace?.traceEvents) throw Error('Lighthouse did not provide Chrome trace');
+            const network=lhr.audits['network-requests']?.details?.items||[];
+            const targetRequest=network.find(x=>x.url===hero);
+            const documentRequest=network.find(x=>x.url===url);
+            const candidates=trace.traceEvents.filter(e=>e.name==='largestContentfulPaint::Candidate');
+            const observed=lhr.audits.metrics?.details?.items?.[0]||{};
+            const finalCandidate=candidates.find(x=>x.ts===observed.observedLargestContentfulPaintTs)||candidates.at(-1);
+            const pairedImage=trace.traceEvents.find(e=>e.name==='LargestImagePaint::Candidate' && e.ts===finalCandidate?.ts);
+            const nodes=lhr.audits['lcp-breakdown-insight']?.details?.items??null;
+            const lcpDiscovery=lhr.audits['lcp-discovery-insight']?.details?.items??null;
+            const summary={
+              startedAt,finishedAt:new Date().toISOString(),runId:process.env.GITHUB_RUN_ID,
+              url, hero, chrome,node:process.version,cdp:cdpVersion.protocolVersion,
+              lighthouse:lhr.lighthouseVersion,
+              userAgent:lhr.environment?.networkUserAgent??mobileUA,
+              settings:{viewport:lhr.configSettings.screenEmulation,
+                throttlingMethod:lhr.configSettings.throttlingMethod,
+                throttling:lhr.configSettings.throttling},
+              cache:'new Chrome profile; public preflight session; cleared browser HTTP cache immediately before measured navigation; Lighthouse storage reset; CDN and LiteSpeed server caches unchanged',
+              measuredNavigations:1,traceAndLighthouseSameNavigation:true,
+              performanceScore:lhr.categories.performance.score*100,
+              metrics:{
+                fcpMs:lhr.audits['first-contentful-paint']?.numericValue,
+                lcpMs:lhr.audits['largest-contentful-paint']?.numericValue,
+                tbtMs:lhr.audits['total-blocking-time']?.numericValue,
+                cls:lhr.audits['cumulative-layout-shift']?.numericValue,
+                speedIndexMs:lhr.audits['speed-index']?.numericValue
+              },
+              documentResponses,
+              documentRequest:documentRequest ? {
+                status:documentRequest.statusCode,priority:documentRequest.priority,
+                start:documentRequest.networkRequestTime,end:documentRequest.networkEndTime
+              }:null,
+              heroRequest:targetRequest ? {
+                status:targetRequest.statusCode,resourceSize:targetRequest.resourceSize,
+                transferSize:targetRequest.transferSize,priority:targetRequest.priority,
+                start:targetRequest.networkRequestTime,end:targetRequest.networkEndTime,
+                duration:targetRequest.networkEndTime-targetRequest.networkRequestTime,
+                mimeType:targetRequest.mimeType
+              }:null,
+              lcp:{
+                traceTimestampUs:finalCandidate?.ts,
+                nodeId:finalCandidate?.args?.data?.nodeId,
+                type:finalCandidate?.args?.data?.type,
+                imageUrl:pairedImage?.args?.data?.imageUrl,
+                imageNodeId:pairedImage?.args?.data?.DOMNodeId??pairedImage?.args?.data?.nodeId,
+                lcpSelector:nodes?.filter?.(x=>x.type==='node').map(x=>x.selector),
+                heroIsLcp:pairedImage?.args?.data?.imageUrl===hero && Boolean(nodes?.some?.(x=>x.selector?.includes('section.hero')))
+              },
+              lcpBreakdownAudit:nodes,
+              lcpDiscoveryAudit:lcpDiscovery,
+              rawLcpAudit:lhr.audits['lcp-breakdown-insight']?.details??null,
+              rawLcpCandidate:finalCandidate?.args?.data??null,
+              traceEventCount:trace.traceEvents.length
+            };
+            const raw=[JSON.stringify(lhr,null,2),JSON.stringify(trace)];
+            const saved={};
+            for (let i=0;i<raw.length;i++) {
+              await writeFile(join(output,fileNames[i]),raw[i]);
+              saved[fileNames[i]]={bytes:Buffer.byteLength(raw[i]),sha256:createHash('sha256').update(raw[i]).digest('hex')};
+            }
+            summary.exported=saved;
+            await writeFile(join(output,fileNames[2]),JSON.stringify(summary,null,2));
+            console.log('PERF_ITENS_10_SUMMARY',JSON.stringify(summary));
+            if (summary.documentRequest?.status!==200 || summary.heroRequest?.status!==200) {
+              console.warn('WARNING: measured document or hero HTTP not 200; inspect raw evidence.');
+            }
+          } finally {
+            await browser.close();
+          }
+          PERF10_SCRIPT
+          node collect10.mjs "$(command -v google-chrome)"
+          sha256sum "$RUNNER_TEMP"/perf-itens-10/PERF-ITENS-10-*.json
+      - name: Upload one-navigation Lighthouse and trace originals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PERF-ITENS-10-MOBILE-COLD-RAW
+          path: ${{ runner.temp }}/perf-itens-10/PERF-ITENS-10-*.json
+          if-no-files-found: warn
+          retention-days: 30
