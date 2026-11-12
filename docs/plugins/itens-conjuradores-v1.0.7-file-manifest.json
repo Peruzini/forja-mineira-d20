@@ -1,0 +1,319 @@
+{
+  "snapshot": "Forja Mineira D20 — Itens para Conjuradores v1.0.7",
+  "original_zip_name": "forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip",
+  "original_zip_sha256": "b11c0a04cc11335e8b91b3d2a38180ee9b414173ea60e28b31b13de3a3f8058a",
+  "original_zip_git_blob_sha": "340d3b7569e356a0472f42db60a04134d1937ab1",
+  "original_zip_bytes": 4700773,
+  "source_library_path": "/Forja Mineira D20/Projeto/Plugins/forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip",
+  "status": "Archived source ZIP used for published v1.0.7; no production modification",
+  "zip_entry_order_and_integrity": [
+    {
+      "i": 0,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/guia-itens-hero-conjuradores-128.webp",
+      "size_bytes": 24522,
+      "sha256": "f6fae7d486387cac93bf5a3ec6d3e138003694c13816f14acfa2e15ea176a693",
+      "git_blob_sha": "7efa0967831217d79bcdfd4cd57c32be56a49111"
+    },
+    {
+      "i": 1,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/guia-itens-hero-niveis-1-5-128.webp",
+      "size_bytes": 25342,
+      "sha256": "d01b2bec5671ab01e76e67aefc06c00f3387fe894ffa3e86002ff972bfc66657",
+      "git_blob_sha": "3757e888783744c69e8c68a1a8fbcfdc931faf1e"
+    },
+    {
+      "i": 2,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-1280.webp",
+      "size_bytes": 105192,
+      "sha256": "8ec2a353f1e0395c52b5b4dc32e1be37b1d112f594bebeaf8b4c7b9b03747199",
+      "git_blob_sha": "8dead40f22d5bc886999263554c7a05f841c7617"
+    },
+    {
+      "i": 3,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-r6.webp",
+      "size_bytes": 247306,
+      "sha256": "9828453ecc940bd9aed479750ad55e045dda0f60345b75f15e310c27ad715762",
+      "git_blob_sha": "153603a1db42466580779e1ca4a66fd86bdea02c"
+    },
+    {
+      "i": 4,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/icone-dnd-2024-128.webp",
+      "size_bytes": 25086,
+      "sha256": "b5fd9b1278eb13ee249c4b95a4d43cfaddf1f3b15940a2086824fce6044baf1d",
+      "git_blob_sha": "41ba142fdc245cf5306c672e4ca3aa5ad2b7892f"
+    },
+    {
+      "i": 5,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/images/guia-itens-hero-conjuradores-aprovado.webp",
+      "size_bytes": 107006,
+      "sha256": "3b0456175944af4d510b65ad31eb97850c3aeb46337558a1e9505587fe1ac395",
+      "git_blob_sha": "81475d6f85878cca42a4d469ab48709463fa946c"
+    },
+    {
+      "i": 6,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/images/guia-itens-hero-niveis-1-5-aprovado.webp",
+      "size_bytes": 109372,
+      "sha256": "e0f63934d37a3c746fce8c9094697f238ae0df68ecb9c6376a2d83a97898dda4",
+      "git_blob_sha": "6ce60bb16170713c125524b8b110397c38659511"
+    },
+    {
+      "i": 7,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1022-bolsa-de-truques-aprovada-card-400.webp",
+      "size_bytes": 25730,
+      "sha256": "3d4a02bf1ccb21b5d25ac1080edc20e5f7fa7c35fa4725366482bb500126f876",
+      "git_blob_sha": "04bc7cac2119dc10ac8426abdfcec72407ef0f5a"
+    },
+    {
+      "i": 8,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1022-bolsa-de-truques-aprovada-card-800.webp",
+      "size_bytes": 88580,
+      "sha256": "24d8ee2de3c0dab4f0c9ea14573fb0dbda082b5e787a1744cfc284a8d684d0b0",
+      "git_blob_sha": "1b96ee22f7b2e0cd1a53aae74c9e281fc4471ea8"
+    },
+    {
+      "i": 9,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1022-bolsa-de-truques-aprovada.webp",
+      "size_bytes": 318618,
+      "sha256": "4fb4e451de603391b1eafa087c2e4c136fd0674bf579bc58977813eddaafb7bd",
+      "git_blob_sha": "6c147526f87cf6825c4be47eb4cb629bf5c7f94c"
+    },
+    {
+      "i": 10,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1043-vassoura-voadora-aprovada-card-400.webp",
+      "size_bytes": 13518,
+      "sha256": "0f189d3b5aad5fd54ec32a10b1b21c41d13f84b4a2a3ed5606f3195ee543b7a4",
+      "git_blob_sha": "9ee85512665c986bd29814ee8b7d9007792e0742"
+    },
+    {
+      "i": 11,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1043-vassoura-voadora-aprovada-card-800.webp",
+      "size_bytes": 52202,
+      "sha256": "86f605646e13ee71c862d253726dee81bf2577dd2ef0fe8ee2b46414fc748f15",
+      "git_blob_sha": "2e6e9582d0cb6d04ee6bba2a1da78bc6b113887e"
+    },
+    {
+      "i": 12,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1043-vassoura-voadora-aprovada.webp",
+      "size_bytes": 224746,
+      "sha256": "7d6a86a7d32ef9349da9465152477776f3f801bb7e3d9ab7e17e84d7dee93131",
+      "git_blob_sha": "417ba5bf597a2fca8c3b33a4b8bd652b4701b731"
+    },
+    {
+      "i": 13,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1061-manto-de-protecao-aprovada-card-400.webp",
+      "size_bytes": 23898,
+      "sha256": "19d0e509d6fd823bc806452b842f6b48e9d7e924c2a1196c7e2c3ea424dab080",
+      "git_blob_sha": "d2fed1a3c695b5fab6fee7024a481b36a65eebf0"
+    },
+    {
+      "i": 14,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1061-manto-de-protecao-aprovada-card-800.webp",
+      "size_bytes": 91080,
+      "sha256": "cc2b04f2cf5d5345e4b2754586b9f4ae40cefb39415c73dc7b9f7b2e152e2b81",
+      "git_blob_sha": "546c81ba5602e19b345df62c9ae03b76777dea39"
+    },
+    {
+      "i": 15,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1061-manto-de-protecao-aprovada.webp",
+      "size_bytes": 365018,
+      "sha256": "980b937880e6e5fa3a7d6e557e5241ba75d8b47752f706d6f85efd8ca713cc2b",
+      "git_blob_sha": "06da17a376113817ba00b31278db2d54d8f6e247"
+    },
+    {
+      "i": 16,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1126-chapeu-do-disfarce-aprovada-card-400.webp",
+      "size_bytes": 19958,
+      "sha256": "86d83fb09e7fb21f56e4bb841ffdb7f01c1a1a2a06c830437c4cf52459391826",
+      "git_blob_sha": "2fed0305384bf54f8e7a9a4d8811efc2a304676c"
+    },
+    {
+      "i": 17,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1126-chapeu-do-disfarce-aprovada-card-800.webp",
+      "size_bytes": 78152,
+      "sha256": "1403e741b5c0eaac917c5350b27cb4808d661b83d5180d8e7766aa932e707b96",
+      "git_blob_sha": "5839f230c598a6bb43219a547ec52e3420859db6"
+    },
+    {
+      "i": 18,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1126-chapeu-do-disfarce-aprovada.webp",
+      "size_bytes": 328350,
+      "sha256": "53d8694d5c6ed489e9e89f014395a64a556345a1d1c976ac5fca3685f33ab7ba",
+      "git_blob_sha": "be58dc81df3349b10b052eef3245d9e279e83b5d"
+    },
+    {
+      "i": 19,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1184-perola-do-poder-aprovada-card-400.webp",
+      "size_bytes": 12770,
+      "sha256": "d4a7f45fb54f12fa5057affdc955d2f051ef6e7644b294eef3a14050cfc3dbcb",
+      "git_blob_sha": "ea4bb5df4b8060c5b3d4d236c5fa6b4fcfa068cc"
+    },
+    {
+      "i": 20,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1184-perola-do-poder-aprovada-card-800.webp",
+      "size_bytes": 50888,
+      "sha256": "e53c79edae85b6ab395dd5edd4fa335070cfc35eb85fa062e2ea99b777662eb4",
+      "git_blob_sha": "1931e3090938712e287eee41c2ec3b94675b519a"
+    },
+    {
+      "i": 21,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1184-perola-do-poder-aprovada.webp",
+      "size_bytes": 264044,
+      "sha256": "9a6deea99a7334bada1e5f540e607fea82e100f68b5e317be7f8cce3582ff8e7",
+      "git_blob_sha": "979082296b34c835eed0f2630691a88b50e5b5ac"
+    },
+    {
+      "i": 22,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1238-anel-armazenamento-magias-aprovada-card-400.webp",
+      "size_bytes": 21122,
+      "sha256": "b8fdc418f0427a2ae5c5e9cbc8b36f3f0d402384bb11dc70bf1e17ba3a1e666a",
+      "git_blob_sha": "853b8bd0897ba096b969a661d073589ce46bb61b"
+    },
+    {
+      "i": 23,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1238-anel-armazenamento-magias-aprovada-card-800.webp",
+      "size_bytes": 77590,
+      "sha256": "58e08af51fe7c62240e4fcba85b17a8807f2ff3cb9cdcc99131f8c0033a7a2ee",
+      "git_blob_sha": "fd310325a3e253edf1b935d933b093cc8cdf6492"
+    },
+    {
+      "i": 24,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1238-anel-armazenamento-magias-aprovada.webp",
+      "size_bytes": 303448,
+      "sha256": "001f10452e074b4a4a23b292e5bce389021320708081db633197889f1edc40c2",
+      "git_blob_sha": "781ddc7101fc87c348a207ed15914aea9660ead0"
+    },
+    {
+      "i": 25,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1289-cajado-de-cura-aprovada-card-400.webp",
+      "size_bytes": 23084,
+      "sha256": "dae27a92f1f39d7bd574f8e1bbcc6e11ce87038d764365bfb901674fb1a10c37",
+      "git_blob_sha": "17066d6dad93b13d273e656644bcbabc8d730c78"
+    },
+    {
+      "i": 26,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1289-cajado-de-cura-aprovada-card-800.webp",
+      "size_bytes": 81748,
+      "sha256": "c6f80bf15df63c4a05f9be76befcacf26fb7c730330220dbfeb9cff4422976f7",
+      "git_blob_sha": "3b8046cfe3741ce047e0afee72143cddd355fca1"
+    },
+    {
+      "i": 27,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1289-cajado-de-cura-aprovada.webp",
+      "size_bytes": 309140,
+      "sha256": "d22bcd56ab7f17fcd212866d30bd33cb1a0e832d59f113c07a1ec15bd4456ffb",
+      "git_blob_sha": "34ed845b3e6dad89a539433802b6d53ecdaafeac"
+    },
+    {
+      "i": 28,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1300-pedra-da-boa-sorte-aprovada-card-400.webp",
+      "size_bytes": 16506,
+      "sha256": "33002b1fcdae6b9e40af9674155836cf9ed9b58994c46d9ff77001cf5ecc5ed1",
+      "git_blob_sha": "2284891807aaa8c3d01c396f2ee90ce422661176"
+    },
+    {
+      "i": 29,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1300-pedra-da-boa-sorte-aprovada-card-800.webp",
+      "size_bytes": 58008,
+      "sha256": "e57b6df62750af3306b5361befc02cf1f08fb3aaf23c83bafd4c5b51b2c71a08",
+      "git_blob_sha": "5a0414f41e4759d6faf661df4d66c0373f174754"
+    },
+    {
+      "i": 30,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1300-pedra-da-boa-sorte-aprovada.webp",
+      "size_bytes": 248480,
+      "sha256": "3808e2e6190e25466b8b32a38608b5e63eefc76ef42dc88ae474ac1e60ac601e",
+      "git_blob_sha": "cb598e5df62deaf19f499c17214063c751c88a45"
+    },
+    {
+      "i": 31,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1333-varinha-de-misseis-magicos-aprovada-card-400.webp",
+      "size_bytes": 21626,
+      "sha256": "763a414d2c12ccf47529bb7e5e00e9f38c14915e472d81074b8fb27d31e7e8de",
+      "git_blob_sha": "59922ea59088d230ea1c40bd1922ed1a82673b1b"
+    },
+    {
+      "i": 32,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1333-varinha-de-misseis-magicos-aprovada-card-800.webp",
+      "size_bytes": 83484,
+      "sha256": "b32cdea57edda1ed76234a5101cce1daf19a2b9f32424dade65dbeddbffee74f",
+      "git_blob_sha": "f0ef35f37bf03cb4873d7743ae4a1187f85f80c1"
+    },
+    {
+      "i": 33,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1333-varinha-de-misseis-magicos-aprovada.webp",
+      "size_bytes": 319284,
+      "sha256": "8e3106e8ffe591041a4c21278e13d23dc4afff6bcec49bc5f2f53fad5987087c",
+      "git_blob_sha": "ecbab9d7713dcefc01a552e56ba51bb43b40333f"
+    },
+    {
+      "i": 34,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1340-varinha-de-teia-aprovada-card-400.webp",
+      "size_bytes": 21124,
+      "sha256": "d833a8bbdc5102109db3e10dee805a3e31d6ac58bb488ec850b4d222e236af4d",
+      "git_blob_sha": "8b185b6269d3aec268d2987cc742ea9df35a31e8"
+    },
+    {
+      "i": 35,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1340-varinha-de-teia-aprovada-card-800.webp",
+      "size_bytes": 83226,
+      "sha256": "f58afdd58e0c7852b6ca8ca7e2d81db8c5c058c288b2668b529ebd4e9f0f67ec",
+      "git_blob_sha": "4f86b70228f598acf2eb6f7298bf336f7691d46f"
+    },
+    {
+      "i": 36,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/item-1340-varinha-de-teia-aprovada.webp",
+      "size_bytes": 347330,
+      "sha256": "750057659a53b2287e4b7aa958cb70af2d777e2658175d4bc4c245dff70bad94",
+      "git_blob_sha": "017a125c6b70d21a60a311767511d3b822a1e391"
+    },
+    {
+      "i": 37,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/ornamento-hero-r6.svg",
+      "size_bytes": 3139,
+      "sha256": "88351b1dc07d2989f95cca8a7c5919c09982b5e0ecbd8af8094908d584d18860",
+      "git_blob_sha": "026307ce3c796cf45bf544bae27a2ed6f78f2c34"
+    },
+    {
+      "i": 38,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/r6-perf.css",
+      "size_bytes": 19524,
+      "sha256": "25e59001839421e0d396058de4b6a770ca25f8b0e0db1325726b3942aff93d69",
+      "git_blob_sha": "08d6ce09844e39b85850bb9ba9b268a347d1c530"
+    },
+    {
+      "i": 39,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/r6.css",
+      "size_bytes": 105,
+      "sha256": "0192f9f6cefdaeb2a8ef2701790c9efdffe6ab148b0d680ec09c61eb3002d520",
+      "git_blob_sha": "231906ae91e66ba0f607fa7431eb7fa38773db0b"
+    },
+    {
+      "i": 40,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/r6.js",
+      "size_bytes": 46476,
+      "sha256": "a25876241b47aaddc16bebaa2a7d6622d7f9803833a82b13f57e34d94247279e",
+      "git_blob_sha": "9eb7f7502e00e6db701d3b7eace1128d418bf47c"
+    },
+    {
+      "i": 41,
+      "path": "forja-mineira-guia-itens-conjuradores/forja-mineira-guia-itens-conjuradores.php",
+      "size_bytes": 3195,
+      "sha256": "1f141e4ebfe4ba9613ad3ae4d4e2af4d431815ec8e5920920635f28a242c1c6c",
+      "git_blob_sha": "7df0fb2a6afb874c57778f1eb12d835f3e3481a5"
+    },
+    {
+      "i": 42,
+      "path": "forja-mineira-guia-itens-conjuradores/screens/itens-conjuradores-r6/content.php",
+      "size_bytes": 24694,
+      "sha256": "f8cd99a5b6f4575580456ef1cc92b0fc953b42ef6983e64f71e54f382c1f97d9",
+      "git_blob_sha": "b1258b89b18ece542fb46cafc25c072d5ad1d2d7"
+    },
+    {
+      "i": 43,
+      "path": "forja-mineira-guia-itens-conjuradores/assets/hero-vaeros-mobile-960-v1.0.7.webp",
+      "size_bytes": 45420,
+      "sha256": "c43ec1926159be62bd06612d56ee43861a6cda5e77c54b893a948f481329c36f",
+      "git_blob_sha": "f4bebb5a09ae26fd2ffe9ead353432364dee3f37"
+    }
+  ]
+}
