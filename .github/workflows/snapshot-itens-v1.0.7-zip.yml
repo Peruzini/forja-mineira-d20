@@ -1,0 +1,45 @@
+name: SNAPSHOT — Itens Conjuradores v1.0.7 exact ZIP
+on:
+  push:
+    branches:
+      - snapshot/itens-conjuradores-v1.0.7-20261112
+    paths:
+      - .github/workflows/snapshot-itens-v1.0.7-zip.yml
+permissions:
+  contents: write
+jobs:
+  archive:
+    if: github.event.head_commit.message == 'Run snapshot Itens v1.0.7 ZIP once'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify and rebuild byte-exact original ZIP
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/snapshot-itens-v1.0.7-zip.py
+          python3 scripts/snapshot-itens-v1.0.7-zip.py
+          echo 'b11c0a04cc11335e8b91b3d2a38180ee9b414173ea60e28b31b13de3a3f8058a  releases/forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip' | sha256sum --check
+          unzip -t releases/forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip | tail -n 2
+      - name: Commit verified ZIP to this snapshot branch only
+        run: |
+          set -euo pipefail
+          git config user.name 'forja-snapshot[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f releases/forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip
+          git add docs/plugins/itens-conjuradores-v1.0.7-zip-verified.json
+          git diff --cached --name-status
+          git commit -m 'snapshot: preserve byte-exact Itens Conjuradores v1.0.7 ZIP'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+      - name: Preserve original ZIP and validation proof as a fallback artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: FORJA-ITENS-CONJURADORES-1.0.7-EXACT-ZIP
+          path: |
+            releases/forja-mineira-guia-itens-conjuradores-v1.0.7-CANDIDATA.zip
+            docs/plugins/itens-conjuradores-v1.0.7-zip-verified.json
+          if-no-files-found: warn
+          retention-days: 30
