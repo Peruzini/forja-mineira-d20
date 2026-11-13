@@ -1,0 +1,117 @@
+/* FORJA MINEIRA D20 — DUNCAN-UX-10 — FECHAMENTO 18/19/20
+ * Base: v0.1.8 aprovada; carregar DEPOIS de duncan-ux-10-block3-r2-spacing.css.
+ * Os três níveis realmente exibem duncan-shield-figure e .fm-side-sheet.
+ * O nível 20 não tem Wishlist lateral. Nenhum conteúdo é criado.
+ * Ajustes estritamente CSS: espaços, contenção, mobile, legibilidade.
+ */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side:has(> .snake-wrap > .duncan-shield-figure) > .fm-side-sheet {
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:15px 0 0!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section {
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet > .fm-side-section.fm-panel {
+  padding:11px 10px!important;
+  border:1px solid rgba(219,190,134,.28)!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.035)!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-label {
+  display:block!important;
+  margin:0 0 8px!important;
+  color:#e8d0a1!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-stats-grid {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;
+  min-width:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-resource-mini {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  min-width:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side :is(.fm-stat,.fm-resource-mini > div) {
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-row {
+  min-width:0!important;
+  gap:7px!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-row strong {
+  overflow-wrap:anywhere!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19)
+ .progress-side > .fm-side-sheet > .wish-section.duncan-sidebar-wishlist {
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:3px 0 0!important;
+  height:auto!important;
+  min-height:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19)
+ .duncan-sidebar-wishlist .wish-item {
+  max-width:100%!important;
+  min-width:0!important;
+  overflow-wrap:break-word!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20) .level > .content.duncan-compact-content {
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19) .duncan-core-two > .card,
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19) .duncan-fact-card {
+  min-width:0!important;
+  overflow-wrap:break-word!important;
+}
+@media(max-width:760px){
+ #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+  .level {grid-template-columns:minmax(0,1fr)!important;}
+ #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure) {
+    height:auto!important;
+    min-height:0!important;
+  }
+ #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+  .progress-side > .fm-side-sheet {
+    width:100%!important;
+    max-width:420px!important;
+    margin:0 auto!important;
+    padding-top:15px!important;
+  }
+}
+@media(max-width:420px){
+ #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+  .progress-side .fm-row {gap:5px!important;}
+ #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+  .progress-side .fm-row :is(small,strong) {min-width:0!important;}
+}
