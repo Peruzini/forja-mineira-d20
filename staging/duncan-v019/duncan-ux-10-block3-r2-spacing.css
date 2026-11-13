@@ -1,0 +1,112 @@
+/* Forja Mineira D20 — DUNCAN-UX-10 / Bloco 3 / Rodada 2
+ * Nível 16 = padrão para páginas que EXIBEM a figura de escudo na lateral.
+ * Nível 13 = padrão para páginas com arte de abertura (5/9/13/17).
+ * Correção conservadora: SEM mexer em imagem, Hero, conteúdo, ficha ou clique.
+ * Aplicar SOMENTE depois de duncan-ux-10-block2-heroes.css na v0.1.8.
+ */
+
+/* Controle de ritmo: somente os níveis com FIGURA DE ESCUDO no HTML.
+ * Não confundir com os níveis cujo título menciona "escudo".
+ * O nível 16 é a referência aprovada: deixá-lo rigorosamente intacto.
+ */
+#forja-build-duncan {
+  --duncan-r2-group-gap:14px;
+  --duncan-r2-wishlist-offset:3px;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  > :is(.fm-side-sheet,.side-sheet) {
+  display:flex!important;
+  flex-direction:column!important;
+  gap:var(--duncan-r2-group-gap)!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  padding:15px 0 0!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  > :is(.fm-side-sheet,.side-sheet) > :is(.fm-side-section,.side-section) {
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  > :is(.fm-side-sheet,.side-sheet) > :is(.fm-side-section.fm-panel,.side-section.panel) {
+  padding:11px 10px!important;
+  border:1px solid rgba(219,190,134,.28)!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.035)!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  :is(.fm-stats-grid,.stats-grid) {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;
+  min-width:0!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  :is(.fm-resource-mini,.resource-mini) {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  :is(.fm-stats-grid,.stats-grid) > *,
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  :is(.fm-resource-mini,.resource-mini) > * { min-width:0!important; }
+
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  > :is(.fm-side-sheet,.side-sheet) > :is(.wish-section.duncan-sidebar-wishlist,.wishlist-panel.duncan-sidebar-wishlist) {
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:var(--duncan-r2-wishlist-offset) 0 0!important;
+}
+#forja-build-duncan .fmb-block:not(.fmb-block-16)
+  .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+  .duncan-sidebar-wishlist :is(.wish-item,.wishlist-item) {
+  min-width:0!important;
+  overflow-wrap:break-word!important;
+}
+@media(max-width:760px){
+  #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+    .progress-side:has(> .snake-wrap > .duncan-shield-figure) {
+    min-height:0!important;
+    height:auto!important;
+  }
+  #forja-build-duncan .fmb-block:not(.fmb-block-16)
+    .progress-side:has(> .snake-wrap > .duncan-shield-figure)
+    > :is(.fm-side-sheet,.side-sheet) { padding-top:15px!important; }
+}
+#forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+  .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+  padding:22px 20px 25px!important;
+}
+#forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+  .duncan-phase-profile h3 { margin:16px 0 8px!important; }
+#forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+  .duncan-profile-abilities { gap:8px!important; }
+#forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+  .duncan-profile-resource-grid { gap:7px!important; }
+@media(max-width:1050px){
+  #forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+    .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+    padding:20px 18px 24px!important;
+  }
+}
+@media(max-width:560px){
+  #forja-build-duncan :is(.fmb-block-5,.fmb-block-9,.fmb-block-17)
+    .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+    padding:18px 14px 20px!important;
+  }
+}
