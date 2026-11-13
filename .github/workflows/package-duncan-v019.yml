@@ -1,0 +1,122 @@
+name: Duncan UX10 v0.1.9 TESTE - pacote integrado
+
+on:
+  push:
+    branches:
+      - feature/duncan-v019-teste-integrado-20261113
+    paths:
+      - '.github/workflows/package-duncan-v019.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout do staging isolado
+        uses: actions/checkout@v4
+      - name: Recuperar integralmente os arquivos aprovados da v0.1.8
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="dist/forja-mineira-duncan"
+          BASE="https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-duncan"
+          mkdir -p "$ROOT/assets/css" "$ROOT/assets/js" "$ROOT/assets/images" "$ROOT/templates"
+          files=(
+            README.txt
+            assets/css/duncan.css
+            assets/css/duncan-ux-10.css
+            assets/css/duncan-ux-11.css
+            assets/css/duncan-ux-09-level1.css
+            assets/css/duncan-ux-12-block2.css
+            assets/css/duncan-ux-10-block1-colors.css
+            assets/css/duncan-ux-10-block1-level13.css
+            assets/css/duncan-ux-10-block2-heroes.css
+            assets/js/duncan.js
+            templates/duncan.html
+            assets/images/duncan-art-escudo-01-estudante-v1-aprovada.webp
+            assets/images/duncan-art-escudo-02-sor-arlan-v1-aprovada.webp
+            assets/images/duncan-art-escudo-03-arvore-novo-v1-aprovada.webp
+            assets/images/duncan-art-escudo-04-arvore-gasto-v1-aprovada.webp
+            assets/images/duncan-art-escudo-05-white-cloak-v1-aprovada.webp
+          )
+          for relative in "${files[@]}"; do
+            echo "Baixando arquivo original: $relative"
+            curl --fail --silent --show-error --location --retry 3 \
+              --connect-timeout 15 --max-time 120 \
+              -H "Accept: */*" \
+              "$BASE/$relative" --output "$ROOT/$relative"
+          done
+          cp staging/duncan-v019/forja-mineira-duncan.php "$ROOT/forja-mineira-duncan.php"
+          cp staging/duncan-v019/duncan-ux-10-block3-r2-spacing.css "$ROOT/assets/css/"
+          cp staging/duncan-v019/duncan-ux10-final-18-20.css "$ROOT/assets/css/"
+          sed -i 's/^Versão: 0\.1\.[0-9]*/Versão: 0.1.9/' "$ROOT/README.txt"
+          cat > "$ROOT/DUNCAN-UX10-v0.1.9-TESTE.txt" <<'INFO'
+          Duncan v0.1.9 TESTE — UM ÚNICO plugin para substituir v0.1.8.
+          Fonte dos arquivos originais: WordPress Forja Mineira D20, v0.1.8.
+          Mantidos: shortcode, template integral 1–20, JS e 5 escudos homologados,
+          correções anteriores dos Blocos 1 e 2, Hero do nível 20.
+          Acrescentados: CSS Bloco 3 R2 e fechamento restrito aos níveis 18–20.
+          Este ZIP deve passar por validação visual no site de teste antes de produção.
+          INFO
+      - name: Validar conteúdo, shortcode, versões e tamanho das fontes
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l dist/forja-mineira-duncan/forja-mineira-duncan.php
+          python3 - <<'PY'
+          import pathlib,re,hashlib
+          p=pathlib.Path("dist/forja-mineira-duncan")
+          min_bytes={
+            "assets/css/duncan.css":3500000,
+            "templates/duncan.html":3500000,
+            "assets/js/duncan.js":190000,
+            "assets/css/duncan-ux-12-block2.css":4000,
+            "assets/css/duncan-ux-10-block2-heroes.css":4000,
+            "assets/css/duncan-ux-10-block3-r2-spacing.css":2000,
+            "assets/css/duncan-ux10-final-18-20.css":2000,
+          }
+          for fn, n in min_bytes.items():
+              f=p/fn
+              if not f.is_file() or f.stat().st_size<n:
+                  raise SystemExit(f"INCOMPLETO: {fn} (tamanho {f.stat().st_size if f.exists() else 0}, mínimo {n})")
+          php=(p/"forja-mineira-duncan.php").read_text()
+          html=(p/"templates/duncan.html").read_text()
+          css=(p/"assets/css/duncan.css").read_text()
+          assert "Version: 0.1.9" in php and "const VERSION = '0.1.9'" in php
+          assert "forja_build_duncan" in php
+          assert "duncan-ux-10-block3-r2-spacing.css" in php
+          assert "duncan-ux10-final-18-20.css" in php
+          for i in range(1,21):
+              if not re.search(r'id=[\'"]nivel-'+str(i)+r'[\'"]',html):
+                  raise SystemExit(f"Nível {i} faltando no HTML")
+          assert "duncan-final-hero" in html
+          for i in range(1,6):
+              files=list((p/"assets/images").glob(f"duncan-art-escudo-{i:02d}-*.webp"))
+              if len(files)!=1 or files[0].stat().st_size<1000 or files[0].read_bytes()[:4]!=b"RIFF":
+                  raise SystemExit(f"Escudo WebP {i} ausente, invalido ou pequeno")
+          print("PASS: 20 niveis, Hero 20, shortcode, 5 escudos, CSS original, JS e versao 0.1.9")
+          print("Tamanhos:")
+          for f in sorted(p.rglob("*")):
+              if f.is_file():
+                  print(f.relative_to(p),f.stat().st_size,hashlib.sha256(f.read_bytes()).hexdigest()[:16])
+          PY
+      - name: Montar e testar ZIP único do WordPress
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/packages
+          cd dist
+          zip -q -r -9 packages/forja-mineira-duncan-v0.1.9-TESTE-COMPLETO.zip forja-mineira-duncan
+          unzip -t packages/forja-mineira-duncan-v0.1.9-TESTE-COMPLETO.zip | tail -2
+          ls -lh packages/forja-mineira-duncan-v0.1.9-TESTE-COMPLETO.zip
+      - name: Entregar ZIP verificável como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-mineira-duncan-v0.1.9-TESTE-COMPLETO
+          path: dist/packages/forja-mineira-duncan-v0.1.9-TESTE-COMPLETO.zip
+          if-no-files-found: error
+          retention-days: 30
