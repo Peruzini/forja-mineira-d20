@@ -1,0 +1,188 @@
+/* FORJA MINEIRA D20 · DUNCAN-UX-10 · WordPress TESTE v0.1.2
+   Folha ISOLADA para corrigir a cascata legada de CSS sem alterar Voldemort.
+   O CSS-base possui regras de estética aninhadas e algumas não correspondem
+   à estrutura HTML, apesar de a declaração original existir na fonte.
+   Não reescreve fichas, artes, Javascript, conteúdo editorial ou URLs. */
+
+/* 1. Hero do nível 1: elimina faixa vazia de margem ANTES da primeira arte. */
+html body #forja-build-duncan > .fmb-block-1 > .preview {
+  margin-top:0!important;
+}
+
+
+/* O mesmo Hero tinha uma faixa verde interna de 14px sobre a coluna
+   de leitura: eliminar só a faixa, preservando o fundo creme da build. */
+html body #forja-build-duncan .fmb-block-1 .top .copy {
+  background:linear-gradient(160deg,#f5edde,#e8ddcb)!important;
+}
+
+/* 2. Fundos de leitura nos níveis 14–16: reestabelece os cartões creme e
+   o contraste aprovado. Este trecho estava aninhado no arquivo legado. */
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px!important;
+  align-items:stretch;
+  margin:20px 0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card {
+  min-width:0!important;
+  display:block!important;
+  padding:22px 23px!important;
+  border:1px solid #bb9966!important;
+  border-top:4px solid #345941!important;
+  border-radius:14px!important;
+  background:linear-gradient(145deg,#f9f1e3,#e8dec9)!important;
+  color:#283b2d!important;
+  box-shadow:0 12px 24px rgba(25,37,28,.12)!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card.primary {
+  background:linear-gradient(145deg,#e0ebda,#d1dfce)!important;
+  border-top-color:#255b3c!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card h2,
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card h3 {
+  color:#173d2a!important;
+  opacity:1!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .mini-label {
+  color:#a05a35!important;
+  opacity:1!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .item {
+  margin:0!important;
+  padding:12px 0 11px!important;
+  border-bottom:1px solid rgba(89,109,86,.17)!important;
+  background:none!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .item:last-child {
+  border-bottom:0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .item > strong {
+  color:#214d33!important;
+  font-weight:700!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .item p {
+  color:#465047!important;
+  font-size:14px!important;
+  line-height:1.57!important;
+  margin:6px 0 0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card .item p strong {
+  color:#24513a!important;
+}
+/* Os painéis de combate permanecem verdes; os títulos passam a ser legíveis. */
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .combat h2,
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .combat h3 {
+  color:#f9ecd3!important;
+  opacity:1!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .combat p,
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .combat li {
+  color:#f2eee3!important;
+}
+
+/* Lateral nos níveis afetados: reforça cartões/recursos em vez de texto cru. */
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-side-sheet {
+  display:flex!important;flex-direction:column!important;
+  gap:14px!important;padding:15px 0 0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-side-section {
+  display:block!important;width:100%!important;
+  padding:0!important;margin:0!important;min-width:0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-side-section.fm-panel {
+  padding:11px 10px!important;
+  border:1px solid rgba(219,190,134,.28)!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.035)!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-side-label {
+  display:block!important;margin:0 0 8px!important;
+  font:800 9px/1.25 Arial,sans-serif!important;
+  letter-spacing:.12em!important;text-transform:uppercase!important;
+  color:#e8d0a1!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-stats-grid {
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-stat {
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  padding:7px 3px 6px!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  border-radius:8px!important;background:rgba(255,255,255,.045)!important;
+  text-align:center!important;min-width:0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-stat small {
+  color:#c3d4c7!important;font:800 8px/1.15 Arial,sans-serif!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-stat strong {
+  color:#fff8e8!important;font:700 18px/1.15 Georgia,serif!important;margin:3px 0 0!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-stat span {
+  color:#b4d2b7!important;font:700 9px/1.2 Arial,sans-serif!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-resource-mini {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-resource-mini > div {
+  text-align:center!important;min-width:0!important;
+  padding:8px 3px!important;border:1px solid rgba(255,255,255,.14)!important;
+  background:rgba(255,255,255,.055)!important;border-radius:9px!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-resource-mini small {
+  display:block!important;color:#d1ded1!important;
+  font:700 8px/1.25 Arial,sans-serif!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-resource-mini strong {
+  display:block!important;margin:5px 0 0!important;color:#fff4d9!important;
+  font:700 20px/1.15 Georgia,serif!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-row {
+  display:flex!important;justify-content:space-between!important;gap:7px!important;
+  padding:6px 0!important;border-top:1px solid rgba(255,255,255,.12)!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-row small {
+  color:#c9d8c9!important;font:700 9px/1.3 Arial,sans-serif!important;
+}
+#forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .fm-row strong {
+  color:#fff8df!important;font:700 12px/1.25 Arial,sans-serif!important;
+  text-align:right!important;
+}
+
+/* 3. Removida a linha 'Ver análise e alternativas'. O TÍTULO do item
+   abre a análise já aprovada (inclusive teclado). Nenhum item foi perdido. */
+#forja-build-duncan .duncan-sidebar-wishlist a.dw-sidebar-title-link {
+  display:block!important;
+  margin:0 0 8px!important;
+  color:#f7ead0!important;
+  font:700 13px/1.35 Georgia,serif!important;
+  text-decoration:none!important;
+  overflow-wrap:anywhere!important;
+  border-radius:3px;
+}
+#forja-build-duncan .duncan-sidebar-wishlist a.dw-sidebar-title-link:hover {
+  text-decoration:underline!important;
+  text-underline-offset:3px;
+}
+#forja-build-duncan .duncan-sidebar-wishlist a.dw-sidebar-title-link:focus-visible {
+  outline:2px solid #d8b575!important;outline-offset:3px!important;
+}
+
+/* 4. 'Superioridade' é um rótulo de recurso; cabe sempre em uma linha. */
+#forja-build-duncan .fm-resource-mini small.duncan-sup-nowrap {
+  display:block!important;
+  white-space:nowrap!important;
+  font:700 7.5px/1.25 Arial,sans-serif!important;
+  letter-spacing:-.12px!important;
+  color:#cfdccf!important;
+  max-width:none!important;
+}
+@media(max-width:760px){
+  #forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two {
+    grid-template-columns:minmax(0,1fr)!important;gap:13px!important;
+  }
+  #forja-build-duncan :is(.fmb-block-14,.fmb-block-15,.fmb-block-16) .core.duncan-core-two > .card {
+    padding:18px!important;
+  }
+}

@@ -1,0 +1,131 @@
+/* Forja Mineira D20 — DUNCAN-UX-14 — v0.1.11
+ * Ajuste pontual: apenas o painel Recursos da lateral (níveis 18, 19 e 20).
+ * Fonte visual: painel Recursos do nível 16, que não é alterado.
+ * Mantém os dados e demais estilos da v0.1.10, sem tocar em Defesa, Atributos,
+ * escudos, Wishlist, cards da coluna de conteúdo, imagens ou comportamento.
+ */
+
+/* Escopo: painel que contém diretamente a mini-grade de recursos. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-side-label {
+  display:block!important;
+  margin:0 0 8px!important;
+  font:800 9px/1.25 Arial,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+  text-align:left!important;
+  color:#e8d0a1!important;
+}
+
+/* Nível 16: 2 cartões compactos lado a lado, com separação de 6px. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:6px!important;
+  row-gap:6px!important;
+  align-items:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini > div {
+  display:block!important;
+  width:auto!important;
+  min-width:0!important;
+  height:66px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:8px 3px!important;
+  text-align:center!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.055)!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini > div > small {
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  color:#d1ded1!important;
+  font:700 8px/1.25 Arial,sans-serif!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini > div > small.duncan-sup-nowrap {
+  font:700 7.5px/1.25 Arial,sans-serif!important;
+  letter-spacing:-.12px!important;
+  white-space:nowrap!important;
+  color:#cfdccf!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini > div > strong {
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:5px 0 0!important;
+  padding:0!important;
+  color:#fff4d9!important;
+  font:700 20px/1.15 Georgia,serif!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+}
+
+/* Cinco linhas de recursos com tipografia e divisores compactos do nível 16. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-row {
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  flex-wrap:nowrap!important;
+  gap:7px!important;
+  width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:6px 0!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+  border-bottom:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-row > small {
+  display:block!important;
+  flex:0 1 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  color:#c9d8c9!important;
+  font:700 9px/1.3 Arial,sans-serif!important;
+  white-space:normal!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-row > strong {
+  display:block!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  color:#fff8df!important;
+  font:700 12px/1.25 Arial,sans-serif!important;
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  text-align:right!important;
+}
+
+/* Na largura de celular, os dois cartões do nível 16 ficam com 56px. */
+@media(max-width:760px){
+  #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+   .progress-side > .fm-side-sheet > .fm-side-section.fm-panel:has(> .fm-resource-mini) > .fm-resource-mini > div {
+    height:56px!important;
+  }
+}

@@ -1,0 +1,165 @@
+/* DUNCAN-UX-10 · BLOCO 2 — v0.1.8 · Heroes e bordas
+   Escopo restrito aos níveis 13 e 20.
+   N13: remover o filete esmeralda incorreto da copy.
+   N20: Hero de DUAS colunas, com arte encostada na própria caixa
+   arredondada (não uma figura com margem dentro de outro quadro). */
+
+/* 13: a faixa de 13px vinha do plano de fundo da content, não de sua arte. */
+html body #forja-build-duncan #nivel-13 .phase-open > .content {
+  background:#f2e7d4!important;
+  background-image:linear-gradient(180deg,#f4e9d6 0%,#e9ddc9 100%)!important;
+  border-top:0!important;
+  margin-top:0!important;
+  box-shadow:none!important;
+}
+html body #forja-build-duncan #nivel-13 .phase-open {
+  padding:0!important;gap:0!important;align-items:stretch!important;
+}
+
+/* 20: a caixa principal e apenas UMA moldura — a arte é um dos seus painéis. */
+html body #forja-build-duncan #nivel-20 .content.duncan-compact-content {
+  /* O topo do Hero toca a caixa principal, tal como a abertura do nível 1. */
+  padding-top:0!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero {
+  display:grid!important;
+  grid-template-columns:minmax(290px,41%) minmax(0,1fr)!important;
+  align-items:stretch!important;
+  gap:0!important;
+  position:relative!important;
+  width:auto!important;
+  min-width:0!important;
+  height:auto!important;
+  margin:0 0 25px!important;
+  padding:0!important;
+  border:1px solid #b99866!important;
+  border-radius:22px!important;
+  background:#f2e7d4!important;
+  overflow:hidden!important;
+  box-shadow:0 14px 32px rgba(23,34,24,.12)!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero > figure.duncan-final-hero-art {
+  display:block!important;
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  min-height:560px!important;
+  height:auto!important;
+  align-self:stretch!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  overflow:hidden!important;
+  background:#1a3729!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-art > .duncan-verified-art-slot.has-image {
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:hidden!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-art .duncan-verified-image {
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  object-fit:cover!important;
+  object-position:50% 28%!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero > .duncan-final-hero-copy {
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:0!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:32px 30px 34px!important;
+  border:0!important;
+  background:linear-gradient(155deg,#f7efdf 0%,#e9dec9 100%)!important;
+  color:#263e30!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-copy h1 {
+  margin:9px 0 14px!important;
+  font-size:clamp(31px,3vw,45px)!important;
+  line-height:1.1!important;
+  color:#173725!important;
+  overflow-wrap:anywhere!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-copy > .lead {
+  margin:0 0 15px!important;
+  font-size:15px!important;
+  line-height:1.65!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-copy .duncan-stat-strip {
+  display:flex!important;flex-wrap:wrap!important;gap:6px!important;
+  margin:0 0 14px!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-copy .duncan-level-callout {
+  margin:0!important;padding:13px 14px!important;
+  font-size:13px!important;line-height:1.55!important;
+}
+html body #forja-build-duncan #nivel-20 .duncan-final-hero-caption {
+  box-sizing:border-box!important;
+  position:absolute!important;
+  z-index:3!important;
+  left:0!important;right:0!important;bottom:0!important;
+  margin:0!important;padding:40px 18px 17px!important;
+  color:#fff5df!important;
+  background:linear-gradient(0deg,rgba(7,27,17,.89),transparent)!important;
+  font:700 13px/1.4 Georgia,serif!important;
+  text-align:center!important;
+}
+
+@media(max-width:850px){
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero {
+    grid-template-columns:minmax(0,1fr)!important;
+    border-radius:18px!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero > figure.duncan-final-hero-art {
+    height:430px!important;
+    min-height:430px!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero > .duncan-final-hero-copy {
+    padding:24px 21px 26px!important;
+  }
+}
+@media(max-width:560px){
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero {
+    border-radius:15px!important;
+    margin-bottom:18px!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero > figure.duncan-final-hero-art {
+    height:350px!important;
+    min-height:350px!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero-art .duncan-verified-image {
+    object-position:50% 22%!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero > .duncan-final-hero-copy {
+    padding:21px 17px 24px!important;
+  }
+  html body #forja-build-duncan #nivel-20 .duncan-final-hero-copy h1 {
+    font-size:32px!important;
+  }
+}

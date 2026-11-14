@@ -1,0 +1,6 @@
+Duncan v0.1.9 TESTE — UM ÚNICO plugin para substituir v0.1.8.
+Fonte dos arquivos originais: WordPress Forja Mineira D20, v0.1.8.
+Mantidos: shortcode, template integral 1–20, JS e 5 escudos homologados,
+correções anteriores dos Blocos 1 e 2, Hero do nível 20.
+Acrescentados: CSS Bloco 3 R2 e fechamento restrito aos níveis 18–20.
+Este ZIP deve passar por validação visual no site de teste antes de produção.

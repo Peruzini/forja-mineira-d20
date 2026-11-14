@@ -1,0 +1,146 @@
+/* DUNCAN-UX-12 · BLOCO 2 — 5 escudos aprovados e Wishlist compacta.
+   Correção isolada para evitar regras antigas aninhadas invalidamente.
+   Apenas sidebars. Não se aplica às artes de abertura dos níveis 1,5,9,13,17,20. */
+
+/* Escudos: o HTML aprovado tem div[role=img], mas CSS legado deixava
+   position:static, 0 × 0 e background:none nos navegadores reais. */
+#forja-build-duncan .progress-side .snake-wrap:has(> .duncan-shield-figure) {
+  display:flex!important;
+  position:relative!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:215px!important;
+  min-height:215px!important;
+  max-height:215px!important;
+  margin:12px auto 18px!important;
+  padding:0!important;
+  overflow:visible!important;
+  background:transparent!important;
+  border:0!important;
+}
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-figure {
+  display:block!important;
+  position:relative!important;
+  flex:1 1 100%!important;
+  align-self:stretch!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:1px!important;
+  min-height:1px!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.30));
+}
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-01 { background-image:url("../images/duncan-art-escudo-01-estudante-v1-aprovada.webp")!important; }
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-02 { background-image:url("../images/duncan-art-escudo-02-sor-arlan-v1-aprovada.webp")!important; }
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-03 { background-image:url("../images/duncan-art-escudo-03-arvore-novo-v1-aprovada.webp")!important; }
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-04 { background-image:url("../images/duncan-art-escudo-04-arvore-gasto-v1-aprovada.webp")!important; }
+#forja-build-duncan .progress-side .snake-wrap > .duncan-shield-05 { background-image:url("../images/duncan-art-escudo-05-white-cloak-v1-aprovada.webp")!important; }
+
+/* Wishlist: um só cartão; título clicável como acesso à análise.
+   Não recria a faixa de Wishlist entre níveis. */
+#forja-build-duncan .progress-side .fm-side-sheet > .wish-section.duncan-sidebar-wishlist,
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist {
+  display:block!important;
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:12px!important;
+  margin:3px 0 0!important;
+  border:1px solid rgba(206,166,95,.58)!important;
+  border-radius:11px!important;
+  background:linear-gradient(160deg,#123227,#1d4132)!important;
+  box-shadow:0 8px 18px rgba(0,0,0,.10)!important;
+  color:#f5e8d0!important;
+  overflow:visible!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist > .wish-title {
+  display:block!important;
+  font:800 10px/1.25 Arial,sans-serif!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+  color:#e3be76!important;
+  padding:0!important;
+  margin:0 0 6px!important;
+  border:0!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist > .wish-note {
+  display:block!important;
+  color:#c2d2c5!important;
+  font:10px/1.45 Arial,sans-serif!important;
+  margin:0 0 9px!important;
+  padding:0!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist > .wish-item {
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:10px 0 0!important;
+  margin:0!important;
+  border:0!important;
+  border-top:1px solid rgba(216,183,121,.30)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow-wrap:break-word!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist a.du-sidebar-primary.dw-sidebar-title-link {
+  display:block!important;
+  width:auto!important;
+  padding:0!important;
+  margin:0 0 8px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#fff0d2!important;
+  font:700 13px/1.38 Georgia,'Times New Roman',serif!important;
+  text-decoration:none!important;
+  overflow-wrap:anywhere!important;
+  cursor:pointer!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist a.du-sidebar-primary.dw-sidebar-title-link:hover,
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist a.du-sidebar-primary.dw-sidebar-title-link:focus-visible {
+  text-decoration:underline!important;
+  text-decoration-color:#e3be76!important;
+  text-underline-offset:3px!important;
+  outline-offset:3px!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist .du-sidebar-alt {
+  display:block!important;
+  color:#d0ddce!important;
+  font:10.5px/1.48 Arial,sans-serif!important;
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+  margin:0!important;
+  padding:0!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist .du-sidebar-secondary {
+  display:block!important;
+  color:#c4d5ca!important;
+  font:10.5px/1.45 Arial,sans-serif!important;
+  margin:9px 0 0!important;
+  padding:9px 0 0!important;
+  border-top:1px solid rgba(216,183,121,.22)!important;
+}
+#forja-build-duncan .progress-side .duncan-sidebar-wishlist .du-sidebar-secondary a {
+  color:#f1d292!important;
+  font:inherit!important;
+  text-decoration:underline!important;
+  text-underline-offset:2px!important;
+}
+@media (max-width:700px){
+  #forja-build-duncan .progress-side .snake-wrap:has(> .duncan-shield-figure) {
+    height:205px!important;min-height:205px!important;max-height:205px!important;
+  }
+}

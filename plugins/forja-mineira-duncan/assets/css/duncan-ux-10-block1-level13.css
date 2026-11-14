@@ -1,0 +1,116 @@
+/* DUNCAN-UX-10 · Bloco 1 complementação: nível 13 (v0.1.7)
+ * Replica o rail + resumo dos níveis 5, 9 e 17 sem tocar no nível 8 nem no Bloco 2.
+ */
+html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail {
+  min-width:0!important;display:flex!important;flex-direction:column!important;
+  align-self:stretch!important;border-right:4px solid #c8a367!important;
+  background:#122e24!important;overflow:hidden!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-rail > figure.art {
+  display:block!important;position:relative!important;flex:0 0 auto!important;
+  align-self:stretch!important;width:100%!important;height:810px!important;
+  min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;
+  border:0!important;border-radius:0!important;overflow:hidden!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-rail > figure.art .duncan-verified-art-slot {
+  display:block!important;position:absolute!important;inset:0!important;
+  height:100%!important;min-height:0!important;width:100%!important;overflow:hidden!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-rail > figure.art img.duncan-verified-image {
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  min-height:0!important;object-fit:cover!important;object-position:50% 24%!important;
+}
+@media(max-width:1050px){
+  html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail {
+    border-right:0!important;border-bottom:4px solid #c8a367!important;
+  }
+  html body #forja-build-duncan .fmb-block-13 .duncan-phase-rail > figure.art {
+    height:clamp(380px,65vw,540px)!important;
+  }
+}
+@media(max-width:560px){
+  html body #forja-build-duncan .fmb-block-13 .duncan-phase-rail > figure.art {
+    height:clamp(370px,110vw,520px)!important;
+  }
+}
+
+/* DUNCAN-UX-10 · BLOCO 1 — v0.1.6 (apenas nível 13)
+ * Os vazios surgiam porque o figure possuía altura fixa, o resumo não se
+ * esticava até a altura da coluna de conteúdo e o fundo do rail era bege.
+ * Aqui o próprio resumo é o fundo verde da região secundária — não há
+ * preenchimento artificial nem mudanças na ficha. O papel entre níveis
+ * continua claro, exatamente como aprovado no Bloco 1 anterior. */
+
+/* A coluna secundária recebe apenas o acabamento esmeralda. */
+html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail {
+  display:flex!important;
+  flex-direction:column!important;
+  align-self:stretch!important;
+  min-height:0!important;
+  background:#122e24!important;
+  overflow:hidden!important;
+}
+
+/* Expandir o painel existente resolve a faixa vazia na base (sem criar novos cards). */
+html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+  flex:1 0 auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:22px 20px 25px!important;
+  border:0!important;
+  border-top:4px solid #c5a165!important;
+  border-radius:0!important;
+  background:linear-gradient(158deg,#1e4535 0%,#173629 48%,#102a20 100%)!important;
+  color:#f4ecd9!important;
+}
+/* Títulos e legendas: contraste alto sobre o verde, sem alterar a hierarquia. */
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-profile-eyebrow {
+  color:#e1b876!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-profile h2 {
+  color:#fff0cf!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-profile h3 {
+  color:#d4caa7!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-phase-profile .duncan-profile-combat {
+  color:#f1e2be!important;
+}
+/* Atributos usam cartões escuros para continuidade editorial com o rail. */
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-stat {
+  border-color:rgba(219,192,133,.38)!important;
+  background:rgba(255,255,255,.075)!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-stat span {
+  color:#d6dfcf!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-stat strong {
+  color:#fff2ce!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-stat small {
+  color:#d3e1ce!important;
+}
+/* Habilidades/recursos permanecem em cartões creme legíveis como sub-blocos. */
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-abilities li {
+  background:#f7efdf!important;
+  border-color:#c1a675!important;
+  border-left-color:#568063!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-resource-grid > div {
+  background:#f6efdf!important;
+  border-color:#c5ae81!important;
+}
+html body #forja-build-duncan .fmb-block-13 .duncan-profile-maneuvers li {
+  background:#f6eedf!important;
+  border-left-color:#8ca079!important;
+}
+@media(max-width:1050px){
+  html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+    padding:20px 18px 24px!important;
+  }
+}
+@media(max-width:560px){
+  html body #forja-build-duncan .fmb-block-13 .phase-open > .duncan-phase-rail > .duncan-phase-profile {
+    padding:18px 14px 20px!important;
+  }
+}

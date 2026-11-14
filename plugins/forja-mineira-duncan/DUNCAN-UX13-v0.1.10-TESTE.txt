@@ -1,0 +1,3 @@
+Duncan v0.1.10 — Patch de UX dos níveis 18–20 sobre o pacote v0.1.9 enviado.
+Escopo: layout e remoção dos dois trechos editoriais apontados pelo usuário.
+Pacote integral, mesmo diretório/shortcode. Não publicar sem inspeção visual.

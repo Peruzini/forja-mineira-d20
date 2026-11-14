@@ -1,0 +1,185 @@
+/* Forja Mineira D20 — DUNCAN-UX-13 — nível 18/19/20 (v0.1.10)
+ * Correção limitada a ritmo dos cards e organização da lateral com escudo.
+ * Referência visual: level 16 aprovado. Preserva valores, artes e interações.
+ * Carregar após duncan-ux10-final-18-20.css para neutralizar regras antigas.
+ */
+
+/* Três níveis finais: manter uma folha única e grupos nitidamente separados.
+ * O espaçamento efetivo entre filhos é 14px (mínimo solicitado: 1px). */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side:has(> .snake-wrap > .duncan-shield-figure) > .fm-side-sheet {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:14px!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:15px 0 0!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side > .fm-side-sheet > :is(.fm-side-section,.wish-section) {
+  display:block!important;
+  flex:0 0 auto!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+}
+/* Atributos: remover a redução legada a uma só linha (ocorria sobretudo
+ * no 20). Três colunas × duas linhas; cada atributo ocupa três linhas
+ * legíveis como no nível 16: sigla, número e modificador. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stats-grid {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px 6px!important;
+  width:100%!important;
+  min-width:0!important;
+  padding:0!important;
+  margin:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stats-grid > .fm-stat {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  min-height:65px!important;
+  min-width:0!important;
+  height:auto!important;
+  width:auto!important;
+  padding:7px 2px!important;
+  border:1px solid rgba(199,168,103,.40)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.045)!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stat > :is(small,strong,span) {
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  white-space:normal!important;
+  line-height:1.15!important;
+  text-align:center!important;
+  font-family:Arial,sans-serif!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stat > small {font-size:9px!important;font-weight:700!important;}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stat > strong {font-size:18px!important;font-weight:800!important;}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-stat > span {font-size:10px!important;font-weight:700!important;}
+
+/* Recursos: impedir duas minicolunas estreitas. Referência nível 16:
+ * um cartão para Superioridade e um para Retomar o Fôlego, em coluna. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side:has(> .snake-wrap > .duncan-shield-figure) > .fm-side-sheet .fm-resource-mini {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:8px!important;
+  min-width:0!important;
+  width:100%!important;
+  margin:3px 0 8px!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-resource-mini > div {
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:3px!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:54px!important;
+  padding:8px 6px!important;
+  border:1px solid rgba(219,190,134,.28)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.05)!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-resource-mini > div > :is(small,strong) {
+  display:block!important;
+  max-width:100%!important;
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0!important;
+  white-space:normal!important;
+  overflow-wrap:break-word!important;
+  text-align:center!important;
+  line-height:1.35!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-row {
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  min-width:0!important;
+  width:100%!important;
+  padding:8px 0!important;
+  margin:0!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-row > small {
+  display:block!important;
+  flex:1 1 58%!important;
+  min-width:0!important;
+  max-width:none!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  line-height:1.45!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .progress-side .fm-side-sheet .fm-row > strong {
+  display:block!important;
+  flex:0 1 42%!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:42%!important;
+  white-space:normal!important;
+  text-align:right!important;
+  line-height:1.45!important;
+}
+
+/* Ritmo dos artigos principais: pelo menos 1px entre cartões de 18–20,
+ * com 10px para leitura; a grade continua em duas colunas no desktop. */
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .content > .duncan-core-two {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .content > .duncan-core-two > .card {
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+#forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+ .content > :is(.duncan-core-two,.duncan-fact-card,.duncan-continuity-note) + :is(.duncan-core-two,.duncan-fact-card,.duncan-continuity-note,.combat) {
+  margin-top:max(8px, 1px)!important;
+}
+
+@media(max-width:760px) {
+  #forja-build-duncan :is(.fmb-block-18,.fmb-block-19,.fmb-block-20)
+   .content > .duncan-core-two {grid-template-columns:minmax(0,1fr)!important;gap:10px!important;}
+}
