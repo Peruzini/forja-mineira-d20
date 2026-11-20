@@ -33,21 +33,22 @@ jobs:
 
       - name: Offline security / validator tests
         run: php plugins/forja-wp-bridge/tests/validator-test.php
+          php plugins/forja-wp-bridge/tests/ledger-test.php
 
       - name: Create installable package (NO DEPLOY)
         run: |
           set -euo pipefail
           mkdir -p dist
           cd plugins
-          zip -qr ../dist/forja-wp-bridge-v0.1.0.zip forja-wp-bridge \
+          zip -qr ../dist/forja-wp-bridge-v0.2.0.zip forja-wp-bridge \
             -x 'forja-wp-bridge/tests/*'
           cd ..
-          unzip -t dist/forja-wp-bridge-v0.1.0.zip
+          unzip -t dist/forja-wp-bridge-v0.2.0.zip
 
       - name: Upload ZIP for manual review only
         uses: actions/upload-artifact@v4
         with:
-          name: forja-wp-bridge-v0.1.0-review-only
-          path: dist/forja-wp-bridge-v0.1.0.zip
+          name: forja-wp-bridge-v0.2.0-review-only
+          path: dist/forja-wp-bridge-v0.2.0.zip
           if-no-files-found: error
           retention-days: 7

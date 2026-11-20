@@ -74,6 +74,7 @@ final class FWB_REST_Controller {
                 'policy' => 'draft_only',
                 'authenticated' => true,
                 'writes_enabled' => self::writes_enabled(),
+                'idempotency_required_for_writes' => true,
                 'can_upload_media' => current_user_can( 'upload_files' ),
                 'can_publish_posts' => current_user_can( 'publish_posts' ),
             )
@@ -162,6 +163,22 @@ final class FWB_REST_Controller {
             return new WP_Error( 'fwb_writes_disabled', 'Escrita de rascunhos não habilitada.', array( 'status' => 403 ) );
         }
 
+        $claim = FWB_Ledger::begin(
+            $request->get_header( 'x-fwb-idempotency-key' ),
+            'create',
+            $validation['fields']
+        );
+        if ( is_wp_error( $claim ) ) {
+            return $claim;
+        }
+        if ( 'replay' === $claim['action'] ) {
+            $prior = self::require_editable_draft( absint( $claim['response']['id'] ) );
+            if ( is_wp_error( $prior ) ) {
+                return new WP_Error( 'fwb_replay_unavailable', 'A operação já existe, mas o rascunho não está mais disponível.', array( 'status' => 409 ) );
+            }
+            return rest_ensure_response( array_merge( $claim['response'], array( 'replayed' => true ) ) );
+        }
+
         $postarr = array_merge(
             array(
                 'post_type' => 'post',
@@ -172,11 +189,22 @@ final class FWB_REST_Controller {
         );
         $id = wp_insert_post( $postarr, true );
         if ( is_wp_error( $id ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
             return $id;
         }
 
+        $response = array( 'id' => $id, 'status' => 'draft', 'dry_run' => false, 'replayed' => false );
+        if ( ! FWB_Ledger::audit( $id, 'create', $claim ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
+            return new WP_Error( 'fwb_audit_failed', 'Rascunho criado; auditoria não confirmada. Reconciliação manual obrigatória.', array( 'status' => 500 ) );
+        }
+        if ( ! FWB_Ledger::complete( $claim, $response ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
+            return new WP_Error( 'fwb_receipt_failed', 'Rascunho criado; recibo não confirmado. Não repita a operação.', array( 'status' => 500 ) );
+        }
+
         do_action( 'fwb_draft_written', array( 'id' => $id, 'operation' => 'create', 'user_id' => get_current_user_id() ) );
-        return new WP_REST_Response( array( 'id' => $id, 'status' => 'draft', 'dry_run' => false ), 201 );
+        return new WP_REST_Response( $response, 201 );
     }
 
     public static function get_draft( $request ) {
@@ -225,17 +253,44 @@ final class FWB_REST_Controller {
         if ( ! self::writes_enabled() ) {
             return new WP_Error( 'fwb_writes_disabled', 'Escrita de rascunhos não habilitada.', array( 'status' => 403 ) );
         }
-        if ( ! hash_equals( (string) $post->post_modified_gmt, (string) $request->get_json_params()['expected_modified_gmt'] ) ) {
-            return new WP_Error( 'fwb_version_conflict', 'Rascunho alterado desde a leitura; consulte novamente.', array( 'status' => 409 ) );
+        $claim = FWB_Ledger::begin(
+            $request->get_header( 'x-fwb-idempotency-key' ),
+            'update',
+            $validation['fields'],
+            $id,
+            $request->get_json_params()['expected_modified_gmt']
+        );
+        if ( is_wp_error( $claim ) ) {
+            return $claim;
+        }
+        if ( 'replay' === $claim['action'] ) {
+            return rest_ensure_response( array_merge( $claim['response'], array( 'replayed' => true ) ) );
+        }
+
+        // Revalidar a versão depois da reserva do identificador da operação.
+        $latest = self::require_editable_draft( $id );
+        if ( is_wp_error( $latest ) || ! hash_equals( (string) $latest->post_modified_gmt, (string) $request->get_json_params()['expected_modified_gmt'] ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
+            return new WP_Error( 'fwb_version_conflict', 'Rascunho alterado; use outra operação após nova leitura.', array( 'status' => 409 ) );
         }
 
         $postarr = array_merge( array( 'ID' => $id, 'post_status' => 'draft' ), self::editorial_fields( $validation['fields'] ) );
         $result = wp_update_post( $postarr, true );
         if ( is_wp_error( $result ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
             return $result;
+        }
+        $response = array( 'id' => $id, 'status' => 'draft', 'dry_run' => false, 'replayed' => false );
+        if ( ! FWB_Ledger::audit( $id, 'update', $claim ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
+            return new WP_Error( 'fwb_audit_failed', 'Rascunho alterado; auditoria não confirmada. Reconciliação manual obrigatória.', array( 'status' => 500 ) );
+        }
+        if ( ! FWB_Ledger::complete( $claim, $response ) ) {
+            FWB_Ledger::mark_uncertain( $claim );
+            return new WP_Error( 'fwb_receipt_failed', 'Rascunho alterado; recibo não confirmado. Não repita a operação.', array( 'status' => 500 ) );
         }
 
         do_action( 'fwb_draft_written', array( 'id' => $id, 'operation' => 'update', 'user_id' => get_current_user_id() ) );
-        return rest_ensure_response( array( 'id' => $id, 'status' => 'draft', 'dry_run' => false ) );
+        return rest_ensure_response( $response );
     }
 }

@@ -1,0 +1,109 @@
+name: FWB-03 — WordPress REST integration (manual/gated)
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/fwb_client.py'
+      - 'scripts/tests/test_fwb_client.py'
+      - 'plugins/forja-wp-bridge/**'
+      - '.github/workflows/fwb-03-wordpress-actions.yml'
+  push:
+    branches:
+      - feature/fwb-03-actions-wordpress-20261120
+    paths:
+      - 'scripts/fwb_client.py'
+      - 'scripts/tests/test_fwb_client.py'
+      - 'plugins/forja-wp-bridge/**'
+      - '.github/workflows/fwb-03-wordpress-actions.yml'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'probe=leitura; plan=validacao local; apply_draft=rascunho sob aprovacao'
+        required: true
+        type: choice
+        options: [probe, plan, apply_draft]
+      request_file:
+        description: 'Arquivo editorial/fwb/requests/<slug>.json (somente plan/apply)'
+        required: false
+        type: string
+        default: ''
+      request_sha256:
+        description: 'SHA-256 do arquivo revisado (obrigatorio para apply)'
+        required: false
+        type: string
+        default: ''
+      confirm:
+        description: 'Para apply digite CRIAR_RASCUNHO_SEM_PUBLICAR'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python unit tests
+        run: python3 -m unittest discover -s scripts/tests -p 'test_fwb_client.py' -v
+      - name: Python static bytecode validation
+        run: python3 -m py_compile scripts/fwb_client.py
+      - name: PHP ledger tests
+        run: |
+          php -l plugins/forja-wp-bridge/includes/class-fwb-ledger.php
+          php plugins/forja-wp-bridge/tests/ledger-test.php
+
+  probe-readonly:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'probe'
+    runs-on: ubuntu-latest
+    environment: fwb-wp-read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticated WordPress read-only probe
+        env:
+          FWB_WP_USERNAME: ${{ secrets.FWB_WP_USERNAME }}
+          FWB_WP_APP_PASSWORD: ${{ secrets.FWB_WP_APP_PASSWORD }}
+        run: python3 scripts/fwb_client.py probe
+
+  plan-offline:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'plan'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate reviewed content (NO NETWORK)
+        env:
+          FWB_REQUEST_FILE: ${{ inputs.request_file }}
+          FWB_REQUEST_SHA256: ${{ inputs.request_sha256 }}
+        run: python3 scripts/fwb_client.py plan
+
+  apply-draft:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'apply_draft' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: fwb-wp-draft-write
+    concurrency:
+      group: fwb-draft-operations
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check explicit operational gates
+        env:
+          ENABLED: ${{ vars.FWB_WRITE_ENABLED }}
+          APPROVAL_ASSERTION: ${{ inputs.confirm }}
+        run: |
+          set -euo pipefail
+          test "$ENABLED" = "true"
+          test "$APPROVAL_ASSERTION" = "CRIAR_RASCUNHO_SEM_PUBLICAR"
+          echo "Write authorization input verified; server still enforces draft-only policy."
+
+      - name: Apply reviewed draft only
+        env:
+          FWB_WP_USERNAME: ${{ secrets.FWB_WP_USERNAME }}
+          FWB_WP_APP_PASSWORD: ${{ secrets.FWB_WP_APP_PASSWORD }}
+          FWB_REQUEST_FILE: ${{ inputs.request_file }}
+          FWB_REQUEST_SHA256: ${{ inputs.request_sha256 }}
+          FWB_ENABLE_ACTIONS_WRITE: ${{ vars.FWB_WRITE_ENABLED }}
+          FWB_APPROVAL_ASSERTION: ${{ inputs.confirm }}
+        run: python3 scripts/fwb_client.py apply

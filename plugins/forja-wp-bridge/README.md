@@ -1,6 +1,6 @@
 # Forja WP Bridge — FWB-02
 
-Plugin WordPress experimental para a **Forja Mineira D20**, versão 0.1.0. **Não está instalado em produção** e não deve ser ativado sem FWB-04.
+Plugin WordPress experimental para a **Forja Mineira D20**, versão 0.2.0. **Não está instalado em produção** e não deve ser ativado sem FWB-04.
 
 ## Escopo propositalmente restrito
 
@@ -60,3 +60,12 @@ Não colocar credenciais em logs, comandos compartilhados ou artefatos de CI.
     php tests/validator-test.php
 
 O GitHub Actions executa lint e testes, empacotando ZIP instalável para inspeção. Não implanta nem ativa o plugin.
+
+
+## FWB-03 — Ledger de idempotência e auditoria (v0.2.0)
+
+Qualquer chamada real (dry_run=false) exige header X-FWB-Idempotency-Key (12–80 caracteres, letras/números/_/-). O servidor reserva o identificador por add_option (chave única). Solicitações repetidas com mesmo identificador e corpo retornam o recibo anterior, sem nova escrita. Reuso do identificador com outro corpo, operações pendentes ou indeterminadas retorna conflito e exige reconciliação humana — nunca retry automático. Identificadores ficam registrados em wp_options sem autoload; não eliminar registros indiscriminadamente, pois isso anularia a proteção antirreplay.
+
+Após cada escrita, grava-se evento privado _fwb_audit_event no postmeta (horário UTC, usuário, tipo, identificador anonimizado). Sem capturar o conteúdo editorial ou credenciais. Falha no registro obriga reconciliação manual.
+
+**Importante:** a checagem expected_modified_gmt não é trava transacional de banco; atualizações concorrentes ainda exigem teste e mitigação em staging. A integração NÃO publica; o workflow de escrita não deve ser autorizado até configurar ambiente GitHub com revisores, segredos de conta técnica sem publish_posts e autorização específica para a operação. O WPVibe permanece instalado.
