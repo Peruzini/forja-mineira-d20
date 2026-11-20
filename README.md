@@ -14,6 +14,8 @@ Site: https://forjamineirad20.com.br/
 
 **Status operacional FWB-05 (20/11):** teste definitivo no Chat normal retornou **FAIL** (nenhuma ferramenta MCP exposta). [Registro do diagnóstico e NO-GO temporário](docs/FWB-05-TESTE-DESKTOP-CHAT-FAIL-2026-11-20.md). Não ampliar módulos de escrita antes da integração real; **custo adicional R$ 0, sem Work/Worker**.
 
+**Análise de código aberto WPVibe vs Forja (20/11/2026):** [causa raiz, evidências dos repositórios públicos e opções sem custo adicional](docs/FWB-ANALISE-CODIGO-ABERTO-WPVIBE-VS-FORJA-20261120.md). WPVibe possui app MCP registrado; nosso plugin pessoal tem apenas bundle MCP e servidor externo funcional. A integração no Chat normal não pode ser homologada sem um registro de app elegível.
+
 ## Estrutura
 
 - `plugins/forja-mineira-builds/` — builds, Home, Hub de Builds e votação da próxima build.
