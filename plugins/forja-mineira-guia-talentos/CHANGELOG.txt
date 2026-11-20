@@ -1,0 +1,22 @@
+FORJA MINEIRA D20 — GUIA DE TALENTOS — 1.2.1 (13/11/2026)
+
+Ajustes finais de UX aprovados:
+- Corrigida exclusivamente a cor do texto #build-panel-title sobre fundo claro, de dourado para grafite esverdeado (#263b32); fundo creme e painel verde preservados.
+- Removido do template o bloco redundante de continuidade "Continue explorando seu Bruxo".
+- Removidas CSS antigas de .cluster-slot, sem criar um Cluster substituto.
+- Eliminado o espaçamento residual inferior da shell e antes do rodape, somente neste guia.
+- Hero-R3, dados, filtros e comparador B05 preservados.
+- Plugin original e shortcode canonico preservados.
+
+FORJA MINEIRA D20 — GUIA DE TALENTOS — 1.2.0 (13/11/2026)
+
+Escopo: substitui o plugin original 1.1.0 apos homologacao da candidata 1.1.2-ux-hero-r2.
+- Estilos: B01 a B05, UX R1.4 e Hero-R3 na mesma folha CSS.
+- JS, dados de 195 talentos e comparador aprovados preservados byte a byte.
+- Arte e 13 imagens do guia aprovadas preservadas byte a byte.
+- PHP: integracao como plugin de producao, original shortcode e nome.
+- Template: substitui somente o nome da constante de URL de assets.
+- Compatibilidade: hotfix do tema incorporado usando body.fmtg-guide-page.
+- Nao modifica o tema nem paginas automaticamente.
+
+Instalacao: veja INSTRUCOES-INSTALACAO.md no pacote de entrega, fora do ZIP.
