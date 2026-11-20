@@ -1,0 +1,30 @@
+name: FWB-REG-01 — Public submission safety gate (offline)
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb-reg01/**'
+      - 'mcp/fwb05-poc/chatgpt-plugin/**'
+      - 'mcp/fwb05-poc/server.mjs'
+      - 'mcp/fwb05-poc/domain-challenge.mjs'
+      - 'mcp/fwb05-poc/app/.well-known/**'
+      - 'mcp/fwb05-poc/tests/domain-challenge.test.mjs'
+      - '.github/workflows/fwb-reg01-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  non-release-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run offline submission security tests
+        run: node --test mcp/fwb-reg01/readiness.test.mjs mcp/fwb05-poc/tests/domain-challenge.test.mjs
+      - name: Assert application is NOT cleared for public submission
+        run: node mcp/fwb-reg01/readiness.mjs --assert-blocked
