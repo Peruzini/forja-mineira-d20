@@ -81,7 +81,12 @@ class ManifestTests(unittest.TestCase):
             json.loads('{"operation":"create","operation":"publish"}', object_pairs_hook=fwb._no_duplicate_keys)
 
     def test_probe_rejects_privileged_account(self):
-        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"edit_posts": True, "publish_posts": True}}):
+        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"read": True, "edit_posts": True, "publish_posts": True}}):
+            with self.assertRaises(fwb.FWBError):
+                fwb.probe()
+
+    def test_probe_rejects_contributor_for_readonly(self):
+        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"read": True, "edit_posts": True}}):
             with self.assertRaises(fwb.FWBError):
                 fwb.probe()
 
@@ -90,9 +95,35 @@ class ManifestTests(unittest.TestCase):
             with self.assertRaises(fwb.FWBError):
                 fwb.probe()
 
-    def test_probe_accepts_least_privileged_account(self):
-        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"edit_posts": True, "publish_posts": False}}):
+    def test_probe_accepts_least_privileged_account_and_app_password(self):
+        profile = {"id": 7, "capabilities": {"read": True}}
+        introspect = {"uuid": "12345678-1234-4123-8123-123456789abc", "name": "FWB Read CI"}
+        with patch.object(fwb, "wp_request", side_effect=[profile, introspect]) as call:
             fwb.probe()
+        self.assertEqual(call.call_count, 2)
+        self.assertEqual(call.call_args_list[1].args[0], "/wp-json/wp/v2/users/me/application-passwords/introspect")
+
+    def test_probe_denies_missing_app_password_proof(self):
+        profile = {"id": 7, "capabilities": {"read": True}}
+        with patch.object(fwb, "wp_request", side_effect=[profile, {"id": 7}]):
+            with self.assertRaises(fwb.FWBError):
+                fwb.probe()
+
+    def test_probe_denies_malformed_password_uuid(self):
+        profile = {"id": 7, "capabilities": {"read": True}}
+        with patch.object(fwb, "wp_request", side_effect=[profile, {"uuid": "invalid"}]):
+            with self.assertRaises(fwb.FWBError):
+                fwb.probe()
+
+    def test_wp_core_introspection_rejects_post_before_credentials(self):
+        with self.assertRaises(fwb.FWBError):
+            fwb.wp_request("/wp-json/wp/v2/users/me/application-passwords/introspect", method="POST", payload={})
+
+    def test_apply_rejects_readonly_account(self):
+        with patch.object(fwb, "require_github_approval", return_value=None):
+            with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"read": True}}):
+                with self.assertRaises(fwb.FWBError):
+                    fwb.apply({"operation": "create", "fields": {"title": "Teste"}, "operation_id": "fwb04c_read_denied"})
 
     def test_apply_rejects_no_approval_without_network(self):
         with patch.dict(os.environ, {}, clear=True), self.assertRaises(fwb.FWBError):

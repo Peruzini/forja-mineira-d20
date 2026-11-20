@@ -57,7 +57,7 @@ jobs:
           php plugins/forja-wp-bridge/tests/ledger-test.php
 
   probe-readonly:
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'probe'
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'probe' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: fwb-wp-read
     steps:
