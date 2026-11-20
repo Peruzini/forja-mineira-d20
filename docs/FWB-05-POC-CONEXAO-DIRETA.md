@@ -40,8 +40,8 @@ Essa PoC **não** inclui Application Password, POST, instalação no WordPress, 
 | Gate | Evidência necessária | Status |
 | --- | --- | --- |
 | 05-A SDK MCP | Cliente MCP real descobre e executa forja_ping localmente | **PASS — CI #44809243349** |
-| 05-B WordPress público | ferramenta retorna status validado do WordPress sem WPVibe | TESTE FALSO/MOCK em CI; externa já validada no FWB-04B |
-| 05-C ChatGPT | plugin/site hospedado conectado; chamada de forja_ping **desta conversa** | PENDENTE |
+| 05-B WordPress público | ferramenta retorna status validado do WordPress sem WPVibe | **PASS remoto via Vercel — CI #44810212077** |
+| 05-C ChatGPT | plugin pessoal criado; invocação forja_ping **desta conversa** | **Plugin privado criado; invocação PENDENTE** |
 | 05-D Autenticação | ponte OAuth/credencial compatível, sem segredo no chat ou repo | PENDENTE |
 | 05-E Escrita | alteração reversível autorizada via ferramenta própria e checagem de persistência | PENDENTE |
 
@@ -68,3 +68,10 @@ Uma conexão inicial e, depois, pedidos diretos no chat. GitHub para código e t
 - WordPress produção: sem instalação, sem alteração, sem criação de conteúdo e sem uso de WPVibe.
 
 **Interpretação precisa:** o protocolo MCP e o catálogo de ferramentas foram validados localmente; **a conexão do plugin ao ChatGPT e a chamada feita de uma conversa ainda não ocorreram**. Conclusão parcial **FWB-05A PASS / FWB-05C HOLD**. Não implementar módulo editorial amplo antes do FWB-05C.
+
+
+## Atualização de FWB-05C
+
+Servidor MCP hospedado na Vercel com teste remoto PASS e plugin pessoal privado \`forja-wp-bridge\` criado. Evidências, URL, limites e próxima ação: [FWB-05C — Hospedagem e plugin privado](FWB-05C-HOSPEDAGEM-PLUGIN-PRIVADO.md).
+
+**O gate FWB-05C continua parcialmente pendente:** ainda falta comprovar a chamada de \`forja_ping\` por ferramentas do plugin ativadas no ChatGPT. Não iniciar módulos editoriais de escrita antes dessa prova.

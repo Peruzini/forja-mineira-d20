@@ -52,3 +52,46 @@ Referências:
 ## Operação cotidiana desejada
 
 Uma vez homologado e conectado, o usuário escreve o pedido em linguagem natural; o assistente executa a ferramenta apropriada e verifica o resultado. GitHub serve para o desenvolvimento do conector, **não para disparar cada tarefa comum**.
+
+
+## Execução concluída nesta etapa — 20/11/2026
+
+### A. Build e hospedagem
+
+- Código FWB-05C incorporado à main: commit \`b7ec32ed7377fe1e3b87ac304ce3d119c9fdbe4e\`.
+- CI/Next.js: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44809792059 — **SUCCESS**, incluindo 3/3 testes locais e compilação do endpoint.
+- Equipe Vercel usada: UR-25 (plano Hobby). Projeto: \`forja-wp-bridge-mcp-poc\`, ID \`prj_Dq5BOigwoemzXhAyHqaMXrdx9bqp\`.
+- Deploy: \`dpl_6XYPTJWctAJqjrTRUBkLfaTKEUrN\`, READY; endpoint HTTPS \`https://forja-wp-bridge-mcp-96zafqia3-ur-25.vercel.app/api/mcp\`.
+- A tentativa de vincular automaticamente o repositório à Vercel encontrou ausência de GitHub Login Connection na Vercel. **Contorno aplicado:** envio direto dos 6 arquivos da PoC a partir do commit versionado no GitHub, sem credenciais de WordPress ou alteração no site.
+- A Vercel informou target \`production\` para **o projeto de demonstração Vercel**, não para o site WordPress. Deploy não instalou nada em \`forjamineirad20.com.br\`.
+- Proteção Vercel Authentication desabilitada exclusivamente neste projeto demonstrativo para permitir teste remoto não autenticado de funções que exibem apenas dados públicos. **Nunca incorporar ferramentas privilegiadas a este endpoint antes de adicionar autenticação e controles adequados.**
+
+### B. Teste de protocolo por cliente remoto
+
+- Workflow: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44810212077 — **SUCCESS**.
+- Log confirmado: \`FWB-05C: MCP REMOTO PASS; 2 ferramentas descobertas; ping e status WordPress público confirmados; zero escrita.\`
+- A chamada foi realmente feita por cliente MCP externo via HTTPS ao deploy Vercel, e a ferramenta consultou a REST pública do WordPress, sem consumir a cota WPVibe.
+
+### C. Plugin privado ChatGPT
+
+- Criado via Plugin Creator como plugin pessoal não público \`forja-wp-bridge\` versão **0.1.0**.
+- Identificador: \`plugins_6b00ab6c63cc8191a29479b2636633cc\`.
+- URL: https://chatgpt.com/plugins/plugins_6b00ab6c63cc8191a29479b2636633cc
+- Categoria: pessoal \`USER\`; discoverability: \`PRIVATE\`.
+- Plugin empacota configuração MCP remota HTTPS e duas funções de leitura sem acesso a dados privados.
+- **Limite comprovado:** a criação do plugin foi confirmada; não há ferramenta do novo plugin disponível na lista de ferramentas **desta conversa em andamento**. Portanto, instalação/conexão/execução no ChatGPT ainda não estão validadas, mesmo que o servidor e o pacote existam.
+
+### D. Gating atualizado
+
+| Etapa | Resultado |
+| --- | --- |
+| FWB-05C-1: Next.js build | **PASS** |
+| FWB-05C-2: cliente MCP real via HTTPS | **PASS** |
+| FWB-05C-3a: criação de plugin pessoal privado | **PASS** |
+| FWB-05C-3b: ferramenta invocada diretamente pelo ChatGPT | **PENDENTE** |
+| FWB-05C-4: status REST público WordPress remoto | **PASS** |
+| FWB-05D: autenticação de conteúdo privado e autorização de escrita | **PENDENTE** |
+
+Próxima ação objetiva: abrir o link do plugin pessoal, confirmar instalação/conexão quando a interface solicitar, iniciar uma nova conversa que disponibilize suas ferramentas e executar \`forja_ping\` pelo próprio ChatGPT. Não copiar ou divulgar senha de aplicação WordPress; este protótipo não a utiliza.
+
+**Status final honesto: hospedagem remota e criação de plugin privado realizadas; chamada originada nesta conversa ainda não comprovada.**

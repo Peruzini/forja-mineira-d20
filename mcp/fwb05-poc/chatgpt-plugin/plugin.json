@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "forja-wp-bridge",
+  "version": "0.1.0",
+  "description": "Prova privada do Forja WP Bridge: consultar o status publico da Forja Mineira D20 e verificar a conexao MCP. Sem login, sem escrita e sem acesso administrativo WordPress.",
+  "author": {
+    "name": "Forja Mineira D20"
+  },
+  "homepage": "https://forjamineirad20.com.br/",
+  "repository": "https://github.com/Peruzini/forja-mineira-d20",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Forja WP Bridge",
+        "shortDescription": "Status da Forja via MCP",
+        "longDescription": "Integracao privada em prova de conceito. Verifica o protocolo MCP e consulta o indice REST publico do WordPress da Forja Mineira D20. Nao edita artigos, nao publica e nao administra o site nesta versao.",
+        "developerName": "Forja Mineira D20",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Verificar comunicacao MCP",
+          "Consultar status publico do WordPress"
+        ],
+        "websiteURL": "https://forjamineirad20.com.br/",
+        "defaultPrompt": [
+          "Verifique o status publico do WordPress da Forja Mineira D20."
+        ]
+      }
+    }
+  }
+}
