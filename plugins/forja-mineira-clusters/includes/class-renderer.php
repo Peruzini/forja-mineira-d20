@@ -46,7 +46,13 @@ final class FMC_Renderer {
         self::enqueue_assets();
 
         $cluster_label = ! empty( $cluster['label'] ) ? $cluster['label'] : ucfirst( $cluster_id );
-        $title = $custom_title ? $custom_title : 'Continue explorando seu Bruxo.';
+        $title = $custom_title
+            ? $custom_title
+            : ( ! empty( $cluster['default_title'] ) ? $cluster['default_title'] : 'Continue explorando seu Bruxo.' );
+        $subtitle = ! empty( $cluster['subtitle'] )
+            ? $cluster['subtitle']
+            : 'Magias, Invocações, Itens e builds conectados para continuar sua progressão.';
+        $card_count = count( $related );
 
         ob_start();
         include FMC_PATH . 'templates/related-content.php';

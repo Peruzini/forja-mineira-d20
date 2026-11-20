@@ -29,10 +29,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
     </div>
     <span class="fmc-kicker">CONTINUE NA FORJA</span>
     <h2 id="fmc-related-title-<?php echo esc_attr( $cluster_id . '-' . $current_node ); ?>"><?php echo esc_html( $title ); ?></h2>
-    <p class="fmc-related-subtitle">Magias, Invocações, Itens e builds conectados para continuar sua progressão.</p>
+    <p class="fmc-related-subtitle"><?php echo esc_html( $subtitle ); ?></p>
   </div>
 
-  <div class="fmc-related-grid">
+  <div class="fmc-related-grid<?php echo 1 === $card_count ? ' fmc-related-grid--single' : ''; ?>">
     <?php foreach ( $related as $item ) :
       $icon_url = FMC_Renderer::icon_url( $item );
       $variant = FMC_Renderer::card_variant( $item );

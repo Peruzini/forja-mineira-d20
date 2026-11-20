@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 final class FMC_Resolver {
-    const CACHE_VERSION = 1;
+    const CACHE_VERSION = 2;
     const CACHE_TTL = DAY_IN_SECONDS;
 
     public static function invalidate_cache() {
@@ -24,7 +24,13 @@ final class FMC_Resolver {
         $cache_key = self::cache_key( $cluster_id, $node_id );
         $cached = get_transient( $cache_key );
         if ( is_array( $cached ) && ! empty( $cached['url'] ) ) {
-            return array_merge( $node, $cached );
+            // Não confiar em cache antigo após despublicação ou mudança de slug.
+            $cached_id = ! empty( $cached['page_id'] ) ? (int) $cached['page_id'] : 0;
+            if ( true === $cached['published'] && $cached_id
+                 && 'publish' === get_post_status( $cached_id )
+                 && get_permalink( $cached_id ) === $cached['url'] ) {
+                return array_merge( $node, $cached );
+            }
         }
 
         $resolved = self::resolve_uncached( $node );

@@ -22,7 +22,7 @@ final class FMC_Relations {
             if ( $target_id === $current_node ) { continue; }
             $resolved = FMC_Resolver::resolve( $cluster_id, $target_id );
             if ( ! $resolved || empty( $resolved['url'] ) ) { continue; }
-            if ( false === $resolved['published'] ) { continue; }
+            if ( true !== $resolved['published'] ) { continue; }
             $resolved['id'] = $target_id;
             $result[] = $resolved;
         }

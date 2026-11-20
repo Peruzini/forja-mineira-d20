@@ -5,6 +5,7 @@ final class FMC_Registry {
     public static function clusters() {
         $clusters = array(
             'bruxo' => require FMC_PATH . 'clusters/bruxo.php',
+            'conjuradores' => require FMC_PATH . 'clusters/conjuradores.php',
         );
 
         /**
