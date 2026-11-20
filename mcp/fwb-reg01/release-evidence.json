@@ -1,0 +1,14 @@
+{
+  "$comment": "Manual checklist only. Never fill true without external evidence. Nothing here automates publication.",
+  "developerIdentityVerified": false,
+  "domainChallengeVerified": false,
+  "oauthPKCEVerified": false,
+  "tenantIsolationAudited": false,
+  "wpReadWriteVerified": false,
+  "privacyAndTermsPublished": false,
+  "reviewerLoginVerified": false,
+  "reviewCasesRun": false,
+  "demoRecordingReady": false,
+  "desktopMobileVerified": false,
+  "zeroExtraCostRechecked": false
+}
