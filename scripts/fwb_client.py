@@ -21,6 +21,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+import uuid
 
 SITE = "https://forjamineirad20.com.br"
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -132,12 +133,16 @@ def wp_request(route, *, method="GET", payload=None, idempotency_key=None):
         raise FWBError("Rota ou método não permitido.")
     allowed = (
         route == "/wp-json/wp/v2/users/me?context=edit"
+        or route == "/wp-json/wp/v2/users/me/application-passwords/introspect"
         or route == "/wp-json/forja-bridge/v1/status"
         or route == "/wp-json/forja-bridge/v1/drafts"
         or bool(re.fullmatch(r"/wp-json/forja-bridge/v1/drafts/[1-9]\d*", route))
     )
     if not allowed:
         raise FWBError("Rota fora da allowlist.")
+    # WordPress core endpoints are used exclusively for READ-ONLY attestation.
+    if route.startswith("/wp-json/wp/v2/") and (method != "GET" or payload is not None or idempotency_key is not None):
+        raise FWBError("Operação WordPress core protegida: somente GET sem corpo.")
     headers = {"Authorization": _authorization_header(), "Accept": "application/json"}
     data = None
     if payload is not None:
@@ -167,17 +172,34 @@ def wp_request(route, *, method="GET", payload=None, idempotency_key=None):
         raise FWBError("Resposta WordPress não é JSON válido.") from None
 
 
+def verify_application_password():
+    """Assert the current REST authentication really uses a revocable WP App Password.
+
+    Returns no identity details and writes no data. This is a GET-only endpoint.
+    """
+    token = wp_request("/wp-json/wp/v2/users/me/application-passwords/introspect")
+    if type(token) is not dict or not isinstance(token.get("uuid"), str):
+        raise FWBError("Identidade REST confirmada, mas Application Password não comprovada.")
+    try:
+        uuid.UUID(token["uuid"])
+    except (ValueError, TypeError, AttributeError):
+        raise FWBError("Application Password retornou identificador inválido.") from None
+    return True
+
+
 def probe():
     profile = wp_request("/wp-json/wp/v2/users/me?context=edit")
     if type(profile) is not dict or type(profile.get("id")) is not int:
         raise FWBError("Não foi possível confirmar a identidade REST.")
     caps = profile.get("capabilities")
-    can_edit = caps.get("edit_posts") if type(caps) is dict else None
-    can_publish = caps.get("publish_posts") if type(caps) is dict else None
-    if can_edit is not True or can_publish is not False:
-        raise FWBError("Conta REST não tem perfil de serviço seguro (exigir edit_posts=true e publish_posts=false).")
-    print("FWB PROBE: autenticação REST confirmada, permissões mínimas PASS (somente leitura).")
-    # O plugin Bridge não precisa estar instalado para este diagnóstico.
+    can_read = caps.get("read", False) if type(caps) is dict else None
+    can_edit = caps.get("edit_posts", False) if type(caps) is dict else None
+    can_publish = caps.get("publish_posts", False) if type(caps) is dict else None
+    if can_read is not True or can_edit is not False or can_publish is not False:
+        raise FWBError("Probe de leitura exige conta Assinante: read=true e sem edit_posts/publish_posts.")
+    verify_application_password()
+    print("FWB PROBE: conta somente leitura e Application Password confirmadas; permissões PASS; zero escrita.")
+    # O Bridge não precisa estar instalado para a primeira autenticação.
 
 
 def require_github_approval():
@@ -195,8 +217,9 @@ def apply(manifest):
     require_github_approval()
     profile = wp_request("/wp-json/wp/v2/users/me?context=edit")
     caps = profile.get("capabilities") if type(profile) is dict else None
-    if type(caps) is not dict or caps.get("edit_posts") is not True or caps.get("publish_posts") is not False:
+    if type(caps) is not dict or caps.get("edit_posts") is not True or caps.get("publish_posts", False) is not False:
         raise FWBError("Conta técnica deve comprovar edit_posts=true e publish_posts=false.")
+    verify_application_password()
     status = wp_request("/wp-json/forja-bridge/v1/status")
     if not (
         type(status) is dict

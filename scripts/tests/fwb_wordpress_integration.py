@@ -29,7 +29,7 @@ def check(desc, ok):
     print(f"PASS: {desc}")
 
 
-def request(route, method="GET", payload=None, key=None, auth=True):
+def request(route, method="GET", payload=None, key=None, auth=True, identity=USERNAME, password=None):
     if not route.startswith("/wp-json/") or not BASE.startswith("http://127.0.0.1:"):
         raise AssertionError("Only loopback WordPress REST is allowed")
     if not PASSWORD:
@@ -37,7 +37,7 @@ def request(route, method="GET", payload=None, key=None, auth=True):
     url = BASE + route
     headers = {"Accept": "application/json"}
     if auth:
-        token = base64.b64encode(f"{USERNAME}:{PASSWORD}".encode()).decode()
+        token = base64.b64encode(f"{identity}:{PASSWORD if password is None else password}".encode()).decode()
         headers["Authorization"] = "Basic " + token
     data = None
     if payload is not None:
@@ -61,6 +61,28 @@ def main():
     check("authenticated bridge status", status == 200 and info["version"] == "0.2.0")
     check("draft-only enforcement enabled in local CI", info["policy"] == "draft_only" and info["writes_enabled"] is True)
     check("contributor cannot publish", info["can_publish_posts"] is False)
+    status, token = request("/wp-json/wp/v2/users/me/application-passwords/introspect")
+    check("WordPress introspection confirms a real Application Password", status == 200 and isinstance(token.get("uuid"), str) and len(token["uuid"]) == 36)
+    status, hidden = request("/wp-json/wp/v2/users/me/application-passwords/introspect", auth=False)
+    check("anonymous cannot introspect application credential", status in (401, 403))
+
+    read_pw = os.environ.get("FWB_STAGING_READ_APP_PASSWORD", "")
+    check("separate read-only subscriber application credential exists", bool(read_pw))
+    status, read_profile = request(
+        "/wp-json/wp/v2/users/me?context=edit", identity="fwb-read", password=read_pw
+    )
+    check("subscriber authenticates to core REST", status == 200 and read_profile["id"] > 0)
+    read_caps = read_profile.get("capabilities", {})
+    check("read-only account cannot edit or publish", read_caps.get("read") is True and read_caps.get("edit_posts", False) is False and read_caps.get("publish_posts", False) is False)
+    status, read_token = request(
+        "/wp-json/wp/v2/users/me/application-passwords/introspect",
+        identity="fwb-read", password=read_pw
+    )
+    check("subscriber Application Password introspection succeeds", status == 200 and isinstance(read_token.get("uuid"), str))
+    status, denied = request(
+        "/wp-json/forja-bridge/v1/status", identity="fwb-read", password=read_pw
+    )
+    check("subscriber cannot reach editorial Bridge API", status == 403)
 
     other_draft = os.environ.get("FWB_STAGING_ADMIN_DRAFT_ID", "")
     published_id = os.environ.get("FWB_STAGING_PUBLISHED_ID", "")

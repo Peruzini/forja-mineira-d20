@@ -59,6 +59,12 @@ jobs:
           test -n "$PASS"
           echo "::add-mask::$PASS"
           printf 'FWB_STAGING_APP_PASSWORD=%s\n' "$PASS" >> "$GITHUB_ENV"
+          compose run --rm -T cli wp user create fwb-read fwb-read@example.invalid \
+            --role=subscriber --user_pass=LOCAL_CI_READER_ONLY_2026
+          READ_PASS="$(compose run --rm -T cli wp user application-password create fwb-read 'FWB Read CI' --porcelain | tr -d '\r\n')"
+          test -n "$READ_PASS"
+          echo "::add-mask::$READ_PASS"
+          printf 'FWB_STAGING_READ_APP_PASSWORD=%s\n' "$READ_PASS" >> "$GITHUB_ENV"
           ADMIN_DRAFT="$(compose run --rm -T cli wp post create --post_title='Admin Fixture Draft' --post_status=draft --post_author=1 --porcelain | tr -d '\r\n')"
           ADMIN_PUBLISHED="$(compose run --rm -T cli wp post create --post_title='Admin Fixture Published' --post_status=publish --post_author=1 --porcelain | tr -d '\r\n')"
           printf 'FWB_STAGING_ADMIN_DRAFT_ID=%s\n' "$ADMIN_DRAFT" >> "$GITHUB_ENV"
