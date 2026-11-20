@@ -72,6 +72,6 @@ Uma conexão inicial e, depois, pedidos diretos no chat. GitHub para código e t
 
 ## Atualização de FWB-05C
 
-Servidor MCP hospedado na Vercel com teste remoto PASS e plugin pessoal privado \`forja-wp-bridge\` criado. Evidências, URL, limites e próxima ação: [FWB-05C — Hospedagem e plugin privado](FWB-05C-HOSPEDAGEM-PLUGIN-PRIVADO.md).
+Servidor MCP hospedado na Vercel com teste remoto PASS e plugin pessoal privado `forja-wp-bridge` criado. Evidências, URL, limites e próxima ação: [FWB-05C — Hospedagem e plugin privado](FWB-05C-HOSPEDAGEM-PLUGIN-PRIVADO.md).
 
-**O gate FWB-05C continua parcialmente pendente:** ainda falta comprovar a chamada de \`forja_ping\` por ferramentas do plugin ativadas no ChatGPT. Não iniciar módulos editoriais de escrita antes dessa prova.
+**O gate FWB-05C continua parcialmente pendente:** ainda falta comprovar a chamada de `forja_ping` por ferramentas do plugin ativadas no ChatGPT. Não iniciar módulos editoriais de escrita antes dessa prova.
