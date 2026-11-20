@@ -52,7 +52,7 @@ Referências:
 
 | Gate | Comprovação | Estado |
 | --- | --- | --- |
-| 05E-A1 | Ferramentas com testes offline, sanitização e leitura exclusiva | Implementação de referência no GitHub; aguarda CI |
+| 05E-A1 | Ferramentas com testes offline, sanitização e leitura exclusiva | **PASS — CI #44814347350 (5/5)** |
 | 05E-A2 | Site criado em conta pessoal, preview privado funcional | **PENDENTE — criação via Work/Sites** |
 | 05E-A3 | Site privado publicado, plugin Site-generated instalado/conectado | **PENDENTE** |
 | 05E-A4 | `forja_ping` invocado por conversa com plugin Sites | **PENDENTE** |
@@ -69,3 +69,15 @@ Referências:
 ## Limitação operacional deste ambiente
 
 Esta conversa dispõe de GitHub, Vercel e Plugin Creator (empacotamento), **mas não de um comando para criar e publicar Sites**. A documentação indica que o processo de criação é executado em **ChatGPT Work, com `@Sites`**. Não registrar Site, publicação, plugin Sites ou teste de conversa como concluídos sem evidência. O brief acima é a transferência direta e específica para essa etapa nativa de produto.
+
+## Evidência de execução da implementação de referência — 20/11/2026
+
+- Commit inicial do adaptador: `dad237df240340071684353defa92786811d51cb`.
+- CI: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44814347350 — **SUCCESS**; 5/5 testes passaram.
+- Teste 1: ping não acessou a rede.
+- Teste 2: somente GET REST público, sem Authorization.
+- Teste 3: secrets ausentes impediram qualquer chamada externa autenticada.
+- Teste 4: GET de identidade com Basic Auth em URL fixa retornou somente resultado booleano, sem PII.
+- Teste 5: falha de upstream sanitizada, sem repetição de chamada.
+- Todos os testes com respostas simuladas; **nenhuma credencial real utilizada**.
+- A versão de referência **não é um Site publicado**, e o plugin Sites ainda **não foi criado**.

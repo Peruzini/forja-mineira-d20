@@ -8,6 +8,8 @@ Projeto WordPress da **Forja Mineira D20**, com builds temáticas, guias editori
 
 Site: https://forjamineirad20.com.br/
 
+**FWB-05E — Prova com ChatGPT Sites:** adaptador de referência somente leitura com [5/5 testes aprovados](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44814347350). O [brief de ativação no Sites](docs/FWB-05E-CHATGPT-SITES-POC.md) está pronto; **Site/plugin Sites e execução real pela conversa ainda não foram criados ou comprovados**.
+
 ## Estrutura
 
 - `plugins/forja-mineira-builds/` — builds, Home, Hub de Builds e votação da próxima build.
