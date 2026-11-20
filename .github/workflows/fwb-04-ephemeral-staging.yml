@@ -1,0 +1,93 @@
+name: FWB-04 — Homologação WordPress isolado (sem produção)
+
+on:
+  push:
+    branches:
+      - test/fwb-04-ephemeral-staging-20261120
+    paths:
+      - '.github/fwb-04/**'
+      - 'scripts/tests/fwb_wordpress_integration.py'
+      - '.github/workflows/fwb-04-ephemeral-staging.yml'
+      - 'plugins/forja-wp-bridge/**'
+  pull_request:
+    paths:
+      - '.github/fwb-04/**'
+      - 'scripts/tests/fwb_wordpress_integration.py'
+      - '.github/workflows/fwb-04-ephemeral-staging.yml'
+      - 'plugins/forja-wp-bridge/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-staging:
+    name: Integration / disposable WordPress
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout (no production credentials)
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose definition
+        run: docker compose -f .github/fwb-04/compose.yaml config --quiet
+
+      - name: Start disposable WordPress + database
+        run: docker compose -f .github/fwb-04/compose.yaml up -d --wait db wordpress
+
+      - name: Install test WordPress and least-privilege account
+        run: |
+          set -euo pipefail
+          compose() { docker compose -f .github/fwb-04/compose.yaml "$@"; }
+          for i in $(seq 1 30); do
+            if compose exec -T wordpress test -f /var/www/html/wp-config.php; then break; fi
+            sleep 2
+          done
+          compose run --rm -T cli wp core install \
+            --url=http://127.0.0.1:18080 \
+            --title=FWB-CI-Disposable \
+            --admin_user=fwb-admin \
+            --admin_password=LOCAL_CI_ADMIN_ONLY_2026 \
+            --admin_email=fwb-admin@example.invalid \
+            --skip-email
+          compose run --rm -T cli wp post delete 1 --force
+          compose run --rm -T cli wp rewrite structure '/%postname%/' --hard
+          compose run --rm -T cli wp plugin activate forja-wp-bridge
+          compose run --rm -T cli wp user create fwb-ci fwb-ci@example.invalid \
+            --role=contributor --user_pass=LOCAL_CI_CONTRIB_ONLY_2026
+          PASS="$(compose run --rm -T cli wp user application-password create fwb-ci 'FWB Ephemeral CI' --porcelain | tr -d '\r\n')"
+          test -n "$PASS"
+          echo "::add-mask::$PASS"
+          printf 'FWB_STAGING_APP_PASSWORD=%s\n' "$PASS" >> "$GITHUB_ENV"
+          ADMIN_DRAFT="$(compose run --rm -T cli wp post create --post_title='Admin Fixture Draft' --post_status=draft --post_author=1 --porcelain | tr -d '\r\n')"
+          ADMIN_PUBLISHED="$(compose run --rm -T cli wp post create --post_title='Admin Fixture Published' --post_status=publish --post_author=1 --porcelain | tr -d '\r\n')"
+          printf 'FWB_STAGING_ADMIN_DRAFT_ID=%s\n' "$ADMIN_DRAFT" >> "$GITHUB_ENV"
+          printf 'FWB_STAGING_PUBLISHED_ID=%s\n' "$ADMIN_PUBLISHED" >> "$GITHUB_ENV"
+
+      - name: Exercise REST permissions, drafts, idempotency and audit
+        run: |
+          set -euo pipefail
+          python3 scripts/tests/fwb_wordpress_integration.py | tee /tmp/fwb04-test-result.txt
+          DRAFT_ID="$(sed -n 's/^FWB04_DRAFT_ID=//p' /tmp/fwb04-test-result.txt | tail -1)"
+          test -n "$DRAFT_ID"
+          docker compose -f .github/fwb-04/compose.yaml run --rm -T cli \
+            wp post meta list "$DRAFT_ID" --format=json > /tmp/fwb04-meta.json
+          python3 - <<'PY'
+          import json
+          meta = json.load(open('/tmp/fwb04-meta.json', encoding='utf-8'))
+          audit = [x for x in meta if x['meta_key'] == '_fwb_audit_event']
+          assert len(audit) == 2, f'Expected 2 private audit events; got {len(audit)}'
+          print('PASS: two durable private audit events confirmed by independent WP-CLI read')
+          PY
+
+      - name: Ensure no unexpected published test articles
+        run: |
+          set -euo pipefail
+          PUBLISHED="$(docker compose -f .github/fwb-04/compose.yaml run --rm -T cli \
+            wp post list --post_type=post --post_status=publish --format=count | tr -d '\r\n')"
+          test "$PUBLISHED" = "1"
+          echo "PASS: no new published articles (only the pre-created published fixture exists)."
+
+      - name: Tear down disposable stack and database
+        if: always()
+        run: docker compose -f .github/fwb-04/compose.yaml down -v --remove-orphans
