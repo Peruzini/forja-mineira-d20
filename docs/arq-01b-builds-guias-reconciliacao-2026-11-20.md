@@ -48,3 +48,45 @@
 5. **Governança:** revisão + CI + preview + QA + rollback e autorização independente; merge/deploy apenas em bloco posterior aprovado.
 
 **Decisão ARQ-01B:** fontes candidatas recuperadas e comparadas; **não é seguro sincronizá-las diretamente**. Não há paridade comprovada com a instalação WordPress ativa, portanto nenhuma mudança de plugin é incluída neste PR.
+
+
+## 5. Atualização de paridade integral dos candidatos contra a `main` (20/11/2026)
+
+**Escopo correto:** ZIPs do Drive versus árvore GitHub `main`, **não** instalação WordPress. Esta seção substitui a amostragem da seção 2/3 como resultado completo da comparação **somente entre essas duas fontes**.
+
+**Árvore GitHub `main`:** `29f11df46e4ac738941b6928fe2f64ee3c98a4a0`. Subárvores: Builds `34ef034e9a90eca69fe03193b31030f8a5cf9e8e` (44 blobs), Guias `be2cf238f3902bc1d2b7de094c824f0052e0dd74` (23 blobs). Hashes dos arquivos dos ZIPs obtidos por `SHA-1("blob <bytes>\\0" + conteúdo)`, mesma estrutura do blob Git; SHA-256 de cada arquivo adicionalmente calculado.
+
+| Estado | Builds (ZIP 129, main 44) | Guias (ZIP 30, main 23) |
+|---|---:|---:|
+| Hash idêntico | 37 | 19 |
+| Mesmo caminho, bytes diferentes | 7 | 4 |
+| Somente no ZIP candidato | 85 | 7 |
+| Somente na main | 0 | 0 |
+
+### Builds — 7 arquivos de conteúdo diferente
+
+- `CHANGELOG.txt`
+- `assets/css/builds.css`
+- `forja-mineira-builds.php`
+- `includes/class-build-shortcode.php`
+- `includes/class-forja-builds.php`
+- `readme.txt`
+- `templates/builds-hub.php`
+
+**85 exclusivos do ZIP de teste:** incluem `assets/css/home.css`, `doom-build.css`, `doom-hub.css`, `doom-stage2.css`, artes e conteúdos da build Doutor Destino, scripts, dados editoriais, templates de níveis 2–20, `includes/class-doom-data.php`, `includes/class-doom-proposal.php` e documentação. Esses arquivos **não podem ser promovidos** só por estarem no candidato.
+
+### Guias — 4 arquivos de conteúdo diferente
+
+- `README.txt`
+- `assets/css/guides-hub.css`
+- `forja-mineira-guias.php`
+- `templates/guides-hub.php`
+
+**7 exclusivos do ZIP candidato:** `assets/images/guia-itens-conjuradores-hero-vaeros-aprovada.webp`, `assets/images/guia-talentos-bruxo-hero-rhazek-aprovada.webp`, `docs/CHANGELOG-v1.2.5.md`, `docs/MANIFESTO_ADICAO_TALENTOS_v1.2.6.json`, `docs/MANIFESTO_ASSETS.json`, `docs/QA-e-staging-v1.2.5.md`, `docs/QA-v1.2.6-talentos.md`.
+
+### Impedimento objetivo para comparação com produção
+
+WPVibe confirmou **113/100 chamadas usadas**, **0 restantes** na janela móvel de 24 horas. Há **1 reset reservado, não utilizado**. As buscas no Drive e na Biblioteca não localizaram um **snapshot integral comprovado da instalação ativa** de Builds 2.3.32-rc.1 e Guias em 20/11. **Não foram lidos arquivos do WordPress neste bloco.**
+
+Por isso, a conclusão é **PARIDADE CANDIDATO↔MAIN DOCUMENTADA; PARIDADE WORDPRESS↔FONTES NÃO DEMONSTRADA**. Preservar HOLD de qualquer PR de código até novo snapshot da instalação e comparação byte a byte. Não associar automaticamente o ZIP Builds `rc.2` (que se identifica internamente como `rc.1`) à versão instalada, nem a candidata Guias 1.2.6 à instalação vigente.
+
