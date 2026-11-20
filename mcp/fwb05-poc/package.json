@@ -1,0 +1,20 @@
+{
+  "name": "forja-wp-bridge-fwb05-poc",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "FWB-05 minimal MCP transport proof, no WordPress credentials or write capability",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.3.0",
+    "zod": "^4.2.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.3.0"
+  }
+}

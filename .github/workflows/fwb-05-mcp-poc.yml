@@ -1,0 +1,28 @@
+name: FWB-05 — MCP transport proof (offline)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mcp/fwb05-poc/**'
+      - '.github/workflows/fwb-05-mcp-poc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mcp-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated PoC dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Execute real MCP client/server protocol tests (in-process)
+        working-directory: mcp/fwb05-poc
+        run: npm test
