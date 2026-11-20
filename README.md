@@ -1,5 +1,9 @@
 # Forja Mineira D20
 
+## Forja WP Bridge 2.0 — plano diretor (20/11/2026)
+
+O plano de evolução da integração própria ChatGPT ↔ WordPress está em [docs/FWB-PLANO-DIRETOR-V2.md](docs/FWB-PLANO-DIRETOR-V2.md). O objetivo é executar tarefas WordPress diretamente pela conversa, sem depender da cota do WPVibe. **Planejamento registrado; conector direto ainda não homologado.** Primeiro bloco: **FWB-05 — prova de conexão direta**.
+
 Projeto WordPress da **Forja Mineira D20**, com builds temáticas, guias editoriais, ferramentas e conteúdo de RPG com foco principal em **D&D 5e 2024**.
 
 Site: https://forjamineirad20.com.br/
