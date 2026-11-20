@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Forja Mineira D20 — SPELL-05E (prévia isolada)</title><style>
+:root{color-scheme:light;--ink:#1e2826;--muted:#596760;--green:#183f34;--green2:#30564b;--gold:#a28c56;--cream:#f3f0e8;--line:#d9d5c9;--surface:#fffdfa;--soft:#eae8de;--shadow:0 12px 40px rgba(10,35,27,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #b39b57;outline-offset:3px}
+header{background:linear-gradient(115deg,#102a26,#203c33 70%,#3a4539);color:#f5f1e5;border-bottom:3px solid #927c45}header .inner{max-width:1250px;margin:auto;padding:32px 30px 30px}.eyebrow{font-size:11px;letter-spacing:.2em;font-weight:700;color:#d4ba80}.hero-title{font-family:Georgia,serif;font-size:clamp(27px,4vw,41px);margin:7px 0 6px;letter-spacing:-.03em;line-height:1.15}header p{max-width:780px;margin:0;color:#dddacc;font-size:14px}.banner{font-size:12px;color:#e5d3ac;margin-top:14px}
+main{max-width:1250px;margin:auto;padding:24px 30px 64px}.control-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:16px 19px;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-bottom:18px}.control-bar p{margin:0;font-size:12px;color:var(--muted)}.btn-row{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #9ba99f;background:transparent;border-radius:7px;padding:9px 14px;color:var(--green);font-size:13px;font-weight:700}.btn[aria-pressed=true]{color:white;background:var(--green);border-color:var(--green)}.btn.reset{border-color:var(--line);color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(215px,290px) minmax(0,1fr);gap:18px;align-items:start}.sidebar,.stage{border:1px solid var(--line);background:var(--surface);border-radius:14px;box-shadow:var(--shadow)}.sidebar{padding:19px 12px}.sidebar h2{font:700 13px/1.4 ui-sans-serif,system-ui;margin:0 10px 12px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.case-btn{display:flex;flex-direction:column;text-align:left;width:100%;border:1px solid transparent;background:transparent;padding:12px 11px;margin-bottom:6px;border-radius:9px;color:var(--ink);line-height:1.25}.case-btn.active{background:#e8efe8;border-color:#bbcabf}.case-kind{font-size:10px;color:#7b6e4d;letter-spacing:.09em;font-weight:800;margin-bottom:5px}.case-btn strong{font-size:13px}.case-btn small{color:var(--muted);margin-top:4px;font-size:11px}.stage{padding:24px}.stage>h2{font:700 clamp(19px,2vw,27px)/1.2 Georgia,serif;margin:0 0 7px}.meta{font-size:12px;color:var(--muted);margin-bottom:18px}.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.results.one{grid-template-columns:1fr}.result-card{padding:20px;border:1px solid var(--line);border-radius:12px;background:white;min-width:0}.updated-card{border-color:#92b5a0;background:linear-gradient(#f7fcf6,#fff 130px)}.result-label{font-size:10px;color:#69716b;letter-spacing:.14em;font-weight:800;margin-bottom:11px}.updated-card .result-label{color:#246247}.result-card h3{font:700 20px/1.2 Georgia,serif;margin:0 0 16px;overflow-wrap:anywhere}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{border-top:1px solid var(--line);padding-top:10px;min-width:0}.field:last-child:nth-child(odd){grid-column:span 2}.field-title{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.field-value{display:block;font-size:13px;overflow-wrap:anywhere}.rule-text{font-size:12px;color:#434d48;border-top:1px solid var(--line);padding-top:14px;margin:17px 0 0}.extra-data{margin-top:15px;border-left:3px solid #739c82;padding:3px 12px;background:#eef5ee}.extra-data p{font-size:12px;margin:9px 0}.notice{background:#f6f2e4;border:1px solid #d8c99b;border-radius:9px;color:#60583f;padding:11px 14px;font-size:12px;margin:18px 0 0}.slot{border:1px solid var(--line);padding:14px 18px;border-radius:9px;margin-top:17px;background:#f4f6f1}.slot label{display:block;font-weight:700;font-size:13px}.slot input{width:100%;margin:13px 0 3px;accent-color:var(--green)}.slot-output{font-size:13px;display:flex;justify-content:space-between;gap:12px}.slot-output strong{color:var(--green)}footer{border-top:1px solid var(--line);font-size:11px;color:var(--muted);padding:14px 4px;margin-top:30px}footer strong{color:#38493f}
+@media(max-width:800px){header .inner,main{padding-left:15px;padding-right:15px}.layout{grid-template-columns:1fr}.sidebar{padding:13px}#case-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.case-btn{width:100%;min-width:0;min-height:82px;display:flex;margin:0;padding:10px 8px}.stage{padding:17px}.results{grid-template-columns:1fr}.control-bar{padding:15px}.case-btn strong{font-size:12px}}
+@media(max-width:440px){.case-btn{width:100%}.field-grid{grid-template-columns:1fr}.field:last-child:nth-child(odd){grid-column:auto}.result-card h3{font-size:18px}}
+
+</style></head>
+<body>
+<header><div class="inner"><div class="eyebrow">FORJA MINEIRA D20 · HOMOLOGAÇÃO</div><h1 class="hero-title">SPELL-05E: Adaptador de magias</h1><p>Comparação controlada entre campos editoriais existentes e a saída do adaptador proposto para D&amp;D 5e 2024. Visualização isolada, sem alterações no WordPress.</p><div class="banner">Branch de teste · 94 magias preservadas · dados simulados explicitamente identificados</div></div></header>
+<main>
+<div class="control-bar"><div><strong>Modo de análise</strong><p>Alterne manualmente a visualização; nenhuma troca automática.</p></div><div class="btn-row"><button class="btn" data-mode="compare" aria-pressed="true">Comparar lado a lado</button><button class="btn" data-mode="updated" aria-pressed="false">Somente adaptado</button><button class="btn reset" id="reset">Restaurar prévia</button></div></div>
+<div class="layout"><nav class="sidebar" aria-label="Cenários de homologação"><h2>Cenários de teste</h2><div id="case-list"></div></nav><section class="stage" aria-labelledby="main-title"><h2 id="main-title">Ficha comparativa</h2><p class="meta" id="selection"></p><div class="results" id="rendered"></div><div class="slot" id="slot-panel" hidden><label for="slot-level">Círculo do espaço de magia: <span id="slot-value">5º círculo</span></label><input id="slot-level" type="range" min="4" max="9" step="1" value="5"><div class="slot-output"><span>Resultado da fórmula</span><strong id="slot-result"></strong></div></div><p class="notice" id="note"></p></section></div>
+<footer><strong>Nota técnica:</strong> este arquivo é uma prévia comparativa de contratos e exemplos, não um teste de DOM do plugin no WordPress. As fichas identificadas como “cenário isolado” não foram adicionadas ao guia editorial publicado.</footer>
+</main>
+<script>
+/* SPELL-05E — isolated, opt-in preview adapter. No WordPress or spreadsheet writes. */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root) root.ForjaSpell05EAdapter = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  function obj(value, label) {
+    var v = typeof value === 'string' ? JSON.parse(value) : value;
+    if (!v || typeof v !== 'object' || Array.isArray(v)) throw new TypeError(label + ': expected object');
+    return v;
+  }
+  function integer(n, label) {
+    if (!Number.isInteger(n) || n < 0) throw new TypeError(label + ': expected nonnegative integer');
+    return n;
+  }
+  function formatRange(input) {
+    var r = obj(input, 'range');
+    if (r.type === 'special') return 'Especial';
+    if (r.type !== 'point' || !r.distance) throw new TypeError('Unsupported range type');
+    var d = obj(r.distance, 'distance');
+    if (d.type === 'self') return 'Pessoal';
+    if (d.type === 'touch') return 'Toque';
+    if (d.type === 'feet' && Number.isFinite(d.amount) && d.amount > 0) return d.amount + ' pés';
+    if (d.type === 'miles' && Number.isFinite(d.amount) && d.amount > 0) return d.amount + ' milha(s)';
+    throw new TypeError('Unsupported range distance');
+  }
+  function formatCasting(input) {
+    var c = obj(input, 'casting');
+    if (c.action !== 'bonus' || !c.trigger || c.trigger.event !== 'attack_hit' || c.trigger.timing !== 'immediately_after') throw new TypeError('Unsupported conditional casting');
+    var kinds = c.trigger.attackKinds || [];
+    if (!Array.isArray(kinds) || kinds.length !== 2 || !kinds.includes('melee_weapon') || !kinds.includes('unarmed_strike')) throw new TypeError('Unsupported attack kinds');
+    return 'Ação Bônus — imediatamente após acertar um ataque corpo a corpo com arma ou Golpe Desarmado (Unarmed Strike)';
+  }
+  function formatSave(input) {
+    var s = obj(input, 'save');
+    var one = Array.isArray(s.savingThrows) && s.savingThrows.length === 1 ? s.savingThrows[0] : null;
+    if (!one || one.ability !== 'charisma' || !one.when || one.when.afterAttackDamage !== true || one.when.targetHpAtMost !== 50) throw new TypeError('Unsupported conditional save');
+    return 'Salvaguarda de Carisma apenas se, após o dano do ataque, o alvo tiver 50 PV ou menos';
+  }
+  function slotScaling(input) {
+    var s = obj(input, 'scaling');
+    if (s.basis !== 'spell_slot') throw new TypeError('Unsupported scaling basis');
+    integer(s.baseSlotLevel, 'baseSlotLevel');
+    if (s.baseSlotLevel < 1 || s.baseSlotLevel > 9) throw new TypeError('Invalid base slot level');
+    if (s.metric === 'damage_dice') {
+      var match = /^(\d+)d(\d+)$/.exec(s.deltaPerSlotLevel || '');
+      if (!match || Number(match[1]) < 1 || Number(match[2]) < 1) throw new TypeError('Invalid damage delta');
+      return {
+        label: '+' + s.deltaPerSlotLevel + ' por círculo de espaço acima do ' + s.baseSlotLevel + 'º',
+        evaluate: function (level) {
+          integer(level, 'slotLevel');
+          if (level < s.baseSlotLevel || level > 9) throw new RangeError('Slot out of scaling bounds');
+          var count = (level - s.baseSlotLevel) * Number(match[1]);
+          return count === 0 ? '0' : count + 'd' + match[2];
+        }
+      };
+    }
+    if (s.metric === 'summon_hit_points') {
+      integer(s.baseValue, 'baseValue');
+      integer(s.incrementPerSlotLevel, 'incrementPerSlotLevel');
+      return {
+        label: 'PV da criatura = ' + s.baseValue + ' + ' + s.incrementPerSlotLevel + ' × (círculo do espaço − ' + s.baseSlotLevel + ')',
+        evaluate: function (level) {
+          integer(level, 'slotLevel');
+          if (level < s.baseSlotLevel || level > 9) throw new RangeError('Slot out of scaling bounds');
+          return s.baseValue + s.incrementPerSlotLevel * (level - s.baseSlotLevel);
+        }
+      };
+    }
+    throw new TypeError('Unsupported scaling metric');
+  }
+  function adaptEditorial(base, spec) {
+    var b = obj(base, 'editorial record');
+    var p = obj(spec, 'preview spec');
+    if (!b.id || b.id !== p.spellId) throw new Error('spellId mismatch: fail closed');
+    if (b.tagFonte !== 'Core 2024') throw new Error('HoF/Legacy is outside SPELL-05E');
+    var out = Object.assign({}, b);
+    var diagnostics = [];
+    if (p.rangeJSON !== undefined) out.alcance = formatRange(p.rangeJSON);
+    if (p.castingSchema !== undefined) out.conjuracao = formatCasting(p.castingSchema);
+    if (p.scalingSchema !== undefined) out.escalonamento = slotScaling(p.scalingSchema).label;
+    if (p.saveSchema !== undefined) diagnostics.push(formatSave(p.saveSchema));
+    if (p.previewObs2024 !== undefined) {
+      if (typeof p.previewObs2024 !== 'string' || !p.previewObs2024.trim()) throw new TypeError('Invalid preview annotation');
+      out.obs2024 = p.previewObs2024;
+    }
+    return { record: out, diagnostics: diagnostics, previewOnly: true };
+  }
+  return Object.freeze({ version: '0.1.0-preview', formatRange: formatRange, formatCasting: formatCasting, formatSave: formatSave, slotScaling: slotScaling, adaptEditorial: adaptEditorial });
+});
+
+</script><script>
+(function () {
+  'use strict';
+  var A = window.ForjaSpell05EAdapter;
+  var records = [
+    {
+      id:'MAG-0063',tagFonte:'Core 2024', nomePt:'Sonho',nomeEn:'Dream',nivel:'5º círculo',kind:'GUIA PUBLICADO',
+      alcance:'Especial',conjuracao:'1 minuto',escalonamento:'Não escala',
+      obs2024:'2024: 1 minuto, 10 pés, duração Especial. Mensageiro entra em sonhos de uma criatura conhecida.'
+    },
+    {
+      id:'MAG-0069',tagFonte:'Core 2024', nomePt:'Estática Sináptica',nomeEn:'Synaptic Static',nivel:'5º círculo',kind:'GUIA PUBLICADO',
+      alcance:'120 pés • esfera de raio 20 pés',conjuracao:'Ação',escalonamento:'Não escala',
+      obs2024:'Salvaguarda inicial de Inteligência. Constituição apenas é penalizada ao manter Concentração.'
+    },
+    {
+      id:'MAG-0076',tagFonte:'Core 2024',nomePt:'Caldeirão Borbulhante de Tasha',nomeEn:"Tasha's Bubbling Cauldron",nivel:'6º círculo',kind:'GUIA PUBLICADO',
+      alcance:'5 pés',conjuracao:'Ação',escalonamento:'Não escala',
+      obs2024:'Material: concha dourada no valor de 500+ PO, não consumida.'
+    },
+    {
+      id:'MAG-0093',tagFonte:'Core 2024',nomePt:'Polimorfia Verdadeira',nomeEn:'True Polymorph',nivel:'9º círculo',kind:'GUIA PUBLICADO',
+      alcance:'30 pés',conjuracao:'Ação',escalonamento:'Não escala',
+      obs2024:'Errata: PV temporários restantes desaparecem ao terminar a magia.'
+    },
+    {
+      id:'MAG-0115',tagFonte:'Core 2024',nomePt:'Destruição Banidora',nomeEn:'Banishing Smite',nivel:'5º círculo',kind:'CENÁRIO ISOLADO',
+      alcance:'Pessoal',conjuracao:'Ação Bônus (gatilho não modelado)',escalonamento:'Não escala',
+      obs2024:'É necessário distinguir o gatilho após acerto e a salvaguarda condicional.'
+    },
+    {
+      id:'MAG-0147',tagFonte:'Core 2024',nomePt:'Conjurar Elemental',nomeEn:'Conjure Elemental',nivel:'5º círculo',kind:'CENÁRIO ISOLADO',
+      alcance:'60 pés',conjuracao:'Ação',escalonamento:'Não estruturado',
+      obs2024:'Errata vigente: +1d8 por círculo de espaço acima do 5º.'
+    },
+    {
+      id:'MAG-0216',tagFonte:'Core 2024',nomePt:'Inseto Gigante',nomeEn:'Giant Insect',nivel:'4º círculo',kind:'CENÁRIO ISOLADO',
+      alcance:'60 pés',conjuracao:'Ação',escalonamento:'PV não estruturados',
+      obs2024:'PV da criatura = 30 + 10 × (círculo do espaço − 4).'
+    }
+  ];
+  var specs={
+    'MAG-0063':{spellId:'MAG-0063',rangeJSON:{type:'special'}, previewObs2024:'2024: 1 minuto, alcance Especial, duração de 8 horas. Mensageiro entra em sonhos de uma criatura conhecida.'},
+    'MAG-0069':{spellId:'MAG-0069'},
+    'MAG-0076':{spellId:'MAG-0076'},
+    'MAG-0093':{spellId:'MAG-0093'},
+    'MAG-0115':{spellId:'MAG-0115',castingSchema:{action:'bonus',trigger:{event:'attack_hit',timing:'immediately_after',attackKinds:['melee_weapon','unarmed_strike']}}, saveSchema:{savingThrows:[{ability:'charisma',when:{afterAttackDamage:true,targetHpAtMost:50}}]}},
+    'MAG-0147':{spellId:'MAG-0147',scalingSchema:{basis:'spell_slot',metric:'damage_dice',baseSlotLevel:5,deltaPerSlotLevel:'1d8'}},
+    'MAG-0216':{spellId:'MAG-0216',scalingSchema:{basis:'spell_slot',metric:'summon_hit_points',baseSlotLevel:4,baseValue:30,incrementPerSlotLevel:10}}
+  };
+  var selected='MAG-0063';var mode='compare';
+  var $=function(id){return document.getElementById(id)};
+  var left=$('case-list');
+  function node(tag,klass,content){var n=document.createElement(tag);if(klass)n.className=klass;if(content!==undefined)n.textContent=String(content);return n}
+  function field(parent,name,value){var w=node('div','field');w.append(node('span','field-title',name),node('strong','field-value',value));parent.append(w)}
+  function card(type,label,r,extra){var wrap=node('section','result-card '+type);wrap.append(node('div','result-label',label),node('h3','',r.nomePt+' ('+r.nomeEn+')'));var grid=node('div','field-grid');field(grid,'Conjuração',r.conjuracao);field(grid,'Alcance',r.alcance);field(grid,'Escalonamento',r.escalonamento);wrap.append(grid);var obs=node('p','rule-text',r.obs2024);wrap.append(obs);if(extra&&extra.length){var ul=node('div','extra-data');extra.forEach(x=>ul.append(node('p','',x)));wrap.append(ul)}return wrap}
+  function renderList(){left.replaceChildren();records.forEach(function(r){var b=node('button','case-btn'+(selected===r.id?' active':''));b.type='button';b.setAttribute('aria-pressed',String(selected===r.id));b.append(node('span','case-kind',r.kind),node('strong','',r.nomePt),node('small','',r.nomeEn));b.addEventListener('click',function(){selected=r.id;render()});left.append(b)})}
+  function render(){renderList();var base=records.find(function(r){return r.id===selected});var data=A.adaptEditorial(base,specs[selected]);var target=$('rendered');target.classList.toggle('one',mode!=='compare');target.replaceChildren();if(mode==='compare')target.append(card('base-card','BASE ATUAL · SOMENTE LEITURA',base,[]));target.append(card('updated-card','ADAPTADOR · SIMULAÇÃO NÃO PUBLICADA',data.record,data.diagnostics));$('selection').textContent=base.id+' · '+base.nivel+(base.kind==='CENÁRIO ISOLADO'?' · Fora das 94 magias do guia':' · Registro existente no guia');$('note').textContent=selected==='MAG-0063'?'A observação sobre 10 pés diverge do alcance Especial do próprio guia. O exemplo apresenta a correção para avaliação, sem aplicá-la.':base.kind==='CENÁRIO ISOLADO'?'Este cenário demonstra o contrato proposto. Ele NÃO foi inserido no catálogo publicado de 94 magias.':'Sem alteração no texto editorial atual: o teste confirma o comportamento de preservação dos campos.';var slotPanel=$('slot-panel');slotPanel.hidden=!(specs[selected].scalingSchema);if(!slotPanel.hidden){var s=specs[selected].scalingSchema;var inp=$('slot-level');inp.min=s.baseSlotLevel;inp.max=9;if(Number(inp.value)<s.baseSlotLevel)inp.value=s.baseSlotLevel;updateSlot()} document.querySelectorAll('[data-mode]').forEach(function(b){b.setAttribute('aria-pressed',String(mode===b.dataset.mode))})}
+  function updateSlot(){var s=specs[selected].scalingSchema;if(!s)return;var level=Number($('slot-level').value),result=A.slotScaling(s).evaluate(level);$('slot-result').textContent=s.metric==='summon_hit_points'?result+' PV':'Dano adicional: '+result;$('slot-value').textContent=level+'º círculo'}
+  document.querySelectorAll('[data-mode]').forEach(function(b){b.addEventListener('click',function(){mode=b.dataset.mode;render()})});$('slot-level').addEventListener('input',updateSlot);
+  $('reset').addEventListener('click',function(){mode='compare';selected='MAG-0063';$('slot-level').value=5;render()});
+  render();
+})();
+
+</script></body></html>
