@@ -37,7 +37,7 @@ function stable(value) {
 }
 function serialize(data) { return JSON.stringify(stable(data), null, 2) + '\n'; }
 function sha(content) { return crypto.createHash('sha256').update(content,'utf8').digest('hex'); }
-function sortById(rows, field) { return [...rows].sort((a,b)=>String(a[field]).localeCompare(String(b[field]),'en')); }
+function sortById(rows, field) { return [...rows].sort((a,b)=>String(a[field]).localeCompare(String(b[field]),'en') || serialize(a).localeCompare(serialize(b),'en')); }
 function unique(rows, field, tab) {
   const ids = new Set();
   for (const r of rows) {
@@ -77,6 +77,7 @@ function buildSnapshot(input, { expectedCoreCount=391, blockedIds=DEFAULT_BLOCKE
     const concentration = String(v.concentration).toUpperCase();
     const ritual = String(v.ritual).toUpperCase();
     if (!['TRUE','FALSE'].includes(concentration) || !['TRUE','FALSE'].includes(ritual)) fail(c.spellId+': invalid booleans');
+    if (!Number.isInteger(Number(c.spellLevel)) || Number(c.spellLevel)<0 || Number(c.spellLevel)>9) fail(c.spellId+': invalid spell level');
     return {spellId:c.spellId,spellVersionId:v.spellVersionId,stableKey:c.stableKey,
       nameEN:c.nameEN,namePT:c.namePT,spellLevel:Number(c.spellLevel),sourceCode:c.sourceCode,
       concentration:concentration==='TRUE',ritual:ritual==='TRUE',mechanics,
