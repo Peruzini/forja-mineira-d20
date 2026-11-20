@@ -1,0 +1,21 @@
+name: SPELL-06C integração experimental
+on:
+  pull_request:
+    paths:
+      - 'qa/spell-06c/**'
+      - '.github/workflows/spell-06c-preview.yml'
+      - 'qa/spell-06b/**'
+      - 'plugins/forja-mineira-guia-magias/assets/js/spell-adapter.js'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Contratos 05E, 06B e 06C
+        run: node --test qa/spell-05e/adapter.test.cjs qa/spell-06b/exporter.test.cjs qa/spell-06c/preview.test.cjs
