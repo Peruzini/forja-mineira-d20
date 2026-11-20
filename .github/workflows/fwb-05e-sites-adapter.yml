@@ -1,0 +1,24 @@
+name: FWB-05E — Sites adapter preflight (offline)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mcp/fwb05-site/**'
+      - '.github/workflows/fwb-05e-sites-adapter.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-adapter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate read-only Sites adapter
+        run: node --test mcp/fwb05-site/tests/site-tools.test.mjs
