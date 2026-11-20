@@ -229,3 +229,12 @@
   .fmc-related-card{transition:none}
   .fmc-related-card:hover{transform:none}
 }
+
+/* FORJA-CLUSTER-EXP-02: um card único sem modificar os trios do Bruxo. */
+.fmc-related-grid.fmc-related-grid--single{
+  grid-template-columns:minmax(0,560px);
+  justify-content:center;
+}
+@media(max-width:820px){
+  .fmc-related-grid.fmc-related-grid--single{grid-template-columns:minmax(0,1fr)}
+}
