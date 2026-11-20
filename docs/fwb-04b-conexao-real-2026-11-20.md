@@ -81,3 +81,17 @@ Repositório: https://github.com/Peruzini/forja-mineira-d20/settings/environment
 - https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments
 
 **Resultado final planejado:** se o preflight público passar, a conectividade externa anônima está confirmada. Credenciais e integração autenticada real continuam separadas e requerem configuração administrativa autorizada.
+
+
+## 7. Evidências executadas — diagnóstico público FWB-04B
+
+- Run GitHub Actions #44799798338 (push): **FAIL transitório**, erro de rede/TLS do runner (OSError); não indica falha de autenticação WordPress.
+- Run GitHub Actions #44799859297 (pull_request): **PASS** em verificação pública.
+- Run GitHub Actions #44799983969 (pull_request, commit de correção): **PASS**, teste público e unit tests.
+- Run FWB-03 #44799983954 (pull_request): **PASS**, testes offline da integração.
+- Resposta REST index: HTTP 200, namespace wp/v2 exposto, suporte Application Passwords anunciado (não comprovado funcionalmente).
+- GET de /wp/v2/types: HTTP 200 e tipo post confirmado.
+- GET sem credenciais de /wp/v2/users/me?context=edit: HTTP 401, sem revelação da identidade.
+- Zero credenciais usadas; 3 requisições GET públicas por execução, sem POST/PUT/DELETE e sem chamada WPVibe.
+
+**Gate atingido:** conectividade pública da REST API = PASS (após falha transitória inicial). **Gate ainda não atingido:** autenticação real do usuário técnico por Application Password, criação de staging hospedado, ambientes protegidos e eventual ativação. Nenhum deploy/merge.
