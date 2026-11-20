@@ -26,3 +26,6 @@ jobs:
       - name: Execute real MCP client/server protocol tests (in-process)
         working-directory: mcp/fwb05-poc
         run: npm test
+      - name: Verify Next.js deployable MCP route compiles
+        working-directory: mcp/fwb05-poc
+        run: npm run build
