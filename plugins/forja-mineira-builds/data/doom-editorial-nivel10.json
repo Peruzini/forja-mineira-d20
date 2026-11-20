@@ -1,0 +1,58 @@
+{
+  "phase": "Fase III · A Primeira Máscara",
+  "kicker": "Nível 10 · Artífice (Artificer) 3 / Mago (Wizard) 7",
+  "title": "A Lança do Soberano",
+  "intro": "Victor aprende magias de 4º círculo. Lança Psíquica de Raulothim (Raulothim's Psychic Lance) — LEGACY de Fizban (2021) — pressiona Resistências Lendárias. Armadura de Placas é a melhor opção não mágica de armadura, recomendada desde o nível 6; a CA depende de obtê-la e equipá-la.",
+  "feature_label": "Novo acesso · 4º círculo · LEGACY permitido pelo Mestre",
+  "feature_title": "A Lança Psíquica desafia os chefes",
+  "feature_detail": "Salvaguarda de Inteligência; em falha, 7d6 psíquico e Incapacitação até o início do próximo turno. Resistência Lendária pode transformar falha em sucesso, mas não é gasta automaticamente.",
+  "ward_detail": "A Proteção Arcana (Arcane Ward) tem 18 PV máximos: 2 × Mago 7 + modificador de INT +4; não se somam aos 76 PV de Victor.",
+  "spell_intro": "Duas inscrições normais: Lança Psíquica de Raulothim (LEGACY) e Porta Dimensional (Dimension Door). Banimento (Banishment) entra como inscrição extra de Abjuração. Fabricar foi adiado para o nível 11.",
+  "spell_notes": [
+    {
+      "pt": "Lança Psíquica de Raulothim",
+      "note": "LEGACY · Fizban (2021). Ataque de alvo único, pressiona Resistência Lendária, sem Concentração. Uso sujeito ao Mestre."
+    },
+    {
+      "pt": "Porta Dimensional",
+      "note": "Resgate e reposicionamento instantâneo, nas condições da magia."
+    },
+    {
+      "pt": "Banimento",
+      "note": "Abjuração: remoção temporária por salvaguarda e Concentração."
+    }
+  ],
+  "prep_note": "11 preparações regulares de Mago; Lança Psíquica substitui Teia. LEGACY sujeito ao Mestre.",
+  "wishlist_note": "Armadura de Placas (Plate Armor): melhor armadura não mágica (CA base 18), recomendada desde o nível 6. Não exige fusão com outra armadura mágica; somente considerar sua CA depois de obtê-la e equipá-la. Outras prioridades da wishlist continuam condicionais.",
+  "combat_title": "Como jogar Victor no nível 10 · Duelista arcano / quebra de Resistência Lendária",
+  "combat_intro": "Lança Psíquica de Raulothim (Raulothim's Psychic Lance) — LEGACY, Fizban (2021) — passa a ser a ferramenta ofensiva prioritária contra chefes e Resistências Lendárias. Banimento e Porta Dimensional são alternativas.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 18 PV. Prepare Lança Psíquica de Raulothim (Raulothim's Psychic Lance), LEGACY, e mantenha cobertura."
+    },
+    {
+      "label": "Abertura",
+      "text": "Contra chefe isolado: Lança Psíquica (LEGACY), 7d6 psíquico / salvaguarda INT CD16, com risco de Incapacitação até o início do próximo turno. Contra grupos, Lentidão ou Bola de Fogo."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Se falhar na salvaguarda e gastar Resistência Lendária, houve desgaste; se aceitar, sofre dano e Incapacitação. Banimento (Banishment) vira alternativa de remoção prolongada. Porta Dimensional (Dimension Door) resgata aliados."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Proteção Projetada, Contramágica ou Escudo — escolha uma Reação."
+    }
+  ],
+  "priority": "Chefe: Lança Psíquica (LEGACY) → pressionar Resistências Lendárias → Banimento se valer a pena → reação defensiva.",
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 10,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N10_APROVACAO_N11_PROPOSTA",
+  "combat_context": {
+    "contra_chefe": "Lança Psíquica pressiona Resistências Lendárias mas não garante seu gasto; depende da falha e da escolha adversária.",
+    "contra_grupo": "Lentidão/Bola de Fogo, sem usar a Lança como solução universal.",
+    "erro_evitar": "Lança Psíquica de Raulothim é LEGACY, exige permissão do Mestre; substitui Fabricar (Fabricate) na inscrição do Nível 10."
+  }
+}

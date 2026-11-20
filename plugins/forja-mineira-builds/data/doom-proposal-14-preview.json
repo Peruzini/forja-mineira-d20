@@ -1,0 +1,115 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "source_document": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "nivel_total": 14,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "mecanica": {
+    "nivel_total": 14,
+    "artifice": 3,
+    "mago": 11,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "Magias de 6º círculo; Contingência, Globo de Invulnerabilidade, Desintegrar",
+    "pv_fixos": 104,
+    "bonus_proficiencia": 5,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 10,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 27,
+    "magias_mago_preparadas_regulares": 16,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Contingência",
+        "en": "Contingency",
+        "origem_aprendizado": "especialista_abjuracao_bonus",
+        "nivel_total_entrada": 14,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Globo de Invulnerabilidade",
+        "en": "Globe of Invulnerability",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 14,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Desintegrar",
+        "en": "Disintegrate",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 14,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      }
+    ],
+    "total_magias_grimorio": 32,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1
+    ],
+    "caracteristicas_e_talentos": [],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Teia (Web)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+      "Queda Suave (Feather Fall)",
+      "Globo de Invulnerabilidade (Globe of Invulnerability)",
+      "Desintegrar (Disintegrate)"
+    ],
+    "preparacao_alternativa_nota": "Contingência preparada em dia específico, com foco material caro, e depois volta ao repertório do dia.",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTO",
+      "magias_escolhidas": "PROPOSTAS",
+      "ficha_final": "PENDENTE_DE_HOMOLOGACAO"
+    },
+    "magias_sempre_preparadas_adicionais": [
+      "Contramágica (Counterspell)",
+      "Dissipar Magia (Dispel Magic)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 6,
+      "maior_circulo_de_espaco_compartilhado": 7,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02D"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_total_entrada": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    }
+  },
+  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+}

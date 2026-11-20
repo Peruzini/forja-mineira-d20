@@ -1,0 +1,59 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 14,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N14_PROPOSTA",
+  "phase": "Fase IV · O Domínio da Magia",
+  "kicker": "Nível 14 · Artífice (Artificer) 3 / Mago (Wizard) 11",
+  "title": "O Arquiteto do Impossível",
+  "intro": "Victor passa a dominar magias de Mago de 6º círculo. Em vez de apenas responder às ameaças, ele prepara contingências, isola inimigos poderosos e reserva uma descarga destrutiva para o momento decisivo.",
+  "feature_label": "Marco arcano · magias de 6º círculo",
+  "feature_title": "Três caminhos para impor a vontade",
+  "feature_detail": "Duas inscrições normais de Mago e uma inscrição adicional de Abjuração estão propostas. O grimório cresce para 32 magias; apenas 16 compõem a preparação regular do dia.",
+  "ward_detail": "Proteção Arcana (Arcane Ward): 2 × Mago 11 + INT 5 = 27 PV máximos, separados dos 104 PV do personagem.",
+  "spell_notes": [
+    {
+      "pt": "Contingência",
+      "note": "Abjuração 2024. Combina um gatilho com outra magia elegível de até 5º círculo lançada antecipadamente; exige preparo, espaços e componente material de alto valor."
+    },
+    {
+      "pt": "Globo de Invulnerabilidade",
+      "note": "Proteção concentrada contra certas magias: posicionamento e manutenção de Concentração decidem sua utilidade."
+    },
+    {
+      "pt": "Desintegrar",
+      "note": "Ataque pontual de grande impacto; requer selecionar o alvo e considerar sua defesa. Não é substituto de controle do campo."
+    }
+  ],
+  "prep_note": "Contingência é proposta como inscrição adicional de Abjuração pelas regras de 2024. Sua utilização exige uma preparação específica e a despesa material indicada na magia. Na seleção padrão de 16 magias, Globo de Invulnerabilidade e Desintegrar entram; Contingência fica como alternativa contextual.",
+  "slot_note": "O sétimo círculo aparece como espaço compartilhado pela multiclasse, mas magias de Mago de 7º círculo não podem ser inscritas por esta progressão no nível 14.",
+  "wishlist_note": "Cajado do Poder (Staff of Power) segue como objetivo pendente desde o nível 13. Não somar bônus à CA, ataques ou salvaguardas sem obter e sintonizar o item.",
+  "combat_title": "Como jogar Victor no nível 14 · Arquimago defensivo / ataque de 6º",
+  "combat_intro": "O 6º círculo permite planejar Contingência (Contingency), negar magia com Globo de Invulnerabilidade (Globe of Invulnerability) e finalizar com Desintegrar (Disintegrate).",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Contingência (Contingency) com Imagem Espelhada como exemplo de defesa condicional; exige preparações, tempo e componente caro. Proteção Arcana até 27."
+    },
+    {
+      "label": "Abertura",
+      "text": "Contra conjuradores, Globo de Invulnerabilidade (Globe of Invulnerability); contra alvo vulnerável de DES, Desintegrar (Disintegrate); chefe com resistências intactas: Lança — LEGACY."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Com Globo ativo, use magia sem Concentração. Reserve Desintegrar para boa chance de falha; pode destruir uma Muralha de Força inimiga."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica, Proteção Projetada ou Escudo. Mantenha seu plano de Contingência dentro dos gatilhos válidos."
+    }
+  ],
+  "priority": "Contingência antecipada → Globo contra magia → Desintegrar na oportunidade → alternativas de controle.",
+  "approval_notice": "Nível 14 ainda em proposta no dossiê v1.2; valores e escolhas sujeitos à homologação editorial/normativa. Prévia não autoriza publicação.",
+  "combat_context": {
+    "contra_chefe": "Pressione resistências antes de arriscar Desintegrar em falha convertida.",
+    "contra_grupo": "Globo contra magias vindas de fora; não é barreira universal contra círculos elevados.",
+    "erro_evitar": "Contingência deve ser criada previamente; não há dois espaços de 6º para gastar indiscriminadamente."
+  }
+}

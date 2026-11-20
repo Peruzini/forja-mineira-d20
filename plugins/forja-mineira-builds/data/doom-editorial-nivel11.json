@@ -1,0 +1,54 @@
+{
+  "phase": "Fase III · A Primeira Máscara",
+  "kicker": "Nível 11 · Artífice (Artificer) 3 / Mago (Wizard) 8",
+  "title": "O Intelecto Sem Rival",
+  "intro": "PROPOSTA EDITORIAL: Victor atinge INT 20 (+5) na simulação. Esfera Resiliente de Otiluke pode isolar ameaças, e Fabricar (Fabricate) — adiado do nível 10 — ingressa no grimório como magia utilitária.",
+  "feature_label": "Nível de Mago 8 · INT 20 (proposta)",
+  "feature_title": "Aprisionamento e fabricação sob controle",
+  "feature_detail": "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere) combina com proteção e isolamento. Fabricar (Fabricate) não cria materiais ou armadura automaticamente; exige os requisitos da magia.",
+  "ward_detail": "Com INT 20 proposto, Proteção Arcana (Arcane Ward) teria 21 PV máximos: 2 × Mago 8 + INT +5. Simulação, não estatística aprovada.",
+  "spell_intro": "As duas inscrições normais propostas são Fabricar (Fabricate) e Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere). Olho Arcano (Arcane Eye) foi adiado.",
+  "spell_notes": [
+    {
+      "pt": "Fabricar",
+      "note": "Utilidade e forja entre combates; depende de materiais e proficiência quando exigida."
+    },
+    {
+      "pt": "Esfera Resiliente de Otiluke",
+      "note": "Isola alvos ou protege aliados, exige Concentração; não permite ataques atravessando a esfera."
+    }
+  ],
+  "prep_note": "12 preparações de Mago; Lança Psíquica de Raulothim — LEGACY permanece preparada, Fabricar fica no grimório.",
+  "wishlist_note": "Anel de Armazenamento de Magias (Ring of Spell Storing): objetivo projetado para os níveis 11–12; requer obtenção, carregamento e sintonização. Nenhum efeito automático.",
+  "combat_title": "Como jogar Victor no nível 11 · Mestre de prisões arcanas",
+  "combat_intro": "Victor combina Lança Psíquica — LEGACY com Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere). Fabricar (Fabricate) entra no grimório como recurso de preparação, não como abertura de combate.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Com Inteligência 20 e Proteção Arcana de até 21 PV, prepare Imagem Espelhada quando possível."
+    },
+    {
+      "label": "Abertura",
+      "text": "Chefe: Lança Psíquica — LEGACY, agora CD17; inimigo de DES baixa ou aliado em risco: Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Se aprisionar um inimigo, elimine os demais; a Esfera bloqueia também ataques aliados. Utilize Lentidão contra grupos."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Proteção Projetada/Contramágica/Escudo. Vigor Arcano é recuperação possível usando espaço, não um recurso gratuito."
+    }
+  ],
+  "priority": "Chefe: Lança Psíquica (LEGACY) OU Esfera Resiliente → coordenar ataques acessíveis → defesa da barreira.",
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 11,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N10_APROVACAO_N11_PROPOSTA",
+  "combat_context": {
+    "contra_chefe": "Selecione entre Lança (pressionar resistência) e Esfera (isolar), não as considere controles idênticos.",
+    "contra_grupo": "Lentidão ou Bola de Fogo conforme dispersão.",
+    "erro_evitar": "Fabricar entra no grimório em vez de Olho Arcano (Arcane Eye) adiado; Fabricar é utilidade de 10 minutos, não abertura."
+  }
+}

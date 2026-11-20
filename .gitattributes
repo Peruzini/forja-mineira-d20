@@ -1,0 +1,3 @@
+
+# Preserve release source bytes: production manifest verifies SHA256.
+plugins/forja-mineira-builds/** -text

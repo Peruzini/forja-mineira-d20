@@ -1,0 +1,133 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 19,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "source_status": "pendente",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "mecanica": {
+    "nivel_total": 19,
+    "artifice": 3,
+    "mago": 16,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "PROPOSTA: o senhor das passagens · Mago 16, Dádiva de Viagem Dimensional",
+    "pv_fixos": 139,
+    "bonus_proficiencia": 6,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 21,
+      "SAB": 11,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 37,
+    "magias_mago_preparadas_regulares": 21,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Campo Antimagia",
+        "en": "Antimagic Field",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 8,
+        "escola": "Abjuração"
+      },
+      {
+        "pt": "Semiplano",
+        "en": "Demiplane",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 8,
+        "escola": "Conjuração"
+      }
+    ],
+    "total_magias_grimorio": 44,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      3,
+      1,
+      1,
+      1,
+      1
+    ],
+    "caracteristicas_e_talentos": [
+      "Dádiva de Viagem Dimensional (Boon of Dimensional Travel) — +1 INT, Passos Cintilantes (Blink Steps); já aprovada como escolha futura"
+    ],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Sugestão em Massa (Mass Suggestion)",
+      "Queda Suave (Feather Fall)",
+      "Globo de Invulnerabilidade (Globe of Invulnerability)",
+      "Desintegrar (Disintegrate)",
+      "Teletransporte (Teleport)",
+      "Labirinto (Maze)",
+      "Mente Vazia (Mind Blank)",
+      "Visão da Verdade (True Seeing)",
+      "Contingência (Contingency)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 8,
+      "maior_circulo_de_espaco_compartilhado": null,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "moldura_normativa_nao_build_final": {
+      "nivel_efetivo_conjurador": 18,
+      "maior_circulo_mago": 8,
+      "maior_circulo_de_espaco_compartilhado": 9,
+      "preparacoes_regulares_mago_previstas_na_tabela_2024": 21,
+      "magias_selecionadas": null,
+      "fonte": "https://www.dndbeyond.com/classes/2190886-wizard",
+      "estado": "NUMEROS_NORMATIVOS_SEM_DECISOES_DE_BUILD",
+      "proposta_de_feat_congelada": "Dádiva de Viagem Dimensional (Boon of Dimensional Travel) — +1 Inteligência",
+      "prerequisito_feit": "nível de personagem 19+; Wizard 16 recebe Ability Score Improvement, pode escolher feat elegível",
+      "fonte_dadiva": "https://www.dndbeyond.com/sources/dnd/br-2024/feats"
+    },
+    "estado_mecanica": "PREVIA_DE_PROPOSTA_NAO_CONSOLIDADA",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTA_NAO_HOMOLOGADA",
+      "magias_escolhidas": "PROPOSTA_NAO_HOMOLOGADA",
+      "itens_obtidos": "NAO_CONFIRMADOS",
+      "boon_of_dimensional_travel": "APROVADO_COMO_ESCOLHA_FUTURA"
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02E"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_total_entrada": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    }
+  },
+  "observacao_estado": "Dádiva aprovada COMO ESCOLHA FUTURA; demais números deriváveis, novas magias e preparação são proposta do Executor. Sem promoção automática.",
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisão 3: preparada lista revisada",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

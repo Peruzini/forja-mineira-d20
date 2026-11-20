@@ -1,0 +1,48 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 7,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_7",
+  "phase": "Fase II · O Conhecimento Arcano",
+  "kicker": "Nível 7 · Artífice (Artificer) 3 / Mago (Wizard) 4",
+  "title": "A Vontade Não se Quebra",
+  "intro": "Victor fortalece seu talento como conjurador sem abandonar o aço: Conjurador de Guerra (War Caster) eleva Inteligência a 18 e aumenta sua segurança ao sustentar magias de Concentração. Sua Proteção Arcana acompanha esse salto.",
+  "feat_title": "Conjurador de Guerra (War Caster)",
+  "feat_intro": "Talento Geral de Mago 4 · +1 Inteligência, passando de 17 (+3) para 18 (+4). Esta é uma decisão aprovada da progressão de Doom.",
+  "feat_concentration": "Vantagem nas salvaguardas de Constituição realizadas para manter Concentração após sofrer dano.",
+  "feat_components": "Permite executar componentes somáticos de magias enquanto segura armas ou escudo nas mãos, dentro do texto e condições do talento. Componentes materiais não são dispensados: foco, bolsa e mãos continuam exigindo atenção.",
+  "feat_opportunity": "Permite conjurar magia apropriada como substituição de Ataque de Oportunidade quando as condições do talento são cumpridas; não concede reações extras.",
+  "ward_title": "Proteção Arcana (Arcane Ward) · 12 PV",
+  "ward_detail": "Errata aprovada AUD-DOOM-E1-01: 2 × nível de Mago 4 + modificador INT +4 = 12 PV máximos na barreira. O valor antigo de 10 PV estava incorreto; a correção não altera os 55 PV do personagem.",
+  "spell_note": "Imagem Espelhada (Mirror Image) entra na preparação padrão e não exige Concentração. Sugestão (Suggestion) é inscrita no grimório como alternativa de preparação, sem ser tratada como preparada automaticamente.",
+  "multi_note": "São espaços de magia compartilhados da multiclasse: quatro de 1º, três de 2º e três de 3º círculo. Mago 4 ainda aprende apenas magias de Mago de até 2º círculo; não há novas magias de 3º círculo aprendidas.",
+  "cantrip_note": "É um truque adicional da classe Mago, separado dos recebidos pelo talento de origem.",
+  "wishlist_note": "A prioridade anterior, Armadura Segmentada (Splint Armor), ainda depende de compra. Manto de Proteção (Cloak of Protection) segue pendente; Botas Aladas (Winged Boots) entram como desejo opcional, exigem sintonização e não são concedidas automaticamente.",
+  "combat_title": "Como jogar Victor no nível 7 · Fortaleza arcana / Concentração reforçada",
+  "combat_intro": "Imagem Espelhada e Conjurador de Guerra (War Caster) permitem manter controle sob pressão sem transformar Teia na resposta padrão.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 12 PV; Imagem Espelhada (Mirror Image) sem Concentração se houver tempo de conjuração."
+    },
+    {
+      "label": "Abertura",
+      "text": "Contra ameaças prioritárias: Riso Histérico de Tasha com espaço superior; contra fogo concentrado em Victor, Imagem Espelhada. Fogo das Fadas para apoio ofensivo."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Pulso Trovejante (Thunder Pulse) marca agressores; Raio de Fogo à distância. Conjurador de Guerra (War Caster) sustenta Concentração."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Imagem Espelhada pode desviar ataques sem Reação. Escudo (Shield) e magia de oportunidade de Conjurador de Guerra exigem seus próprios gatilhos."
+    }
+  ],
+  "priority": "Proteção Arcana e Imagem Espelhada → controle seletivo → Pulso ou truques → Conjurador de Guerra e Reação defensiva.",
+  "combat_context": {
+    "contra_chefe": "Resista na linha sem transformar Teia em solução automática.",
+    "contra_grupo": "Controle seletivo; conserve Concentração e use armadura para proteger vulneráveis.",
+    "erro_evitar": "Vantagem de Conjurador de Guerra vale para salvar Concentração, não para todas as salvaguardas de CON."
+  }
+}

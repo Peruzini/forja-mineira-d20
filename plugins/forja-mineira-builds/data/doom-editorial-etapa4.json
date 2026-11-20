@@ -1,0 +1,53 @@
+{
+  "schema": "forja-doom-editorial-preview/1.0",
+  "build_id": "doutor-destino",
+  "etapa": 4,
+  "publicacao_autorizada": false,
+  "estado": "PROPOSTA_EDITORIAL_AGUARDA_APROVACAO_VISUAL",
+  "hero": {
+    "kicker": "Forja Mineira D20 · D&D 5e 2024 + Artífice 2025",
+    "scope": "Build temática · progressão planejada 1–20",
+    "title_lines": [
+      "Doutor",
+      "Destino"
+    ],
+    "tagline": "Da oficina ao domínio arcano",
+    "lead_bold": "Ciência, magia e vontade de ferro.",
+    "lead": "Construa Victor von Doom a partir de Artífice (Artificer), rumo ao Armeiro (Armorer) e à magia protetora do Abjurador (Abjurer).",
+    "quote": "O homem por trás da máscara começa dominando as ferramentas — antes de dominar os mistérios do mundo.",
+    "quote_label": "Fantasia temática da build",
+    "art_caption": "Visão final do personagem · arte DOOM-ART-01"
+  },
+  "nivel_1": {
+    "stage_tag": "Nível 1 · O Jovem Inventor",
+    "kicker": "Nível 1 · Artífice (Artificer) 1",
+    "title": "Victor, o Jovem Inventor",
+    "subtitle": "Ciência e magia antes da máscara",
+    "intro": "Antes da armadura, Victor combina estudo, experimentação e ambição. Ferramentas e primeiros feitiços mantêm-no preparado para sobreviver e controlar o terreno.",
+    "combat_title": "Como jogar Victor no nível 1 · Inventor e controlador básico",
+    "combat": [
+      {
+        "label": "Preparação",
+        "text": "Escolha cobertura e um gargalo; tenha as ferramentas adequadas. Não presuma armadura mágica neste nível."
+      },
+      {
+        "label": "Abertura",
+        "text": "Use Graxa (Grease) para conter aproximações ou Raio de Fogo (Fire Bolt) se não houver passagem útil."
+      },
+      {
+        "label": "Turnos seguintes",
+        "text": "Economize os dois espaços de 1º círculo, ataque de cobertura e use Curar Ferimentos (Cure Wounds) apenas quando necessário."
+      },
+      {
+        "label": "Reação e defesa",
+        "text": "Reserve Escudo (Shield) para evitar um acerto importante; o uso gratuito de Iniciado em Magia tem limite por Descanso Longo."
+      }
+    ],
+    "combat_priority": "cobertura → Graxa em gargalo OU Raio de Fogo → reposicionamento → Escudo somente quando necessário.",
+    "combat_context": {
+      "contra_chefe": "Ataque à distância de cobertura e preserve Escudo; não espere controle garantido sobre chefe.",
+      "contra_grupo": "Graxa num gargalo; Raio de Fogo nos alvos expostos.",
+      "erro_evitar": "Sem Armadura Arcana, Proteção Arcana ou réplicas de item mágico."
+    }
+  }
+}

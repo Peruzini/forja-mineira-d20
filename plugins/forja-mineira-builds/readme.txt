@@ -2,13 +2,23 @@
 Contributors: forjamineirad20
 Tags: dnd, dungeons-and-dragons, build, warlock, rpg
 Requires at least: 6.0
-Tested up to: 6.8
+Tested up to: 7.1.5
 Requires PHP: 7.4
-Stable tag: 2.3.28
+Stable tag: 2.3.32
 License: GPLv2 or later
 
-Build completa 1–20 para o Forja Mineira D20.
+Builds temáticas da Forja Mineira D20: Voldemort e Doutor Destino 1–20. Release estável 2.3.32, autorizada em DOOM-PROD-01. Dados históricos de revisão mantidos intactos; a autorização de produção é definida por data/doom-release.json e verificada contra seus hashes.
 
+
+== 2.3.32-rc.1 — INTEGRAÇÃO B2 + HUB (CANDIDATO DE TESTE) ==
+- Base do pacote: ZIP B2 enviado em 13/10/2026. Os módulos, dados, 20 templates e SEO da B2 foram preservados.
+- Novo Hero Doutor Destino no Hub e card adicional; Voldemort permanece acessível.
+- Mantida otimização CSS da Home 2.3.29-rc.1 (Home: home.css, Hub/Build: builds.css).
+- O Hub descobre URL de página publicada com [forja_build nome="doutor-destino"] ou aceita doom_url explícita.
+- Arquivos 11–20 são PROPOSTAS de revisão; o B2 os mostra somente em FMB_DOOM_REVIEW_MODE. NÃO libera para produção.
+- Uso: [forja_builds_hub] e [forja_build nome="doutor-destino"] em páginas SEPARADAS.
+- A instalação não cria página do Doutor Destino automaticamente e não publica a build de teste.
+- Clusters: nenhum código alterado.
 
 == 2.3.28 — PRODUÇÃO ==
 - Hub de Builds aprovado visualmente no WordPress real e promovido para produção em 05/10/2026.
@@ -29,7 +39,7 @@ Build completa 1–20 para o Forja Mineira D20.
 
 == Instalação ==
 1. No WordPress: Plugins > Adicionar plugin > Enviar plugin.
-2. Envie o ZIP forja-mineira-builds-v2.3.28-PRODUCAO.zip.
+2. Para testes em staging, envie o ZIP 2.3.32-rc.1-B2-HUB. NÃO substitua a versão de produção sem homologação.
 3. Se a versão anterior estiver instalada, use a opção do WordPress para substituir a versão atual pela enviada.
 4. Ative o plugin.
 5. Na página da build, use:
@@ -83,3 +93,9 @@ Votação real:
 - A escolha é lembrada por localStorage + cookie.
 - Administração: menu WordPress "Forja Mineira".
 - O administrador pode abrir/encerrar a votação e iniciar uma nova rodada.
+
+
+== DOCUMENTAÇÃO DESTA INTEGRAÇÃO ==
+- Ver docs/FORJA_BUILDS_B2_HUB_DOOM_ESTADO_ATUAL_2026-10-13.md para escopo, rastreabilidade, restrições e gates.
+- A mera presença dos arquivos nível 11–20 não os libera publicamente.
+- As alterações de SEO do pacote B2 são preservadas, mas não há validação de indexação no Google nesta etapa.

@@ -1,0 +1,114 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "source_document": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "nivel_total": 11,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "mecanica": {
+    "nivel_total": 11,
+    "artifice": 3,
+    "mago": 8,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "Aumento de Atributo para INT 20; magias de 4º círculo de utilidade/defesa",
+    "pv_fixos": 83,
+    "bonus_proficiencia": 4,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 10,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 21,
+    "magias_mago_preparadas_regulares": 12,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Fabricar",
+        "en": "Fabricate",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 11,
+        "status_escolha": "APROVADO_EDITORIAL_2026_11_20",
+        "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_QA"
+      },
+      {
+        "pt": "Esfera Resiliente de Otiluke",
+        "en": "Otiluke’s Resilient Sphere",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 11,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      }
+    ],
+    "total_magias_grimorio": 24,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2
+    ],
+    "caracteristicas_e_talentos": [
+      "Aumento de Atributo (Ability Score Improvement): +2 INT"
+    ],
+    "wishlist_novas_prioridades": [
+      {
+        "pt": "Anel de Armazenamento de Magias",
+        "en": "Ring of Spell Storing",
+        "prioridade": "PRIORIDADE",
+        "aquisicao": "tesouro ou fabricação projetada",
+        "observacao": "Armazena níveis de magias; depende de carregamento",
+        "identificador": "ring_of_spell_storing",
+        "metodo_aquisicao_previsto": "tesouro ou fabricação projetada",
+        "estado_aquisicao": "NAO_CONFIRMADO",
+        "sintonizacao_exigida": true,
+        "estado_sintonizacao": "NAO_CONFIRMADA",
+        "aplicar_bonus_no_personagem_automaticamente": false,
+        "obtido_pelo_personagem": null,
+        "origem_catalogo_geral": true,
+        "categoria_de_estado": "WISHLIST_NAO_INVENTARIO"
+      }
+    ],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Contramágica (Counterspell)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Dissipar Magia (Dispel Magic)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)"
+    ],
+    "preparacao_alternativa_nota": "Missão aérea: retirar Bola de Fogo e preparar Queda Suave.",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTO",
+      "magias_escolhidas": "PROPOSTAS",
+      "ficha_final": "PENDENTE_DE_HOMOLOGACAO",
+      "aumento_INT_ate_20": "PROPOSTO_USADO_NAS_SIMULACOES"
+    },
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 4,
+      "maior_circulo_de_espaco_compartilhado": 5,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02C"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    }
+  },
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisão 1: preparada lista revisada",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 12,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N12_PROPOSTA",
+  "phase": "Fase III · A Primeira Máscara",
+  "kicker": "Nível 12 · Artífice (Artificer) 3 / Mago (Wizard) 9",
+  "title": "A Vontade que Dobra a Realidade",
+  "intro": "Victor atinge Mago 9 e passa a poder aprender magias de Mago de 5º círculo. A defesa e o controle de campo ganham outra escala.",
+  "feature_label": "Marco de repertório · magias de 5º círculo",
+  "feature_title": "O campo de batalha se torna uma obra de engenharia",
+  "feature_detail": "A progressão proposta não concede uma característica de classe adicional no nível 9 de Mago: o destaque mecânico é o acesso às magias de 5º círculo, junto de mais inscrições no grimório. Muralha de Força (Wall of Force) e Telecinese (Telekinesis) entram como propostas, não opções congeladas.",
+  "ward_detail": "Simulação com Mago 9 e INT 20: Proteção Arcana (Arcane Ward) máxima de 23 PV (2 × 9 + 5). Essa barreira permanece separada dos 90 PV de Victor.",
+  "spell_intro": "Primeiras magias de Mago de 5º círculo: Muralha de Força e Telecinese lideram a estratégia. Vínculo Planar é inscrição extra de Abjuração para preparação especializada.",
+  "spell_notes": [
+    {
+      "pt": "Muralha de Força",
+      "note": "Barreira de controle do espaço, sujeita às regras da magia. Exige Concentração; proposta para encontros de alta pressão."
+    },
+    {
+      "pt": "Telecinese",
+      "note": "Manipulação e contenção conforme a descrição da magia; disputa Concentração com outras opções de controle."
+    },
+    {
+      "pt": "Vínculo Planar",
+      "note": "Alternativa ritualística de preparação especializada, que depende de condições, componentes e estratégia de contenção; bônus proposto do Abjurador."
+    }
+  ],
+  "prep_note": "14 preparações regulares, incluindo Lança Psíquica — LEGACY no lugar de Teia. Vínculo Planar não é abertura padrão de combate.",
+  "wishlist_note": "Sem item novo neste nível. O Anel de Armazenamento de Magias (Ring of Spell Storing), priorizado no nível 11, continua como objetivo pendente; não está no inventário nem ocupa sintonização automaticamente.",
+  "combat_title": "Como jogar Victor no nível 12 · Dominador do terreno / 5º círculo",
+  "combat_intro": "O novo 5º círculo põe Muralha de Força (Wall of Force) e Telecinese (Telekinesis) na liderança do controle; Lança Psíquica — LEGACY continua como ataque de alvo único.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 23 PV; escolha linhas de isolamento e fuga. Preparação de Mago inclui Muralha de Força e Telecinese."
+    },
+    {
+      "label": "Abertura",
+      "text": "Muralha de Força (Wall of Force) separa inimigos sem salvaguarda inicial; se grupo precisa atacar o alvo, Telecinese (Telekinesis) é alternativa de controle ativo."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Ataque alvos fora da Muralha. Com Telecinese, novas Ações Mágicas mantêm pressão; Lança Psíquica — LEGACY continua como ofensiva de alvo único sem Concentração."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Proteção Projetada/Contramágica/Escudo e posicionamento para manter Concentração."
+    }
+  ],
+  "priority": "Isolar com Muralha de Força OU controlar com Telecinese → pressionar alvos acessíveis → Lança Psíquica (LEGACY) situacional.",
+  "combat_context": {
+    "contra_chefe": "Muralha de Força se isolar é viável; Lança se chefe deve seguir acessível ao grupo.",
+    "contra_grupo": "Muralha para dividir o confronto; Telecinese para controlar alvo específico.",
+    "erro_evitar": "Muralha e Telecinese exigem Concentração. Vínculo Planar é preparação de laboratório, não abertura."
+  }
+}

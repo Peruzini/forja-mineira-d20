@@ -1,0 +1,49 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 2,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_2",
+  "kicker": "Nível 2 · Artífice (Artificer) 2",
+  "phase": "Fase I · O Inventor",
+  "title": "O primeiro arsenal de Victor",
+  "intro": "Victor deixa de depender apenas das ferramentas que carrega: agora aprende planos para replicar itens mágicos. Sua defesa pode melhorar, mas a escolha depende do que ele realmente produzir após o descanso.",
+  "feature_intro": "Replicar Item Mágico (Replicate Magic Item) permite trabalhar com quatro planos conhecidos. Neste nível, o limite é de dois itens replicados simultaneamente; conhecer um plano não significa manter seu item ativo.",
+  "plan_notes": [
+    "Defesa planejada: +1 à CA de um escudo; exige a réplica efetivamente criada e utilizada.",
+    "Utilidade para transportar suprimentos e ferramentas sem confundir a capacidade da bolsa com inventário já adquirido.",
+    "Comunicação à distância entre aliados; alternativa ao conjunto defensivo padrão.",
+    "Opção arcana para favorecer ataques com magias, se efetivamente replicada e usada."
+  ],
+  "new_spell_title": "Fogo das Fadas (Faerie Fire)",
+  "new_spell_note": "Nova magia regular preparada de Artífice: destaca criaturas atingidas e facilita ataques contra elas quando falham no teste, mediante Concentração. Compete pelos mesmos espaços que suas outras magias.",
+  "loadout_label": "Configuração padrão projetada",
+  "loadout_note": "O escudo +1 e a Bolsa de Carga são a combinação planejada, não tesouros encontrados nem itens automaticamente obtidos. Para usar os benefícios, Victor precisa criar e manter as réplicas conforme a característica.",
+  "combat_title": "Como jogar Victor no nível 2 · Suporte ofensivo",
+  "combat_intro": "O primeiro salto de Victor é apoiar o grupo, não causar dano sozinho. Fogo das Fadas (Faerie Fire) muda o resultado dos ataques aliados; Graxa (Grease) segura uma entrada sem tomar Concentração.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Confirme as duas réplicas efetivamente produzidas após o Descanso Longo: Escudo +1 (Shield +1) e Bolsa de Carga (Bag of Holding) são o plano-padrão, não posses automáticas."
+    },
+    {
+      "label": "Abertura",
+      "text": "Contra alvos agrupados, Fogo das Fadas (Faerie Fire) pode dar Vantagem ao grupo; contra corredores, prefira Graxa (Grease)."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Mantenha Concentração em Fogo das Fadas se a equipe estiver aproveitando; use Raio de Fogo para poupar espaços."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Escudo (Shield) protege Victor; não confundir o item Escudo +1 com a magia."
+    }
+  ],
+  "combat_priority": "réplicas confirmadas → Fogo das Fadas OU Graxa → truques à distância → proteger Concentração/Reação.",
+  "footer": "Fim do nível total 2 · O primeiro arsenal. Próximo nível bloqueado até aprovação.",
+  "combat_context": {
+    "contra_chefe": "Fogo das Fadas quando o chefe pode falhar e os aliados aproveitarão os ataques.",
+    "contra_grupo": "Fogo das Fadas em grupo exposto ou Graxa em passagem.",
+    "erro_evitar": "Somente duas réplicas ativas; itens não obtidos não fornecem bônus."
+  }
+}

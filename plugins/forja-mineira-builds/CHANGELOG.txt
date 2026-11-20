@@ -1,3 +1,19 @@
+= 2.3.32 — DOOM-PROD-01 — 2026-11-20 =
+* Promove o ZIP consolidado DOOM-FINAL-01 para produção, com autorização expressa do responsável.
+* Libera os níveis 11–20 por manifesto de release com hashes; revisão permanece disponível separadamente.
+* Preserva níveis 1–9, revisão aprovada 10/11, Vidência no 13, Visão da Verdade e Contingência em 19/20, Desejo no 20 e Quebra-Feitiços em 13–20.
+* Corrige indicador residual do N13 para 15/15. Raulothim continua Legacy, dependente do Mestre.
+* Preserva assets, Home, Hub, Voldemort, opções e shortcodes. Duncan permanece em seu plugin separado.
+* Não possui migração de banco de dados nem desinstalação. Restauração: reinstalar o ZIP completo de backup 2.3.32-rc.1, substituindo arquivos.
+
+= 2.3.32-rc.1 (B2 + Hub integrado; TESTE / não produção) =
+* Em 13/10/2026 documentação de QA/conservação registrada em docs/FORJA_BUILDS_B2_HUB_DOOM_ESTADO_ATUAL_2026-10-13.md; nenhuma lógica funcional modificada por esse registro.
+* Integra arquivos completos enviados no B2 sem sobrescrever ajustes de SEO.
+* Adiciona Hero do Doutor Destino, arte aprovada, catálogo com 2 personagens, CSS isolado do Hub.
+* Resolucão de URL por shortcode [forja_build nome="doutor-destino"] em página publicada; doom_url como sobrescrita.
+* Preserva Home CSS otimizado, votação, build Voldemort e integração opcional Clusters.
+* Mantém condições de revisão originais: níveis 11–20 não liberados ao público no B2; prévia B2 não equivale à publicação.
+
 2.3.28 - 2026-10-05
 - Hub de Builds aprovado visualmente no WordPress real e promovido para produção.
 - Reduz espaços verticais do intro, catálogo e cards.

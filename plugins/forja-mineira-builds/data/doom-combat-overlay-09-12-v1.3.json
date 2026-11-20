@@ -1,0 +1,131 @@
+{
+  "schema": "forja-doom-tactical-mechanics-overlay/1.3",
+  "origem_sha256": "55989ef26b4607037f0d5d253fbcd6cac4e117ca016d03e74b379d3d82bef346",
+  "status": "APROVACAO_EDITORIAL_PREVIA_SEM_HOMOLOGACAO_NORMATIVA",
+  "publicacao_autorizada": false,
+  "niveis": {
+    "10": {
+      "nivel_total": 10,
+      "publicacao_autorizada": false,
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Lança Psíquica de Raulothim",
+          "en": "Raulothim's Psychic Lance",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 10,
+          "legado": true,
+          "fonte_legacy": "Fizban's Treasury of Dragons (2021)",
+          "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_MESTRE"
+        },
+        {
+          "pt": "Porta Dimensional",
+          "en": "Dimension Door",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 10
+        },
+        {
+          "pt": "Banimento",
+          "en": "Banishment",
+          "origem_aprendizado": "especialista_abjuracao_bonus",
+          "nivel_total_entrada": 10
+        }
+      ],
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Contramágica (Counterspell)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Dissipar Magia (Dispel Magic)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)"
+      ],
+      "preparacoes_regulares_previstas": 11,
+      "revisao_editorial_2026_11_20": "Decisão 1 (Legacy condicionada ao Mestre, rebase Fabricar)."
+    },
+    "11": {
+      "nivel_total": 11,
+      "publicacao_autorizada": false,
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Fabricar",
+          "en": "Fabricate",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 11,
+          "status_escolha": "APROVADO_EDITORIAL_2026_11_20",
+          "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_QA"
+        },
+        {
+          "pt": "Esfera Resiliente de Otiluke",
+          "en": "Otiluke’s Resilient Sphere",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 11,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Contramágica (Counterspell)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Dissipar Magia (Dispel Magic)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)"
+      ],
+      "preparacoes_regulares_previstas": 12,
+      "revisao_editorial_2026_11_20": "Decisão 1 (Legacy condicionada ao Mestre, rebase Fabricar)."
+    },
+    "12": {
+      "nivel_total": 12,
+      "publicacao_autorizada": false,
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Muralha de Força",
+          "en": "Wall of Force",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 12,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Telecinese",
+          "en": "Telekinesis",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 12,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Vínculo Planar",
+          "en": "Planar Binding",
+          "origem_aprendizado": "especialista_abjuracao_bonus",
+          "nivel_total_entrada": 12,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Contramágica (Counterspell)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Dissipar Magia (Dispel Magic)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+        "Muralha de Força (Wall of Force)",
+        "Telecinese (Telekinesis)"
+      ],
+      "preparacoes_regulares_previstas": 14
+    }
+  }
+}

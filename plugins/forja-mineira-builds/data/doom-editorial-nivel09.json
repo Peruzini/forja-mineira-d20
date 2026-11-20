@@ -1,0 +1,46 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 9,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_AGUARDA_APROVACAO_NIVEIS_8_9",
+  "phase": "Fase III · A Primeira Máscara",
+  "kicker": "Nível 9 · Artífice (Artificer) 3 / Mago (Wizard) 6",
+  "title": "A Armadura Protege os Outros",
+  "subtitle": "O início do defensor arcano",
+  "intro": "O poder de Victor deixa de ser exclusivamente pessoal. Com Proteção Projetada (Projected Ward), a barreira do Abjurador passa a defender também um aliado, enquanto sua proficiência alcança +4.",
+  "art_caption": "A Primeira Máscara",
+  "art_subcaption": "A defesa se torna uma escolha tática",
+  "ward_title": "Proteção Projetada (Projected Ward)",
+  "ward_detail": "Quando uma criatura aliada elegível sofrer dano nas condições da característica, Victor pode gastar sua Reação para fazer a Proteção Arcana (Arcane Ward) absorver esse dano, até o limite restante da barreira. A distância e o gatilho devem respeitar a regra da característica.",
+  "ward_resource": "Proteção Arcana máxima 16 PV (2 × Mago 6 + INT +4). A reserva é compartilhada entre proteção própria e projetada; não são 16 PV adicionais para cada aliado.",
+  "spell_intro": "Dissipar Magia (Dispel Magic) e Lentidão (Slow) chegam ao grimório e entram na preparação padrão. Lentidão requer Concentração e disputa esse recurso com Teia e Voo.",
+  "wishlist_title": "Pérola de Poder (Pearl of Power)",
+  "wishlist_note": "Novo objetivo do nível 9: tesouro/fabricação projetada, não adquirido, requer sintonização. Armadura Segmentada, Manto de Proteção e Botas Aladas continuam pendentes conforme a campanha.",
+  "combat_title": "Como jogar Victor no nível 9 · Controlador / Protetor",
+  "combat_intro": "Lentidão (Slow) abre a ofensiva contra grupos; Proteção Projetada (Projected Ward) transforma a reserva de Proteção Arcana em defesa direta dos aliados.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 16 PV; posicione-se para ver os aliados prioritários a até 9 m."
+    },
+    {
+      "label": "Abertura",
+      "text": "Lentidão (Slow) contra até seis inimigos perigosos; Teia somente quando gargalo realmente favorecer."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Raio de Fogo, Bola de Fogo quando eficaz, e Pulso Trovejante. Preserve Concentração em Lentidão."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Proteção Projetada (Projected Ward) absorve dano destinado a aliado visível; compare sua Reação com Contramágica ou Escudo."
+    }
+  ],
+  "priority": "Lentidão contra grupos → manter a Concentração → Proteção Projetada na ameaça mais importante → preservar a Reação.",
+  "combat_context": {
+    "contra_chefe": "Preserve a barreira para dano importante; não presuma que haja uma nova barreira por aliado.",
+    "contra_grupo": "Lentidão para reduzir ações e pressão do grupo inimigo.",
+    "erro_evitar": "Proteção Projetada consome a reserva existente e a mesma Reação das outras defesas."
+  }
+}

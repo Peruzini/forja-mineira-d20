@@ -1,0 +1,90 @@
+[
+  {
+    "dock": "Nível 1 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-04-origem-victor-aprovada.webp"
+      }
+    ],
+    "level": 1,
+    "title": "Victor, o Jovem Inventor",
+    "top": 120
+  },
+  {
+    "dock": "Nível 10 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-02c-mascara-iii-aprovada.webp"
+      }
+    ],
+    "level": 10,
+    "title": "A Lança do Soberano",
+    "top": 120
+  },
+  {
+    "dock": "Nível 11 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-02c-mascara-iii-aprovada.webp"
+      }
+    ],
+    "level": 11,
+    "title": "O Intelecto Sem Rival",
+    "top": 120
+  },
+  {
+    "dock": "Nível 13 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-03c-combate-magico-aprovada.webp"
+      }
+    ],
+    "level": 13,
+    "title": "Quando a Magia Encontra seu Mestre",
+    "top": 120
+  },
+  {
+    "dock": "Nível 18 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-02e-mascara-v-aprovada.webp"
+      },
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-05-banner-nivel-18-panorama-v2-aprovada.webp"
+      }
+    ],
+    "level": 18,
+    "title": "O Soberano Além da Morte",
+    "top": 120
+  },
+  {
+    "dock": "Nível 19 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-02e-mascara-v-aprovada.webp"
+      }
+    ],
+    "level": 19,
+    "title": "O Soberano Entre Dimensões",
+    "top": 120
+  },
+  {
+    "dock": "Nível 20 de 20",
+    "images": [
+      {
+        "loaded": true,
+        "src": "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/images/doutor-destino/doom-art-02e-mascara-v-aprovada.webp"
+      }
+    ],
+    "level": 20,
+    "title": "O Soberano do Impossível",
+    "top": 120
+  }
+]

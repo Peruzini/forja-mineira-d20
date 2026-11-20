@@ -1,0 +1,93 @@
+[
+  {
+    "url": "https://forjamineirad20.com.br/doutor-destino-dnd-5e-build/",
+    "status": 200,
+    "bytes": 225487,
+    "title": [
+      "Build Doutor Destino D&amp;D 5e: Artífice 3 / Mago 17"
+    ],
+    "canonical": [
+      "https://forjamineirad20.com.br/doutor-destino-dnd-5e-build/"
+    ],
+    "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "shortcode_literal": false,
+    "fatal": false,
+    "css": [
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/builds.css?ver=1795196554",
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/doom-build.css?ver=1795196554"
+    ]
+  },
+  {
+    "url": "https://forjamineirad20.com.br/",
+    "status": 200,
+    "bytes": 56082,
+    "title": [
+      "Inicio &#045; forjamineirad20.com.br"
+    ],
+    "canonical": [
+      "https://forjamineirad20.com.br/"
+    ],
+    "levels": [],
+    "shortcode_literal": false,
+    "fatal": false,
+    "css": [
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/home.css?ver=1795196554"
+    ]
+  },
+  {
+    "url": "https://forjamineirad20.com.br/builds/",
+    "status": 200,
+    "bytes": 49011,
+    "title": [
+      "Builds &#045; forjamineirad20.com.br"
+    ],
+    "canonical": [
+      "https://forjamineirad20.com.br/builds/"
+    ],
+    "levels": [],
+    "shortcode_literal": false,
+    "fatal": false,
+    "css": [
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/builds.css?ver=1795196554",
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/doom-hub.css?ver=1795196554"
+    ]
+  },
+  {
+    "url": "https://forjamineirad20.com.br/voldemort-dnd-5e-build-bruxo/",
+    "status": 200,
+    "bytes": 190729,
+    "title": [
+      "Voldemort D&amp;D 5e: Build de Bruxo 1–20 &#045; forjamineirad20.com.br"
+    ],
+    "canonical": [
+      "https://forjamineirad20.com.br/voldemort-dnd-5e-build-bruxo/"
+    ],
+    "levels": [],
+    "shortcode_literal": false,
+    "fatal": false,
+    "css": [
+      "https://forjamineirad20.com.br/wp-content/plugins/forja-mineira-builds/assets/css/builds.css?ver=1795196554"
+    ]
+  }
+]

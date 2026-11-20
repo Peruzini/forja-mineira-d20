@@ -1,0 +1,48 @@
+/* FORJA MINEIRA D20: Hub Doutor Destino. Escopo restrito .fmb-hub--doom. */
+.fmb-hub.fmb-hub--doom{--f:Georgia,"Times New Roman",serif;--ui:Arial,Helvetica,sans-serif}
+
+.fmb-doom-hero{width:min(1440px,calc(100% - 32px));margin:0 auto;position:relative;min-height:590px;overflow:hidden;border-radius:24px;background:#081510;color:#f8f1de;border:1px solid #947849;box-shadow:0 24px 65px #17100a2d;isolation:isolate;display:flex;align-items:center}
+.fmb-doom-hero__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-3}
+.fmb-doom-hero__veil{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,12,9,.94) 0%,rgba(4,12,9,.91) 14%,rgba(6,16,12,.76) 29%,rgba(6,16,12,.38) 47%,rgba(6,16,12,.02) 73%),linear-gradient(0deg,rgba(4,10,8,.37),transparent 42%)}
+.fmb-doom-hero__glow{position:absolute;bottom:-140px;left:-90px;width:500px;height:300px;filter:blur(70px);background:#265b4244;z-index:-1;pointer-events:none}
+.fmb-doom-hero__content{width:min(625px,58%);padding:48px 46px 50px 64px;position:relative;z-index:1}
+.fmb-doom-hero__eyebrow{display:flex;align-items:center;gap:9px;color:#ead6a1;font:800 11px/1.2 var(--ui);letter-spacing:.15em;text-transform:uppercase}.fmb-doom-hero__eyebrow:before{content:'◈';font:22px/1 var(--f);color:#d5a757}
+.fmb-doom-hero__title{margin:12px 0 12px;font:700 clamp(60px,5.25vw,94px)/.93 var(--f);letter-spacing:-.052em;text-shadow:0 4px 18px #000c}.fmb-doom-hero__subtitle{font:400 clamp(20px,2.4vw,27px)/1.22 var(--f);color:#dfc98c;margin:0;max-width:510px;font-style:italic}.fmb-doom-hero__lead{font:400 15px/1.6 var(--f);color:#ecede4;max-width:530px;margin:19px 0 0}.fmb-doom-hero__meta{font:700 11px/1.5 var(--ui);letter-spacing:.08em;color:#bdd0c5;margin-top:15px}
+.fmb-doom-hero__tags{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 23px}.fmb-doom-hero__tags span{padding:7px 11px;border:1px solid #d5b77465;border-radius:99px;background:#101d17d1;color:#f0e1ba;font:700 11px/1.1 var(--ui)}.fmb-doom-hero__tags span:first-child:before{content:'✦';margin-right:7px;color:#e2bd6d}
+.fmb-doom-hero__buttons{display:flex;flex-wrap:wrap;gap:11px}.fmb-doom-btn{appearance:none;border-radius:9px;min-height:47px;padding:0 21px;display:inline-flex;justify-content:center;align-items:center;gap:13px;font:800 12px/1 var(--ui);cursor:pointer;transition:transform .16s ease,box-shadow .16s ease}.fmb-doom-btn:hover{transform:translateY(-2px)}.fmb-doom-btn--primary{background:linear-gradient(#f8eac7,#e3c78c);border:1px solid #bf9654;color:#1c251d;box-shadow:0 8px 24px #0006}.fmb-doom-btn--ghost{background:#091912d9;border:1px solid #d4bd8d88;color:#f6e9cf}.fmb-doom-hero__counter{position:absolute;right:20px;top:20px;display:flex;align-items:center;gap:8px;border:1px solid #cab27f77;background:#0b1913ad;color:#f5e4bb;padding:10px 14px;border-radius:9px;font:800 10px/1.15 var(--ui);letter-spacing:.14em}.fmb-doom-hero__counter strong{font:700 25px/1 var(--f);letter-spacing:0}
+.fmb-doom-hero__art-caption{position:absolute;bottom:19px;right:21px;background:#08150fc4;border:1px solid #ac97544a;color:#ecdcb3a8;padding:6px 10px;font:700 9px/1 var(--ui);letter-spacing:.12em;border-radius:6px;z-index:2;text-transform:uppercase}
+
+/* Only the Hub changes; the Home, Voldemort and Clusters are not styled here. */
+.fmb-hub.fmb-hub--doom .fmb-build-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fmb-hub.fmb-hub--doom .fmb-build-card-link{min-height:318px}
+.fmb-hub.fmb-hub--doom .fmb-build-card-art--doom img{object-position:92% center}
+.fmb-hub.fmb-hub--doom .fmb-build-card-art--voldemort img{object-position:center top}
+.fmb-hub.fmb-hub--doom .fmb-doom-hero__content p.fmb-doom-hero__meta{margin:15px 0 0;color:#bdd0c5}
+.fmb-hub.fmb-hub--doom .fmb-doom-hero__content p.fmb-doom-hero__lead{margin:19px 0 0;color:#ecede4}
+.fmb-hub.fmb-hub--doom .fmb-catalog-head p{font-size:13px;line-height:1.5;max-width:420px}
+.fmb-hub.fmb-hub--doom .fmb-doom-btn--pending{opacity:.58;cursor:not-allowed;pointer-events:none}
+.fmb-hub.fmb-hub--doom .fmb-build-card-link:not(a){cursor:default}
+@media(max-width:900px){
+  .fmb-hub.fmb-hub--doom .fmb-build-grid{grid-template-columns:1fr}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero{min-height:555px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__content{width:min(620px,70%);padding-left:35px}
+}
+@media(max-width:680px){
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero{min-height:680px;width:calc(100% - 20px);display:block;padding-top:285px;border-radius:18px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__art{height:345px;bottom:auto;object-position:89% center}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__veil{background:linear-gradient(0deg,#07130f 0%,#07130f 45%,#07130f9c 57%,transparent 78%)}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__content{width:100%;padding:22px 20px 28px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__title{font-size:clamp(48px,12vw,69px);line-height:.94;margin-top:12px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__subtitle{font-size:21px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__lead{font-size:13px;line-height:1.55}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__meta{font-size:10px;line-height:1.45}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__tags{margin:13px 0 19px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__buttons{display:grid;grid-template-columns:1fr}
+  .fmb-hub.fmb-hub--doom .fmb-doom-btn{width:100%;min-height:45px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__counter{top:12px;right:12px;padding:7px 10px}
+  .fmb-hub.fmb-hub--doom .fmb-doom-hero__art-caption{display:none}
+  .fmb-hub.fmb-hub--doom .fmb-catalog-head p{text-align:left;margin-top:10px}
+  .fmb-hub.fmb-hub--doom .fmb-build-card-art--doom img{object-position:88% center}
+}
+@media(max-width:360px){.fmb-hub.fmb-hub--doom .fmb-doom-hero{padding-top:270px}.fmb-hub.fmb-hub--doom .fmb-doom-hero__art{height:332px}.fmb-hub.fmb-hub--doom .fmb-doom-hero__title{font-size:48px}}
+@media(prefers-reduced-motion:reduce){.fmb-hub.fmb-hub--doom .fmb-doom-btn{transition:none}}

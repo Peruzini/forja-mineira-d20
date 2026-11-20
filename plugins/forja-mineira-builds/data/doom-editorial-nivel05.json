@@ -1,0 +1,45 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 5,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_5",
+  "phase": "Fase II · O Conhecimento Arcano",
+  "kicker": "Nível 5 · Artífice (Artificer) 3 / Mago (Wizard) 2",
+  "title": "A Ciência do Impossível",
+  "subtitle": "Victor aprende a decifrar aquilo que os outros temem.",
+  "intro": "A armadura continua protegendo Victor. A verdadeira virada agora é intelectual: Erudito (Scholar) concede Especialização (Expertise) em Arcanismo (Arcana), enquanto o grimório ganha mobilidade e conhecimento ritual.",
+  "art_caption": "O poder começa pelo conhecimento",
+  "art_subcaption": "A manopla arcana · DOOM-ART-03A",
+  "feature_intro": "Especialização (Expertise) em Arcanismo (Arcana): proficiência dobrada (+6) e Inteligência +3 totalizam +9 no nível 5. Não concede uma nova magia nem altera a CD de conjuração.",
+  "cantrip_intro": "Os truques causadores de dano escalam com o nível total do personagem: Raio de Fogo (Fire Bolt) 2d10; Raio de Gelo (Ray of Frost) 2d8; Estilhaço Mental (Mind Sliver) 2d6.",
+  "grimoire_note": "Passos Longos (Longstrider) entra na preparação padrão. Compreender Idiomas (Comprehend Languages) fica inscrita no grimório e pode ser conjurada como ritual sem ocupar uma das cinco preparações.",
+  "slots_note": "4 espaços de 1º e 3 de 2º círculo, compartilhados pela multiclasse. Mago 2 ainda não aprende magias de 2º círculo; esses espaços podem ser usados para conjurações aprimoradas quando permitido.",
+  "wishlist_other": "Outra prioridade planejada: Manto de Proteção (Cloak of Protection), incomum, exige sintonização. Armadura Segmentada (Splint Armor) e Manto não foram adquiridos; CA 20/21 são apenas cenários condicionais, nunca a CA atual.",
+  "combat_title": "Como jogar Victor no nível 5 · Guardião com truques aprimorados",
+  "combat_intro": "Truques fortalecidos no nível total 5: controle pontual e economia de espaços definem o avanço.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Prepare rotas, familiar e Passos Longos (Longstrider) se o encontro for previsível."
+    },
+    {
+      "label": "Abertura",
+      "text": "Controle pontual com Riso/Graxa, ou Raio de Fogo (Fire Bolt) 2d10 para economizar recursos."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Faça pressão sustentável com truques; use Pulso Trovejante quando o corpo a corpo ameaçar aliados."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Escudo (Shield) e movimento entre coberturas, sem supor Ataque Extra."
+    }
+  ],
+  "priority": "Preparar mobilidade e rotas → controlar quando valer a pena → truques aprimorados → preservar a defesa.",
+  "combat_context": {
+    "contra_chefe": "Evite gastar espaços apenas por dano marginal; abra com controle se a salvaguarda for favorável.",
+    "contra_grupo": "Controle de passagem e ataques à distância.",
+    "erro_evitar": "Escala dos truques depende do nível total; armas da armadura não escalam da mesma forma."
+  }
+}

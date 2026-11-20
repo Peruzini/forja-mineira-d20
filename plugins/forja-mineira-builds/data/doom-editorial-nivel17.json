@@ -1,0 +1,70 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 17,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N17_PROPOSTA",
+  "fase": "Fase V · O Poder do Soberano",
+  "kicker": "Nível 17 · Artífice (Artificer) 3 / Mago (Wizard) 14",
+  "title": "A Magia já Não o Dobra",
+  "subtitle": "A resistência de um soberano arcano",
+  "intro": "A armadura mantém Victor de pé; agora o próprio domínio de Abjuração o protege das magias. A evolução do Abjurador cria defesas poderosas contra conjuradores, sem torná-lo imune a tudo que é sobrenatural.",
+  "art_caption": "A vontade permanece de pé",
+  "art_subcaption": "DOOM-ART-03D · arte aprovada; uso no Nível 17 ainda em avaliação.",
+  "art_notice": "A arte DOOM-ART-03D é aprovada como arquivo, mas esta alocação/crop no Nível 17 segue como proposta do GATE 8.",
+  "approval_notice": "A ficha e as duas inscrições do Nível 17 permanecem propostas no dossiê v1.2; a aprovação deste preview não publica a build.",
+  "feature_label": "Abjurador (Abjurer) 14 · PHB 2024",
+  "feature_title": "Resistência a Magias (Spell Resistance)",
+  "feature_intro": "A característica proporciona vantagem nas salvaguardas contra magias e resistência ao dano causado por magias. Sua proteção não se estende automaticamente a habilidades sobrenaturais, dano não mágico ou qualquer efeito de origem mágica.",
+  "features": [
+    {
+      "label": "Salvaguardas contra magias",
+      "text": "Victor realiza com Vantagem (Advantage) as salvaguardas exigidas por magias. Resiliente (Resilient) — Sabedoria continua oferecendo proficiência quando a salvaguarda for dessa habilidade."
+    },
+    {
+      "label": "Dano de magias",
+      "text": "O dano de uma magia sofre Resistência (Resistance). Não equivale a resistência genérica contra ataques mágicos, efeitos sobrenaturais ou condições."
+    }
+  ],
+  "ward_detail": "2 × 14 níveis de Mago + modificador de Inteligência +5 = 33 PV máximos da Proteção Arcana (Arcane Ward). A barreira é separada dos 125 PV de Victor, e seu máximo não significa que esteja sempre totalmente carregada.",
+  "spell_notes": [
+    {
+      "pt": "Viagem Planar",
+      "note": "Inscrição proposta de 7º círculo. Uso contextual para viagens e missões entre planos; componentes, alvos e permissões dependem das regras da magia e da campanha."
+    },
+    {
+      "pt": "Projetar Imagem",
+      "note": "Inscrição proposta de 7º círculo; opção de observação, distração e presença remota. Faz parte da preparação padrão proposta."
+    }
+  ],
+  "prep_note": "As 18 magias de Mago estão identificadas na revisão v1.3; Lança Psíquica — LEGACY, Sugestão em Massa e Teletransporte — ESSENCIAL permanecem preparadas. Viagem Planar (Plane Shift) exige troca de preparação por missão. Contramágica e Dissipar Magia são sempre preparadas à parte.",
+  "slot_note": "A multiclasse disponibiliza um espaço de 8º círculo, mas Mago 14 aprende magias de Mago até o 7º círculo. Espaço superior não concede conhecimento antecipado de magia de 8º círculo.",
+  "wishlist_note": "Tomo do Pensamento Claro (Tome of Clear Thought): objetivo de tesouro, não adquirido. Nenhum aumento de INT será aplicado à ficha sem obtenção e uso efetivos.",
+  "wishlist_secondary": "Manto do Arquimago (Robe of the Archmagi): objetivo final adicional, não adquirido; a compatibilidade com armadura requer verificação antes de assumir benefícios.",
+  "combat_title": "Como jogar Victor no nível 17 · Arquimago resistente a magias",
+  "combat_intro": "O Abjurador recebe Resistência a Magias (Spell Resistance): vantagem nas salvaguardas contra magias e resistência ao dano causado por magias. Victor mantém Lança Psíquica — LEGACY contra chefes.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Resistência a Magias (Spell Resistance) protege Victor contra magias e dano de magias; Proteção Arcana até 33. Projetar Imagem (Project Image) serve ao reconhecimento."
+    },
+    {
+      "label": "Abertura",
+      "text": "Chefe com resistências: Lança Psíquica — LEGACY contra CD19; contra chefes isoláveis, Muralha de Força; contra magos, Globo de Invulnerabilidade."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Use Desintegrar quando houver oportunidade; truque Raio de Fogo (Fire Bolt) 4d10 a partir do nível total 17."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica/Proteção Projetada/Escudo; a resistência pessoal a dano de magia não se transfere por si aos aliados."
+    }
+  ],
+  "priority": "Antimago resistente → Lança Psíquica — LEGACY / Muralha → reações de defesa.",
+  "combat_context": {
+    "contra_chefe": "Dano, controle ou isolamento dependendo de opções defensivas do alvo.",
+    "contra_grupo": "Controle de área e proteção de magos com Globo.",
+    "erro_evitar": "Viagem Planar (Plane Shift) é alternativa de missão; resistência vale para dano causado por magias, não todo efeito sobrenatural."
+  }
+}

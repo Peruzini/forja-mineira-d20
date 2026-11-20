@@ -1,0 +1,18 @@
+/* Etapa 2: estilos totalmente isolados, sem modificar builds.css de produção. */
+.fmb-doom-stage2-root{box-sizing:border-box;width:min(1020px,calc(100% - 24px));margin:32px auto 56px;background:#f8f5ed;color:#20342c;border:1px solid #ded5c6;border-radius:20px;overflow:hidden;font-family:Georgia,'Times New Roman',serif}
+.fmb-doom-stage2-root *{box-sizing:border-box}
+.fmb-doom-stage2-header{padding:36px 42px;background:linear-gradient(105deg,#11251c,#284236);color:#f7f5ec}
+.fmb-doom-stage2-eyebrow{margin:0 0 8px;font:700 11px/1.4 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#b99454}
+.fmb-doom-stage2-header h1{color:inherit;font-size:clamp(28px,4vw,46px);line-height:1.15;margin:0 0 12px}
+.fmb-doom-stage2-header p:last-child{font-size:16px;line-height:1.6;max-width:720px;margin:0;color:#e7e4d9}
+.fmb-doom-stage2-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 40px;border-bottom:1px solid #ded5c6;background:#f1eee6}
+.fmb-doom-stage2-nav a{display:inline-block;padding:8px 13px;border:1px solid #b8a47c;border-radius:10px;color:#213c2c;font:700 13px/1.2 Arial,sans-serif;text-decoration:none;background:#fff}
+.fmb-doom-stage2-nav a:hover,.fmb-doom-stage2-nav a:focus-visible{background:#e3e6db;outline:2px solid #6f8869;outline-offset:2px}
+.fmb-doom-stage2-section{padding:34px 42px 44px;scroll-margin-top:22px}
+.fmb-doom-stage2-section h2{color:#1d342b;font-size:26px;margin:0 0 8px}
+.fmb-doom-stage2-section p:last-child{line-height:1.65;margin:0;max-width:700px}
+@media(max-width:700px){.fmb-doom-stage2-header,.fmb-doom-stage2-section{padding:26px 22px}.fmb-doom-stage2-nav{padding:12px 20px}.fmb-doom-stage2-header h1{font-size:30px}}
+
+/* DOOM-FINAL-01: magias sempre preparadas, visíveis e distintas das vagas regulares. */
+.doom-always-prepared{margin:9px 0 13px;padding:10px 12px;border:1px solid #b7c7b5;border-left:3px solid #356a50;border-radius:8px;background:#eef2e8;color:#1f3629;font:13px/1.55 Arial,sans-serif}
+.doom-always-prepared strong{color:#173c28}.doom-always-prepared em{color:#37553f}

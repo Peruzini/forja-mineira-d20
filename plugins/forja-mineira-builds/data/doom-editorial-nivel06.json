@@ -1,0 +1,45 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 6,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_6",
+  "phase": "Fase II · O Conhecimento Arcano",
+  "kicker": "Nível 6 · Artífice (Artificer) 3 / Mago (Wizard) 3",
+  "title": "O Escudo da Vontade",
+  "intro": "Victor enfim domina a Abjuração: o Abjurador (Abjurer) cria uma proteção que absorve dano, enquanto seu grimório ganha magias de 2º círculo para conter inimigos e sair de posições perigosas.",
+  "ward_title": "Proteção Arcana (Arcane Ward)",
+  "ward_detail": "Máximo de 9 PV na barreira: duas vezes o nível de Mago (3) + modificador de Inteligência (+3). Esses PV não são pontos de vida adicionais do personagem e não aumentam os 48 PV da ficha.",
+  "ward_trigger": "Criada mediante conjuração de magia de Abjuração com gasto de espaço. Depois, conjurações dessa escola com espaços recuperam 2 × o nível do espaço gasto, até o limite; a subclasse também permite gastar espaço como Ação Bônus para recuperar a proteção, conforme o baseline aprovado.",
+  "ward_warning": "Usos gratuitos de Iniciado em Magia (Magic Initiate) e rituais que não consomem espaço não ativam a Proteção Arcana. Curar Ferimentos (Cure Wounds) é Abjuração nas regras 2024 e pode contribuir quando conjurado com espaço.",
+  "savant_title": "Especialista em Abjuração (Abjuration Savant)",
+  "savant_note": "Além das duas escolhas normais do Mago 3, recebe duas magias adicionais de Abjuração no grimório. Essas inscrições extras não são automaticamente magias preparadas.",
+  "magic_note": "O Mago agora pode aprender e preparar magias de 2º círculo. A multiclasse oferece espaços de 3º, mas ainda não permite aprender magias de Mago de 3º círculo.",
+  "wishlist_note": "Sem nova prioridade no nível 6. Armadura Segmentada (Splint Armor) e Manto de Proteção (Cloak of Protection) permanecem desejos do nível 5, sem aquisição ou bônus presumidos.",
+  "combat_title": "Como jogar Victor no nível 6 · Controlador seletivo e Abjurador",
+  "combat_intro": "Proteção Arcana protege Victor; Riso Histérico de Tasha e Fogo das Fadas lideram a seleção conforme o alvo. Teia só quando o terreno favorecer.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Crie Proteção Arcana (Arcane Ward) com Abjuração e espaço se a situação permitir; máximo 9 PV de barreira."
+    },
+    {
+      "label": "Abertura",
+      "text": "Priorize Riso Histérico de Tasha (Tasha's Hideous Laughter) com espaço de 3º contra até três ameaças ou Fogo das Fadas para apoiar o grupo. Teia (Web) só em gargalos."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Preserve Concentração; Raio de Fogo (Fire Bolt) contra inimigos livres e Pulso Trovejante para defender aliados. Evite causar dano nos alvos sob Riso se isso comprometer o controle."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Escudo (Shield), Passo Nebuloso (Misty Step) para fuga e Vigor Arcano (Arcane Vigor) quando a recuperação valer o espaço."
+    }
+  ],
+  "priority": "Preparar Proteção Arcana → Riso contra alvos prioritários OU Fogo das Fadas → truques/Pulso → preservar Concentração.",
+  "combat_context": {
+    "contra_chefe": "Riso contra alvos vulneráveis a SAB; não dependa de uma única falha.",
+    "contra_grupo": "Riso aprimorado ou Fogo das Fadas, conforme salvaguardas e alcance.",
+    "erro_evitar": "Riso, Fogo das Fadas e Teia disputam Concentração. Teia não é abertura padrão."
+  }
+}

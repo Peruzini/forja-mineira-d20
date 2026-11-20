@@ -2,7 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 final class FMB_Build_Shortcode {
-    private static $assets_loaded = false;
 
     public static function register() {
         add_shortcode( 'forja_build', array( __CLASS__, 'render' ) );
@@ -14,16 +13,23 @@ final class FMB_Build_Shortcode {
         add_shortcode( 'forja_home_featured_guide', array( __CLASS__, 'render_home_featured_guide' ) );
     }
 
-    private static function enqueue_assets() {
-        if ( self::$assets_loaded ) { return; }
-        $css = FMB_PATH . 'assets/css/builds.css';
+    /**
+     * CSS dedicado da Home preserva a otimização 2.3.29-rc.1.
+     * A build individual, Doom e o Hub usam a folha completa aprovada.
+     * O WordPress deduplica automaticamente cada handle de estilo/script.
+     */
+    private static function enqueue_assets( $context = 'full' ) {
+        $home_css = FMB_PATH . 'assets/css/home.css';
+        $is_home = ( 'home' === $context ) && file_exists( $home_css );
+        $relative_css = $is_home ? 'assets/css/home.css' : 'assets/css/builds.css';
+        $css = FMB_PATH . $relative_css;
+        $css_handle = $is_home ? 'forja-mineira-builds-home' : 'forja-mineira-builds';
         wp_enqueue_style(
-            'forja-mineira-builds',
-            FMB_URL . 'assets/css/builds.css',
+            $css_handle,
+            FMB_URL . $relative_css,
             array(),
             file_exists( $css ) ? (string) filemtime( $css ) : FMB_VERSION
         );
-
         $js = FMB_PATH . 'assets/js/builds.js';
         wp_enqueue_script(
             'forja-mineira-builds',
@@ -32,8 +38,6 @@ final class FMB_Build_Shortcode {
             file_exists( $js ) ? (string) filemtime( $js ) : FMB_VERSION,
             true
         );
-
-        self::$assets_loaded = true;
     }
 
     private static function default_guide_url() {
@@ -94,11 +98,43 @@ final class FMB_Build_Shortcode {
     }
 
 
+    /**
+     * Busca a URL real da página publicada com o shortcode do Doutor Destino.
+     * Não cria nem pressupõe slug; não expõe página de teste/rascunho.
+     */
+    private static function find_published_doom_url() {
+        global $wpdb;
+        if ( ! isset( $wpdb ) || ! isset( $wpdb->posts ) ) { return ''; }
+        $pattern = '%[' . $wpdb->esc_like( 'forja_build' ) . '%';
+        $rows = $wpdb->get_results( $wpdb->prepare(
+            "SELECT ID, post_content
+             FROM {$wpdb->posts}
+             WHERE post_type = 'page'
+               AND post_status = 'publish'
+               AND post_content LIKE %s
+             ORDER BY post_modified_gmt DESC LIMIT 50",
+            $pattern
+        ) );
+        if ( ! is_array( $rows ) ) { return ''; }
+        foreach ( $rows as $row ) {
+            if ( empty( $row->post_content ) ) { continue; }
+            if ( ! preg_match_all( '/' . get_shortcode_regex( array( 'forja_build' ) ) . '/s', $row->post_content, $matches, PREG_SET_ORDER ) ) { continue; }
+            foreach ( $matches as $match ) {
+                if ( ! isset( $match[2] ) || 'forja_build' !== $match[2] ) { continue; }
+                $attrs = shortcode_parse_atts( $match[3] );
+                $name = is_array( $attrs ) ? sanitize_key( $attrs['nome'] ?? '' ) : '';
+                if ( 'doutor-destino' === $name ) { return (string) get_permalink( (int) $row->ID ); }
+            }
+        }
+        return '';
+    }
+
     public static function render_hub( $atts ) {
         $atts = shortcode_atts(
             array(
                 'voldemort_url' => '',
                 'guia_url'      => '',
+                'doom_url'      => '',
             ),
             $atts,
             'forja_builds_hub'
@@ -113,6 +149,20 @@ final class FMB_Build_Shortcode {
         $hub_guide_url = ! empty( $atts['guia_url'] )
             ? esc_url_raw( $atts['guia_url'] )
             : self::default_guide_url();
+
+        $hub_doom_url = ! empty( $atts['doom_url'] )
+            ? esc_url_raw( $atts['doom_url'] )
+            : self::find_published_doom_url();
+
+        $doom_hub_css = FMB_PATH . 'assets/css/doom-hub.css';
+        if ( file_exists( $doom_hub_css ) ) {
+            wp_enqueue_style(
+                'forja-mineira-builds-doom-hub',
+                FMB_URL . 'assets/css/doom-hub.css',
+                array( 'forja-mineira-builds' ),
+                (string) filemtime( $doom_hub_css )
+            );
+        }
 
         ob_start();
         include FMB_PATH . 'templates/builds-hub.php';
@@ -133,7 +183,7 @@ final class FMB_Build_Shortcode {
             'forja_home_featured_guide'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $featured_guide_url = ! empty( $atts['guide_url'] )
             ? esc_url_raw( $atts['guide_url'] )
@@ -178,7 +228,7 @@ final class FMB_Build_Shortcode {
             'forja_home_build_cycle'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $cycle_current_url = ! empty( $atts['current_url'] )
             ? esc_url_raw( $atts['current_url'] )
@@ -214,7 +264,7 @@ final class FMB_Build_Shortcode {
     }
 
     public static function render_home_next_build( $atts ) {
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         ob_start();
         include FMB_PATH . 'templates/home-next-build.php';
@@ -235,7 +285,7 @@ final class FMB_Build_Shortcode {
             'forja_home_hero'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $home_build_url = ! empty( $atts['build_url'] )
             ? esc_url_raw( $atts['build_url'] )
@@ -276,7 +326,7 @@ final class FMB_Build_Shortcode {
             'forja_home_featured_build'
         );
 
-        self::enqueue_assets();
+        self::enqueue_assets( 'home' );
 
         $home_build_url = ! empty( $atts['build_url'] )
             ? esc_url_raw( $atts['build_url'] )
@@ -300,6 +350,30 @@ final class FMB_Build_Shortcode {
             $atts,
             'forja_build'
         );
+
+        // STAGE2: renderização isolada para Doutor Destino. O caminho
+        // anterior de Voldemort permanece intacto abaixo deste bloco.
+        if ( 'doutor-destino' === sanitize_key( $atts['nome'] ) ) {
+            self::enqueue_assets();
+            $doom_css = FMB_PATH . 'assets/css/doom-build.css';
+            $doom_js  = FMB_PATH . 'assets/js/doom-build.js';
+            wp_enqueue_style(
+                'forja-mineira-builds-doom-stage2',
+                FMB_URL . 'assets/css/doom-build.css',
+                array( 'forja-mineira-builds' ),
+                file_exists( $doom_css ) ? (string) filemtime( $doom_css ) : FMB_VERSION
+            );
+            wp_enqueue_script(
+                'forja-mineira-builds-doom-stage2',
+                FMB_URL . 'assets/js/doom-build.js',
+                array(),
+                file_exists( $doom_js ) ? (string) filemtime( $doom_js ) : FMB_VERSION,
+                true
+            );
+            ob_start();
+            include FMB_PATH . 'templates/doutor-destino-stage2.php';
+            return ob_get_clean();
+        }
 
         if ( 'voldemort' !== sanitize_key( $atts['nome'] ) ) {
             return current_user_can( 'edit_posts' )

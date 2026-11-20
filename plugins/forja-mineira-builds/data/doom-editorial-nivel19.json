@@ -1,0 +1,63 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 19,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+  "phase": "Fase V · O Poder do Soberano",
+  "kicker": "Nível 19 · Artífice (Artificer) 3 / Mago (Wizard) 16",
+  "title": "O Soberano Entre Dimensões",
+  "intro": "As fronteiras do espaço deixam de ser barreiras para Victor. Sua Dádiva Épica torna a mobilidade uma extensão natural da conjuração; seu laboratório agora pode existir para além das portas do mundo.",
+  "boon_label": "Dádiva Épica · escolha futura aprovada",
+  "boon_title": "Dádiva de Viagem Dimensional (Boon of Dimensional Travel)",
+  "boon_detail": "Ao receber a melhoria de talento de Mago 16 no nível total 19, Victor cumpre o pré-requisito de uma Dádiva Épica e escolhe Viagem Dimensional. Inteligência aumenta de 20 para 21; o modificador continua +5, logo CD 19 e ataque mágico +11 permanecem iguais.",
+  "blink_detail": "imediatamente após realizar a ação Atacar ou a ação Magia, teletransportar-se até 9 metros (30 pés) para um espaço desocupado que possa ver. O benefício não indica limite de usos nem exige gastar a Ação Bônus. Não significa teletransporte antes da ação.",
+  "ward_detail": "Proteção Arcana (Arcane Ward) cresce para 37 PV máximos (2 × Mago 16 + INT mod. +5), separados dos 139 PV de Victor.",
+  "spell_notes": [
+    {
+      "pt": "Campo Antimagia",
+      "note": "Abjuração, 8º círculo. Concentração, emanação de 3 m (10 pés): suprime magias e propriedades mágicas dentro da área — inclusive equipamentos de Victor e seu próprio teletransporte. Uso extremo e situacional."
+    },
+    {
+      "pt": "Semiplano",
+      "note": "Conjuração, 8º círculo. Abre uma porta temporária para um espaço extradimensional; serve a projetos, esconderijo e logística. A porta dura 1 hora, e o conteúdo pode permanecer após seu fechamento."
+    }
+  ],
+  "prep_note": "DOOM-FINAL-01: 21/21 preparações regulares. Visão da Verdade (True Seeing) e Contingência (Contingency) entram na preparação padrão, pois já foram inscritas em níveis anteriores; não são novas inscrições no grimório. Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) continuam situacionais. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) são sempre preparadas por Quebra-Feitiços (Spell Breaker), fora das vagas regulares.",
+  "slot_note": "Multiclasse com nível de conjurador efetivo 18: 4/3/3/3/3/1/1/1/1. O terceiro espaço de 5º círculo é novo. A magia de Mago mais alta disponível segue sendo de 8º; o espaço de 9º não libera magias de Mago de 9º antes do Nível 20.",
+  "wishlist_note": "Objetivo ainda não adquirido; sem bônus na ficha. O Manto do Arquimago (Robe of the Archmagi) também permanece como objetivo futuro e depende de avaliação de compatibilidade com a armadura.",
+  "combat_title": "Como jogar Victor no nível 19 · Conjurador móvel / controle e fuga",
+  "combat_intro": "Com a Dádiva de Viagem Dimensional (Boon of Dimensional Travel), Victor pode usar Passos Intermitentes (Blink Steps) após ações elegíveis. Campo Antimagia não deve ser sua abertura padrão.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Dádiva de Viagem Dimensional (Boon of Dimensional Travel) eleva INT20→21 sem mudar mod. Mente Vazia e Proteção Arcana até 37 quando disponíveis."
+    },
+    {
+      "label": "Abertura",
+      "text": "Labirinto contra chefe; depois da Ação Mágica, use Passos Intermitentes (Blink Steps) para teletransporte de até 9 m. Ou Lança Psíquica — LEGACY quando precisar manter alvo presente."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Pressione inimigos remanescentes com magia sem Concentração e reposicione-se após cada Ação elegível, sem exceder o gatilho."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica/Proteção Projetada/Escudo continuam disponíveis; dádiva não substitui Reação."
+    }
+  ],
+  "priority": "Labirinto ou Lança Psíquica — LEGACY → Passos Intermitentes → cobertura.",
+  "art_notice": "DOOM-ART-02E já aprovada como arquivo; uso em N19 permanece sujeito a validação do enquadramento e leitura.",
+  "combat_context": {
+    "contra_chefe": "Labirinto + reposicionamento para isolamento; Lança + reposicionamento para pressão.",
+    "contra_grupo": "Sugestão em Massa e Muralha de Força.",
+    "erro_evitar": "Campo Antimagia (Antimagic Field) suprime a própria conjuração e efeitos mágicos; pode contrariar o teletransporte da Dádiva. Semiplano (Demiplane) é infraestrutura, não remoção automática de inimigos."
+  },
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisões 3/4: Visão da Verdade e Contingência no nível 19",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

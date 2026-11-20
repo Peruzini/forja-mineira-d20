@@ -1,0 +1,130 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 18,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "source_status": "pendente",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "mecanica": {
+    "nivel_total": 18,
+    "artifice": 3,
+    "mago": 15,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "PROPOSTA: o soberano oculto · Mago 15, magias de 8º círculo",
+    "pv_fixos": 132,
+    "bonus_proficiencia": 6,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 11,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 35,
+    "magias_mago_preparadas_regulares": 19,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Labirinto",
+        "en": "Maze",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 8,
+        "escola": "Conjuração"
+      },
+      {
+        "pt": "Clone",
+        "en": "Clone",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 8,
+        "escola": "Necromancia"
+      },
+      {
+        "pt": "Mente Vazia",
+        "en": "Mind Blank",
+        "origem_aprendizado": "especialista_abjuracao_bonus",
+        "nivel_magia": 8,
+        "escola": "Abjuração"
+      }
+    ],
+    "total_magias_grimorio": 42,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "caracteristicas_e_talentos": [
+      "Especialista em Abjuração (Abjuration Savant) — inscrição gratuita do novo círculo (proposta)"
+    ],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Teia (Web)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+      "Queda Suave (Feather Fall)",
+      "Globo de Invulnerabilidade (Globe of Invulnerability)",
+      "Desintegrar (Disintegrate)",
+      "Teletransporte (Teleport)",
+      "Labirinto (Maze)",
+      "Mente Vazia (Mind Blank)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 8,
+      "maior_circulo_de_espaco_compartilhado": null,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "moldura_normativa_nao_build_final": {
+      "nivel_efetivo_conjurador": 17,
+      "maior_circulo_mago": 8,
+      "maior_circulo_de_espaco_compartilhado": 9,
+      "preparacoes_regulares_mago_previstas_na_tabela_2024": 19,
+      "magias_selecionadas": null,
+      "fonte": "https://www.dndbeyond.com/classes/2190886-wizard",
+      "estado": "NUMEROS_NORMATIVOS_SEM_DECISOES_DE_BUILD"
+    },
+    "estado_mecanica": "PREVIA_DE_PROPOSTA_NAO_CONSOLIDADA",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTA_NAO_HOMOLOGADA",
+      "magias_escolhidas": "PROPOSTA_NAO_HOMOLOGADA",
+      "itens_obtidos": "NAO_CONFIRMADOS"
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02E",
+        "DOOM-ART-05-V2"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false,
+      "posicao_nivel_pendente_de_homologacao": true
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_total_entrada": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    }
+  },
+  "observacao_estado": "Dados de nível 18 ausentes da base v1.2. Proposta derivada e limitada ao modo de revisão. Requer aprovação explícita.",
+  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+}

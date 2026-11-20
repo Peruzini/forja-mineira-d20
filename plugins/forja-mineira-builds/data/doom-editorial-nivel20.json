@@ -1,0 +1,69 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 20,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+  "phase": "Fase V · O Poder do Soberano",
+  "kicker": "Nível 20 · Artífice (Artificer) 3 / Mago (Wizard) 17",
+  "title": "O Soberano do Impossível",
+  "intro": "A disciplina do jovem inventor encontra seu ápice. Victor domina a teoria dos nove círculos e alcança magias capazes de redesenhar os limites da realidade — sem que isso transforme itens desejados em tesouros conquistados.",
+  "feature_label": "Marco final · Mago 17",
+  "feature_title": "O domínio do 9º círculo",
+  "feature_detail": "Mago 17 permite aprender e preparar magias de 9º círculo. Nesta proposta são duas inscrições da progressão regular — Desejo (Wish) e Parar o Tempo (Time Stop) — mais Muralha Prismática (Prismatic Wall), inscrição adicional de Abjuração. É uma proposta editorial, não uma seleção consolidada.",
+  "ward_detail": "Proteção Arcana (Arcane Ward) atinge 39 PV máximos (2 × Mago 17 + modificador INT +5), separados dos 146 PV do personagem.",
+  "spell_notes": [
+    {
+      "pt": "Desejo",
+      "label": "Conjuração · escolha principal preparada",
+      "note": "Desejo (Wish) replica magias até 8º círculo sem requisitos normais; efeitos mais amplos exigem atenção às consequências e riscos próprios da magia. Não significa poder ilimitado."
+    },
+    {
+      "pt": "Parar o Tempo",
+      "label": "Transmutação · opção no grimório",
+      "note": "Parar o Tempo (Time Stop) concede 1d4 + 1 turnos consecutivos; termina antecipadamente se suas ações ou efeitos afetarem outras criaturas ou objetos carregados por elas, ou se se afastar demais."
+    },
+    {
+      "pt": "Muralha Prismática",
+      "label": "Abjuração · inscrição adicional",
+      "note": "Muralha Prismática (Prismatic Wall) funciona como uma barreira de múltiplas camadas por 10 minutos, sem Concentração. É a inscrição extra proposta de Especialista em Abjuração (Abjuration Savant)."
+    }
+  ],
+  "prep_note": "DOOM-FINAL-01: 22/22 preparações regulares. Visão da Verdade (True Seeing) e Contingência (Contingency) entram na preparação padrão, pois já foram inscritas em níveis anteriores; não são novas inscrições no grimório. Desejo (Wish) permanece preparado. Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) continuam situacionais. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) são sempre preparadas por Quebra-Feitiços (Spell Breaker), fora das vagas regulares.",
+  "slot_note": "Conjurador multiclasse efetivo 19 (Mago 17 + Artífice 3 dividido por 2, arredondado para cima): 4/3/3/3/3/2/1/1/1. A nova vantagem é o segundo espaço de 6º círculo. Há apenas um espaço de 9º círculo por Descanso Longo, salvo outras regras específicas.",
+  "wishlist_note": "Tomo do Pensamento Claro (Tome of Clear Thought) e Manto do Arquimago (Robe of the Archmagi) continuam objetivos não adquiridos. A INT da ficha permanece 21 (mod. +5); a compatibilidade do Manto com a Armadura Arcana exige decisão de mesa.",
+  "combat_title": "Como jogar Victor no nível 20 · Arquimago supremo / reserva do 9º círculo",
+  "combat_intro": "Desejo (Wish) é a reserva decisiva do 9º círculo; Labirinto (Maze), Lança Psíquica — LEGACY e controle anterior continuam fundamentais. Um único espaço de 9º círculo.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 39, Mente Vazia e Contingência quando recursos foram gastos e requisitos cumpridos; Simulacro pré-existente não é gratuito."
+    },
+    {
+      "label": "Abertura",
+      "text": "Labirinto contra chefe com Resistências Lendárias; Lança Psíquica — LEGACY quando alvo precisa continuar acessível; Muralha Prismática (Prismatic Wall) em defesa territorial se preparada."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Reserve Desejo (Wish), preparado por padrão, para reproduzir a magia decisiva de até 8º círculo. Desintegrar e controle antigo continuam úteis. Após Ação Mágica, use Passos Intermitentes quando legal."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica/Proteção Projetada/Escudo, mantendo Concentração na magia ativa."
+    }
+  ],
+  "priority": "Labirinto / Lança Psíquica — LEGACY → controlar o campo → reservar Desejo para a magia decisiva.",
+  "art_notice": "DOOM-ART-02E aprovada como arquivo; sua exibição no Nível 20 requer aprovação de composição no GATE 8.",
+  "combat_context": {
+    "contra_chefe": "Labirinto → vantagem posicional; Lança para pressionar; Desejo quando outra magia de até 8º decide.",
+    "contra_grupo": "Muralha Prismática para impedir avanço ou Sugestão em Massa.",
+    "erro_evitar": "Há somente um espaço de 9º círculo; Desejo, Parar o Tempo (Time Stop) e Muralha Prismática são alternativas, não três conjurações garantidas no mesmo dia."
+  },
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisões 3/4: Visão da Verdade e Contingência no nível 20",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

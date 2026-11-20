@@ -1,0 +1,117 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 16,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "mecanica": {
+    "nivel_total": 16,
+    "artifice": 3,
+    "mago": 13,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "Magias de 7º círculo; Teletransporte, Simulacro e Símbolo",
+    "pv_fixos": 118,
+    "bonus_proficiencia": 5,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 11,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 31,
+    "magias_mago_preparadas_regulares": 17,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Teletransporte",
+        "en": "Teleport",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 16,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Simulacro",
+        "en": "Simulacrum",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 16,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Símbolo",
+        "en": "Symbol",
+        "origem_aprendizado": "especialista_abjuracao_bonus",
+        "nivel_total_entrada": 16,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      }
+    ],
+    "total_magias_grimorio": 37,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+    ],
+    "caracteristicas_e_talentos": [],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Teia (Web)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+      "Queda Suave (Feather Fall)",
+      "Globo de Invulnerabilidade (Globe of Invulnerability)",
+      "Desintegrar (Disintegrate)",
+      "Teletransporte (Teleport)"
+    ],
+    "preparacao_alternativa_nota": "Simulacro e Símbolo são preparação de laboratório, não de combate regular.",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTO",
+      "magias_escolhidas": "PROPOSTAS",
+      "ficha_final": "PENDENTE_DE_HOMOLOGACAO"
+    },
+    "magias_sempre_preparadas_adicionais": [
+      "Contramágica (Counterspell)",
+      "Dissipar Magia (Dispel Magic)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 7,
+      "maior_circulo_de_espaco_compartilhado": 8,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02D"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_total_entrada": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    }
+  },
+  "observacao_estado": "Nível 16 em proposta; progressão normal e bônus de Abjuração sujeitos à homologação.",
+  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "source_document": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "nivel_total": 12,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "mecanica": {
+    "nivel_total": 12,
+    "artifice": 3,
+    "mago": 9,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "Magias de 5º círculo; barreira, telecinese e vinculação extraplanar",
+    "pv_fixos": 90,
+    "bonus_proficiencia": 4,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 10,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 23,
+    "magias_mago_preparadas_regulares": 14,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Muralha de Força",
+        "en": "Wall of Force",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 12,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Telecinese",
+        "en": "Telekinesis",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 12,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Vínculo Planar",
+        "en": "Planar Binding",
+        "origem_aprendizado": "especialista_abjuracao_bonus",
+        "nivel_total_entrada": 12,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      }
+    ],
+    "total_magias_grimorio": 27,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1
+    ],
+    "caracteristicas_e_talentos": [],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Teia (Web)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Contramágica (Counterspell)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Dissipar Magia (Dispel Magic)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)"
+    ],
+    "preparacao_alternativa_nota": "Vínculo Planar preparado apenas em operação ocultista com componente e contenção.",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTO",
+      "magias_escolhidas": "PROPOSTAS",
+      "ficha_final": "PENDENTE_DE_HOMOLOGACAO"
+    },
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 5,
+      "maior_circulo_de_espaco_compartilhado": 6,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02C"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    }
+  }
+}

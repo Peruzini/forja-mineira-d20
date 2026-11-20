@@ -1,0 +1,81 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 13,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+  "fase": "Fase IV · O Quebra-Feitiços",
+  "kicker": "Nível 13 · Artífice (Artificer) 3 / Mago (Wizard) 10",
+  "title": "Quando a Magia Encontra seu Mestre",
+  "subtitle": "A vontade do Doutor Destino derrota encantamentos",
+  "intro": "Victor domina a arte de interromper e desfazer magias. Como Abjurador (Abjurer) de 10º nível, transforma defesas arcanas em uma estratégia de combate — sem perder o controle da própria armadura.",
+  "art_caption": "A mão de ferro desfaz a magia",
+  "art_subcaption": "Arte DOOM-ART-03C · alocação/crop propostos para este marco",
+  "feature_title": "Quebra-Feitiços (Spell Breaker)",
+  "feature_label": "Abjurador 2024 · habilidade de subclasse",
+  "feature_intro": "Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) passam a estar sempre preparadas, sem ocupar as 15 preparações regulares de Mago.",
+  "features": [
+    {
+      "label": "Ação Bônus",
+      "text": "Dissipar Magia (Dispel Magic) pode ser conjurada como Ação Bônus, seguindo as regras aplicáveis à conjuração no turno."
+    },
+    {
+      "label": "Verificação aprimorada",
+      "text": "Adicionar o bônus de proficiência (+5) à verificação de habilidade exigida por Dissipar Magia (Dispel Magic), quando houver."
+    },
+    {
+      "label": "Economia defensiva",
+      "text": "Quando Contramágica (Counterspell) ou Dissipar Magia (Dispel Magic) é conjurada com um espaço de magia e falha em interromper outra magia, esse espaço não é gasto."
+    }
+  ],
+  "ward_detail": "Proteção Arcana (Arcane Ward) máxima: 2 × Mago 10 + INT +5 = 25 PV separados dos 97 PV de Victor.",
+  "spells_intro": "Duas inscrições propostas: Vidência (Scrying) e Círculo Mágico (Magic Circle). Olho Arcano (Arcane Eye) foi adiado; Lança Psíquica — LEGACY continua preparada.",
+  "spell_notes": [
+    {
+      "pt": "Vidência",
+      "note": "Reconhecimento à distância para preparar planos; depende das condições da magia, sem funcionar como ataque imediato."
+    },
+    {
+      "pt": "Círculo Mágico",
+      "note": "Proteção/isolamento ritualístico conforme o texto da magia; exige tempo, materiais e preparação, não sendo uma defesa instantânea."
+    }
+  ],
+  "cantrip_note": "Novo truque obtido no nível 13; não ocupa as 15 preparações regulares de Mago.",
+  "prep_note": "DOOM-FINAL-01: 15/15 preparações regulares. Vidência (Scrying), já inscrita no grimório, ocupa a 15ª vaga. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) permanecem sempre preparadas por Quebra-Feitiços (Spell Breaker), sem consumir vagas regulares.",
+  "wishlist_note": "Cajado do Poder (Staff of Power) é objetivo muito raro e requer sintonização. Seus bônus de +2 só contam se o personagem realmente o adquirir e sintonizar; não aumentam a CD de magia.",
+  "combat_title": "Como jogar Victor no nível 13 · Antimago / Quebra-Feitiços",
+  "combat_intro": "Quebra-Feitiços (Spell Breaker) torna Victor um antimago: Dissipar Magia (Dispel Magic) e Contramágica (Counterspell) acompanham o controle. Lança Psíquica — LEGACY segue como ofensiva contra chefes.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Proteção Arcana até 25 PV. Contramágica e Dissipar Magia (Dispel Magic) ficam sempre preparadas pela subclasse."
+    },
+    {
+      "label": "Abertura",
+      "text": "Dissipar Magia como Ação Bônus contra efeitos ativos; pressione com Raio de Fogo (Fire Bolt) como Ação. Contra chefe sem efeito ativo importante, Lança Psíquica — LEGACY."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Muralha de Força e Telecinese para controle; use Dissipar para encerrar proteção mágica. Vidência (Scrying) e Círculo Mágico (Magic Circle) são preparação estratégica."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica usa Reação; Proteção Projetada e Escudo são alternativas. Quebra-Feitiços (Spell Breaker) protege recursos quando tentativas falham conforme regra."
+    }
+  ],
+  "priority": "Desfazer defesas mágicas → Lança Psíquica (LEGACY) contra chefes → controlar o campo → proteger a Reação.",
+  "mechanics_notice": "A ficha e as escolhas deste nível permanecem em proposta no dossiê v1.2. A aprovação visual não autoriza publicação.",
+  "art_notice": "A imagem é aprovada, mas o nível de alocação e o recorte DOOM-ART-03C aguardam GATE 8.",
+  "combat_context": {
+    "contra_chefe": "Lança Psíquica para pressão contra Resistências Lendárias; dissipe primeiro proteção realmente relevante.",
+    "contra_grupo": "Muralha de Força/Lentidão, sem perder o controle por tentar causar dano a todo custo.",
+    "erro_evitar": "Em 2024, não gaste segundo espaço no mesmo turno após Dissipar como Ação Bônus com espaço; use um truque. Olho Arcano adiado ainda aparece na preparação antiga — uma vaga pendente."
+  },
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisão 2: Vidência preparada no nível 13",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

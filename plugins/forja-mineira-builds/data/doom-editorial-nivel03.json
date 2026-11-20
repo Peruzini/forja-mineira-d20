@@ -1,0 +1,58 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 3,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_3",
+  "phase": "Fase I · O Inventor",
+  "kicker": "Nível 3 · Artífice (Artificer) 3",
+  "title": "A armadura se torna sua criação",
+  "intro": "Victor enfim transforma sua pesquisa em uma defesa arcano-tecnológica. A subclasse Armeiro (Armorer) define como sua armadura protege, investiga e combate — sem antecipar poderes de Mago.",
+  "heavy": "Victor adquire treinamento em armaduras pesadas e fabrica armaduras em metade do tempo. Isso não concede uma armadura pesada gratuitamente.",
+  "arcane": "Armadura Arcana (Arcane Armor) elimina o requisito de Força da armadura transformada, facilita sua utilização e impede remoção involuntária nas condições previstas. Ela funciona como foco para magias de Artífice, mas não substitui automaticamente um foco de Mago.",
+  "models_intro": "Escolha um modelo ativo de cada vez. Guardião (Guardian) é a configuração principal da build; as outras duas formas são opções reais, não habilidades simultâneas.",
+  "models_detail": [
+    {
+      "function": "Defesa próxima",
+      "summary": "Pulso Trovejante (Thunder Pulse) ataca com dano trovejante, usando Inteligência, e prejudica os ataques do alvo contra seus aliados. Campo Defensivo (Defensive Field) concede 3 PV temporários por Ação Bônus enquanto Victor estiver Sangrando (Bloodied), segundo o baseline aprovado."
+    },
+    {
+      "function": "Reconhecimento e alcance",
+      "summary": "Lançador de Relâmpagos (Lightning Launcher) favorece ataques a distância; o modelo melhora mobilidade e Furtividade (Stealth), útil para infiltração."
+    },
+    {
+      "function": "Pressão e deslocamento",
+      "summary": "Demolidor de Força (Force Demolisher) dá alcance e controle físico; Estatura Gigante (Giant Stature) amplia a presença no campo de batalha dentro dos limites da forma."
+    }
+  ],
+  "magic_title": "Duas magias sempre preparadas e uma nova preparação",
+  "magic_note": "As magias da subclasse Armeiro ficam sempre preparadas, separadas das quatro magias regulares de Artífice. Iniciado em Magia — Mago (Magic Initiate — Wizard) continua fora de ambas as listas.",
+  "armor_note": "CA 18 é a configuração de referência com Cota de Escamas (Scale Mail) e Escudo +1 (Shield +1) realmente replicado e ativo. CA 19 só após comprar a Cota de Malha (Chain Mail) e manter a réplica; não é ganho gratuito no nível 3. Escudo (Shield) pode adicionar +5 temporários mediante Reação válida.",
+  "jewel_note": "Como a proficiência em Ferramentas de Ferreiro (Smith’s Tools) já existe, a escolha adicional aprovada é Ferramentas de Joalheiro (Jeweler’s Tools); proficiência não equivale à posse física do conjunto.",
+  "combat_title": "Como jogar Victor no nível 3 · Guardião blindado",
+  "combat_intro": "A armadura agora faz Victor escolher a função antes da luta. No modelo Guardião (Guardian), acertar Pulso Trovejante (Thunder Pulse) reduz a pressão de ataques contra seus companheiros.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Configure Armadura Arcana (Arcane Armor) como Guardião (Guardian). Outros modelos são alternativas, não poderes simultâneos."
+    },
+    {
+      "label": "Abertura",
+      "text": "Acerte Pulso Trovejante (Thunder Pulse) para prejudicar ataques contra aliados; se inimigos estão distantes, abra com Fogo das Fadas."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Mantenha pressão nos atacantes dos aliados; use Onda Trovejante (Thunderwave) para abrir espaço com cuidado de posicionamento."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Escudo (Shield); Campo Defensivo (Defensive Field) apenas na condição Sangrando (Bloodied), conforme baseline."
+    }
+  ],
+  "priority": "escolher modelo → controlar aproximação OU marcar agressor → proteger aliados → Campo Defensivo se Sangrando.",
+  "combat_context": {
+    "contra_chefe": "Pulso Trovejante protege o grupo quando acerta; Victor não tem Ataque Extra.",
+    "contra_grupo": "Controle a aproximação antes de entrar em alcance corpo a corpo.",
+    "erro_evitar": "Pulso Trovejante só aplica o prejuízo em ataques de alvo atingido."
+  }
+}

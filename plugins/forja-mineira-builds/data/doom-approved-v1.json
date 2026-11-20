@@ -1,0 +1,2716 @@
+{
+  "schema": "forja-doom-build-data/1.0",
+  "versao_adaptador": "etapa3-2026-10-12",
+  "build_id": "doutor-destino",
+  "shortcode_previsto": "[forja_build nome=\"doutor-destino\"]",
+  "fonte_canonica_de_trabalho": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+  "fonte_versao": "1.2-E5-consolidada-auditoria + DOOM-FINAL-01-2026-11-20",
+  "personagem": {
+    "nome": "Victor von Doom — Doutor Destino",
+    "continuidade": "Marvel Terra-616 clássica",
+    "sistema": [
+      "Player’s Handbook 2024",
+      "Eberron: Forge of the Artificer 2025"
+    ],
+    "classes_finais": {
+      "Artífice": 3,
+      "Mago": 17
+    },
+    "subclasses": [
+      "Armeiro (Armorer)",
+      "Abjurador (Abjurer)"
+    ],
+    "especie": "Humano (Human)",
+    "antecedente": "Sábio (Sage)",
+    "papeis": [
+      "Controller",
+      "Defensor arcano",
+      "Inventor",
+      "Pesquisador",
+      "Estrategista"
+    ]
+  },
+  "governanca": {
+    "publicacao_autorizada": false,
+    "etapa_atual": "ETAPA_3_BASE_DE_DADOS",
+    "niveis_prontos_para_preview_mecanico": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "niveis_a_revisar": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "niveis_pendentes": [
+      18,
+      19,
+      20
+    ],
+    "niveis_renderizaveis_automaticamente": [],
+    "progressao_so_apos_aprovacao_individual": true,
+    "gate_8_artes": "EM_VALIDACAO_NAO_HOMOLOGADO",
+    "saidas_producao": {
+      "github": false,
+      "wordpress": false
+    },
+    "observacao": "Dados prontos para leitura no teste; implementacao dos niveis no template continua bloqueada pelo fluxo de aprovacao.",
+    "nota_revisao_nivel10": "Ajuste editorial aprovado em 20/11/2026; não representa publicação nem aceitação automática do material Legacy pelo Mestre."
+  },
+  "regras_mecanicas": {
+    "base": "PHB 2024 + Eberron Forge of the Artificer 2025; nao misturar Legacy sem marcar",
+    "classes_totais": {
+      "Artífice": 3,
+      "Mago": 17
+    },
+    "fontes_de_magia_separadas": {
+      "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+      "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+      "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+      "iniciado_em_magia": "fora da lista regular de Mago"
+    },
+    "itens_replicados_sao_configuracao_sujeita_a_ativacao": true,
+    "sintonizacao_limite": 3,
+    "wishlist_nao_altera_ca_atributos_ou_bonus": true,
+    "ca_referencia_condicional_deve_preservar_suas_condicoes": true
+  },
+  "catalogos_externos": {
+    "wishlist": "doom-wishlist-v1.json",
+    "artes": "doom-artes-v1.json",
+    "niveis_nao_homologados": "doom-revisao-11-20.json"
+  },
+  "decisoes_ux_nivel_1": {
+    "lvl1_hero_art_id": "DOOM-ART-01",
+    "lvl1_foundation_art_id": "DOOM-ART-04",
+    "lvl1_foundation_art_min_height_desktop_px": 655,
+    "lvl1_compact_intro": true,
+    "lvl1_primary_metrics": [
+      "pv_fixos",
+      "classe_armadura.ca_referencia",
+      "atributos.INT",
+      "espacos_magia_por_circulo"
+    ],
+    "lvl1_show_species_and_background_in_intro": true,
+    "lvl1_show_origin_feats_in_intro": true,
+    "lvl1_spellcasting_in_white_content": true,
+    "lvl1_redundant_green_spellcasting_banner": false,
+    "lvl1_tradeoffs_panel": false,
+    "lvl1_combat_panel_count": 1,
+    "lvl1_wishlist_panel": false,
+    "source": "Decisões editoriais aprovadas pelo usuário no chat Executor Build em 11/10/2026",
+    "scope": "somente nivel_total=1; não altera regras nem arquivos visuais originais"
+  },
+  "recursos_globais": {
+    "magias_de_artifice_preparadas_nivel_10": [
+      {
+        "pt": "Graxa",
+        "en": "Grease"
+      },
+      {
+        "pt": "Curar Ferimentos",
+        "en": "Cure Wounds"
+      },
+      {
+        "pt": "Fogo das Fadas",
+        "en": "Faerie Fire"
+      },
+      {
+        "pt": "Detectar Magia",
+        "en": "Detect Magic"
+      }
+    ],
+    "magias_armoreiro_sempre_preparadas": [
+      {
+        "pt": "Projéteis Mágicos",
+        "en": "Magic Missile"
+      },
+      {
+        "pt": "Onda Trovejante",
+        "en": "Thunderwave"
+      }
+    ],
+    "magias_talento_origem": [
+      {
+        "pt": "Escudo",
+        "en": "Shield"
+      }
+    ],
+    "truques": [
+      "Raio de Fogo (Fire Bolt)",
+      "Orientação (Guidance)",
+      "Consertar (Mending)",
+      "Mãos Mágicas (Mage Hand)",
+      "Ilusão Menor (Minor Illusion)",
+      "Estilhaço Mental (Mind Sliver)",
+      "Raio de Gelo (Ray of Frost)",
+      "Prestidigitação (Prestidigitation)",
+      "Mensagem (Message)",
+      "Luz (Light) — proposta nível 13"
+    ],
+    "magias_sempre_preparadas_quebra_feiticos_ao_nivel_13": [
+      "Contramágica (Counterspell)",
+      "Dissipar Magia (Dispel Magic)"
+    ]
+  },
+  "inventario_confirmado": {
+    "itens_de_equipamento_inicial": "Conferir ficha original 1–10. Não inferir que wishlist foi recebida",
+    "tesouros_magicos_confirmados": [],
+    "confirmacoes_individuais_de_aquisicao": [],
+    "itens_replicaveis_configuracao_padrao": [
+      "Escudo +1 (Shield +1)",
+      "Bolsa de Carga (Bag of Holding)"
+    ],
+    "ativacao_factual_exige_verificacao_na_ficha": true
+  },
+  "niveis": [
+    {
+      "nivel_total": 1,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 1,
+        "artifice": 1,
+        "mago": 0,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Origem Humano/Sábio; Artífice inicial; dois talentos de Origem",
+        "pv_fixos": 11,
+        "bonus_proficiencia": 2,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": null,
+        "magias_mago_preparadas_regulares": null,
+        "magias_grimorio_adicionadas": [],
+        "total_magias_grimorio": null,
+        "espacos_magia_por_circulo": [
+          2
+        ],
+        "caracteristicas_e_talentos": [
+          "Iniciado em Magia — Mago (Magic Initiate — Wizard)",
+          "Artesão (Crafter)",
+          "Conjuração (Spellcasting)",
+          "Magia de Funileiro (Tinker's Magic)"
+        ],
+        "wishlist_novas_prioridades": [],
+        "preparacao_padrao_mago": null,
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Conjuração (Spellcasting)",
+            "origem": "artifice_2025",
+            "observacao": "Magias de Artífice com lista própria."
+          },
+          {
+            "nome": "Magia de Funileiro (Tinker's Magic)",
+            "origem": "artifice_2025",
+            "observacao": "Inclui Consertar (Mending) e 3 usos por Descanso Longo com INT +3."
+          },
+          {
+            "nome": "Iniciado em Magia — Mago (Magic Initiate — Wizard)",
+            "origem": "talento_origem",
+            "observacao": "Truques Mãos Mágicas e Ilusão Menor; magia Escudo, 1 conjuração gratuita por Descanso Longo."
+          },
+          {
+            "nome": "Artesão (Crafter)",
+            "origem": "talento_origem",
+            "observacao": "Ferramentas de Ferreiro, Tecelão e Carpinteiro; desconto e Fabricação Rápida conforme baseline."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice"
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice"
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro"
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago"
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago"
+          }
+        ],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": null,
+        "modelo_armadura": null,
+        "modelos_armadura_disponiveis": [],
+        "classe_armadura": {
+          "ca_referencia": 17,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + escudo comum, equipamento inicial aprovado.",
+          "ca_condicional": [],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "equipamento_inicial_aprovado": [
+          "Cota de Escamas (Scale Mail)",
+          "Escudo comum",
+          "Ferramentas de Funileiro (Tinker's Tools)",
+          "Ferramentas de Ladrão (Thieves' Tools)",
+          "Ferramentas de Ferreiro (Smith's Tools)",
+          "Adaga (Dagger)",
+          "Mochila (Backpack)"
+        ],
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-04"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-04",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-04-origem-victor-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1ekm1M2nAwgNKrI1VNqukHGJuBXFSotwy/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "lvl1_hero_art_id": "DOOM-ART-01",
+        "lvl1_foundation_art_id": "DOOM-ART-04",
+        "lvl1_foundation_art_min_height_desktop_px": 655,
+        "lvl1_compact_intro": true,
+        "lvl1_primary_metrics": [
+          "pv_fixos",
+          "classe_armadura.ca_referencia",
+          "atributos.INT",
+          "espacos_magia_por_circulo"
+        ],
+        "lvl1_show_species_and_background_in_intro": true,
+        "lvl1_show_origin_feats_in_intro": true,
+        "lvl1_spellcasting_in_white_content": true,
+        "lvl1_redundant_green_spellcasting_banner": false,
+        "lvl1_tradeoffs_panel": false,
+        "lvl1_combat_panel_count": 1,
+        "lvl1_wishlist_panel": false,
+        "source": "Decisões editoriais aprovadas pelo usuário no chat Executor Build em 11/10/2026",
+        "scope": "somente nivel_total=1; não altera regras nem arquivos visuais originais"
+      }
+    },
+    {
+      "nivel_total": 2,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 2,
+        "artifice": 2,
+        "mago": 0,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Replicar Item Mágico; 4 planos e 2 itens ativos",
+        "pv_fixos": 19,
+        "bonus_proficiencia": 2,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": null,
+        "magias_mago_preparadas_regulares": null,
+        "magias_grimorio_adicionadas": [],
+        "total_magias_grimorio": null,
+        "espacos_magia_por_circulo": [
+          2
+        ],
+        "caracteristicas_e_talentos": [
+          "Replicar Item Mágico (Replicate Magic Item)"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Escudo +1",
+            "en": "Shield +1",
+            "prioridade": "ESSENCIAL",
+            "aquisicao": "replicado",
+            "observacao": "Plano de Artífice; não extrapolar 2 itens ativos",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "shield_1",
+            "metodo_aquisicao_previsto": "replicado",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          },
+          {
+            "pt": "Bolsa de Carga",
+            "en": "Bag of Holding",
+            "prioridade": "ESSENCIAL",
+            "aquisicao": "replicado",
+            "observacao": "Conjunto padrão junto do Escudo +1",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "bag_of_holding",
+            "metodo_aquisicao_previsto": "replicado",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": null,
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Replicar Item Mágico (Replicate Magic Item)",
+            "origem": "artifice_2025",
+            "observacao": "4 planos conhecidos; no máximo 2 itens replicados simultaneamente; escolha/produção ao final de Descanso Longo."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": null,
+        "modelos_armadura_disponiveis": [],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02A"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02A",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02a-mascara-i-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1lDcm7dVWM8FPxmsS5nTQWVeKbiwYejUW/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 3,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 3,
+        "artifice": 3,
+        "mago": 0,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Armeiro; Armadura Arcana; modelos Guardião, Infiltrador e Encouraçado",
+        "pv_fixos": 27,
+        "bonus_proficiencia": 2,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": null,
+        "magias_mago_preparadas_regulares": null,
+        "magias_grimorio_adicionadas": [],
+        "total_magias_grimorio": null,
+        "espacos_magia_por_circulo": [
+          3
+        ],
+        "caracteristicas_e_talentos": [
+          "Armadura Arcana (Arcane Armor)",
+          "Modelo de Armadura (Armor Model)",
+          "Treinamento em Armadura Pesada"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Cota de Malha",
+            "en": "Chain Mail",
+            "prioridade": "PRIORIDADE",
+            "aquisicao": "compra projetada",
+            "observacao": "Primeira armadura pesada; sem compra automática",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "chain_mail",
+            "metodo_aquisicao_previsto": "compra projetada",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": null,
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Treinamento em Armadura Pesada",
+            "origem": "armeiro_2025",
+            "observacao": "Proficiência em armadura pesada e fabricação de armaduras em metade do tempo."
+          },
+          {
+            "nome": "Armadura Arcana (Arcane Armor)",
+            "origem": "armeiro_2025",
+            "observacao": "Remove requisito de Força, foco de Artífice (não Mago); não concede bônus mágico de CA nem armadura gratuita."
+          },
+          {
+            "nome": "Modelo de Armadura (Armor Model)",
+            "origem": "armeiro_2025",
+            "observacao": "Guardião padrão, Infiltrador ou Encouraçado alternativos; apenas um modelo ativo por vez."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha (Chain Mail) comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "ferramenta_duplicada_substituida_por": "Ferramentas de Joalheiro (Jeweler's Tools)",
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02A"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02A",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02a-mascara-i-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1lDcm7dVWM8FPxmsS5nTQWVeKbiwYejUW/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 4,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 4,
+        "artifice": 3,
+        "mago": 1,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Primeiro nível de Mago; grimório e Recuperação Arcana",
+        "pv_fixos": 34,
+        "bonus_proficiencia": 2,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": null,
+        "magias_mago_preparadas_regulares": 4,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Encontrar Familiar",
+            "en": "Find Familiar",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          },
+          {
+            "pt": "Alarme",
+            "en": "Alarm",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          },
+          {
+            "pt": "Queda Suave",
+            "en": "Feather Fall",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          },
+          {
+            "pt": "Névoa Obscurecente",
+            "en": "Fog Cloud",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          },
+          {
+            "pt": "Riso Histérico de Tasha",
+            "en": "Tasha’s Hideous Laughter",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          },
+          {
+            "pt": "Disfarçar-se",
+            "en": "Disguise Self",
+            "origem_aprendizado": "grimorio_inicial_mago",
+            "nivel_total_entrada": 4
+          }
+        ],
+        "total_magias_grimorio": 6,
+        "espacos_magia_por_circulo": [
+          4,
+          2
+        ],
+        "caracteristicas_e_talentos": [
+          "Conjuração de Mago (Wizard Spellcasting)",
+          "Adepto de Rituais (Ritual Adept)",
+          "Recuperação Arcana (Arcane Recovery)"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Grimório Duradouro",
+            "en": "Enduring Spellbook",
+            "prioridade": "ÓTIMO",
+            "aquisicao": "tesouro projetado",
+            "observacao": "Material anterior a 2024; autorização da fonte",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "enduring_spellbook",
+            "metodo_aquisicao_previsto": "tesouro projetado",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Névoa Obscurecente (Fog Cloud)",
+          "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+          "Disfarçar-se (Disguise Self)"
+        ],
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Conjuração de Mago (Wizard Spellcasting)",
+            "origem": "mago_2024",
+            "observacao": "Grimório inicial com 6 magias e 3 truques novos."
+          },
+          {
+            "nome": "Adepto de Rituais (Ritual Adept)",
+            "origem": "mago_2024",
+            "observacao": "Conjuração ritual conforme regras de Mago, independente da preparação regular quando aplicável."
+          },
+          {
+            "nome": "Recuperação Arcana (Arcane Recovery)",
+            "origem": "mago_2024",
+            "observacao": "Recuperação de espaços de magia após Descanso Curto, conforme classe."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago"
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago"
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago"
+          }
+        ],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha (Chain Mail) comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 1,
+          "maior_circulo_de_espaco_compartilhado": 2,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02A"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02A",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02a-mascara-i-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1lDcm7dVWM8FPxmsS5nTQWVeKbiwYejUW/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 5,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 5,
+        "artifice": 3,
+        "mago": 2,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Erudito: Especialização em Arcanismo",
+        "pv_fixos": 41,
+        "bonus_proficiencia": 3,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": null,
+        "magias_mago_preparadas_regulares": 5,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Passos Longos",
+            "en": "Longstrider",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 5
+          },
+          {
+            "pt": "Compreender Idiomas",
+            "en": "Comprehend Languages",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 5
+          }
+        ],
+        "total_magias_grimorio": 8,
+        "espacos_magia_por_circulo": [
+          4,
+          3
+        ],
+        "caracteristicas_e_talentos": [
+          "Erudito (Scholar)",
+          "Especialização em Arcanismo (Arcana) por Erudito (Scholar)"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Armadura Segmentada",
+            "en": "Splint Armor",
+            "prioridade": "PRIORIDADE",
+            "aquisicao": "compra projetada",
+            "observacao": "Melhora CA; prejudica Furtividade",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "splint_armor",
+            "metodo_aquisicao_previsto": "compra projetada",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          },
+          {
+            "pt": "Manto de Proteção",
+            "en": "Cloak of Protection",
+            "prioridade": "PRIORIDADE",
+            "aquisicao": "tesouro ou fabricação",
+            "observacao": "+1 CA e salvaguardas; sintonização",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "cloak_of_protection",
+            "metodo_aquisicao_previsto": "tesouro ou fabricação",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": true,
+            "estado_sintonizacao": "NAO_CONFIRMADA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Névoa Obscurecente (Fog Cloud)",
+          "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+          "Disfarçar-se (Disguise Self)",
+          "Passos Longos (Longstrider)"
+        ],
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Erudito (Scholar)",
+            "origem": "mago_2024",
+            "observacao": "Especialização em Arcanismo (Arcana), total +9 no nível 5."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada (Splint Armor) comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção (Cloak of Protection) obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "especializacao_pericia": "Arcanismo (Arcana), +9 no nível total 5",
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 1,
+          "maior_circulo_de_espaco_compartilhado": 2,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-03A"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-03A",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-03a-manopla-arcana-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1qgEvTOHbhSAh1NumPZO7PJAvQy6XO1m5/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "marco_narrativo",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 6,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 6,
+        "artifice": 3,
+        "mago": 3,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Abjurador; Proteção Arcana; acesso de Mago ao 2º círculo",
+        "pv_fixos": 48,
+        "bonus_proficiencia": 3,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 17,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": 9,
+        "magias_mago_preparadas_regulares": 6,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Teia",
+            "en": "Web",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 6
+          },
+          {
+            "pt": "Passo Nebuloso",
+            "en": "Misty Step",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 6
+          },
+          {
+            "pt": "Vigor Arcano",
+            "en": "Arcane Vigor",
+            "origem_aprendizado": "especialista_abjuracao_bonus",
+            "nivel_total_entrada": 6
+          },
+          {
+            "pt": "Proteção contra o Bem e o Mal",
+            "en": "Protection from Evil and Good",
+            "origem_aprendizado": "especialista_abjuracao_bonus",
+            "nivel_total_entrada": 6
+          }
+        ],
+        "total_magias_grimorio": 12,
+        "espacos_magia_por_circulo": [
+          4,
+          3,
+          2
+        ],
+        "caracteristicas_e_talentos": [
+          "Proteção Arcana (Arcane Ward)",
+          "Especialista em Abjuração (Abjuration Savant)"
+        ],
+        "wishlist_novas_prioridades": [],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+          "Passos Longos (Longstrider)",
+          "Teia (Web)",
+          "Passo Nebuloso (Misty Step)",
+          "Vigor Arcano (Arcane Vigor)"
+        ],
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Especialista em Abjuração (Abjuration Savant)",
+            "origem": "abjurador_2024",
+            "observacao": "Duas magias extras de Abjuração na entrada de subclasse, além das duas escolhas normais."
+          },
+          {
+            "nome": "Proteção Arcana (Arcane Ward)",
+            "origem": "abjurador_2024",
+            "observacao": "Máximo de PV = 2 × nível de Mago + modificador de INT; ativação/restauração dependem de espaços conforme baseline."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada (Splint Armor) comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção (Cloak of Protection) obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 2,
+          "maior_circulo_de_espaco_compartilhado": 3,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02B"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02B",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02b-mascara-ii-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1aFdjk14FfiIqKga_uEh2rqwx6om0kZn9/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 7,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 7,
+        "artifice": 3,
+        "mago": 4,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Conjurador de Guerra; INT 17→18",
+        "pv_fixos": 55,
+        "bonus_proficiencia": 3,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 18,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": 12,
+        "magias_mago_preparadas_regulares": 7,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Imagem Espelhada",
+            "en": "Mirror Image",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 7
+          },
+          {
+            "pt": "Sugestão",
+            "en": "Suggestion",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 7
+          }
+        ],
+        "total_magias_grimorio": 14,
+        "espacos_magia_por_circulo": [
+          4,
+          3,
+          3
+        ],
+        "caracteristicas_e_talentos": [
+          "Conjurador de Guerra (War Caster)"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Botas Aladas",
+            "en": "Winged Boots",
+            "prioridade": "ÓTIMO",
+            "aquisicao": "tesouro projetado",
+            "observacao": "Voo sem Concentração; opcionais e concorrem por sintonização",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "winged_boots",
+            "metodo_aquisicao_previsto": "tesouro projetado",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": true,
+            "estado_sintonizacao": "NAO_CONFIRMADA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+          "Passos Longos (Longstrider)",
+          "Teia (Web)",
+          "Passo Nebuloso (Misty Step)",
+          "Vigor Arcano (Arcane Vigor)",
+          "Imagem Espelhada (Mirror Image)"
+        ],
+        "errata_protecao_arcana": "AUD-DOOM-E1-01: original v1.0 e JSON v1.1 registravam 10; fórmula 2×Mago 4 + INT mod +4 = 12. Original preservado.",
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Conjurador de Guerra (War Caster)",
+            "origem": "talento_geral",
+            "observacao": "INT +1 de 17 para 18; vantagem para manter Concentração; não remove componentes materiais."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [
+          {
+            "nome": "Mensagem (Message)",
+            "origem": "Mago"
+          }
+        ],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Mensagem (Message)",
+            "origem": "Mago",
+            "nivel_entrada": 7
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada (Splint Armor) comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção (Cloak of Protection) obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 2,
+          "maior_circulo_de_espaco_compartilhado": 3,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02B"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02B",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02b-mascara-ii-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1aFdjk14FfiIqKga_uEh2rqwx6om0kZn9/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 8,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 8,
+        "artifice": 3,
+        "mago": 5,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Memorizar Magia; acesso a magias de 3º círculo",
+        "pv_fixos": 62,
+        "bonus_proficiencia": 3,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 18,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": 14,
+        "magias_mago_preparadas_regulares": 9,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Contramágica",
+            "en": "Counterspell",
+            "origem_aprendizado": "especialista_abjuracao_bonus",
+            "nivel_total_entrada": 8
+          },
+          {
+            "pt": "Voo",
+            "en": "Fly",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 8
+          },
+          {
+            "pt": "Bola de Fogo",
+            "en": "Fireball",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 8
+          }
+        ],
+        "total_magias_grimorio": 17,
+        "espacos_magia_por_circulo": [
+          4,
+          3,
+          3,
+          1
+        ],
+        "caracteristicas_e_talentos": [
+          "Memorizar Magia (Memorize Spell)"
+        ],
+        "wishlist_novas_prioridades": [],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+          "Teia (Web)",
+          "Passo Nebuloso (Misty Step)",
+          "Vigor Arcano (Arcane Vigor)",
+          "Imagem Espelhada (Mirror Image)",
+          "Contramágica (Counterspell)",
+          "Voo (Fly)",
+          "Bola de Fogo (Fireball)"
+        ],
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Memorizar Magia (Memorize Spell)",
+            "origem": "mago_2024",
+            "observacao": "Permite substituir uma magia preparada por outra do grimório após Descanso Curto, conforme baseline."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Mensagem (Message)",
+            "origem": "Mago",
+            "nivel_entrada": 7
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada (Splint Armor) comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção (Cloak of Protection) obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 3,
+          "maior_circulo_de_espaco_compartilhado": 4,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02B"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02B",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02b-mascara-ii-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1aFdjk14FfiIqKga_uEh2rqwx6om0kZn9/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 9,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 9,
+        "artifice": 3,
+        "mago": 6,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Proteção Projetada; proficiência +4",
+        "pv_fixos": 69,
+        "bonus_proficiencia": 4,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 18,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": 16,
+        "magias_mago_preparadas_regulares": 10,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Dissipar Magia",
+            "en": "Dispel Magic",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 9
+          },
+          {
+            "pt": "Lentidão",
+            "en": "Slow",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 9
+          }
+        ],
+        "total_magias_grimorio": 19,
+        "espacos_magia_por_circulo": [
+          4,
+          3,
+          3,
+          2
+        ],
+        "caracteristicas_e_talentos": [
+          "Proteção Projetada (Projected Ward)"
+        ],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Pérola de Poder",
+            "en": "Pearl of Power",
+            "prioridade": "PRIORIDADE",
+            "aquisicao": "tesouro ou fabricação",
+            "observacao": "Recuperar espaço de até 3º círculo; futura substituição",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "pearl_of_power",
+            "metodo_aquisicao_previsto": "tesouro ou fabricação",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": true,
+            "estado_sintonizacao": "NAO_CONFIRMADA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": [
+          "Queda Suave (Feather Fall)",
+          "Teia (Web)",
+          "Passo Nebuloso (Misty Step)",
+          "Vigor Arcano (Arcane Vigor)",
+          "Imagem Espelhada (Mirror Image)",
+          "Contramágica (Counterspell)",
+          "Voo (Fly)",
+          "Bola de Fogo (Fireball)",
+          "Dissipar Magia (Dispel Magic)",
+          "Lentidão (Slow)"
+        ],
+        "caracteristicas_detalhadas": [
+          {
+            "nome": "Proteção Projetada (Projected Ward)",
+            "origem": "abjurador_2024",
+            "observacao": "Reação para usar reserva da Proteção Arcana em aliado visível a até 9 m."
+          }
+        ],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Mensagem (Message)",
+            "origem": "Mago",
+            "nivel_entrada": 7
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 19,
+              "requisitos": "Cota de Malha comprada + Escudo +1 replicado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada (Splint Armor) comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção (Cloak of Protection) obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 3,
+          "maior_circulo_de_espaco_compartilhado": 4,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-03B"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-03B",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-03b-primeira-mascara-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/15RTPQemeKPVKYwLiGRd7_tfe9J1rMjTf/view",
+          "status_arte": "APROVADO_CROP_PENDENTE"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "marco_narrativo",
+        "aprovacao_ux_pendente": true
+      }
+    },
+    {
+      "nivel_total": 10,
+      "status_aprovacao": "APROVADO_MECANICAMENTE",
+      "pode_entrar_em_preview_individual": true,
+      "publicacao_autorizada": false,
+      "mecanica": {
+        "nivel_total": 10,
+        "artifice": 3,
+        "mago": 7,
+        "status": "aprovado_consolidado_v1_0",
+        "marco": "Lança Psíquica de Raulothim (Raulothim's Psychic Lance) — LEGACY; magias de 4º círculo",
+        "pv_fixos": 76,
+        "bonus_proficiencia": 4,
+        "atributos": {
+          "FOR": 8,
+          "DES": 13,
+          "CON": 16,
+          "INT": 18,
+          "SAB": 10,
+          "CAR": 10
+        },
+        "protecao_arcana_maxima": 18,
+        "magias_mago_preparadas_regulares": 11,
+        "magias_grimorio_adicionadas": [
+          {
+            "pt": "Lança Psíquica de Raulothim",
+            "en": "Raulothim's Psychic Lance",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 10,
+            "legado": true,
+            "fonte_legacy": "Fizban's Treasury of Dragons (2021)",
+            "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_MESTRE"
+          },
+          {
+            "pt": "Porta Dimensional",
+            "en": "Dimension Door",
+            "origem_aprendizado": "progressao_normal_mago",
+            "nivel_total_entrada": 10
+          },
+          {
+            "pt": "Banimento",
+            "en": "Banishment",
+            "origem_aprendizado": "especialista_abjuracao_bonus",
+            "nivel_total_entrada": 10
+          }
+        ],
+        "total_magias_grimorio": 22,
+        "espacos_magia_por_circulo": [
+          4,
+          3,
+          3,
+          3,
+          1
+        ],
+        "caracteristicas_e_talentos": [],
+        "wishlist_novas_prioridades": [
+          {
+            "pt": "Armadura de Placas",
+            "en": "Plate Armor",
+            "prioridade": "ESSENCIAL",
+            "aquisicao": "compra/fabricação projetada",
+            "observacao": "Fabricar não cria matéria-prima; 1500 PO preço de compra e 750 PO estimativa de materiais",
+            "categoria_de_estado": "WISHLIST_NAO_INVENTARIO",
+            "obtido_pelo_personagem": null,
+            "origem_catalogo_geral": true,
+            "identificador": "plate_armor",
+            "metodo_aquisicao_previsto": "compra/fabricação projetada",
+            "estado_aquisicao": "NAO_CONFIRMADO",
+            "sintonizacao_exigida": false,
+            "estado_sintonizacao": "NAO_EXIGIDA",
+            "aplicar_bonus_no_personagem_automaticamente": false
+          }
+        ],
+        "preparacao_padrao_mago": [
+          "Vigor Arcano (Arcane Vigor)",
+          "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+          "Passo Nebuloso (Misty Step)",
+          "Imagem Espelhada (Mirror Image)",
+          "Contramágica (Counterspell)",
+          "Voo (Fly)",
+          "Bola de Fogo (Fireball)",
+          "Dissipar Magia (Dispel Magic)",
+          "Lentidão (Slow)",
+          "Porta Dimensional (Dimension Door)",
+          "Banimento (Banishment)"
+        ],
+        "preparacao_alternativa_nota": "Lança Psíquica de Raulothim é Legacy (Fizban, 2021); somente disponível se o Mestre autorizar. Sem autorização, reavaliar a preparação de combate sem conceder a magia automaticamente.",
+        "caracteristicas_detalhadas": [],
+        "truques_adquiridos_no_nivel": [],
+        "truques_disponiveis_cumulativos": [
+          {
+            "nome": "Raio de Fogo (Fire Bolt)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Orientação (Guidance)",
+            "origem": "Artífice",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Consertar (Mending)",
+            "origem": "Magia de Funileiro",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Mãos Mágicas (Mage Hand)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Ilusão Menor (Minor Illusion)",
+            "origem": "Iniciado em Magia — Mago",
+            "nivel_entrada": 1
+          },
+          {
+            "nome": "Estilhaço Mental (Mind Sliver)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Raio de Gelo (Ray of Frost)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Prestidigitação (Prestidigitation)",
+            "origem": "Mago",
+            "nivel_entrada": 4
+          },
+          {
+            "nome": "Mensagem (Message)",
+            "origem": "Mago",
+            "nivel_entrada": 7
+          }
+        ],
+        "magias_artifice_preparadas": [
+          {
+            "pt": "Graxa",
+            "en": "Grease"
+          },
+          {
+            "pt": "Curar Ferimentos",
+            "en": "Cure Wounds"
+          },
+          {
+            "pt": "Fogo das Fadas",
+            "en": "Faerie Fire"
+          },
+          {
+            "pt": "Detectar Magia",
+            "en": "Detect Magic"
+          }
+        ],
+        "magias_armoreiro_sempre_preparadas": [
+          {
+            "pt": "Projéteis Mágicos",
+            "en": "Magic Missile"
+          },
+          {
+            "pt": "Onda Trovejante",
+            "en": "Thunderwave"
+          }
+        ],
+        "magias_talento_origem": [
+          {
+            "pt": "Escudo",
+            "en": "Shield",
+            "estado": "1 uso gratuito por Descanso Longo; mais conjurações com espaços quando permitido"
+          }
+        ],
+        "sistema_de_magias": {
+          "artifice_preparadas": "lista própria, não somar automaticamente às preparadas de Mago",
+          "mago_preparadas": "usar preparacao_padrao_mago; rituais separados",
+          "armoreiro_sempre_preparadas": "fora da preparação regular de Artífice",
+          "iniciado_em_magia": "fora da lista regular de Mago"
+        },
+        "replicar_itens_magicos": {
+          "nivel_entrada": 2,
+          "limite_itens_ativos": 2,
+          "planos_conhecidos": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)",
+            "Pedras de Mensagem (Sending Stones)",
+            "Varinha do Mago de Guerra +1 (Wand of the War Mage +1)"
+          ],
+          "conjunto_padrao_projetado": [
+            "Escudo +1 (Shield +1)",
+            "Bolsa de Carga (Bag of Holding)"
+          ],
+          "observacao": "Padrão de construção, sujeito à criação efetiva após Descanso Longo; não conceder itens externos."
+        },
+        "modelo_armadura": "Guardião (Guardian)",
+        "modelos_armadura_disponiveis": [
+          {
+            "pt": "Guardião",
+            "en": "Guardian",
+            "estado": "padrão",
+            "recursos": [
+              "Pulso Trovejante (Thunder Pulse)",
+              "Campo Defensivo (Defensive Field)"
+            ],
+            "nota": "Campo Defensivo: 3 PV temporários mediante condição Sangrando (Bloodied), conforme baseline; conferir fonte normativa na auditoria de regras."
+          },
+          {
+            "pt": "Infiltrador",
+            "en": "Infiltrator",
+            "estado": "alternativo",
+            "recursos": [
+              "Lançador de Relâmpagos (Lightning Launcher)"
+            ],
+            "nota": "Mobilidade e Furtividade, conforme baseline."
+          },
+          {
+            "pt": "Encouraçado",
+            "en": "Dreadnaught",
+            "estado": "alternativo",
+            "recursos": [
+              "Demolidor de Força (Force Demolisher)",
+              "Estatura Gigante (Giant Stature)"
+            ],
+            "nota": "Uso condicionado à forma ativa, conforme baseline."
+          }
+        ],
+        "classe_armadura": {
+          "ca_referencia": 18,
+          "equipamento_de_referencia": "Cota de Escamas (Scale Mail) + Escudo +1 (Shield +1) efetivamente replicado e ativo. Pressupõe uso da característica; não atribuir tesouro.",
+          "ca_condicional": [
+            {
+              "ca": 20,
+              "requisitos": "Armadura Segmentada comprada + Escudo +1 replicado, sem Manto.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 21,
+              "requisitos": "Armadura Segmentada + Escudo +1 + Manto de Proteção obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            },
+            {
+              "ca": 22,
+              "requisitos": "Armadura de Placas (Plate Armor) comprada ou fabricada + Escudo +1 replicado + Manto obtido e sintonizado.",
+              "status": "NAO_OBTIDO_AUTOMATICAMENTE"
+            }
+          ],
+          "magia_escudo_bonus_ca_temporario": 5,
+          "observacao": "CA 18 do nível 2 em diante pressupõe Escudo +1 replicado e ativo. Vestes/armaduras, tesouros e sintonizações não são garantidos por nível. Escudo (Shield) exige conjuração válida por Reação."
+        },
+        "circulos_de_magia": {
+          "maior_circulo_acessivel_com_magias_de_mago": 4,
+          "maior_circulo_de_espaco_compartilhado": 5,
+          "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+        },
+        "arte_editorial": {
+          "identificadores": [
+            "DOOM-ART-02C"
+          ],
+          "imagem_nao_gera_poderes_mecanicos": true,
+          "preview_homologado": false
+        }
+      },
+      "artes": [
+        {
+          "id": "DOOM-ART-02C",
+          "aprovado_para_alocacao": true,
+          "crop_homologado": false,
+          "webp_filename": "doom-art-02c-mascara-iii-aprovada.webp",
+          "webp_url_drive": "https://drive.google.com/file/d/1Q38GmqgoLM7i7Gyo4BW8yjc4BOKDdTex/view",
+          "status_arte": "APROVADO"
+        }
+      ],
+      "decisoes_de_layout": {
+        "tipo": "nivel_regular",
+        "aprovacao_ux_pendente": true
+      },
+      "revisao_editorial_2026_11_20": "Decisão 1 aprovada: Raulothim no nível 10, substitui Fabricar, Legacy condicionada ao Mestre; Fabricar transferido ao nível 11."
+    }
+  ],
+  "proveniencia": {
+    "00-INDICE-CONSULTA-DOOM-BUILD-v1.2.md": {
+      "sha256": "8a0ec515ed92bf6860eec8ba522520912355d4bf5171f6602f3c16806d03e40c",
+      "bytes": 3840
+    },
+    "AUD-DOOM-E5-CHANGELOG-v1.2.md": {
+      "sha256": "575f9547b9e0c180fb6e3e83eaae4bfadd645847f086a1dd40a4235e16bb9511",
+      "bytes": 4292
+    },
+    "DOOM-BUILD-CONSOLIDADO-NIVEIS-01-A-10-v1.0(2).md": {
+      "sha256": "9d19c98670458d6be4a8c5b97a14a265956028d0bccbc923fef49d0c000df41e",
+      "bytes": 34734
+    },
+    "AUD-DOOM-E1-ERRATA-v1.0.md": {
+      "sha256": "1a6b1c7704ce2a7bf609b87757168033e7f97b94e5a56f5d8e4254501b43e4ca",
+      "bytes": 2672
+    },
+    "DOOM-BUILD-DOSSIE-PAGINA-v1.2.md": {
+      "sha256": "cbc9199b04bb57e239f828644820a163ce7a0e3845a5a1819423510a50b7d858",
+      "bytes": 65656
+    },
+    "DOOM-BUILD-DADOS-PAGINA-v1.2.json": {
+      "sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+      "bytes": 131577
+    },
+    "DOOM-BUILD-MATRIZ-ARTES-v1.2.json": {
+      "sha256": "b8fd76512c65c400ffe3bad5d6d99e0f5138f5663e67f679a961771f9d2da744",
+      "bytes": 9439
+    },
+    "AUD-DOOM-E6-PARECER-FINAL-v1.0.md": {
+      "sha256": "d5e198bc3a25ca52f64d16261e4bdc3e09ff9542f3bb6953f7e0f2749947eabf",
+      "bytes": 5060
+    }
+  }
+}

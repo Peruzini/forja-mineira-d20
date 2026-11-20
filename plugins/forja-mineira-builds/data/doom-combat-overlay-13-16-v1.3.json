@@ -1,0 +1,208 @@
+{
+  "schema": "forja-doom-tactical-mechanics-overlay/1.3",
+  "origem_sha256": "55989ef26b4607037f0d5d253fbcd6cac4e117ca016d03e74b379d3d82bef346",
+  "publicacao_autorizada": false,
+  "status": "REVISAO_EDITORIAL_NAO_HOMOLOGADA",
+  "niveis": {
+    "13": {
+      "nivel_total": 13,
+      "preparacoes_regulares_previstas": 15,
+      "preparacoes_identificadas": 15,
+      "preparacoes_pendentes": 0,
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+        "Muralha de Força (Wall of Force)",
+        "Telecinese (Telekinesis)",
+        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+        "Queda Suave (Feather Fall)",
+        "Vidência (Scrying)"
+      ],
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Vidência",
+          "en": "Scrying",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 13,
+          "status_escolha": "APROVADO_PREPARACAO_2026_11_20"
+        },
+        {
+          "pt": "Círculo Mágico",
+          "en": "Magic Circle",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 13,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "publicacao_autorizada": false,
+      "decisao_editorial_aprovada_em": "2026-11-20",
+      "magias_sempre_preparadas_spell_breaker": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "sempre_preparadas_ocupam_preparacoes_regulares": false
+    },
+    "14": {
+      "nivel_total": 14,
+      "preparacoes_regulares_previstas": 16,
+      "preparacoes_identificadas": 16,
+      "preparacoes_pendentes": 0,
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+        "Muralha de Força (Wall of Force)",
+        "Telecinese (Telekinesis)",
+        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+        "Queda Suave (Feather Fall)",
+        "Globo de Invulnerabilidade (Globe of Invulnerability)",
+        "Desintegrar (Disintegrate)"
+      ],
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Contingência",
+          "en": "Contingency",
+          "origem_aprendizado": "especialista_abjuracao_bonus",
+          "nivel_total_entrada": 14,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Globo de Invulnerabilidade",
+          "en": "Globe of Invulnerability",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 14,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Desintegrar",
+          "en": "Disintegrate",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 14,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "publicacao_autorizada": false,
+      "magias_sempre_preparadas_spell_breaker": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "sempre_preparadas_ocupam_preparacoes_regulares": false
+    },
+    "15": {
+      "nivel_total": 15,
+      "preparacoes_regulares_previstas": 16,
+      "preparacoes_identificadas": 16,
+      "preparacoes_pendentes": 0,
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+        "Muralha de Força (Wall of Force)",
+        "Telecinese (Telekinesis)",
+        "Sugestão em Massa (Mass Suggestion)",
+        "Queda Suave (Feather Fall)",
+        "Globo de Invulnerabilidade (Globe of Invulnerability)",
+        "Desintegrar (Disintegrate)"
+      ],
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Sugestão em Massa",
+          "en": "Mass Suggestion",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 15,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Visão da Verdade",
+          "en": "True Seeing",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 15,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "publicacao_autorizada": false,
+      "magias_sempre_preparadas_spell_breaker": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "sempre_preparadas_ocupam_preparacoes_regulares": false
+    },
+    "16": {
+      "nivel_total": 16,
+      "preparacoes_regulares_previstas": 17,
+      "preparacoes_identificadas": 17,
+      "preparacoes_pendentes": 0,
+      "preparacao_padrao_mago": [
+        "Vigor Arcano (Arcane Vigor)",
+        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+        "Passo Nebuloso (Misty Step)",
+        "Imagem Espelhada (Mirror Image)",
+        "Voo (Fly)",
+        "Bola de Fogo (Fireball)",
+        "Lentidão (Slow)",
+        "Porta Dimensional (Dimension Door)",
+        "Banimento (Banishment)",
+        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+        "Muralha de Força (Wall of Force)",
+        "Telecinese (Telekinesis)",
+        "Sugestão em Massa (Mass Suggestion)",
+        "Queda Suave (Feather Fall)",
+        "Globo de Invulnerabilidade (Globe of Invulnerability)",
+        "Desintegrar (Disintegrate)",
+        "Teletransporte (Teleport)"
+      ],
+      "magias_grimorio_adicionadas": [
+        {
+          "pt": "Teletransporte",
+          "en": "Teleport",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 16,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Simulacro",
+          "en": "Simulacrum",
+          "origem_aprendizado": "progressao_normal_mago",
+          "nivel_total_entrada": 16,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        },
+        {
+          "pt": "Símbolo",
+          "en": "Symbol",
+          "origem_aprendizado": "especialista_abjuracao_bonus",
+          "nivel_total_entrada": 16,
+          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+        }
+      ],
+      "publicacao_autorizada": false,
+      "magias_sempre_preparadas_spell_breaker": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "sempre_preparadas_ocupam_preparacoes_regulares": false
+    }
+  },
+  "revisao_editorial_2026_11_20": "DOOM-FINAL-01 — seleções consolidadas; Quebra-Feitiços propagado; publicação bloqueada."
+}

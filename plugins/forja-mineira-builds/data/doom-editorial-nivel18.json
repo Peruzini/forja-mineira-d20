@@ -1,0 +1,59 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 18,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N18_PROPOSTA",
+  "phase": "Fase V · O Poder do Soberano",
+  "kicker": "Nível 18 · Artífice (Artificer) 3 / Mago (Wizard) 15",
+  "title": "O Soberano Além da Morte",
+  "intro": "O intelecto de Victor passa a impor limites à própria realidade. Seu grimório abre o oitavo círculo: defesa mental extrema, aprisionamento extradimensional e a possibilidade de criar uma vida de reserva, sempre mediante recursos e tempo reais.",
+  "feature_label": "Mago 15 · PHB 2024",
+  "feature_title": "O acesso ao oitavo círculo",
+  "feature_detail": "Duas novas magias de Mago por progressão e uma inscrição gratuita de Abjuração pela característica Especialista em Abjuração (Abjuration Savant). As escolhas abaixo ainda são propostas, não adições canônicas.",
+  "ward_detail": "Proteção Arcana (Arcane Ward): 2 × Mago 15 + modificador de INT +5 = 35 PV máximos da barreira. Os 132 PV do personagem permanecem separados e a barreira exige as condições da característica para criação e recuperação.",
+  "spell_notes": [
+    {
+      "pt": "Labirinto",
+      "note": "Controle de alvo prioritário por Concentração; exige avaliar a economia de Concentração frente a outras magias. Preparada na proposta padrão."
+    },
+    {
+      "pt": "Clone",
+      "note": "Projeto de contingência narrativa, não preparo de combate. Exige materiais caros, recipiente e 120 dias de maturação; a inscrição não cria o clone automaticamente."
+    },
+    {
+      "pt": "Mente Vazia",
+      "note": "Abjuração de 8º círculo escolhida como inscrição gratuita; protege a mente por 24 horas, sem exigir Concentração. Preparada na proposta padrão."
+    }
+  ],
+  "prep_note": "19 preparações regulares identificadas na revisão v1.3, incluindo Labirinto (Maze), Mente Vazia (Mind Blank), Lança Psíquica — LEGACY e Teletransporte — ESSENCIAL. Clone (Clone) fica no grimório para preparação de laboratório. Contramágica e Dissipar Magia seguem sempre preparadas à parte.",
+  "slot_note": "A multiclasse tem espaço de 9º círculo, mas Mago 15 só aprende magias de Mago até o 8º círculo. Usar um espaço superior não permite aprender magia de 9º antes de Mago 17 (nível total 20).",
+  "wishlist_note": "Tomo do Pensamento Claro (Tome of Clear Thought) segue como objetivo não adquirido. Manto do Arquimago (Robe of the Archmagi) continua objetivo adicional, sujeito a compatibilidade com armadura e sintonização.",
+  "combat_title": "Como jogar Victor no nível 18 · Controlador supremo / proteção mental",
+  "combat_intro": "As magias de 8º círculo mudam o controle de chefes: Labirinto (Maze) dispensa salvaguarda inicial, Mente Vazia (Mind Blank) reforça a defesa e Clone (Clone) exige planejamento.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Mente Vazia (Mind Blank) ativa por 24h se houver espaço, e Proteção Arcana até 35. Clone (Clone) só funciona como contingência após amadurecer."
+    },
+    {
+      "label": "Abertura",
+      "text": "Labirinto (Maze) remove um chefe sem salvaguarda inicial. Se o alvo consegue escapar planarmente ou precisa ser atacado, prefira Lança Psíquica — LEGACY ou Muralha."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Enquanto o chefe está ausente, elimine ameaças remanescentes e preserve Concentração. Prepare o grupo para o retorno."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica/Proteção Projetada/Escudo. Resistência a Magias protege Victor."
+    }
+  ],
+  "priority": "Labirinto sem salvaguarda inicial → derrotar ameaças presentes → proteger a Concentração.",
+  "art_notice": "Máscara DOOM-ART-02E e banner DOOM-ART-05-V2 aprovados como arquivos; composição e recortes do Nível 18 aguardam GATE 8.",
+  "combat_context": {
+    "contra_chefe": "Labirinto força um teste de Investigação CD20 para escapar; Resistência Lendária não supera testes de habilidade por si.",
+    "contra_grupo": "Divida o encontro ou use controle sem sacrificar o posicionamento.",
+    "erro_evitar": "Labirinto e Muralha exigem Concentração; Clone não cria combatente e exige 120 dias."
+  }
+}

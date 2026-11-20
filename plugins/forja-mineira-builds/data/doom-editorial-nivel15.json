@@ -1,0 +1,55 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 15,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N15_PROPOSTA",
+  "phase": "Fase IV · O Domínio da Magia",
+  "kicker": "Nível 15 · Artífice (Artificer) 3 / Mago (Wizard) 12",
+  "title": "Uma Vontade Inabalável",
+  "intro": "O poder de Victor se torna menos vulnerável à magia que tenta dominar sua mente. Resiliente (Resilient) — Sabedoria fortalece suas salvaguardas, enquanto o grimório amplia suas possibilidades de influência e percepção.",
+  "feature_label": "Talento aprovado · Resiliente — Sabedoria",
+  "feature_title": "Resistência mental, sem bônus ilusórios",
+  "feature_detail": "O talento Resiliente (Resilient) — Sabedoria aumenta SAB de 10 para 11 e concede proficiência em salvaguardas de Sabedoria. O modificador de SAB permanece +0; com proficiência +5, a salvaguarda relevante passa a +5. Não concede proficiência em todas as salvaguardas.",
+  "ward_detail": "Proteção Arcana (Arcane Ward): 2 × Mago 12 + modificador de INT 5 = 29 PV máximos, separados dos 111 PV de Victor.",
+  "spell_notes": [
+    {
+      "pt": "Sugestão em Massa",
+      "note": "Inscrição proposta de 6º círculo: influência sobre múltiplos alvos elegíveis. Exige circunstâncias adequadas e não integra automaticamente as preparações padrão."
+    },
+    {
+      "pt": "Visão da Verdade",
+      "note": "Inscrição proposta de 6º círculo: investigação contra ilusões e ocultação, observando os limites e componentes da magia. Não está na preparação padrão."
+    }
+  ],
+  "prep_note": "Preparação padrão editorial v1.3: Sugestão em Massa (Mass Suggestion) substitui Riso Histérico de Tasha (Tasha’s Hideous Laughter); Lança Psíquica de Raulothim — LEGACY continua na vaga antiga de Teia (Web). Visão da Verdade (True Seeing) permanece no grimório para preparações específicas de investigação.",
+  "slot_note": "Os espaços compartilhados chegam ao 7º círculo, mas Mago 12 aprende magias de Mago apenas até o 6º círculo. Espaço superior não equivale a magia de círculo superior aprendida.",
+  "wishlist_note": "Cajado do Poder (Staff of Power) continua como prioridade anterior pendente. Nenhum bônus de CA, salvaguardas ou ataque mágico é aplicado enquanto o item não for efetivamente adquirido e sintonizado.",
+  "combat_title": "Como jogar Victor no nível 15 · Mente indomável / controle coletivo",
+  "combat_intro": "Resiliente (Resilient) — Sabedoria fortalece as salvaguardas; Sugestão em Massa (Mass Suggestion) assume o controle coletivo sem Concentração.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Resiliente (Resilient) — Sabedoria eleva SAB10→11 e salvaguarda SAB a +5. Mente preparada para investigar e Concentração protegida."
+    },
+    {
+      "label": "Abertura",
+      "text": "Sugestão em Massa (Mass Suggestion), se preparada, contra grupo que ouve e entende ordens viáveis; chefe com resistências: Lança Psíquica — LEGACY."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Evite atacar criaturas sob Sugestão em Massa; se sobreviverem outras ameaças, Muralha de Força ou outras magias cabíveis em turnos distintos."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica / Proteção Projetada / Escudo; Resiliente protege salvaguardas de SAB."
+    }
+  ],
+  "priority": "Resiliente para sobreviver → Sugestão em Massa contra grupos → Lança Psíquica (LEGACY) contra chefe.",
+  "approval_notice": "Talento de Sabedoria aprovado; progressão 15 e novas magias ainda são proposta no dossiê v1.2. Não autorizada publicação.",
+  "combat_context": {
+    "contra_chefe": "Lança, Muralha ou Desintegrar conforme resistência e oportunidade.",
+    "contra_grupo": "Sugestão em Massa pode retirar combatentes sem Concentração.",
+    "erro_evitar": "Visão da Verdade (True Seeing) fica no grimório e entra em preparação de missão; Sugestão em Massa substitui Riso Histérico de Tasha na preparação padrão."
+  }
+}

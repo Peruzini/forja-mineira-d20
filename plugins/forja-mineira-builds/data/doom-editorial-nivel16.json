@@ -1,0 +1,59 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 16,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_N16_PROPOSTA",
+  "phase": "Fase IV · O Domínio da Magia",
+  "kicker": "Nível 16 · Artífice (Artificer) 3 / Mago (Wizard) 13",
+  "title": "O Mestre das Grandes Obras",
+  "intro": "Victor abandona a escala local. Teletransporte (Teleport) muda a logística da campanha; Simulacro (Simulacrum) e Símbolo (Symbol) ampliam o arsenal para operações planejadas. O núcleo de combate continua dependente das magias efetivamente preparadas.",
+  "feature_label": "Novo acesso · magias de Mago de 7º círculo",
+  "feature_title": "Mobilidade estratégica, duplicação e defesas preparadas",
+  "feature_detail": "Mago 13 permite aprender e preparar magias de 7º círculo. Não há um talento de personagem novo neste nível; as novidades são três inscrições propostas no grimório, incluindo o bônus de especialista em Abjuração para Símbolo (Symbol).",
+  "ward_detail": "Proteção Arcana (Arcane Ward): 2 × Mago 13 + modificador de INT 5 = 31 PV máximos, independentes dos 118 PV do personagem. A barreira não recupera todos os PV automaticamente ao mudar de nível.",
+  "spell_notes": [
+    {
+      "pt": "Teletransporte",
+      "note": "Preparação regular proposta: deslocamento de longo alcance para viagens, fuga ou reposicionamento estratégico; resultados dependem das condições da magia."
+    },
+    {
+      "pt": "Simulacro",
+      "note": "Inscrição proposta de laboratório: criação custosa com tempo, componentes e limitações próprios. Não é ação padrão de combate nem aliado presumido disponível."
+    },
+    {
+      "pt": "Símbolo",
+      "note": "Inscrição adicional proposta do especialista em Abjuração: defesa planejada de local com tempo de conjuração, custo e gatilho definidos; não é armadilha espontânea sem preparo."
+    }
+  ],
+  "prep_note": "Teletransporte (Teleport) é ESSENCIAL e integra as 17 preparações regulares. Simulacro (Simulacrum) e Símbolo (Symbol) são opções de preparação antecipada e dependem dos requisitos das magias. Lança Psíquica — LEGACY e Sugestão em Massa permanecem preparadas; Contramágica e Dissipar Magia ficam sempre preparadas pela subclasse.",
+  "slot_note": "A multiclasse possui um espaço de 8º círculo, mas Mago 13 aprende magias de Mago até o 7º. Pode usar espaços superiores para conjurações permitidas, mas não aprender uma magia de 8º antecipadamente.",
+  "wishlist_note": "Cajado do Poder (Staff of Power) permanece objetivo pendente dos níveis anteriores. Não atribuir seus bônus de CA, salvaguardas ou ataques mágicos sem aquisição e sintonização confirmadas.",
+  "combat_title": "Como jogar Victor no nível 16 · Comandante estratégico / mobilidade",
+  "combat_intro": "Teletransporte (Teleport) é ESSENCIAL e permanece preparado; Simulacro (Simulacrum) e Símbolo (Symbol) dependem de preparação e recursos prévios.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Teletransporte (Teleport) ESSENCIAL preparado. Simulacro (Simulacrum) exige criação anterior com recursos/tempo; Símbolo (Symbol) é armadilha de fortaleza."
+    },
+    {
+      "label": "Abertura",
+      "text": "Contra chefe, Lança Psíquica — LEGACY ou Muralha de Força; não consuma espaço de 7º sem necessidade. Teletransporte como retirada se reunir criaturas voluntárias."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Simulacro pré-existente pode ajudar, sem recuperar seus recursos em Descansos. Victor utiliza controle e defesa; Teletransporte muda logística, não a abertura ofensiva."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica/Proteção Projetada/Escudo; se precisar escapar, Teletransporte na Ação quando condições e espaço permitirem."
+    }
+  ],
+  "priority": "Simulacro se criado previamente → controlar com magia disponível → Teletransporte como retirada estratégica.",
+  "approval_notice": "Nível total 16 em proposta de revisão do dossiê v1.2. Não liberado para publicação.",
+  "combat_context": {
+    "contra_chefe": "Use os controles existentes; Simulacro preparado aumenta opções, mas não é automático.",
+    "contra_grupo": "Sugestão em Massa e Muralha de Força, conforme missão.",
+    "erro_evitar": "Simulacro leva 12h e materiais; Símbolo exige instalação antecipada. Espaço 8º não significa aprendizado de magias 8º."
+  }
+}

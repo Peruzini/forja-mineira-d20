@@ -1,0 +1,138 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "source_document": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "nivel_total": 13,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "mecanica": {
+    "nivel_total": 13,
+    "artifice": 3,
+    "mago": 10,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "Quebra-Feitiços; truque Luz; proficiência +5",
+    "pv_fixos": 97,
+    "bonus_proficiencia": 5,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 20,
+      "SAB": 10,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 25,
+    "magias_mago_preparadas_regulares": 15,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Vidência",
+        "en": "Scrying",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 13,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      },
+      {
+        "pt": "Círculo Mágico",
+        "en": "Magic Circle",
+        "origem_aprendizado": "progressao_normal_mago",
+        "nivel_total_entrada": 13,
+        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+      }
+    ],
+    "total_magias_grimorio": 29,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1
+    ],
+    "caracteristicas_e_talentos": [
+      "Quebra-Feitiços (Spell Breaker)",
+      "Luz (Light) — novo truque"
+    ],
+    "wishlist_novas_prioridades": [
+      {
+        "pt": "Cajado do Poder",
+        "en": "Staff of Power",
+        "prioridade": "ESSENCIAL",
+        "aquisicao": "tesouro ou fabricação projetada",
+        "observacao": "+2 CA, salvaguardas e ataques mágicos; não CD",
+        "identificador": "staff_of_power",
+        "metodo_aquisicao_previsto": "tesouro ou fabricação projetada",
+        "estado_aquisicao": "NAO_CONFIRMADO",
+        "sintonizacao_exigida": true,
+        "estado_sintonizacao": "NAO_CONFIRMADA",
+        "aplicar_bonus_no_personagem_automaticamente": false,
+        "obtido_pelo_personagem": null,
+        "origem_catalogo_geral": true,
+        "categoria_de_estado": "WISHLIST_NAO_INVENTARIO"
+      }
+    ],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+      "Queda Suave (Feather Fall)",
+      "Vidência (Scrying)"
+    ],
+    "preparacao_alternativa_nota": "Vidência/Círculo Mágico por preparação de missão; Contramágica e Dissipar não contam nas 15 vagas.",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTO",
+      "magias_escolhidas": "PROPOSTAS",
+      "ficha_final": "PENDENTE_DE_HOMOLOGACAO"
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_mago": 10,
+      "nivel_total": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "texto_operacional": "Conferir versão oficial antes do card: Dissipar Magia como Ação Bônus e efeitos específicos ao encerrar magia; manter Reação para Contramágica.",
+      "estado": "CARACTERISTICA_OFICIAL_A_CONFERIR_NA_IMPLEMENTACAO",
+      "fonte": "Player’s Handbook 2024; dossiê v1.1",
+      "nivel_total_entrada": 13,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    },
+    "magias_sempre_preparadas_adicionais": [
+      "Contramágica (Counterspell)",
+      "Dissipar Magia (Dispel Magic)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 5,
+      "maior_circulo_de_espaco_compartilhado": 6,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-03C"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false,
+      "posicao_nivel_pendente_de_homologacao": true
+    }
+  },
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisão 2: preparada lista revisada",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

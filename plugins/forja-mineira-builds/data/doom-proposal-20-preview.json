@@ -1,0 +1,138 @@
+{
+  "schema": "forja-doom-level-proposal/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 20,
+  "status": "PROPOSTA_DISCUSSÃO_NÃO_HOMOLOGADA",
+  "publicacao_autorizada": false,
+  "source_status": "pendente",
+  "source_sha256": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
+  "mecanica": {
+    "nivel_total": 20,
+    "artifice": 3,
+    "mago": 17,
+    "status": "proposta_discutida_aguarda_consolidacao",
+    "marco": "PROPOSTA: domínio supremo da magia · Mago 17, magias de 9º círculo",
+    "pv_fixos": 146,
+    "bonus_proficiencia": 6,
+    "atributos": {
+      "FOR": 8,
+      "DES": 13,
+      "CON": 16,
+      "INT": 21,
+      "SAB": 11,
+      "CAR": 10
+    },
+    "protecao_arcana_maxima": 39,
+    "magias_mago_preparadas_regulares": 22,
+    "magias_grimorio_adicionadas": [
+      {
+        "pt": "Desejo",
+        "en": "Wish",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 9,
+        "escola": "Conjuração"
+      },
+      {
+        "pt": "Parar o Tempo",
+        "en": "Time Stop",
+        "origem_aprendizado": "mago_progressao",
+        "nivel_magia": 9,
+        "escola": "Transmutação"
+      },
+      {
+        "pt": "Muralha Prismática",
+        "en": "Prismatic Wall",
+        "origem_aprendizado": "abjuration_savant_inscricao_extra",
+        "nivel_magia": 9,
+        "escola": "Abjuração"
+      }
+    ],
+    "total_magias_grimorio": 47,
+    "espacos_magia_por_circulo": [
+      4,
+      3,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+    ],
+    "caracteristicas_e_talentos": [
+      "Mago (Wizard) 17: acesso a magias de 9º círculo; duas inscrições regulares e uma adicional de Abjuração (Abjuration Savant)."
+    ],
+    "wishlist_novas_prioridades": [],
+    "preparacao_padrao_mago": [
+      "Vigor Arcano (Arcane Vigor)",
+      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+      "Passo Nebuloso (Misty Step)",
+      "Imagem Espelhada (Mirror Image)",
+      "Voo (Fly)",
+      "Bola de Fogo (Fireball)",
+      "Lentidão (Slow)",
+      "Porta Dimensional (Dimension Door)",
+      "Banimento (Banishment)",
+      "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+      "Muralha de Força (Wall of Force)",
+      "Telecinese (Telekinesis)",
+      "Sugestão em Massa (Mass Suggestion)",
+      "Queda Suave (Feather Fall)",
+      "Globo de Invulnerabilidade (Globe of Invulnerability)",
+      "Desintegrar (Disintegrate)",
+      "Teletransporte (Teleport)",
+      "Labirinto (Maze)",
+      "Mente Vazia (Mind Blank)",
+      "Desejo (Wish)",
+      "Visão da Verdade (True Seeing)",
+      "Contingência (Contingency)"
+    ],
+    "circulos_de_magia": {
+      "maior_circulo_acessivel_com_magias_de_mago": 9,
+      "maior_circulo_de_espaco_compartilhado": null,
+      "observacao": "Acesso à magia aprendida por Mago não se confunde com espaços disponíveis pela multiclasse; verificar lista por classe."
+    },
+    "moldura_normativa_nao_build_final": {
+      "nivel_efetivo_conjurador": 19,
+      "maior_circulo_mago": 9,
+      "maior_circulo_de_espaco_compartilhado": 9,
+      "preparacoes_regulares_mago_previstas_na_tabela_2024": 22,
+      "magias_selecionadas": null,
+      "fonte": "https://www.dndbeyond.com/classes/2190886-wizard",
+      "estado": "NUMEROS_NORMATIVOS_SEM_DECISOES_DE_BUILD"
+    },
+    "estado_mecanica": "PREVIA_DE_PROPOSTA_NAO_CONSOLIDADA",
+    "classificacao_das_escolhas": {
+      "nivel": "PROPOSTA_NAO_HOMOLOGADA",
+      "magias_escolhidas": "PROPOSTA_NAO_HOMOLOGADA",
+      "itens_obtidos": "NAO_CONFIRMADOS",
+      "boon_nivel19": "APROVADO_COMO_ESCOLHA_FUTURA"
+    },
+    "arte_editorial": {
+      "identificadores": [
+        "DOOM-ART-02E"
+      ],
+      "imagem_nao_gera_poderes_mecanicos": true,
+      "preview_homologado": false
+    },
+    "quebra_feiticos_2024": {
+      "nome": "Quebra-Feitiços (Spell Breaker)",
+      "nivel_total_entrada": 13,
+      "sempre_preparadas": [
+        "Contramágica (Counterspell)",
+        "Dissipar Magia (Dispel Magic)"
+      ],
+      "ocupam_preparacoes_regulares": false,
+      "origem": "Abjurador 2024",
+      "publicacao_autorizada": false
+    }
+  },
+  "observacao_estado": "N20 era PENDENTE no documento v1.2; os números são derivados e as três magias são uma proposta de Executor Build. GATE8 e WordPress pendentes. Não publicar.",
+  "consolidacao_editorial": {
+    "bloco": "DOOM-FINAL-01",
+    "data": "2026-11-20",
+    "decisao_usuario": "Decisão 4: preparada lista revisada",
+    "publicacao_autorizada": false,
+    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+  }
+}

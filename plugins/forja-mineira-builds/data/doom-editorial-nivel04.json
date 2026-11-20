@@ -1,0 +1,45 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 4,
+  "publicacao_autorizada": false,
+  "ux_status": "PROPOSTA_AGUARDA_APROVACAO_NIVEL_4",
+  "phase": "Fase I · O Inventor",
+  "kicker": "Nível 4 · Artífice (Artificer) 3 / Mago (Wizard) 1",
+  "title": "O primeiro grimório de Victor",
+  "intro": "A armadura continua sendo sua defesa, mas agora Victor começa a registrar os próprios feitiços. O primeiro nível de Mago abre um repertório de controle, disfarce e investigação — ainda sem acesso a magias de 2º círculo.",
+  "arcane_recovery": "Recuperação Arcana (Arcane Recovery) recupera um espaço de 1º círculo uma vez por Descanso Longo após um Descanso Curto neste Mago 1; não concede preparação extra nem permite recuperar um espaço de 2º círculo nesta etapa.",
+  "ritual": "Adepto de Rituais (Ritual Adept) permite conjurar do grimório rituais de Mago como Encontrar Familiar (Find Familiar) e Alarme (Alarm), mesmo sem prepará-los regularmente, respeitando o tempo e os componentes necessários.",
+  "shared_slots": "Os espaços são compartilhados entre Artífice e Mago: 4 de 1º + 2 de 2º. Ainda não há magias de 2º círculo aprendidas ou preparadas por Mago. Espaços de 2º só podem aprimorar magias de círculo menor quando o texto delas permitir.",
+  "spellbook": "O grimório inicial contém seis magias de Mago do 1º círculo. As quatro magias preparadas são uma escolha própria da classe; os dois rituais abaixo não ocupam essas quatro vagas quando conjurados como rituais do grimório.",
+  "old_spell": "Riso Histérico de Tasha (Tasha’s Hideous Laughter) substitui Sono (Sleep) na decisão mecânica aprovada. Sono não entra no grimório.",
+  "source_separation": "Magias preparadas de Mago são separadas das quatro preparadas de Artífice, das duas sempre preparadas de Armeiro e de Escudo (Shield) recebido pelo talento de Origem.",
+  "casting_focus": "A Armadura Arcana (Arcane Armor) continua servindo de foco para magias de Artífice, não vira automaticamente foco para magias de Mago. Confira foco, componentes e mão livre na mesa.",
+  "item_note": "Grimório Duradouro (Enduring Spellbook) é apenas uma prioridade de tesouro projetado, de material Legacy. Não foi adquirido e não altera recursos neste nível.",
+  "combat_title": "Como jogar Victor no nível 4 · Abordagem híbrida / alvo único",
+  "combat_intro": "Victor ganha magia de Mago, mas ainda não aprende magias de Mago de 2º círculo. Sua melhor luta começa com informação e uma escolha clara entre controle individual e defesa da linha.",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Use Encontrar Familiar (Find Familiar) e Alarme (Alarm) para reconhecimento antes da iniciativa quando possível."
+    },
+    {
+      "label": "Abertura",
+      "text": "Riso Histérico de Tasha (Tasha's Hideous Laughter) contra alvo importante vulnerável a SAB; Graxa/Fogo das Fadas contra grupos."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Estilhaço Mental (Mind Sliver) cria oportunidade para uma salvaguarda futura; mantenha proteção de aliados com Pulso Trovejante."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Escudo (Shield) com atenção aos espaços de magia; não antecipe magias de Mago de círculo inacessível."
+    }
+  ],
+  "priority": "reconhecimento → Riso contra alvo valioso OU área contra grupo → truque/Pulso → Escudo defensivo.",
+  "combat_context": {
+    "contra_chefe": "Riso contra alvo isolado, sem acertá-lo desnecessariamente se o efeito depender disso.",
+    "contra_grupo": "Graxa ou Fogo das Fadas dependendo do posicionamento aliado.",
+    "erro_evitar": "Não há Teia aprendida antes do Nível 6."
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "forja-doom-level-editorial/1.0",
+  "build_id": "doutor-destino",
+  "nivel_total": 8,
+  "publicacao_autorizada": false,
+  "ux_status": "PREVIA_AGUARDA_APROVACAO_NIVEIS_8_9",
+  "phase": "Fase II · O Conhecimento Arcano",
+  "kicker": "Nível 8 · Artífice (Artificer) 3 / Mago (Wizard) 5",
+  "title": "A Magia Obedece ao Intelecto",
+  "intro": "Victor alcança o 3º círculo de magias de Mago e aprende a reorganizar seu repertório durante a jornada. Controle, mobilidade e dano em área passam a coexistir no mesmo grimório, sem perder a defesa do Abjurador.",
+  "feature_title": "Memorizar Magia (Memorize Spell)",
+  "feature_detail": "Após um Descanso Curto (Short Rest), Victor pode trocar uma magia preparada de Mago por outra do grimório, conforme as condições da característica. Não acrescenta preparações nem transforma uma magia não inscrita em conhecida.",
+  "ward_detail": "Proteção Arcana (Arcane Ward) chega a 14 PV máximos: duas vezes o nível de Mago 5 + INT +4. São pontos da barreira, não PV do personagem.",
+  "spell_intro": "Acesso efetivo às magias de Mago de 3º círculo; o espaço compartilhado de 4º círculo é apenas um espaço para conjuração potencialmente aprimorada, não acesso a magias novas de 4º círculo.",
+  "spell_notes": [
+    {
+      "pt": "Contramágica",
+      "note": "Nova inscrição adicional de Abjuração pela característica de subclasse; preparada na configuração padrão."
+    },
+    {
+      "pt": "Voo",
+      "note": "Mobilidade tridimensional; exige Concentração e compete com Teia (Web)."
+    },
+    {
+      "pt": "Bola de Fogo",
+      "note": "Dano em área quando o terreno favorece; não confundir potência com controle."
+    }
+  ],
+  "prep_note": "Nove magias preparadas de Mago. Listas de Artífice, Armeiro e talento de origem continuam separadas.",
+  "wishlist_note": "Armadura Segmentada (Splint Armor) segue compra pendente; Manto de Proteção (Cloak of Protection) e Botas Aladas (Winged Boots) também não foram concedidos.",
+  "combat_title": "Como jogar Victor no nível 8 · Comandante ofensivo / antimagia",
+  "combat_intro": "O 3º círculo de Mago permite alternar dano em área, Voo (Fly) e interrupção de conjuradores com Contramágica (Counterspell).",
+  "combat": [
+    {
+      "label": "Preparação",
+      "text": "Memorizar Magia (Memorize Spell) ajusta preparação após Descanso Curto; Imagem Espelhada antecipada quando possível."
+    },
+    {
+      "label": "Abertura",
+      "text": "Bola de Fogo (Fireball) em grupos sem aliados na área; Voo (Fly) para terreno vertical; Riso Histérico de Tasha contra poucos adversários-chave."
+    },
+    {
+      "label": "Turnos seguintes",
+      "text": "Raio de Fogo e Pulso Trovejante para economizar espaços. Bola de Fogo pode ser conjurada mantendo Voo, pois não exige Concentração."
+    },
+    {
+      "label": "Reação e defesa",
+      "text": "Contramágica (Counterspell) como Reação contra conjurações decisivas, disputando Reação com Escudo."
+    }
+  ],
+  "priority": "Escolher Bola de Fogo, Voo ou controle conforme o encontro → conservar espaços → Contramágica contra magias decisivas.",
+  "combat_context": {
+    "contra_chefe": "Tente interromper conjuradores; não extrapole cancelamento automático de Contramágica.",
+    "contra_grupo": "Bola de Fogo se dano em área supera valor do controle.",
+    "erro_evitar": "Sem Esculpir Magias (Sculpt Spells): Bola de Fogo ameaça aliados na área."
+  }
+}
