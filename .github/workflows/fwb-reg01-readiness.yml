@@ -6,6 +6,9 @@ on:
       - 'mcp/fwb-reg01/**'
       - 'mcp/fwb05-poc/chatgpt-plugin/**'
       - 'mcp/fwb05-poc/server.mjs'
+      - 'mcp/fwb05-poc/domain-challenge.mjs'
+      - 'mcp/fwb05-poc/app/.well-known/**'
+      - 'mcp/fwb05-poc/tests/domain-challenge.test.mjs'
       - '.github/workflows/fwb-reg01-readiness.yml'
   workflow_dispatch:
 
@@ -22,6 +25,6 @@ jobs:
         with:
           node-version: '22'
       - name: Run offline submission security tests
-        run: node --test mcp/fwb-reg01/readiness.test.mjs
+        run: node --test mcp/fwb-reg01/readiness.test.mjs mcp/fwb05-poc/tests/domain-challenge.test.mjs
       - name: Assert application is NOT cleared for public submission
         run: node mcp/fwb-reg01/readiness.mjs --assert-blocked

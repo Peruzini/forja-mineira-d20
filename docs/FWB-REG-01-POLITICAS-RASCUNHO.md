@@ -1,6 +1,6 @@
 # FWB-REG-01 — Políticas públicas: conteúdo preparatório NÃO PUBLICADO
 
-**Status:** rascunho interno para aprovação do proprietário e revisão de segurança/jurídica. Não usar URLs públicas inexistentes no \`plugin.json\`. Não declarar práticas de retenção que ainda não foram implementadas.
+**Status:** rascunho interno para aprovação do proprietário e revisão de segurança/jurídica. Não usar URLs públicas inexistentes no `plugin.json`. Não declarar práticas de retenção que ainda não foram implementadas.
 
 ## Política de privacidade — estrutura necessária
 
