@@ -1,0 +1,2408 @@
+--- a/forja-mineira-builds/assets/css/doom-stage2.css
++++ b/forja-mineira-builds/assets/css/doom-stage2.css
+@@ -12,3 +12,7 @@
+ .fmb-doom-stage2-section h2{color:#1d342b;font-size:26px;margin:0 0 8px}
+ .fmb-doom-stage2-section p:last-child{line-height:1.65;margin:0;max-width:700px}
+ @media(max-width:700px){.fmb-doom-stage2-header,.fmb-doom-stage2-section{padding:26px 22px}.fmb-doom-stage2-nav{padding:12px 20px}.fmb-doom-stage2-header h1{font-size:30px}}
++
++/* DOOM-FINAL-01: magias sempre preparadas, visíveis e distintas das vagas regulares. */
++.doom-always-prepared{margin:9px 0 13px;padding:10px 12px;border:1px solid #b7c7b5;border-left:3px solid #356a50;border-radius:8px;background:#eef2e8;color:#1f3629;font:13px/1.55 Arial,sans-serif}
++.doom-always-prepared strong{color:#173c28}.doom-always-prepared em{color:#37553f}
+--- a/forja-mineira-builds/data/doom-approved-v1.json
++++ b/forja-mineira-builds/data/doom-approved-v1.json
+@@ -4,7 +4,7 @@
+   "build_id": "doutor-destino",
+   "shortcode_previsto": "[forja_build nome=\"doutor-destino\"]",
+   "fonte_canonica_de_trabalho": "DOOM-BUILD-DADOS-PAGINA-v1.2.json",
+-  "fonte_versao": "1.2-E5-consolidada-auditoria",
++  "fonte_versao": "1.2-E5-consolidada-auditoria + DOOM-FINAL-01-2026-11-20",
+   "personagem": {
+     "nome": "Victor von Doom — Doutor Destino",
+     "continuidade": "Marvel Terra-616 clássica",
+@@ -66,7 +66,8 @@
+       "github": false,
+       "wordpress": false
+     },
+-    "observacao": "Dados prontos para leitura no teste; implementacao dos niveis no template continua bloqueada pelo fluxo de aprovacao."
++    "observacao": "Dados prontos para leitura no teste; implementacao dos niveis no template continua bloqueada pelo fluxo de aprovacao.",
++    "nota_revisao_nivel10": "Ajuste editorial aprovado em 20/11/2026; não representa publicação nem aceitação automática do material Legacy pelo Mestre."
+   },
+   "regras_mecanicas": {
+     "base": "PHB 2024 + Eberron Forge of the Artificer 2025; nao misturar Legacy sem marcar",
+@@ -2411,7 +2412,7 @@
+         "artifice": 3,
+         "mago": 7,
+         "status": "aprovado_consolidado_v1_0",
+-        "marco": "Fabricar e magias de 4º círculo",
++        "marco": "Lança Psíquica de Raulothim (Raulothim's Psychic Lance) — LEGACY; magias de 4º círculo",
+         "pv_fixos": 76,
+         "bonus_proficiencia": 4,
+         "atributos": {
+@@ -2426,10 +2427,13 @@
+         "magias_mago_preparadas_regulares": 11,
+         "magias_grimorio_adicionadas": [
+           {
+-            "pt": "Fabricar",
+-            "en": "Fabricate",
++            "pt": "Lança Psíquica de Raulothim",
++            "en": "Raulothim's Psychic Lance",
+             "origem_aprendizado": "progressao_normal_mago",
+-            "nivel_total_entrada": 10
++            "nivel_total_entrada": 10,
++            "legado": true,
++            "fonte_legacy": "Fizban's Treasury of Dragons (2021)",
++            "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_MESTRE"
+           },
+           {
+             "pt": "Porta Dimensional",
+@@ -2473,7 +2477,7 @@
+         ],
+         "preparacao_padrao_mago": [
+           "Vigor Arcano (Arcane Vigor)",
+-          "Teia (Web)",
++          "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+           "Passo Nebuloso (Misty Step)",
+           "Imagem Espelhada (Mirror Image)",
+           "Contramágica (Counterspell)",
+@@ -2484,7 +2488,7 @@
+           "Porta Dimensional (Dimension Door)",
+           "Banimento (Banishment)"
+         ],
+-        "preparacao_alternativa_nota": "",
++        "preparacao_alternativa_nota": "Lança Psíquica de Raulothim é Legacy (Fizban, 2021); somente disponível se o Mestre autorizar. Sem autorização, reavaliar a preparação de combate sem conceder a magia automaticamente.",
+         "caracteristicas_detalhadas": [],
+         "truques_adquiridos_no_nivel": [],
+         "truques_disponiveis_cumulativos": [
+@@ -2671,7 +2675,8 @@
+       "decisoes_de_layout": {
+         "tipo": "nivel_regular",
+         "aprovacao_ux_pendente": true
+-      }
++      },
++      "revisao_editorial_2026_11_20": "Decisão 1 aprovada: Raulothim no nível 10, substitui Fabricar, Legacy condicionada ao Mestre; Fabricar transferido ao nível 11."
+     }
+   ],
+   "proveniencia": {
+--- a/forja-mineira-builds/data/doom-combat-overlay-09-12-v1.3.json
++++ b/forja-mineira-builds/data/doom-combat-overlay-09-12-v1.3.json
+@@ -43,7 +43,8 @@
+         "Porta Dimensional (Dimension Door)",
+         "Banimento (Banishment)"
+       ],
+-      "preparacoes_regulares_previstas": 11
++      "preparacoes_regulares_previstas": 11,
++      "revisao_editorial_2026_11_20": "Decisão 1 (Legacy condicionada ao Mestre, rebase Fabricar)."
+     },
+     "11": {
+       "nivel_total": 11,
+@@ -54,7 +55,7 @@
+           "en": "Fabricate",
+           "origem_aprendizado": "progressao_normal_mago",
+           "nivel_total_entrada": 11,
+-          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA",
++          "status_escolha": "APROVADO_EDITORIAL_2026_11_20",
+           "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_QA"
+         },
+         {
+@@ -79,7 +80,8 @@
+         "Banimento (Banishment)",
+         "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)"
+       ],
+-      "preparacoes_regulares_previstas": 12
++      "preparacoes_regulares_previstas": 12,
++      "revisao_editorial_2026_11_20": "Decisão 1 (Legacy condicionada ao Mestre, rebase Fabricar)."
+     },
+     "12": {
+       "nivel_total": 12,
+--- a/forja-mineira-builds/data/doom-combat-overlay-13-16-v1.3.json
++++ b/forja-mineira-builds/data/doom-combat-overlay-13-16-v1.3.json
+@@ -7,8 +7,8 @@
+     "13": {
+       "nivel_total": 13,
+       "preparacoes_regulares_previstas": 15,
+-      "preparacoes_identificadas": 14,
+-      "preparacoes_pendentes": 1,
++      "preparacoes_identificadas": 15,
++      "preparacoes_pendentes": 0,
+       "preparacao_padrao_mago": [
+         "Vigor Arcano (Arcane Vigor)",
+         "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+@@ -23,7 +23,8 @@
+         "Muralha de Força (Wall of Force)",
+         "Telecinese (Telekinesis)",
+         "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+-        "Queda Suave (Feather Fall)"
++        "Queda Suave (Feather Fall)",
++        "Vidência (Scrying)"
+       ],
+       "magias_grimorio_adicionadas": [
+         {
+@@ -31,7 +32,7 @@
+           "en": "Scrying",
+           "origem_aprendizado": "progressao_normal_mago",
+           "nivel_total_entrada": 13,
+-          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++          "status_escolha": "APROVADO_PREPARACAO_2026_11_20"
+         },
+         {
+           "pt": "Círculo Mágico",
+@@ -41,7 +42,13 @@
+           "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "decisao_editorial_aprovada_em": "2026-11-20",
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "14": {
+       "nivel_total": 14,
+@@ -89,7 +96,12 @@
+           "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "15": {
+       "nivel_total": 15,
+@@ -130,7 +142,12 @@
+           "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "16": {
+       "nivel_total": 16,
+@@ -179,7 +196,13 @@
+           "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     }
+-  }
++  },
++  "revisao_editorial_2026_11_20": "DOOM-FINAL-01 — seleções consolidadas; Quebra-Feitiços propagado; publicação bloqueada."
+ }
+--- a/forja-mineira-builds/data/doom-combat-overlay-17-20-v1.3.json
++++ b/forja-mineira-builds/data/doom-combat-overlay-17-20-v1.3.json
+@@ -45,7 +45,12 @@
+           "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "18": {
+       "nivel_total": 18,
+@@ -96,13 +101,18 @@
+           "escola": "Abjuração"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "19": {
+       "nivel_total": 19,
+       "preparacoes_regulares_previstas": 21,
+-      "preparacoes_identificadas": 19,
+-      "preparacoes_pendentes": 2,
++      "preparacoes_identificadas": 21,
++      "preparacoes_pendentes": 0,
+       "preparacao_padrao_mago": [
+         "Vigor Arcano (Arcane Vigor)",
+         "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+@@ -122,7 +132,9 @@
+         "Desintegrar (Disintegrate)",
+         "Teletransporte (Teleport)",
+         "Labirinto (Maze)",
+-        "Mente Vazia (Mind Blank)"
++        "Mente Vazia (Mind Blank)",
++        "Visão da Verdade (True Seeing)",
++        "Contingência (Contingency)"
+       ],
+       "magias_grimorio_adicionadas": [
+         {
+@@ -140,13 +152,19 @@
+           "escola": "Conjuração"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "decisao_editorial_aprovada_em": "2026-11-20",
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     },
+     "20": {
+       "nivel_total": 20,
+       "preparacoes_regulares_previstas": 22,
+-      "preparacoes_identificadas": 20,
+-      "preparacoes_pendentes": 2,
++      "preparacoes_identificadas": 22,
++      "preparacoes_pendentes": 0,
+       "preparacao_padrao_mago": [
+         "Vigor Arcano (Arcane Vigor)",
+         "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+@@ -167,7 +185,9 @@
+         "Teletransporte (Teleport)",
+         "Labirinto (Maze)",
+         "Mente Vazia (Mind Blank)",
+-        "Desejo (Wish)"
++        "Desejo (Wish)",
++        "Visão da Verdade (True Seeing)",
++        "Contingência (Contingency)"
+       ],
+       "magias_grimorio_adicionadas": [
+         {
+@@ -192,7 +212,14 @@
+           "escola": "Abjuração"
+         }
+       ],
+-      "publicacao_autorizada": false
++      "publicacao_autorizada": false,
++      "decisao_editorial_aprovada_em": "2026-11-20",
++      "magias_sempre_preparadas_spell_breaker": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "sempre_preparadas_ocupam_preparacoes_regulares": false
+     }
+-  }
++  },
++  "revisao_editorial_2026_11_20": "DOOM-FINAL-01 — seleções consolidadas; Quebra-Feitiços propagado; publicação bloqueada."
+ }
+--- a/forja-mineira-builds/data/doom-editorial-nivel13.json
++++ b/forja-mineira-builds/data/doom-editorial-nivel13.json
+@@ -3,7 +3,7 @@
+   "build_id": "doutor-destino",
+   "nivel_total": 13,
+   "publicacao_autorizada": false,
+-  "ux_status": "PREVIA_N13_PROPOSTA",
++  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+   "fase": "Fase IV · O Quebra-Feitiços",
+   "kicker": "Nível 13 · Artífice (Artificer) 3 / Mago (Wizard) 10",
+   "title": "Quando a Magia Encontra seu Mestre",
+@@ -41,7 +41,7 @@
+     }
+   ],
+   "cantrip_note": "Novo truque obtido no nível 13; não ocupa as 15 preparações regulares de Mago.",
+-  "prep_note": "Quebra-Feitiços mantém Contramágica e Dissipar Magia sempre preparadas, fora das vagas regulares. Revisão v1.3: 14 magias preparadas identificadas; a 15ª vaga permanece PENDENTE, pois Olho Arcano foi adiado quando Fabricar entrou no nível 11. Não inventar uma magia.",
++  "prep_note": "DOOM-FINAL-01: 15/15 preparações regulares. Vidência (Scrying), já inscrita no grimório, ocupa a 15ª vaga. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) permanecem sempre preparadas por Quebra-Feitiços (Spell Breaker), sem consumir vagas regulares.",
+   "wishlist_note": "Cajado do Poder (Staff of Power) é objetivo muito raro e requer sintonização. Seus bônus de +2 só contam se o personagem realmente o adquirir e sintonizar; não aumentam a CD de magia.",
+   "combat_title": "Como jogar Victor no nível 13 · Antimago / Quebra-Feitiços",
+   "combat_intro": "Quebra-Feitiços (Spell Breaker) torna Victor um antimago: Dissipar Magia (Dispel Magic) e Contramágica (Counterspell) acompanham o controle. Lança Psíquica — LEGACY segue como ofensiva contra chefes.",
+@@ -70,5 +70,12 @@
+     "contra_chefe": "Lança Psíquica para pressão contra Resistências Lendárias; dissipe primeiro proteção realmente relevante.",
+     "contra_grupo": "Muralha de Força/Lentidão, sem perder o controle por tentar causar dano a todo custo.",
+     "erro_evitar": "Em 2024, não gaste segundo espaço no mesmo turno após Dissipar como Ação Bônus com espaço; use um truque. Olho Arcano adiado ainda aparece na preparação antiga — uma vaga pendente."
++  },
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisão 2: Vidência preparada no nível 13",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+   }
+ }
+--- a/forja-mineira-builds/data/doom-editorial-nivel19.json
++++ b/forja-mineira-builds/data/doom-editorial-nivel19.json
+@@ -3,7 +3,7 @@
+   "build_id": "doutor-destino",
+   "nivel_total": 19,
+   "publicacao_autorizada": false,
+-  "ux_status": "PREVIA_N19_PROPOSTA",
++  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+   "phase": "Fase V · O Poder do Soberano",
+   "kicker": "Nível 19 · Artífice (Artificer) 3 / Mago (Wizard) 16",
+   "title": "O Soberano Entre Dimensões",
+@@ -23,7 +23,7 @@
+       "note": "Conjuração, 8º círculo. Abre uma porta temporária para um espaço extradimensional; serve a projetos, esconderijo e logística. A porta dura 1 hora, e o conteúdo pode permanecer após seu fechamento."
+     }
+   ],
+-  "prep_note": "Revisão v1.3: 19 magias regulares de Mago identificadas + 2 vagas de preparação PENDENTES (limite 21). Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) são novas inscrições, mas não entram na preparação padrão sem decisão editorial. Lança Psíquica — LEGACY e Teletransporte — ESSENCIAL permanecem preparados.",
++  "prep_note": "DOOM-FINAL-01: 21/21 preparações regulares. Visão da Verdade (True Seeing) e Contingência (Contingency) entram na preparação padrão, pois já foram inscritas em níveis anteriores; não são novas inscrições no grimório. Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) continuam situacionais. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) são sempre preparadas por Quebra-Feitiços (Spell Breaker), fora das vagas regulares.",
+   "slot_note": "Multiclasse com nível de conjurador efetivo 18: 4/3/3/3/3/1/1/1/1. O terceiro espaço de 5º círculo é novo. A magia de Mago mais alta disponível segue sendo de 8º; o espaço de 9º não libera magias de Mago de 9º antes do Nível 20.",
+   "wishlist_note": "Objetivo ainda não adquirido; sem bônus na ficha. O Manto do Arquimago (Robe of the Archmagi) também permanece como objetivo futuro e depende de avaliação de compatibilidade com a armadura.",
+   "combat_title": "Como jogar Victor no nível 19 · Conjurador móvel / controle e fuga",
+@@ -52,5 +52,12 @@
+     "contra_chefe": "Labirinto + reposicionamento para isolamento; Lança + reposicionamento para pressão.",
+     "contra_grupo": "Sugestão em Massa e Muralha de Força.",
+     "erro_evitar": "Campo Antimagia (Antimagic Field) suprime a própria conjuração e efeitos mágicos; pode contrariar o teletransporte da Dádiva. Semiplano (Demiplane) é infraestrutura, não remoção automática de inimigos."
++  },
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisões 3/4: Visão da Verdade e Contingência no nível 19",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+   }
+ }
+--- a/forja-mineira-builds/data/doom-editorial-nivel20.json
++++ b/forja-mineira-builds/data/doom-editorial-nivel20.json
+@@ -3,7 +3,7 @@
+   "build_id": "doutor-destino",
+   "nivel_total": 20,
+   "publicacao_autorizada": false,
+-  "ux_status": "PREVIA_N20_PROPOSTA",
++  "ux_status": "PREVIA_EDITORIAL_APROVADA_GATE8_PENDENTE",
+   "phase": "Fase V · O Poder do Soberano",
+   "kicker": "Nível 20 · Artífice (Artificer) 3 / Mago (Wizard) 17",
+   "title": "O Soberano do Impossível",
+@@ -29,7 +29,7 @@
+       "note": "Muralha Prismática (Prismatic Wall) funciona como uma barreira de múltiplas camadas por 10 minutos, sem Concentração. É a inscrição extra proposta de Especialista em Abjuração (Abjuration Savant)."
+     }
+   ],
+-  "prep_note": "Revisão v1.3: 20 preparações de Mago identificadas + 2 vagas PENDENTES (limite 22). Desejo (Wish) está preparado; Parar o Tempo (Time Stop) e Muralha Prismática (Prismatic Wall) ficam como alternativas do grimório. Lança Psíquica — LEGACY e Teletransporte — ESSENCIAL permanecem preparados. Contramágica e Dissipar Magia são sempre preparadas à parte.",
++  "prep_note": "DOOM-FINAL-01: 22/22 preparações regulares. Visão da Verdade (True Seeing) e Contingência (Contingency) entram na preparação padrão, pois já foram inscritas em níveis anteriores; não são novas inscrições no grimório. Desejo (Wish) permanece preparado. Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) continuam situacionais. Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) são sempre preparadas por Quebra-Feitiços (Spell Breaker), fora das vagas regulares.",
+   "slot_note": "Conjurador multiclasse efetivo 19 (Mago 17 + Artífice 3 dividido por 2, arredondado para cima): 4/3/3/3/3/2/1/1/1. A nova vantagem é o segundo espaço de 6º círculo. Há apenas um espaço de 9º círculo por Descanso Longo, salvo outras regras específicas.",
+   "wishlist_note": "Tomo do Pensamento Claro (Tome of Clear Thought) e Manto do Arquimago (Robe of the Archmagi) continuam objetivos não adquiridos. A INT da ficha permanece 21 (mod. +5); a compatibilidade do Manto com a Armadura Arcana exige decisão de mesa.",
+   "combat_title": "Como jogar Victor no nível 20 · Arquimago supremo / reserva do 9º círculo",
+@@ -58,5 +58,12 @@
+     "contra_chefe": "Labirinto → vantagem posicional; Lança para pressionar; Desejo quando outra magia de até 8º decide.",
+     "contra_grupo": "Muralha Prismática para impedir avanço ou Sugestão em Massa.",
+     "erro_evitar": "Há somente um espaço de 9º círculo; Desejo, Parar o Tempo (Time Stop) e Muralha Prismática são alternativas, não três conjurações garantidas no mesmo dia."
++  },
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisões 3/4: Visão da Verdade e Contingência no nível 20",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+   }
+ }
+--- a/forja-mineira-builds/data/doom-proposal-11-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-11-preview.json
+@@ -26,11 +26,12 @@
+     "magias_mago_preparadas_regulares": 12,
+     "magias_grimorio_adicionadas": [
+       {
+-        "pt": "Olho Arcano",
+-        "en": "Arcane Eye",
++        "pt": "Fabricar",
++        "en": "Fabricate",
+         "origem_aprendizado": "progressao_normal_mago",
+         "nivel_total_entrada": 11,
+-        "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        "status_escolha": "APROVADO_EDITORIAL_2026_11_20",
++        "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_QA"
+       },
+       {
+         "pt": "Esfera Resiliente de Otiluke",
+@@ -71,7 +72,7 @@
+     ],
+     "preparacao_padrao_mago": [
+       "Vigor Arcano (Arcane Vigor)",
+-      "Teia (Web)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+       "Passo Nebuloso (Misty Step)",
+       "Imagem Espelhada (Mirror Image)",
+       "Contramágica (Counterspell)",
+@@ -102,5 +103,12 @@
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
+     }
++  },
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisão 1: preparada lista revisada",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+   }
+ }
+--- a/forja-mineira-builds/data/doom-proposal-13-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-13-preview.json
+@@ -73,7 +73,7 @@
+     ],
+     "preparacao_padrao_mago": [
+       "Vigor Arcano (Arcane Vigor)",
+-      "Teia (Web)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+       "Passo Nebuloso (Misty Step)",
+       "Imagem Espelhada (Mirror Image)",
+       "Voo (Fly)",
+@@ -86,7 +86,7 @@
+       "Telecinese (Telekinesis)",
+       "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
+       "Queda Suave (Feather Fall)",
+-      "Olho Arcano (Arcane Eye)"
++      "Vidência (Scrying)"
+     ],
+     "preparacao_alternativa_nota": "Vidência/Círculo Mágico por preparação de missão; Contramágica e Dissipar não contam nas 15 vagas.",
+     "classificacao_das_escolhas": {
+@@ -105,7 +105,10 @@
+       "ocupam_preparacoes_regulares": false,
+       "texto_operacional": "Conferir versão oficial antes do card: Dissipar Magia como Ação Bônus e efeitos específicos ao encerrar magia; manter Reação para Contramágica.",
+       "estado": "CARACTERISTICA_OFICIAL_A_CONFERIR_NA_IMPLEMENTACAO",
+-      "fonte": "Player’s Handbook 2024; dossiê v1.1"
++      "fonte": "Player’s Handbook 2024; dossiê v1.1",
++      "nivel_total_entrada": 13,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     },
+     "magias_sempre_preparadas_adicionais": [
+       "Contramágica (Counterspell)",
+@@ -124,5 +127,12 @@
+       "preview_homologado": false,
+       "posicao_nivel_pendente_de_homologacao": true
+     }
++  },
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisão 2: preparada lista revisada",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
+   }
+ }
+--- a/forja-mineira-builds/data/doom-proposal-14-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-14-preview.json
+@@ -98,6 +98,18 @@
+       ],
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+-  }
++  },
++  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+ }
+--- a/forja-mineira-builds/data/doom-proposal-15-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-15-preview.json
+@@ -93,7 +93,19 @@
+       ],
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "Resiliente (Resilient) — Sabedoria foi aprovado; magias e ficha nível 15 seguem propostas."
++  "observacao_estado": "Resiliente (Resilient) — Sabedoria foi aprovado; magias e ficha nível 15 seguem propostas.",
++  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+ }
+--- a/forja-mineira-builds/data/doom-proposal-16-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-16-preview.json
+@@ -99,7 +99,19 @@
+       ],
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "Nível 16 em proposta; progressão normal e bônus de Abjuração sujeitos à homologação."
++  "observacao_estado": "Nível 16 em proposta; progressão normal e bônus de Abjuração sujeitos à homologação.",
++  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+ }
+--- a/forja-mineira-builds/data/doom-proposal-17-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-17-preview.json
+@@ -135,7 +135,19 @@
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false,
+       "posicao_nivel_pendente_de_homologacao": true
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "Resistência a Magias conferida contra 2024; escolhas e alocação de arte ainda em revisão."
++  "observacao_estado": "Resistência a Magias conferida contra 2024; escolhas e alocação de arte ainda em revisão.",
++  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+ }
+--- a/forja-mineira-builds/data/doom-proposal-18-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-18-preview.json
+@@ -112,7 +112,19 @@
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false,
+       "posicao_nivel_pendente_de_homologacao": true
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "Dados de nível 18 ausentes da base v1.2. Proposta derivada e limitada ao modo de revisão. Requer aprovação explícita."
++  "observacao_estado": "Dados de nível 18 ausentes da base v1.2. Proposta derivada e limitada ao modo de revisão. Requer aprovação explícita.",
++  "rastreabilidade_spellbreaker_2026_11_20": "Marca propagada a todos os níveis 13–20, não altera número de preparações regulares."
+ }
+--- a/forja-mineira-builds/data/doom-proposal-19-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-19-preview.json
+@@ -58,7 +58,7 @@
+     "wishlist_novas_prioridades": [],
+     "preparacao_padrao_mago": [
+       "Vigor Arcano (Arcane Vigor)",
+-      "Teia (Web)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+       "Passo Nebuloso (Misty Step)",
+       "Imagem Espelhada (Mirror Image)",
+       "Voo (Fly)",
+@@ -69,15 +69,15 @@
+       "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+       "Muralha de Força (Wall of Force)",
+       "Telecinese (Telekinesis)",
+-      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++      "Sugestão em Massa (Mass Suggestion)",
+       "Queda Suave (Feather Fall)",
+       "Globo de Invulnerabilidade (Globe of Invulnerability)",
+       "Desintegrar (Disintegrate)",
+       "Teletransporte (Teleport)",
+       "Labirinto (Maze)",
+       "Mente Vazia (Mind Blank)",
+-      "Campo Antimagia (Antimagic Field)",
+-      "Semiplano (Demiplane)"
++      "Visão da Verdade (True Seeing)",
++      "Contingência (Contingency)"
+     ],
+     "circulos_de_magia": {
+       "maior_circulo_acessivel_com_magias_de_mago": 8,
+@@ -109,7 +109,25 @@
+       ],
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "Dádiva aprovada COMO ESCOLHA FUTURA; demais números deriváveis, novas magias e preparação são proposta do Executor. Sem promoção automática."
++  "observacao_estado": "Dádiva aprovada COMO ESCOLHA FUTURA; demais números deriváveis, novas magias e preparação são proposta do Executor. Sem promoção automática.",
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisão 3: preparada lista revisada",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
++  }
+ }
+--- a/forja-mineira-builds/data/doom-proposal-20-preview.json
++++ b/forja-mineira-builds/data/doom-proposal-20-preview.json
+@@ -65,7 +65,7 @@
+     "wishlist_novas_prioridades": [],
+     "preparacao_padrao_mago": [
+       "Vigor Arcano (Arcane Vigor)",
+-      "Teia (Web)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
+       "Passo Nebuloso (Misty Step)",
+       "Imagem Espelhada (Mirror Image)",
+       "Voo (Fly)",
+@@ -76,16 +76,16 @@
+       "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
+       "Muralha de Força (Wall of Force)",
+       "Telecinese (Telekinesis)",
+-      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++      "Sugestão em Massa (Mass Suggestion)",
+       "Queda Suave (Feather Fall)",
+       "Globo de Invulnerabilidade (Globe of Invulnerability)",
+       "Desintegrar (Disintegrate)",
+       "Teletransporte (Teleport)",
+       "Labirinto (Maze)",
+       "Mente Vazia (Mind Blank)",
+-      "Campo Antimagia (Antimagic Field)",
+-      "Semiplano (Demiplane)",
+-      "Desejo (Wish)"
++      "Desejo (Wish)",
++      "Visão da Verdade (True Seeing)",
++      "Contingência (Contingency)"
+     ],
+     "circulos_de_magia": {
+       "maior_circulo_acessivel_com_magias_de_mago": 9,
+@@ -114,7 +114,25 @@
+       ],
+       "imagem_nao_gera_poderes_mecanicos": true,
+       "preview_homologado": false
++    },
++    "quebra_feiticos_2024": {
++      "nome": "Quebra-Feitiços (Spell Breaker)",
++      "nivel_total_entrada": 13,
++      "sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "ocupam_preparacoes_regulares": false,
++      "origem": "Abjurador 2024",
++      "publicacao_autorizada": false
+     }
+   },
+-  "observacao_estado": "N20 era PENDENTE no documento v1.2; os números são derivados e as três magias são uma proposta de Executor Build. GATE8 e WordPress pendentes. Não publicar."
++  "observacao_estado": "N20 era PENDENTE no documento v1.2; os números são derivados e as três magias são uma proposta de Executor Build. GATE8 e WordPress pendentes. Não publicar.",
++  "consolidacao_editorial": {
++    "bloco": "DOOM-FINAL-01",
++    "data": "2026-11-20",
++    "decisao_usuario": "Decisão 4: preparada lista revisada",
++    "publicacao_autorizada": false,
++    "status": "ESCOLHAS_EDITORIAIS_APROVADAS_QA_GATE8_PENDENTE"
++  }
+ }
+--- a/forja-mineira-builds/documentacao/DOOM-BUILD-COMBATE-EDITORIAL-v1.4.json
++++ b/forja-mineira-builds/documentacao/DOOM-BUILD-COMBATE-EDITORIAL-v1.4.json
+@@ -0,0 +1,1517 @@
++{
++  "schema": "forja-doom-combat-editorial/1.4",
++  "document_id": "DOOM-BUILD-COMBATE-EDITORIAL-v1.4",
++  "data_consolidacao": "2026-11-20",
++  "natureza": "CONSOLIDACAO_TECNICA_DE_DECISOES_EDITORIAIS; SEM_PUBLICACAO",
++  "projeto": "Forja Mineira D20",
++  "build": "Doutor Destino (Doctor Doom)",
++  "escopo_niveis": "1-20",
++  "publicacao_autorizada": false,
++  "substitui_canon_v1_2": false,
++  "fontes_originais_sha256": {
++    "DOOM-BUILD-DADOS-PAGINA-v1.2.json": "5d605c147970f2951d3c54f77f5e7d868e5c715b0d580d40030547ea0b68ebc7",
++    "GUIA-COMBATE-DOOM-01-10-v1.md": "63ac644a9530262b6835ce3773c512825c3aa803881198d4019aaea20f7bf9fb",
++    "forja-doom-nivel-20-TESTE.zip": "1c86ac8cb039b27fc76d6f3fbc162699cd9e03a19c42fb25f94375cb5647ec2c"
++  },
++  "origem_decisoes": "Conversas de revisão tática com aprovação sequencial dos níveis 6–20 e ajustes explícitos 10/11; manual tático anterior para 1–5; propostas E4/E6 e v1.2 para os atributos.",
++  "regras_editoriais": {
++    "nomes": "portugues + ingles original",
++    "legacy": "Lança Psíquica de Raulothim (Raulothim's Psychic Lance) = Legacy; Fizban 2021; autorizacao_Mestre_pendente",
++    "itens": "Wishlist sem aquisicao automatica",
++    "nivel_10_legacy": true
++  },
++  "alteracoes_acumuladas": {
++    "nivel_10_inscricao": [
++      "Fabricar (Fabricate)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance) — Legacy"
++    ],
++    "nivel_11_inscricao": [
++      "Olho Arcano (Arcane Eye)",
++      "Fabricar (Fabricate)"
++    ],
++    "preparacao_desde_10": [
++      "Teia (Web)",
++      "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)"
++    ],
++    "preparacao_desde_15": [
++      "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++      "Sugestão em Massa (Mass Suggestion)"
++    ],
++    "nivel_16_teleport": "ESSENCIAL preparado",
++    "nivel_19_dadiva": "Dádiva de Viagem Dimensional +1 INT, mod permanece +5"
++  },
++  "alertas_normativos": [
++    {
++      "id": "P01",
++      "escopo": "Nível 10",
++      "descricao": "Rebase aplicado no candidato de revisão: Lança Psíquica (Legacy) no nível total 10; uso ainda condicionado ao aval do Mestre, sem publicação.",
++      "estado": "FECHADO_EDITORIALMENTE_COM_CONDICAO_LEGACY"
++    },
++    {
++      "id": "P02",
++      "escopo": "Nível 11",
++      "descricao": "Rebase aplicado no candidato: Fabricar no nível 11, Olho Arcano adiado; nível 13 completado com Vidência em 20/11/2026.",
++      "estado": "RESOLVIDO_EM_REVISAO"
++    },
++    {
++      "id": "P03",
++      "escopo": "Níveis 13+",
++      "descricao": "Quebra-Feitiços: Contramágica/Dissipar Magia sempre preparadas, fora das vagas; limites da Ação Bônus e da regra de um espaço/turno precisam de QA final."
++    },
++    {
++      "id": "P04",
++      "escopo": "Níveis 11–20",
++      "descricao": "Aumento INT20 no Nível 11 foi simulado; fechar homologação mecânica do conjunto, apesar da aprovação editorial do roteiro."
++    },
++    {
++      "id": "P05",
++      "escopo": "Níveis 18–20",
++      "descricao": "No JSON v1.2 são PENDENTES; dados só existem nas propostas isoladas do pacote de teste. Esta versão registra sua origem."
++    },
++    {
++      "id": "P06",
++      "escopo": "Níveis 19–20",
++      "descricao": "Vagas de preparação nos níveis 19 e 20 preenchidas editorialmente por Visão da Verdade e Contingência; Campo Antimagia/Semiplano permanecem situacionais no grimório.",
++      "estado": "RESOLVIDO_EM_REVISAO"
++    },
++    {
++      "id": "P07",
++      "escopo": "Geral",
++      "descricao": "Itens da Wishlist não são inventário; armadura, escudos mágicos e Manto do Arquimago dependem de obtenção, compatibilidade e sintonização."
++    },
++    {
++      "id": "P08",
++      "escopo": "Geral",
++      "descricao": "Validar edições PHB 2024, Artífice 2025, componentes, escolas, alcance e exceções antes de publicação; Legacy tem regra e aprovação próprias."
++    },
++    {
++      "id": "P09",
++      "escopo": "Geral",
++      "descricao": "Táticas foram discutidas/aceitas nível a nível; isso não substitui validação WordPress, GATE 8, aprovação de produção nem auditoria independente."
++    },
++    {
++      "id": "P10",
++      "escopo": "Níveis 1–5",
++      "descricao": "Roteiros seguem o manual anterior, pois a rodada individual de revisão detalhou sobretudo os níveis 6–20."
++    },
++    {
++      "id": "P11",
++      "escopo": "Nível 18",
++      "descricao": "Mente Vazia e Labirinto exigem dois espaços de 8º ou superior caso ambos sejam usados no mesmo dia; sem uso infinito."
++    },
++    {
++      "id": "P12",
++      "escopo": "Nível 20",
++      "descricao": "Um espaço de 9º círculo; Desejo, Parar o Tempo e Muralha Prismática não são conjurações cumulativas por padrão."
++    }
++  ],
++  "niveis": [
++    {
++      "nivel_total": 1,
++      "artifice": 1,
++      "mago": 0,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "BASE_TATICA_PREEXISTENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Inventor e controlador básico",
++      "como_jogar_4_passos": {
++        "1_antes": "Escolha cobertura e um gargalo; tenha as ferramentas adequadas. Não presuma armadura mágica neste nível.",
++        "2_abertura": "Use Graxa (Grease) para conter aproximações ou Raio de Fogo (Fire Bolt) se não houver passagem útil.",
++        "3_continuacao": "Economize os dois espaços de 1º círculo, ataque de cobertura e use Curar Ferimentos (Cure Wounds) apenas quando necessário.",
++        "4_reacao_defesa": "Reserve Escudo (Shield) para evitar um acerto importante; o uso gratuito de Iniciado em Magia tem limite por Descanso Longo."
++      },
++      "contra_chefe": "Ataque à distância de cobertura e preserve Escudo; não espere controle garantido sobre chefe.",
++      "contra_grupo": "Graxa num gargalo; Raio de Fogo nos alvos expostos.",
++      "limites_e_erros": "Sem Armadura Arcana, Proteção Arcana ou réplicas de item mágico.",
++      "pv_referencia": 11,
++      "bonus_proficiencia": 2,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": null,
++      "magias_grimorio_adicionadas_overlay": [],
++      "magias_preparadas_mago_confirmadas_editorialmente": null,
++      "preparacoes_regulares_previstas": null,
++      "preparacoes_identificadas": null,
++      "preparacoes_pendentes": null,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 2,
++      "artifice": 2,
++      "mago": 0,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "BASE_TATICA_PREEXISTENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Suporte ofensivo",
++      "como_jogar_4_passos": {
++        "1_antes": "Confirme as duas réplicas efetivamente produzidas após o Descanso Longo: Escudo +1 (Shield +1) e Bolsa de Carga (Bag of Holding) são o plano-padrão, não posses automáticas.",
++        "2_abertura": "Contra alvos agrupados, Fogo das Fadas (Faerie Fire) pode dar Vantagem ao grupo; contra corredores, prefira Graxa (Grease).",
++        "3_continuacao": "Mantenha Concentração em Fogo das Fadas se a equipe estiver aproveitando; use Raio de Fogo para poupar espaços.",
++        "4_reacao_defesa": "Escudo (Shield) protege Victor; não confundir o item Escudo +1 com a magia."
++      },
++      "contra_chefe": "Fogo das Fadas quando o chefe pode falhar e os aliados aproveitarão os ataques.",
++      "contra_grupo": "Fogo das Fadas em grupo exposto ou Graxa em passagem.",
++      "limites_e_erros": "Somente duas réplicas ativas; itens não obtidos não fornecem bônus.",
++      "pv_referencia": 19,
++      "bonus_proficiencia": 2,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": null,
++      "magias_grimorio_adicionadas_overlay": [],
++      "magias_preparadas_mago_confirmadas_editorialmente": null,
++      "preparacoes_regulares_previstas": null,
++      "preparacoes_identificadas": null,
++      "preparacoes_pendentes": null,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 3,
++      "artifice": 3,
++      "mago": 0,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "BASE_TATICA_PREEXISTENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Guardião blindado",
++      "como_jogar_4_passos": {
++        "1_antes": "Configure Armadura Arcana (Arcane Armor) como Guardião (Guardian). Outros modelos são alternativas, não poderes simultâneos.",
++        "2_abertura": "Acerte Pulso Trovejante (Thunder Pulse) para prejudicar ataques contra aliados; se inimigos estão distantes, abra com Fogo das Fadas.",
++        "3_continuacao": "Mantenha pressão nos atacantes dos aliados; use Onda Trovejante (Thunderwave) para abrir espaço com cuidado de posicionamento.",
++        "4_reacao_defesa": "Escudo (Shield); Campo Defensivo (Defensive Field) apenas na condição Sangrando (Bloodied), conforme baseline."
++      },
++      "contra_chefe": "Pulso Trovejante protege o grupo quando acerta; Victor não tem Ataque Extra.",
++      "contra_grupo": "Controle a aproximação antes de entrar em alcance corpo a corpo.",
++      "limites_e_erros": "Pulso Trovejante só aplica o prejuízo em ataques de alvo atingido.",
++      "pv_referencia": 27,
++      "bonus_proficiencia": 2,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": null,
++      "magias_grimorio_adicionadas_overlay": [],
++      "magias_preparadas_mago_confirmadas_editorialmente": null,
++      "preparacoes_regulares_previstas": null,
++      "preparacoes_identificadas": null,
++      "preparacoes_pendentes": null,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        3
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 4,
++      "artifice": 3,
++      "mago": 1,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "BASE_TATICA_PREEXISTENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Abordagem híbrida / alvo único",
++      "como_jogar_4_passos": {
++        "1_antes": "Use Encontrar Familiar (Find Familiar) e Alarme (Alarm) para reconhecimento antes da iniciativa quando possível.",
++        "2_abertura": "Riso Histérico de Tasha (Tasha's Hideous Laughter) contra alvo importante vulnerável a SAB; Graxa/Fogo das Fadas contra grupos.",
++        "3_continuacao": "Estilhaço Mental (Mind Sliver) cria oportunidade para uma salvaguarda futura; mantenha proteção de aliados com Pulso Trovejante.",
++        "4_reacao_defesa": "Escudo (Shield) com atenção aos espaços de magia; não antecipe magias de Mago de círculo inacessível."
++      },
++      "contra_chefe": "Riso contra alvo isolado, sem acertá-lo desnecessariamente se o efeito depender disso.",
++      "contra_grupo": "Graxa ou Fogo das Fadas dependendo do posicionamento aliado.",
++      "limites_e_erros": "Não há Teia aprendida antes do Nível 6.",
++      "pv_referencia": 34,
++      "bonus_proficiencia": 2,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": null,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Encontrar Familiar",
++          "en": "Find Familiar",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        },
++        {
++          "pt": "Alarme",
++          "en": "Alarm",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        },
++        {
++          "pt": "Queda Suave",
++          "en": "Feather Fall",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        },
++        {
++          "pt": "Névoa Obscurecente",
++          "en": "Fog Cloud",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        },
++        {
++          "pt": "Riso Histérico de Tasha",
++          "en": "Tasha’s Hideous Laughter",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        },
++        {
++          "pt": "Disfarçar-se",
++          "en": "Disguise Self",
++          "origem_aprendizado": "grimorio_inicial_mago",
++          "nivel_total_entrada": 4
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Névoa Obscurecente (Fog Cloud)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Disfarçar-se (Disguise Self)"
++      ],
++      "preparacoes_regulares_previstas": 4,
++      "preparacoes_identificadas": 4,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 5,
++      "artifice": 3,
++      "mago": 2,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "BASE_TATICA_PREEXISTENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Guardião com truques aprimorados",
++      "como_jogar_4_passos": {
++        "1_antes": "Prepare rotas, familiar e Passos Longos (Longstrider) se o encontro for previsível.",
++        "2_abertura": "Controle pontual com Riso/Graxa, ou Raio de Fogo (Fire Bolt) 2d10 para economizar recursos.",
++        "3_continuacao": "Faça pressão sustentável com truques; use Pulso Trovejante quando o corpo a corpo ameaçar aliados.",
++        "4_reacao_defesa": "Escudo (Shield) e movimento entre coberturas, sem supor Ataque Extra."
++      },
++      "contra_chefe": "Evite gastar espaços apenas por dano marginal; abra com controle se a salvaguarda for favorável.",
++      "contra_grupo": "Controle de passagem e ataques à distância.",
++      "limites_e_erros": "Escala dos truques depende do nível total; armas da armadura não escalam da mesma forma.",
++      "pv_referencia": 41,
++      "bonus_proficiencia": 3,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": null,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Passos Longos",
++          "en": "Longstrider",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 5
++        },
++        {
++          "pt": "Compreender Idiomas",
++          "en": "Comprehend Languages",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 5
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Névoa Obscurecente (Fog Cloud)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Disfarçar-se (Disguise Self)",
++        "Passos Longos (Longstrider)"
++      ],
++      "preparacoes_regulares_previstas": 5,
++      "preparacoes_identificadas": 5,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 6,
++      "artifice": 3,
++      "mago": 3,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Controlador seletivo e Abjurador",
++      "como_jogar_4_passos": {
++        "1_antes": "Crie Proteção Arcana (Arcane Ward) com Abjuração e espaço se a situação permitir; máximo 9 PV de barreira.",
++        "2_abertura": "Priorize Riso Histérico de Tasha (Tasha's Hideous Laughter) com espaço de 3º contra até três ameaças ou Fogo das Fadas para apoiar o grupo. Teia (Web) só em gargalos.",
++        "3_continuacao": "Preserve Concentração; Raio de Fogo (Fire Bolt) contra inimigos livres e Pulso Trovejante para defender aliados. Evite causar dano nos alvos sob Riso se isso comprometer o controle.",
++        "4_reacao_defesa": "Escudo (Shield), Passo Nebuloso (Misty Step) para fuga e Vigor Arcano (Arcane Vigor) quando a recuperação valer o espaço."
++      },
++      "contra_chefe": "Riso contra alvos vulneráveis a SAB; não dependa de uma única falha.",
++      "contra_grupo": "Riso aprimorado ou Fogo das Fadas, conforme salvaguardas e alcance.",
++      "limites_e_erros": "Riso, Fogo das Fadas e Teia disputam Concentração. Teia não é abertura padrão.",
++      "pv_referencia": 48,
++      "bonus_proficiencia": 3,
++      "inteligencia": 17,
++      "protecao_arcana_maxima": 9,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Teia",
++          "en": "Web",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 6
++        },
++        {
++          "pt": "Passo Nebuloso",
++          "en": "Misty Step",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 6
++        },
++        {
++          "pt": "Vigor Arcano",
++          "en": "Arcane Vigor",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 6
++        },
++        {
++          "pt": "Proteção contra o Bem e o Mal",
++          "en": "Protection from Evil and Good",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 6
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Passos Longos (Longstrider)",
++        "Teia (Web)",
++        "Passo Nebuloso (Misty Step)",
++        "Vigor Arcano (Arcane Vigor)"
++      ],
++      "preparacoes_regulares_previstas": 6,
++      "preparacoes_identificadas": 6,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 7,
++      "artifice": 3,
++      "mago": 4,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Fortaleza arcana / Concentração reforçada",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 12 PV; Imagem Espelhada (Mirror Image) sem Concentração se houver tempo de conjuração.",
++        "2_abertura": "Contra ameaças prioritárias: Riso Histérico de Tasha com espaço superior; contra fogo concentrado em Victor, Imagem Espelhada. Fogo das Fadas para apoio ofensivo.",
++        "3_continuacao": "Pulso Trovejante (Thunder Pulse) marca agressores; Raio de Fogo à distância. Conjurador de Guerra (War Caster) sustenta Concentração.",
++        "4_reacao_defesa": "Imagem Espelhada pode desviar ataques sem Reação. Escudo (Shield) e magia de oportunidade de Conjurador de Guerra exigem seus próprios gatilhos."
++      },
++      "contra_chefe": "Resista na linha sem transformar Teia em solução automática.",
++      "contra_grupo": "Controle seletivo; conserve Concentração e use armadura para proteger vulneráveis.",
++      "limites_e_erros": "Vantagem de Conjurador de Guerra vale para salvar Concentração, não para todas as salvaguardas de CON.",
++      "pv_referencia": 55,
++      "bonus_proficiencia": 3,
++      "inteligencia": 18,
++      "protecao_arcana_maxima": 12,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Imagem Espelhada",
++          "en": "Mirror Image",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 7
++        },
++        {
++          "pt": "Sugestão",
++          "en": "Suggestion",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 7
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Passos Longos (Longstrider)",
++        "Teia (Web)",
++        "Passo Nebuloso (Misty Step)",
++        "Vigor Arcano (Arcane Vigor)",
++        "Imagem Espelhada (Mirror Image)"
++      ],
++      "preparacoes_regulares_previstas": 7,
++      "preparacoes_identificadas": 7,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 8,
++      "artifice": 3,
++      "mago": 5,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Comandante ofensivo / antimagia",
++      "como_jogar_4_passos": {
++        "1_antes": "Memorizar Magia (Memorize Spell) ajusta preparação após Descanso Curto; Imagem Espelhada antecipada quando possível.",
++        "2_abertura": "Bola de Fogo (Fireball) em grupos sem aliados na área; Voo (Fly) para terreno vertical; Riso Histérico de Tasha contra poucos adversários-chave.",
++        "3_continuacao": "Raio de Fogo e Pulso Trovejante para economizar espaços. Bola de Fogo pode ser conjurada mantendo Voo, pois não exige Concentração.",
++        "4_reacao_defesa": "Contramágica (Counterspell) como Reação contra conjurações decisivas, disputando Reação com Escudo."
++      },
++      "contra_chefe": "Tente interromper conjuradores; não extrapole cancelamento automático de Contramágica.",
++      "contra_grupo": "Bola de Fogo se dano em área supera valor do controle.",
++      "limites_e_erros": "Sem Esculpir Magias (Sculpt Spells): Bola de Fogo ameaça aliados na área.",
++      "pv_referencia": 62,
++      "bonus_proficiencia": 3,
++      "inteligencia": 18,
++      "protecao_arcana_maxima": 14,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Contramágica",
++          "en": "Counterspell",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 8
++        },
++        {
++          "pt": "Voo",
++          "en": "Fly",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 8
++        },
++        {
++          "pt": "Bola de Fogo",
++          "en": "Fireball",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 8
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Teia (Web)",
++        "Passo Nebuloso (Misty Step)",
++        "Vigor Arcano (Arcane Vigor)",
++        "Imagem Espelhada (Mirror Image)",
++        "Contramágica (Counterspell)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)"
++      ],
++      "preparacoes_regulares_previstas": 9,
++      "preparacoes_identificadas": 9,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 9,
++      "artifice": 3,
++      "mago": 6,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Controlador / Protetor",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 16 PV; posicione-se para ver os aliados prioritários a até 9 m.",
++        "2_abertura": "Lentidão (Slow) contra até seis inimigos perigosos; Teia somente quando gargalo realmente favorecer.",
++        "3_continuacao": "Raio de Fogo, Bola de Fogo quando eficaz, e Pulso Trovejante. Preserve Concentração em Lentidão.",
++        "4_reacao_defesa": "Proteção Projetada (Projected Ward) absorve dano destinado a aliado visível; compare sua Reação com Contramágica ou Escudo."
++      },
++      "contra_chefe": "Preserve a barreira para dano importante; não presuma que haja uma nova barreira por aliado.",
++      "contra_grupo": "Lentidão para reduzir ações e pressão do grupo inimigo.",
++      "limites_e_erros": "Proteção Projetada consome a reserva existente e a mesma Reação das outras defesas.",
++      "pv_referencia": 69,
++      "bonus_proficiencia": 4,
++      "inteligencia": 18,
++      "protecao_arcana_maxima": 16,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Dissipar Magia",
++          "en": "Dispel Magic",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 9
++        },
++        {
++          "pt": "Lentidão",
++          "en": "Slow",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 9
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Queda Suave (Feather Fall)",
++        "Teia (Web)",
++        "Passo Nebuloso (Misty Step)",
++        "Vigor Arcano (Arcane Vigor)",
++        "Imagem Espelhada (Mirror Image)",
++        "Contramágica (Counterspell)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Dissipar Magia (Dispel Magic)",
++        "Lentidão (Slow)"
++      ],
++      "preparacoes_regulares_previstas": 10,
++      "preparacoes_identificadas": 10,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "SEM_NOVA_ADICAO_LEGACY"
++    },
++    {
++      "nivel_total": 10,
++      "artifice": 3,
++      "mago": 7,
++      "status_fonte": "aprovado_consolidado_v1_0",
++      "status_overlay": "ESCOLHAS_EDITORIAIS_APROVADAS_G8_PENDENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Duelista arcano / quebra de Resistência Lendária",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 18 PV. Prepare Lança Psíquica de Raulothim (Raulothim's Psychic Lance), LEGACY, e mantenha cobertura.",
++        "2_abertura": "Contra chefe isolado: Lança Psíquica (LEGACY), 7d6 psíquico / salvaguarda INT CD16, com risco de Incapacitação até o início do próximo turno. Contra grupos, Lentidão ou Bola de Fogo.",
++        "3_continuacao": "Se falhar na salvaguarda e gastar Resistência Lendária, houve desgaste; se aceitar, sofre dano e Incapacitação. Banimento (Banishment) vira alternativa de remoção prolongada. Porta Dimensional (Dimension Door) resgata aliados.",
++        "4_reacao_defesa": "Proteção Projetada, Contramágica ou Escudo — escolha uma Reação."
++      },
++      "contra_chefe": "Lança Psíquica pressiona Resistências Lendárias mas não garante seu gasto; depende da falha e da escolha adversária.",
++      "contra_grupo": "Lentidão/Bola de Fogo, sem usar a Lança como solução universal.",
++      "limites_e_erros": "Lança Psíquica de Raulothim é LEGACY, exige permissão do Mestre; substitui Fabricar (Fabricate) na inscrição do Nível 10.",
++      "pv_referencia": 76,
++      "bonus_proficiencia": 4,
++      "inteligencia": 18,
++      "protecao_arcana_maxima": 18,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Lança Psíquica de Raulothim",
++          "en": "Raulothim's Psychic Lance",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 10,
++          "legado": true,
++          "fonte_legacy": "Fizban's Treasury of Dragons (2021)",
++          "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_MESTRE"
++        },
++        {
++          "pt": "Porta Dimensional",
++          "en": "Dimension Door",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 10
++        },
++        {
++          "pt": "Banimento",
++          "en": "Banishment",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 10
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Contramágica (Counterspell)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Dissipar Magia (Dispel Magic)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)"
++      ],
++      "preparacoes_regulares_previstas": 11,
++      "preparacoes_identificadas": 11,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Inscrição normal: Fabricar (Fabricate) → Lança Psíquica de Raulothim (Legacy)"
++      ],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 11,
++      "artifice": 3,
++      "mago": 8,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "ESCOLHAS_EDITORIAIS_APROVADAS_G8_PENDENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Mestre de prisões arcanas",
++      "como_jogar_4_passos": {
++        "1_antes": "INT20 é simulação editorial pendente de homologação normativa; Proteção Arcana até 21. Imagem Espelhada quando possível.",
++        "2_abertura": "Chefe: Lança Psíquica — LEGACY, agora CD17; inimigo de DES baixa ou aliado em risco: Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere).",
++        "3_continuacao": "Se aprisionar um inimigo, elimine os demais; a Esfera bloqueia também ataques aliados. Utilize Lentidão contra grupos.",
++        "4_reacao_defesa": "Proteção Projetada/Contramágica/Escudo. Vigor Arcano é recuperação possível usando espaço, não um recurso gratuito."
++      },
++      "contra_chefe": "Selecione entre Lança (pressionar resistência) e Esfera (isolar), não as considere controles idênticos.",
++      "contra_grupo": "Lentidão ou Bola de Fogo conforme dispersão.",
++      "limites_e_erros": "Fabricar entra no grimório em vez de Olho Arcano (Arcane Eye) adiado; Fabricar é utilidade de 10 minutos, não abertura.",
++      "pv_referencia": 83,
++      "bonus_proficiencia": 4,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 21,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Fabricar",
++          "en": "Fabricate",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 11,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA",
++          "status_editorial": "APROVADO_PELO_USUARIO_SUJEITO_A_QA"
++        },
++        {
++          "pt": "Esfera Resiliente de Otiluke",
++          "en": "Otiluke’s Resilient Sphere",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 11,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Contramágica (Counterspell)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Dissipar Magia (Dispel Magic)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)"
++      ],
++      "preparacoes_regulares_previstas": 12,
++      "preparacoes_identificadas": 12,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Inscrição normal: Olho Arcano (Arcane Eye) → Fabricar (Fabricate)"
++      ],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 12,
++      "artifice": 3,
++      "mago": 9,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Dominador do terreno / 5º círculo",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 23 PV; escolha linhas de isolamento e fuga. Preparação de Mago inclui Muralha de Força e Telecinese.",
++        "2_abertura": "Muralha de Força (Wall of Force) separa inimigos sem salvaguarda inicial; se grupo precisa atacar o alvo, Telecinese (Telekinesis) é alternativa de controle ativo.",
++        "3_continuacao": "Ataque alvos fora da Muralha. Com Telecinese, novas Ações Mágicas mantêm pressão; Lança Psíquica — LEGACY continua como ofensiva de alvo único sem Concentração.",
++        "4_reacao_defesa": "Proteção Projetada/Contramágica/Escudo e posicionamento para manter Concentração."
++      },
++      "contra_chefe": "Muralha de Força se isolar é viável; Lança se chefe deve seguir acessível ao grupo.",
++      "contra_grupo": "Muralha para dividir o confronto; Telecinese para controlar alvo específico.",
++      "limites_e_erros": "Muralha e Telecinese exigem Concentração. Vínculo Planar é preparação de laboratório, não abertura.",
++      "pv_referencia": 90,
++      "bonus_proficiencia": 4,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 23,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Muralha de Força",
++          "en": "Wall of Force",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 12,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Telecinese",
++          "en": "Telekinesis",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 12,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Vínculo Planar",
++          "en": "Planar Binding",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 12,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Contramágica (Counterspell)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Dissipar Magia (Dispel Magic)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)"
++      ],
++      "preparacoes_regulares_previstas": 14,
++      "preparacoes_identificadas": 14,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)"
++      ],
++      "magias_sempre_preparadas": [],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 13,
++      "artifice": 3,
++      "mago": 10,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "ESCOLHAS_EDITORIAIS_APROVADAS_G8_PENDENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Antimago / Quebra-Feitiços",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 25 PV. Contramágica e Dissipar Magia (Dispel Magic) ficam sempre preparadas pela subclasse.",
++        "2_abertura": "Dissipar Magia como Ação Bônus contra efeitos ativos; pressione com Raio de Fogo (Fire Bolt) como Ação. Contra chefe sem efeito ativo importante, Lança Psíquica — LEGACY.",
++        "3_continuacao": "Muralha de Força e Telecinese para controle; use Dissipar para encerrar proteção mágica. Vidência (Scrying) e Círculo Mágico (Magic Circle) são preparação estratégica.",
++        "4_reacao_defesa": "Contramágica usa Reação; Proteção Projetada e Escudo são alternativas. Quebra-Feitiços (Spell Breaker) protege recursos quando tentativas falham conforme regra."
++      },
++      "contra_chefe": "Lança Psíquica para pressão contra Resistências Lendárias; dissipe primeiro proteção realmente relevante.",
++      "contra_grupo": "Muralha de Força/Lentidão, sem perder o controle por tentar causar dano a todo custo.",
++      "limites_e_erros": "Em 2024, não gaste segundo espaço no mesmo turno após Dissipar como Ação Bônus com espaço; use um truque. Olho Arcano não está inscrito no nível 11; a vaga foi preenchida por Vidência (Scrying), conforme decisão de 20/11/2026.",
++      "pv_referencia": 97,
++      "bonus_proficiencia": 5,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 25,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Vidência",
++          "en": "Scrying",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 13,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Círculo Mágico",
++          "en": "Magic Circle",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 13,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Queda Suave (Feather Fall)",
++        "Vidência (Scrying)"
++      ],
++      "preparacoes_regulares_previstas": 15,
++      "preparacoes_identificadas": 15,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 14,
++      "artifice": 3,
++      "mago": 11,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Arquimago defensivo / ataque de 6º",
++      "como_jogar_4_passos": {
++        "1_antes": "Contingência (Contingency) com Imagem Espelhada como exemplo de defesa condicional; exige preparações, tempo e componente caro. Proteção Arcana até 27.",
++        "2_abertura": "Contra conjuradores, Globo de Invulnerabilidade (Globe of Invulnerability); contra alvo vulnerável de DES, Desintegrar (Disintegrate); chefe com resistências intactas: Lança — LEGACY.",
++        "3_continuacao": "Com Globo ativo, use magia sem Concentração. Reserve Desintegrar para boa chance de falha; pode destruir uma Muralha de Força inimiga.",
++        "4_reacao_defesa": "Contramágica, Proteção Projetada ou Escudo. Mantenha seu plano de Contingência dentro dos gatilhos válidos."
++      },
++      "contra_chefe": "Pressione resistências antes de arriscar Desintegrar em falha convertida.",
++      "contra_grupo": "Globo contra magias vindas de fora; não é barreira universal contra círculos elevados.",
++      "limites_e_erros": "Contingência deve ser criada previamente; não há dois espaços de 6º para gastar indiscriminadamente.",
++      "pv_referencia": 104,
++      "bonus_proficiencia": 5,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 27,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Contingência",
++          "en": "Contingency",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 14,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Globo de Invulnerabilidade",
++          "en": "Globe of Invulnerability",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 14,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Desintegrar",
++          "en": "Disintegrate",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 14,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Riso Histérico de Tasha (Tasha's Hideous Laughter)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)"
++      ],
++      "preparacoes_regulares_previstas": 16,
++      "preparacoes_identificadas": 16,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 15,
++      "artifice": 3,
++      "mago": 12,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Mente indomável / controle coletivo",
++      "como_jogar_4_passos": {
++        "1_antes": "Resiliente (Resilient) — Sabedoria eleva SAB10→11 e salvaguarda SAB a +5. Mente preparada para investigar e Concentração protegida.",
++        "2_abertura": "Sugestão em Massa (Mass Suggestion), se preparada, contra grupo que ouve e entende ordens viáveis; chefe com resistências: Lança Psíquica — LEGACY.",
++        "3_continuacao": "Evite atacar criaturas sob Sugestão em Massa; se sobreviverem outras ameaças, Muralha de Força ou outras magias cabíveis em turnos distintos.",
++        "4_reacao_defesa": "Contramágica / Proteção Projetada / Escudo; Resiliente protege salvaguardas de SAB."
++      },
++      "contra_chefe": "Lança, Muralha ou Desintegrar conforme resistência e oportunidade.",
++      "contra_grupo": "Sugestão em Massa pode retirar combatentes sem Concentração.",
++      "limites_e_erros": "Visão da Verdade (True Seeing) fica no grimório e entra em preparação de missão; Sugestão em Massa substitui Riso Histérico de Tasha na preparação padrão.",
++      "pv_referencia": 111,
++      "bonus_proficiencia": 5,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 29,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Sugestão em Massa",
++          "en": "Mass Suggestion",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 15,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Visão da Verdade",
++          "en": "True Seeing",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 15,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)"
++      ],
++      "preparacoes_regulares_previstas": 16,
++      "preparacoes_identificadas": 16,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 16,
++      "artifice": 3,
++      "mago": 13,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Comandante estratégico / mobilidade",
++      "como_jogar_4_passos": {
++        "1_antes": "Teletransporte (Teleport) ESSENCIAL preparado. Simulacro (Simulacrum) exige criação anterior com recursos/tempo; Símbolo (Symbol) é armadilha de fortaleza.",
++        "2_abertura": "Contra chefe, Lança Psíquica — LEGACY ou Muralha de Força; não consuma espaço de 7º sem necessidade. Teletransporte como retirada se reunir criaturas voluntárias.",
++        "3_continuacao": "Simulacro pré-existente pode ajudar, sem recuperar seus recursos em Descansos. Victor utiliza controle e defesa; Teletransporte muda logística, não a abertura ofensiva.",
++        "4_reacao_defesa": "Contramágica/Proteção Projetada/Escudo; se precisar escapar, Teletransporte na Ação quando condições e espaço permitirem."
++      },
++      "contra_chefe": "Use os controles existentes; Simulacro preparado aumenta opções, mas não é automático.",
++      "contra_grupo": "Sugestão em Massa e Muralha de Força, conforme missão.",
++      "limites_e_erros": "Simulacro leva 12h e materiais; Símbolo exige instalação antecipada. Espaço 8º não significa aprendizado de magias 8º.",
++      "pv_referencia": 118,
++      "bonus_proficiencia": 5,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 31,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Teletransporte",
++          "en": "Teleport",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 16,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Simulacro",
++          "en": "Simulacrum",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 16,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Símbolo",
++          "en": "Symbol",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_total_entrada": 16,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)",
++        "Teletransporte (Teleport)"
++      ],
++      "preparacoes_regulares_previstas": 17,
++      "preparacoes_identificadas": 17,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 17,
++      "artifice": 3,
++      "mago": 14,
++      "status_fonte": "proposta_discutida_aguarda_consolidacao",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Arquimago resistente a magias",
++      "como_jogar_4_passos": {
++        "1_antes": "Resistência a Magias (Spell Resistance) protege Victor contra magias e dano de magias; Proteção Arcana até 33. Projetar Imagem (Project Image) serve ao reconhecimento.",
++        "2_abertura": "Chefe com resistências: Lança Psíquica — LEGACY contra CD19; contra chefes isoláveis, Muralha de Força; contra magos, Globo de Invulnerabilidade.",
++        "3_continuacao": "Use Desintegrar quando houver oportunidade; truque Raio de Fogo (Fire Bolt) 4d10 a partir do nível total 17.",
++        "4_reacao_defesa": "Contramágica/Proteção Projetada/Escudo; a resistência pessoal a dano de magia não se transfere por si aos aliados."
++      },
++      "contra_chefe": "Dano, controle ou isolamento dependendo de opções defensivas do alvo.",
++      "contra_grupo": "Controle de área e proteção de magos com Globo.",
++      "limites_e_erros": "Viagem Planar (Plane Shift) é alternativa de missão; resistência vale para dano causado por magias, não todo efeito sobrenatural.",
++      "pv_referencia": 125,
++      "bonus_proficiencia": 6,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 33,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Viagem Planar",
++          "en": "Plane Shift",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 17,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        },
++        {
++          "pt": "Projetar Imagem",
++          "en": "Project Image",
++          "origem_aprendizado": "progressao_normal_mago",
++          "nivel_total_entrada": 17,
++          "status_escolha": "PROPOSTA_DISCUSSÃO_NAO_HOMOLOGADA"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)",
++        "Teletransporte (Teleport)",
++        "Projetar Imagem (Project Image)"
++      ],
++      "preparacoes_regulares_previstas": 18,
++      "preparacoes_identificadas": 18,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 18,
++      "artifice": 3,
++      "mago": 15,
++      "status_fonte": "pendente",
++      "status_overlay": "DECISAO_EDITORIAL_PARA_CONSOLIDACAO_NORMATIVA",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Controlador supremo / proteção mental",
++      "como_jogar_4_passos": {
++        "1_antes": "Mente Vazia (Mind Blank) ativa por 24h se houver espaço, e Proteção Arcana até 35. Clone (Clone) só funciona como contingência após amadurecer.",
++        "2_abertura": "Labirinto (Maze) remove um chefe sem salvaguarda inicial. Se o alvo consegue escapar planarmente ou precisa ser atacado, prefira Lança Psíquica — LEGACY ou Muralha.",
++        "3_continuacao": "Enquanto o chefe está ausente, elimine ameaças remanescentes e preserve Concentração. Prepare o grupo para o retorno.",
++        "4_reacao_defesa": "Contramágica/Proteção Projetada/Escudo. Resistência a Magias protege Victor."
++      },
++      "contra_chefe": "Labirinto força um teste de Investigação CD20 para escapar; Resistência Lendária não supera testes de habilidade por si.",
++      "contra_grupo": "Divida o encontro ou use controle sem sacrificar o posicionamento.",
++      "limites_e_erros": "Labirinto e Muralha exigem Concentração; Clone não cria combatente e exige 120 dias.",
++      "pv_referencia": 132,
++      "bonus_proficiencia": 6,
++      "inteligencia": 20,
++      "protecao_arcana_maxima": 35,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Labirinto",
++          "en": "Maze",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 8,
++          "escola": "Conjuração"
++        },
++        {
++          "pt": "Clone",
++          "en": "Clone",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 8,
++          "escola": "Necromancia"
++        },
++        {
++          "pt": "Mente Vazia",
++          "en": "Mind Blank",
++          "origem_aprendizado": "especialista_abjuracao_bonus",
++          "nivel_magia": 8,
++          "escola": "Abjuração"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)",
++        "Teletransporte (Teleport)",
++        "Labirinto (Maze)",
++        "Mente Vazia (Mind Blank)"
++      ],
++      "preparacoes_regulares_previstas": 19,
++      "preparacoes_identificadas": 19,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 19,
++      "artifice": 3,
++      "mago": 16,
++      "status_fonte": "pendente",
++      "status_overlay": "ESCOLHAS_EDITORIAIS_APROVADAS_G8_PENDENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Conjurador móvel / controle e fuga",
++      "como_jogar_4_passos": {
++        "1_antes": "Dádiva de Viagem Dimensional (Boon of Dimensional Travel) eleva INT20→21 sem mudar mod. Mente Vazia e Proteção Arcana até 37 quando disponíveis.",
++        "2_abertura": "Labirinto contra chefe; depois da Ação Mágica, use Passos Intermitentes (Blink Steps) para teletransporte de até 9 m. Ou Lança Psíquica — LEGACY quando precisar manter alvo presente.",
++        "3_continuacao": "Pressione inimigos remanescentes com magia sem Concentração e reposicione-se após cada Ação elegível, sem exceder o gatilho.",
++        "4_reacao_defesa": "Contramágica/Proteção Projetada/Escudo continuam disponíveis; dádiva não substitui Reação."
++      },
++      "contra_chefe": "Labirinto + reposicionamento para isolamento; Lança + reposicionamento para pressão.",
++      "contra_grupo": "Sugestão em Massa e Muralha de Força.",
++      "limites_e_erros": "Campo Antimagia (Antimagic Field) suprime a própria conjuração e efeitos mágicos; pode contrariar o teletransporte da Dádiva. Semiplano (Demiplane) é infraestrutura, não remoção automática de inimigos.",
++      "pv_referencia": 139,
++      "bonus_proficiencia": 6,
++      "inteligencia": 21,
++      "protecao_arcana_maxima": 37,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Campo Antimagia",
++          "en": "Antimagic Field",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 8,
++          "escola": "Abjuração"
++        },
++        {
++          "pt": "Semiplano",
++          "en": "Demiplane",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 8,
++          "escola": "Conjuração"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)",
++        "Teletransporte (Teleport)",
++        "Labirinto (Maze)",
++        "Mente Vazia (Mind Blank)",
++        "Visão da Verdade (True Seeing)",
++        "Contingência (Contingency)"
++      ],
++      "preparacoes_regulares_previstas": 21,
++      "preparacoes_identificadas": 21,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        3,
++        1,
++        1,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    },
++    {
++      "nivel_total": 20,
++      "artifice": 3,
++      "mago": 17,
++      "status_fonte": "pendente",
++      "status_overlay": "ESCOLHAS_EDITORIAIS_APROVADAS_G8_PENDENTE",
++      "publicacao_autorizada": false,
++      "papel_tatico": "Arquimago supremo / reserva do 9º círculo",
++      "como_jogar_4_passos": {
++        "1_antes": "Proteção Arcana até 39, Mente Vazia e Contingência quando recursos foram gastos e requisitos cumpridos; Simulacro pré-existente não é gratuito.",
++        "2_abertura": "Labirinto contra chefe com Resistências Lendárias; Lança Psíquica — LEGACY quando alvo precisa continuar acessível; Muralha Prismática (Prismatic Wall) em defesa territorial se preparada.",
++        "3_continuacao": "Reserve Desejo (Wish), preparado por padrão, para reproduzir a magia decisiva de até 8º círculo. Desintegrar e controle antigo continuam úteis. Após Ação Mágica, use Passos Intermitentes quando legal.",
++        "4_reacao_defesa": "Contramágica/Proteção Projetada/Escudo, mantendo Concentração na magia ativa."
++      },
++      "contra_chefe": "Labirinto → vantagem posicional; Lança para pressionar; Desejo quando outra magia de até 8º decide.",
++      "contra_grupo": "Muralha Prismática para impedir avanço ou Sugestão em Massa.",
++      "limites_e_erros": "Há somente um espaço de 9º círculo; Desejo, Parar o Tempo (Time Stop) e Muralha Prismática são alternativas, não três conjurações garantidas no mesmo dia.",
++      "pv_referencia": 146,
++      "bonus_proficiencia": 6,
++      "inteligencia": 21,
++      "protecao_arcana_maxima": 39,
++      "magias_grimorio_adicionadas_overlay": [
++        {
++          "pt": "Desejo",
++          "en": "Wish",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 9,
++          "escola": "Conjuração"
++        },
++        {
++          "pt": "Parar o Tempo",
++          "en": "Time Stop",
++          "origem_aprendizado": "mago_progressao",
++          "nivel_magia": 9,
++          "escola": "Transmutação"
++        },
++        {
++          "pt": "Muralha Prismática",
++          "en": "Prismatic Wall",
++          "origem_aprendizado": "abjuration_savant_inscricao_extra",
++          "nivel_magia": 9,
++          "escola": "Abjuração"
++        }
++      ],
++      "magias_preparadas_mago_confirmadas_editorialmente": [
++        "Vigor Arcano (Arcane Vigor)",
++        "Lança Psíquica de Raulothim (Raulothim's Psychic Lance)",
++        "Passo Nebuloso (Misty Step)",
++        "Imagem Espelhada (Mirror Image)",
++        "Voo (Fly)",
++        "Bola de Fogo (Fireball)",
++        "Lentidão (Slow)",
++        "Porta Dimensional (Dimension Door)",
++        "Banimento (Banishment)",
++        "Esfera Resiliente de Otiluke (Otiluke's Resilient Sphere)",
++        "Muralha de Força (Wall of Force)",
++        "Telecinese (Telekinesis)",
++        "Sugestão em Massa (Mass Suggestion)",
++        "Queda Suave (Feather Fall)",
++        "Globo de Invulnerabilidade (Globe of Invulnerability)",
++        "Desintegrar (Disintegrate)",
++        "Teletransporte (Teleport)",
++        "Labirinto (Maze)",
++        "Mente Vazia (Mind Blank)",
++        "Desejo (Wish)",
++        "Visão da Verdade (True Seeing)",
++        "Contingência (Contingency)"
++      ],
++      "preparacoes_regulares_previstas": 22,
++      "preparacoes_identificadas": 22,
++      "preparacoes_pendentes": 0,
++      "pendencias_de_preparacao": [],
++      "modificacoes_rastreadas": [
++        "Preparação: Teia (Web) → Lança Psíquica de Raulothim (Legacy)",
++        "Preparação: Riso Histérico de Tasha → Sugestão em Massa"
++      ],
++      "magias_sempre_preparadas": [
++        "Contramágica (Counterspell)",
++        "Dissipar Magia (Dispel Magic)"
++      ],
++      "espacos_por_circulo": [
++        4,
++        3,
++        3,
++        3,
++        3,
++        2,
++        1,
++        1,
++        1
++      ],
++      "status_regra_oficial": "PENDENTE_DE_AUDITORIA_NORMATIVA_FINAL",
++      "status_legado": "RAULOTHIM_LEGACY_PERMISSAO_MESTRE"
++    }
++  ],
++  "decisoes_do_usuario_2026_11_20": [
++    "D1: no nível 10, Lança Psíquica de Raulothim (Legacy) substitui Fabricar; condicionada à aceitação do Mestre; Fabricar no 11 no lugar de Olho Arcano.",
++    "D2: no nível 13, Vidência (Scrying) ocupa a 15ª preparação regular.",
++    "D3: no nível 19, preparar Visão da Verdade (True Seeing) e Contingência (Contingency); já existentes no grimório, sem duplicação.",
++    "D4: no nível 20, manter Visão da Verdade, Contingência e Desejo (Wish), com 22 preparações regulares."
++  ]
++}
+--- a/forja-mineira-builds/documentacao/DOOM-FINAL-01-DECISOES-2026-11-20.md
++++ b/forja-mineira-builds/documentacao/DOOM-FINAL-01-DECISOES-2026-11-20.md
+@@ -0,0 +1,17 @@
++# DOOM-FINAL-01 — Consolidação editorial aprovada (20/11/2026)
++
++**Escopo:** não publicar. Build Artífice (Artificer) 3 / Mago (Wizard) 17. Não alterar magias da wishlist ou equipamentos como se fossem adquiridos. Material Legacy requer autorização do Mestre.
++
++## Decisões aprovadas
++
++1. **N10:** Lança Psíquica de Raulothim (Raulothim's Psychic Lance), material Legacy (Fizban, 2021), substitui a inscrição de Fabricar (Fabricate) e a preparação de Teia (Web). Se o Mestre não aceitar Legacy, a lista exige revisão específica; não habilitar silenciosamente outra magia.
++2. **N11:** Fabricar (Fabricate) é inscrita no lugar de Olho Arcano (Arcane Eye); Olho Arcano fica adiado. Isso resolve a inconsistência da antiga base 1–10 com o roteiro v1.3.
++3. **N13:** Vidência (Scrying), já inscrita no grimório, é a 15ª magia preparada (15/15). Não adicionar Olho Arcano.
++4. **N19:** Visão da Verdade (True Seeing) e Contingência (Contingency) são preparadas a partir do grimório já existente; contagem 21/21. Campo Antimagia (Antimagic Field) e Semiplano (Demiplane) continuam inscrições situacionais, não preparações padrão.
++5. **N20:** manter Visão da Verdade, Contingência e Desejo (Wish) preparado; contagem 22/22. Um único espaço de 9º círculo.
++
++**Quebra-Feitiços (Spell Breaker):** a partir do nível total 13, Contramágica (Counterspell) e Dissipar Magia (Dispel Magic) permanecem sempre preparadas e **não ocupam** o limite regular do Mago. A marcação e o painel são persistidos até o nível total 20.
++
++**Precedência:** `DOOM-BUILD-COMBATE-EDITORIAL-v1.4.json` e este registro substituem decisões abertas de v1.3, preservada como arquivo histórico no pacote de origem. A versão v1.2 e as propostas são fontes históricas e de QA, não material automaticamente aprovado.
++
++**Gates:** escolhas editoriais APROVADAS; fonte técnica consolidada para QA; revisão de regras adicionais, GATE 8 visual, staging WordPress, SEO e publicação AINDA PENDENTES. `FMB_DOOM_REVIEW_MODE` permanece obrigatório para visualizar 11–20. Nenhum deploy automático.
+--- a/forja-mineira-builds/templates/doom-combat-mechanics-overlay-13-16.php
++++ b/forja-mineira-builds/templates/doom-combat-mechanics-overlay-13-16.php
+@@ -10,6 +10,7 @@
+  count($patch['preparacao_padrao_mago'])!==$patch['preparacoes_identificadas'] ||
+  count($patch['magias_grimorio_adicionadas'])!==count($d['magias_grimorio_adicionadas']) ||
+  array_column($patch['magias_grimorio_adicionadas'],'pt')!==array_column($d['magias_grimorio_adicionadas'],'pt')) throw new RuntimeException('Inconsistência na revisão de preparações.');
++$d['quebra_feiticos_2024']=['nome'=>'Quebra-Feitiços (Spell Breaker)','sempre_preparadas'=>$patch['magias_sempre_preparadas_spell_breaker'],'ocupam_preparacoes_regulares'=>false];
+ $d['preparacao_padrao_mago']=$patch['preparacao_padrao_mago'];
+ $prepared=$d['preparacao_padrao_mago'];
+ // N13 remains 14 identified out of 15, with the final slot explicitly unresolved.
+--- a/forja-mineira-builds/templates/doom-combat-mechanics-overlay-17-20.php
++++ b/forja-mineira-builds/templates/doom-combat-mechanics-overlay-17-20.php
+@@ -10,6 +10,7 @@
+  count($patch['preparacao_padrao_mago'])!==$patch['preparacoes_identificadas'] ||
+  count($patch['magias_grimorio_adicionadas'])!==count($d['magias_grimorio_adicionadas']) ||
+  array_column($patch['magias_grimorio_adicionadas'],'pt')!==array_column($d['magias_grimorio_adicionadas'],'pt')) throw new RuntimeException('Revisão de preparações não validada.');
++$d['quebra_feiticos_2024']=['nome'=>'Quebra-Feitiços (Spell Breaker)','sempre_preparadas'=>$patch['magias_sempre_preparadas_spell_breaker'],'ocupam_preparacoes_regulares'=>false];
+ $d['preparacao_padrao_mago']=$patch['preparacao_padrao_mago'];
+ $prepared=$d['preparacao_padrao_mago'];
+ $doom_prep_pending=$patch['preparacoes_pendentes'];
+--- a/forja-mineira-builds/templates/doom-level-13.php
++++ b/forja-mineira-builds/templates/doom-level-13.php
+@@ -84,7 +84,8 @@
+        <article class="doom-n13-spell"><small>GRIMÓRIO</small><strong><?php echo $doom_fmt($s); ?></strong><span><?php echo esc_html($note); ?></span></article>
+       <?php endforeach; ?></div>
+      <div class="doom-n13-cantrip"><strong>Truque novo:</strong> Luz (Light) · <?php echo esc_html($copy['cantrip_note']); ?></div>
+-     <div class="doom-n13-prepared"><strong>Preparação regular de Mago · 14 identificadas + 1 vaga pendente (limite 15)</strong><ul><?php foreach($prepared as $s):?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach;?><li class="doom-pending-preparation"><strong>1 vaga pendente de escolha</strong> · não é magia preparada</li></ul></div>
++     <div class="doom-n13-prepared"><strong>Preparação regular de Mago · 15/15 preparadas</strong><ul><?php foreach($prepared as $s):?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach;?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+      <p class="doom-n13-rule"><?php echo esc_html($copy['prep_note']); ?> Os espaços de 6º círculo não habilitam magias aprendidas de Mago desse círculo no nível 13.</p>
+     </section>
+     <section class="doom-n13-combat" aria-labelledby="doom-n13-combat-title"><span class="mini-label">Na mesa · estratégia provisória</span><h3 id="doom-n13-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step):?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach;?></ol><div class="doom-n13-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-14.php
++++ b/forja-mineira-builds/templates/doom-level-14.php
+@@ -65,6 +65,7 @@
+     <?php endforeach; ?></div>
+     <p class="doom-n14-note"><strong>Preparação e componentes:</strong> <?php echo esc_html($copy['prep_note']); ?></p>
+     <div class="doom-n14-prepared"><strong>Preparação regular de Mago · 16</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n14-note"><strong>Espaços versus magias conhecidas:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n14-combat" aria-labelledby="doom-n14-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n14-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n14-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-15.php
++++ b/forja-mineira-builds/templates/doom-level-15.php
+@@ -74,6 +74,7 @@
+     <?php endforeach; ?></div>
+     <p class="doom-n15-note"><strong>Preparação e acesso:</strong> <?php echo esc_html($copy['prep_note']); ?></p>
+     <div class="doom-n15-prepared"><strong>Preparação regular de Mago · 16</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n15-note"><strong>Espaços versus magias aprendidas:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n15-combat" aria-labelledby="doom-n15-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n15-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n15-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-16.php
++++ b/forja-mineira-builds/templates/doom-level-16.php
+@@ -65,6 +65,7 @@
+     <?php endforeach; ?></div>
+     <p class="doom-n16-note"><strong>Preparação e componentes:</strong> <?php echo esc_html($copy['prep_note']); ?></p>
+     <div class="doom-n16-prepared"><strong>Preparação regular de Mago · 17</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n16-note"><strong>Espaços versus magias conhecidas:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n16-combat" aria-labelledby="doom-n16-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n16-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n16-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-17.php
++++ b/forja-mineira-builds/templates/doom-level-17.php
+@@ -82,6 +82,7 @@
+       <?php $note='';foreach($copy['spell_notes'] as $entry)if($entry['pt']===$spell['pt'])$note=$entry['note']; ?>
+       <article class="doom-n17-spell"><small>MAGIA DE 7º CÍRCULO</small><strong><?php echo $doom_fmt($spell); ?></strong><span><?php echo esc_html($note); ?></span></article><?php endforeach; ?></div>
+      <div class="doom-n17-prepared"><strong>Preparação regular de Mago · 18</strong><ul><?php foreach($prepared as $spell): ?><li><?php echo esc_html($spell); ?><?php if (strpos($spell,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($spell,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+      <p class="doom-n17-rule"><?php echo esc_html($copy['prep_note']); ?></p>
+      <p class="doom-n17-rule"><?php echo esc_html($copy['slot_note']); ?></p>
+     </section>
+--- a/forja-mineira-builds/templates/doom-level-18.php
++++ b/forja-mineira-builds/templates/doom-level-18.php
+@@ -59,6 +59,7 @@
+     <div class="doom-n18-spell-grid"><?php foreach($spells as $spell): ?><?php $note='';foreach($copy['spell_notes'] as $entry)if($entry['pt']===$spell['pt'])$note=$entry['note']; ?><article class="doom-n18-spell"><small><?php echo esc_html($spell['origem_aprendizado']==='especialista_abjuracao_bonus'?'ABJURAÇÃO · INSCRIÇÃO BÔNUS':'MAGO · INSCRIÇÃO'); ?></small><strong><?php echo $doom_fmt($spell); ?></strong><span><?php echo esc_html($note); ?></span></article><?php endforeach; ?></div>
+     <p class="doom-n18-note"><?php echo esc_html($copy['prep_note']); ?></p>
+     <div class="doom-n18-prepared"><strong>Preparação regular de Mago · 19</strong><ul><?php foreach($prepared as $spell): ?><li><?php echo esc_html($spell); ?><?php if (strpos($spell,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($spell,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n18-note"><strong>Regra de multiclasse:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n18-combat" aria-labelledby="doom-n18-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n18-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n18-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-19.php
++++ b/forja-mineira-builds/templates/doom-level-19.php
+@@ -49,7 +49,7 @@
+     <span><strong>CD <?php echo esc_html($dc); ?></strong> · ataque +<?php echo esc_html($attack); ?></span>
+     <span><strong><?php echo esc_html($d['protecao_arcana_maxima']); ?> PV</strong> barreira máxima</span>
+     <span><strong><?php echo esc_html($slots); ?></strong> espaços</span>
+-    <span><strong>44</strong> grimório · <strong>19 + 2 pendentes</strong> preparadas</span>
++    <span><strong>44</strong> grimório · <strong>21/21</strong> preparadas</span>
+    </div>
+    <section class="doom-n19-feature" aria-labelledby="doom-n19-feature-title">
+     <div class="mini-label"><?php echo esc_html($copy['boon_label']); ?></div>
+@@ -64,7 +64,8 @@
+       <article class="doom-n19-spell"><small><?php echo esc_html(($s['escola']??'')==='Abjuração'?'MAGO · 8º CÍRCULO · ABJURAÇÃO':'MAGO · 8º CÍRCULO · CONJURAÇÃO'); ?></small><strong><?php echo $doom_fmt($s); ?></strong><span><?php echo esc_html($note); ?></span></article>
+     <?php endforeach; ?></div>
+     <p class="doom-n19-note"><strong>Preparação e componentes:</strong> <?php echo esc_html($copy['prep_note']); ?></p>
+-    <div class="doom-n19-prepared"><strong>Preparação regular de Mago · 19 identificadas + 2 vagas pendentes (limite 21)</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?><?php for ($i=0;$i<$doom_prep_pending;$i++): ?><li class="doom-pending-preparation"><strong>Vaga pendente de escolha</strong> · não é magia preparada</li><?php endfor; ?></ul></div>
++    <div class="doom-n19-prepared"><strong>Preparação regular de Mago · 21/21 preparadas</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?><?php for ($i=0;$i<$doom_prep_pending;$i++): ?><li class="doom-pending-preparation"><strong>Vaga pendente de escolha</strong> · não é magia preparada</li><?php endfor; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n19-note"><strong>Espaços versus magias conhecidas:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n19-combat" aria-labelledby="doom-n19-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n19-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n19-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-level-20.php
++++ b/forja-mineira-builds/templates/doom-level-20.php
+@@ -46,7 +46,7 @@
+     <span><strong>CD <?php echo esc_html($dc); ?></strong> · ataque +<?php echo esc_html($attack); ?></span>
+     <span><strong><?php echo esc_html($d['protecao_arcana_maxima']); ?> PV</strong> barreira máxima</span>
+     <span><strong><?php echo esc_html($slots); ?></strong> espaços</span>
+-    <span><strong>47</strong> grimório · <strong>20 + 2 pendentes</strong> preparadas</span>
++    <span><strong>47</strong> grimório · <strong>22/22</strong> preparadas</span>
+    </div>
+    <section class="doom-n20-feature" aria-labelledby="doom-n20-feature-title">
+     <div class="mini-label"><?php echo esc_html($copy['feature_label']); ?></div>
+@@ -61,7 +61,8 @@
+       <article class="doom-n20-spell"><small><?php echo esc_html($role); ?></small><strong><?php echo $doom_fmt($s); ?></strong><span><?php echo esc_html($note); ?></span></article>
+     <?php endforeach; ?></div>
+     <p class="doom-n20-note"><strong>Preparação:</strong> <?php echo esc_html($copy['prep_note']); ?></p>
+-    <div class="doom-n20-prepared"><strong>Preparação regular de Mago · 20 identificadas + 2 vagas pendentes (limite 22)</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?><?php for ($i=0;$i<$doom_prep_pending;$i++): ?><li class="doom-pending-preparation"><strong>Vaga pendente de escolha</strong> · não é magia preparada</li><?php endfor; ?></ul></div>
++    <div class="doom-n20-prepared"><strong>Preparação regular de Mago · 22/22 preparadas</strong><ul><?php foreach($prepared as $s): ?><li><?php echo esc_html($s); ?><?php if (strpos($s,"Raulothim")!==false): ?> <span class="doom-legacy-label">LEGACY</span><?php endif; ?><?php if (strpos($s,"Teletransporte")!==false): ?> <span class="doom-essential-label">ESSENCIAL</span><?php endif; ?></li><?php endforeach; ?><?php for ($i=0;$i<$doom_prep_pending;$i++): ?><li class="doom-pending-preparation"><strong>Vaga pendente de escolha</strong> · não é magia preparada</li><?php endfor; ?></ul></div>
++    <?php include FMB_PATH.'templates/doom-spellbreaker-always.php'; ?>
+     <p class="doom-n20-note"><strong>Espaços e limites:</strong> <?php echo esc_html($copy['slot_note']); ?></p>
+    </section>
+    <section class="doom-n20-combat" aria-labelledby="doom-n20-combat-title"><div class="mini-label">Na mesa · estratégia provisória</div><h3 id="doom-n20-combat-title"><?php echo esc_html($copy['combat_title']); ?></h3><p><?php echo esc_html($copy['combat_intro']); ?></p><ol><?php foreach($copy['combat'] as $step): ?><li><strong><?php echo esc_html($step['label']); ?>:</strong> <?php echo esc_html($step['text']); ?></li><?php endforeach; ?></ol><div class="doom-n20-priority"><strong>Prioridade:</strong> <?php echo esc_html($copy['priority']); ?></div><?php $doom_tactical=$copy['combat_context']; include FMB_PATH . 'templates/doom-combat-context.php'; ?></section>
+--- a/forja-mineira-builds/templates/doom-regular-10-11.php
++++ b/forja-mineira-builds/templates/doom-regular-10-11.php
+@@ -29,8 +29,8 @@
+  throw new RuntimeException('Contrato mecânico ou editorial N'.$n.' divergente.');
+ }
+ $books=$d['magias_grimorio_adicionadas'];
+-if (array_column($books,'pt')!==($is_proposal?['Olho Arcano','Esfera Resiliente de Otiluke']:['Fabricar','Porta Dimensional','Banimento'])) throw new RuntimeException('Grimório divergente N'.$n);
+-// Aplicar revisão editorial 1.3 após contratos da fonte v1.2; sem gravar na base.
++if (array_column($books,'pt')!==($is_proposal?['Fabricar','Esfera Resiliente de Otiluke']:['Lança Psíquica de Raulothim','Porta Dimensional','Banimento'])) throw new RuntimeException('Grimório divergente N'.$n);
++// Aplicar overlay editorial após contratos de inscrições consolidados DOOM-FINAL-01; sem gravar na base.
+ include FMB_PATH . 'templates/doom-combat-mechanics-overlay.php';
+ $books=$d['magias_grimorio_adicionadas'];
+ $wish=$d['wishlist_novas_prioridades'];
+--- a/forja-mineira-builds/templates/doom-spellbreaker-always.php
++++ b/forja-mineira-builds/templates/doom-spellbreaker-always.php
+@@ -0,0 +1,7 @@
++<?php
++/** DOOM-FINAL-01: separa magias sempre preparadas das vagas regulares de Mago. */
++if (!defined('ABSPATH')) { exit; }
++$doom_spellbreaker = $d['quebra_feiticos_2024'] ?? null;
++if (is_array($doom_spellbreaker) && ($doom_spellbreaker['ocupam_preparacoes_regulares'] ?? true) === false): ?>
++<p class="doom-always-prepared" role="note"><strong>Quebra-Feitiços (Spell Breaker) — sempre preparadas:</strong> <?php echo esc_html(implode(' · ', $doom_spellbreaker['sempre_preparadas'])); ?>. <em>Não ocupam as preparações regulares do Mago.</em></p>
++<?php endif; ?>
