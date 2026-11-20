@@ -95,3 +95,10 @@ Uma vez homologado e conectado, o usuário escreve o pedido em linguagem natural
 Próxima ação objetiva: abrir o link do plugin pessoal, confirmar instalação/conexão quando a interface solicitar, iniciar uma nova conversa que disponibilize suas ferramentas e executar `forja_ping` pelo próprio ChatGPT. Não copiar ou divulgar senha de aplicação WordPress; este protótipo não a utiliza.
 
 **Status final honesto: hospedagem remota e criação de plugin privado realizadas; chamada originada nesta conversa ainda não comprovada.**
+
+
+## Correção de diagnóstico — FWB-05C.1, 20/11/2026
+
+**A instalação do plugin 0.1.0, sozinha, não é suficiente para oferecer ferramentas MCP no ChatGPT Web.** O pacote instalado declara o servidor remoto em \`mcp.json\`/\`.mcp.json\`, mas não contém vínculo com um aplicativo MCP registrado \`plugin_asdk_app_...\`. É necessário usar ChatGPT Sites ou registrar um aplicativo MCP personalizado onde houver suporte, e então habilitar suas ferramentas. O servidor Vercel foi validado; a conexão web continua HOLD. **Não insistir em reinstalar o plugin atual** como solução.
+
+Ver procedimento e referências em [FWB-05C.1 — Ativação no ChatGPT Web](FWB-05C1-ATIVACAO-CHATGPT-WEB-2026-11-20.md).
