@@ -108,3 +108,10 @@
 - Novos GPTs não disponíveis em contas pessoais: https://help.openai.com/en/articles/8554397-creating-and-editing-gpts
 - Publicar plugin com revisão pública (não para uso privado): https://developers.openai.com/plugins/deploy/submission
 - WordPress REST API: https://developer.wordpress.org/rest-api/
+
+
+## Atualização após teste em Chat Desktop (20/11/2026)
+
+**Resultado obtido em uma nova conversa: FAIL.** O teste fornecido pelo proprietário retornou `MATCHING_EXECUTABLE_TOOLS=[]` e `POSSIBLE_PLUGIN_STATUS_ACTIONS=[]`, sem acesso a `forja_ping` ou `forja_wp_public_status`. A hipótese gratuita de uso diretamente no Chat Desktop não ficou comprovada. Evitar ampliar ferramentas de escrita até descobrir se o host local habilita o MCP em **Chat normal**.
+
+Documento específico com a evidência, limites da inferência e verificação residual: [FWB-05 — Teste Desktop Chat FAIL](FWB-05-TESTE-DESKTOP-CHAT-FAIL-2026-11-20.md).

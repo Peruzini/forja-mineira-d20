@@ -12,6 +12,8 @@ Site: https://forjamineirad20.com.br/
 
 **Viabilidade de plugin pessoal sem Work (20/11/2026):** [estudo de decisão](docs/FWB-VIABILIDADE-PLUGIN-PESSOAL-CHAT-20261120.md). Foram identificados dois caminhos: plugin MCP em Chat Desktop sem mudança de plano (teste ainda pendente) ou Business Standard com 1 licença para MCP privado no Chat Web (sujeito a contratação autorizada). **Nenhuma integração WordPress de escrita está homologada; não há taxa/assinatura nova autorizada.**
 
+**Status operacional FWB-05 (20/11):** teste definitivo no Chat normal retornou **FAIL** (nenhuma ferramenta MCP exposta). [Registro do diagnóstico e NO-GO temporário](docs/FWB-05-TESTE-DESKTOP-CHAT-FAIL-2026-11-20.md). Não ampliar módulos de escrita antes da integração real; **custo adicional R$ 0, sem Work/Worker**.
+
 ## Estrutura
 
 - `plugins/forja-mineira-builds/` — builds, Home, Hub de Builds e votação da próxima build.
