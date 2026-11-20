@@ -10,6 +10,8 @@ Site: https://forjamineirad20.com.br/
 
 **FWB-05E — Prova com ChatGPT Sites:** adaptador de referência somente leitura com [5/5 testes aprovados](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44814347350). O [brief de ativação no Sites](docs/FWB-05E-CHATGPT-SITES-POC.md) está pronto; **Site/plugin Sites e execução real pela conversa ainda não foram criados ou comprovados**.
 
+**Viabilidade de plugin pessoal sem Work (20/11/2026):** [estudo de decisão](docs/FWB-VIABILIDADE-PLUGIN-PESSOAL-CHAT-20261120.md). Foram identificados dois caminhos: plugin MCP em Chat Desktop sem mudança de plano (teste ainda pendente) ou Business Standard com 1 licença para MCP privado no Chat Web (sujeito a contratação autorizada). **Nenhuma integração WordPress de escrita está homologada; não há taxa/assinatura nova autorizada.**
+
 ## Estrutura
 
 - `plugins/forja-mineira-builds/` — builds, Home, Hub de Builds e votação da próxima build.
