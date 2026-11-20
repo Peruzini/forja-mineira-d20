@@ -39,7 +39,7 @@ Essa PoC **não** inclui Application Password, POST, instalação no WordPress, 
 
 | Gate | Evidência necessária | Status |
 | --- | --- | --- |
-| 05-A SDK MCP | Cliente MCP real descobre e executa forja_ping localmente | AGUARDANDO CI |
+| 05-A SDK MCP | Cliente MCP real descobre e executa forja_ping localmente | **PASS — CI #44809243349** |
 | 05-B WordPress público | ferramenta retorna status validado do WordPress sem WPVibe | TESTE FALSO/MOCK em CI; externa já validada no FWB-04B |
 | 05-C ChatGPT | plugin/site hospedado conectado; chamada de forja_ping **desta conversa** | PENDENTE |
 | 05-D Autenticação | ponte OAuth/credencial compatível, sem segredo no chat ou repo | PENDENTE |
@@ -54,3 +54,17 @@ Criar/abrir um ChatGPT Site privado para hospedar a ponte, registrar o app como 
 ## Política de simplicidade
 
 Uma conexão inicial e, depois, pedidos diretos no chat. GitHub para código e testes, não para cada edição. Permissões do WordPress continuam valendo; alterações sensíveis podem exigir confirmação e backup. A main pode receber mudanças isoladas e verificadas, sem PR obrigatório para atualizações documentais ou de PoC.
+
+
+## Resultado registrado do FWB-05A — 20/11/2026
+
+- Commit da PoC na main: c9a1c5145673ab7fc0d7598a8cd878aeb05fc18c.
+- Run CI: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44809243349 — **SUCCESS**.
+- Testes do cliente MCP oficial contra o handler real, em processo: **3/3 PASS**.
+- Descoberta das duas ferramentas: forja_ping e forja_wp_public_status — PASS.
+- Chamada do forja_ping e resposta estruturada — PASS.
+- Consulta WordPress via GET público fixo, sem credenciais, simulada por injeção para teste reproduzível — PASS.
+- Erro remoto não vaza conteúdo do serviço nem dispara retry automático — PASS.
+- WordPress produção: sem instalação, sem alteração, sem criação de conteúdo e sem uso de WPVibe.
+
+**Interpretação precisa:** o protocolo MCP e o catálogo de ferramentas foram validados localmente; **a conexão do plugin ao ChatGPT e a chamada feita de uma conversa ainda não ocorreram**. Conclusão parcial **FWB-05A PASS / FWB-05C HOLD**. Não implementar módulo editorial amplo antes do FWB-05C.
