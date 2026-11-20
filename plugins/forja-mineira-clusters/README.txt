@@ -1,13 +1,14 @@
 === Forja Mineira D20 — Clusters ===
-Stable tag: 1.0.5
-Version: 1.0.5 TESTE
-Status: NÃO PUBLICAR antes da validação visual e da integração gradual.
+Stable tag: 1.0.6-TESTE
+Version: 1.0.6-TESTE
+Status: CANDIDATA PARA INSTALAÇÃO DE TESTE; NÃO HOMOLOGADA EM PRODUÇÃO.
 
 Objetivo
 Centralizar links internos estruturais entre conteúdos relacionados da Forja Mineira D20.
 
-Primeiro cluster
-Bruxo (Warlock): Magias, Invocações, Itens e Build Voldemort.
+Clusters
+Bruxo (Warlock): Magias, Invocações, Itens e Build Voldemort (preservado).
+Conjuradores: Guia dos 10 Itens Mágicos e Build Doutor Destino (Doctor Doom).
 
 Shortcode de teste
 [forja_cluster cluster="bruxo" atual="magias"]
@@ -61,3 +62,28 @@ A v1.0.5 TESTE é isolada. Os plugins Magias, Invocações, Itens e Builds ainda
 - Define o fundo da moldura dos ícones como #F7F0DF.
 - Amplia levemente a arte dos ícones em 10% dentro da mesma moldura.
 - Mantém dimensões da moldura, cards, cores dos cards, divisor, tipografia, textos, relações e lógica do Cluster sem alterações.
+
+
+== 1.0.6-TESTE — FORJA-CLUSTER-EXP-02 ==
+- Novo cluster lógico `conjuradores` com os nós `itens_conjuradores` (WP 334) e `doutor_destino` (WP 351).
+- Matriz editorial assimétrica: 1 card Doutor Destino → Guia dos 10 Itens, somente se o destino estiver publicado; sem card inverso obrigatório.
+- Título e subtítulo próprios para Conjuradores; layout de card único responsivo.
+- Requer status `publish` para todo card; invalidação/revalidação do cache quando a página for despublicada ou mudar de URL.
+- Preserva `bruxo.php`, os 3 cards atuais em cada página, ícones aprovados e arte existente.
+
+COMO EXIBIR O CARD NO DOUTOR DESTINO
+- Quando a página da Build Doutor Destino estiver pronta, inserir EXATAMENTE UMA vez o shortcode no bloco de conteúdo apropriado, após a build:
+  [forja_cluster cluster="conjuradores" atual="doutor_destino"]
+- Alternativa em código no plugin consumidor (não combinar com shortcode):
+  do_action( 'forja_d20_cluster_slot', 'conjuradores', 'doutor_destino' );
+- O registro dos nós é automático ao ativar Clusters, mas inserir o shortcode/slot é necessário para o card aparecer.
+- Se o Guia de Itens não estiver publicado, o card não aparece; não existe módulo vazio.
+- Não adicionar shortcode ao Guia dos Itens: nessa etapa ele não possui relações estruturais de saída.
+- O link contextual Guia → Doutor Destino depende de validação SEO posterior, fora deste plugin.
+
+INSTALAÇÃO / ROLLBACK
+- Em ambiente de teste, instalar o ZIP como atualização do plugin `forja-mineira-clusters` (manter mesmo diretório).
+- Testar as quatro páginas Bruxo; conferir em Ferramentas > Forja — Clusters os dois novos nós e a resolução por page_id.
+- Com a página 351 em draft, nenhum link apontará para ela; publicar e inserir o shortcode somente após os gates da Build.
+- Antes de produção, guardar `forja-mineira-clusters-v1.0.5-PRODUCAO.zip` como rollback e validar instalação/preview.
+- Este pacote não altera conteúdo WordPress, shortcodes dos consumidores, URLs ou estado de publicação de páginas.
