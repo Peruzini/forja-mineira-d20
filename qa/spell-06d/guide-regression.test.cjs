@@ -217,7 +217,7 @@ test('all 94 cards can render detail templates; user-facing values escaped', () 
     const html=detail(s);
     assert.ok(html.includes('Leitura Forja:'),s.id);
     assert.ok(html.includes('Consultar fonte'),s.id);
-    assert.ok(html.includes(s.nomePt),s.id);
+    assert.ok(html.includes(h.evalJs('esc')(s.nomePt)),s.id);
   }
   const testSpell={...h.spells[0],notas:'<img src=x onerror="alert(1)">',nomePt:'<script>alert(1)</script>'};
   const unsafe=detail(testSpell);
