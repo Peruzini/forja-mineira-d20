@@ -1,0 +1,50 @@
+name: FWB-04B — Production REST public preflight (READ ONLY)
+
+on:
+  push:
+    branches:
+      - audit/fwb-04b-conexao-real-20261120
+    paths:
+      - 'scripts/fwb_public_preflight.py'
+      - 'scripts/tests/test_fwb_public_preflight.py'
+      - 'scripts/fwb_client.py'
+      - 'scripts/tests/test_fwb_client.py'
+      - '.github/workflows/fwb-04b-readiness.yml'
+  pull_request:
+    paths:
+      - 'scripts/fwb_public_preflight.py'
+      - 'scripts/tests/test_fwb_public_preflight.py'
+      - 'scripts/fwb_client.py'
+      - 'scripts/tests/test_fwb_client.py'
+      - '.github/workflows/fwb-04b-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fwb-04b-public-readiness
+  cancel-in-progress: false
+
+jobs:
+  offline-security:
+    name: Offline security tests (NO NETWORK)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python unit tests
+        run: |
+          python3 -m unittest discover -s scripts/tests -p 'test_fwb_public_preflight.py' -v
+          python3 -m unittest discover -s scripts/tests -p 'test_fwb_client.py' -v
+      - name: Verify syntax
+        run: python3 -m py_compile scripts/fwb_public_preflight.py scripts/fwb_client.py
+
+  public-rest-readonly:
+    name: Read-only public REST readiness — NO AUTH
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Three allowlisted public GET requests only
+        run: python3 scripts/fwb_public_preflight.py
+
+# No GitHub environments, secrets, write variables or publishing steps are used here.
