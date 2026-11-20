@@ -1,0 +1,25 @@
+name: SPELL-06D regressão 94 cards (isolada)
+on:
+  pull_request:
+    paths:
+      - 'qa/spell-06d/**'
+      - '.github/workflows/spell-06d-regression.yml'
+      - 'qa/spell-06c/**'
+      - 'qa/spell-06b/**'
+      - 'qa/spell-05e/**'
+      - 'plugins/forja-mineira-guia-magias/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Regressão de dados e interação do Guia 94
+        run: node --test qa/spell-06d/guide-regression.test.cjs
+      - name: Regressão das dependências SPELL-05E, 06B e 06C
+        run: node --test qa/spell-05e/adapter.test.cjs qa/spell-06b/exporter.test.cjs qa/spell-06c/preview.test.cjs
