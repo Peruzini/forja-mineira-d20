@@ -1,0 +1,30 @@
+name: FWB-05C — External HTTPS MCP smoke test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mcp/fwb05-poc/remote-smoke.mjs'
+      - '.github/workflows/fwb-05c-remote-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install MCP client dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Check externally hosted MCP and public WordPress
+        working-directory: mcp/fwb05-poc
+        env:
+          FWB_MCP_REMOTE_URL: https://forja-wp-bridge-mcp-96zafqia3-ur-25.vercel.app/api/mcp
+        run: node remote-smoke.mjs
