@@ -1,0 +1,48 @@
+# FWB-04: disposable local WordPress in GitHub Actions, never production.
+# The credentials below exist solely inside short-lived CI containers.
+name: fwb04
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wp_ci
+      MARIADB_PASSWORD: only_local_ci_not_a_production_secret
+      MARIADB_ROOT_PASSWORD: local_ci_root_only
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 25
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    ports:
+      - "127.0.0.1:18080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: &wp_environment
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp_ci
+      WORDPRESS_DB_PASSWORD: only_local_ci_not_a_production_secret
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'FWB_ENABLE_DRAFT_WRITES', true );
+    volumes:
+      - wpdata:/var/www/html
+      - ../../plugins/forja-wp-bridge:/var/www/html/wp-content/plugins/forja-wp-bridge:ro
+
+  cli:
+    image: wordpress:cli-php8.3
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: *wp_environment
+    volumes:
+      - wpdata:/var/www/html
+      - ../../plugins/forja-wp-bridge:/var/www/html/wp-content/plugins/forja-wp-bridge:ro
+
+volumes:
+  wpdata:
