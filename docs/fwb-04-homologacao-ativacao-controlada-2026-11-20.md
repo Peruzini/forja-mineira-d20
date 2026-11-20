@@ -39,3 +39,17 @@ Se for instalado em ambiente de staging/produção mediante aprovação, primeir
 Não limpar manualmente as opções fwb_op_* nem postmeta _fwb_audit_event antes de preservar evidências; esses registros suportam reconciliação contra operações duplicadas. Preservar WPVibe ativo até homologação independente do fluxo REST.
 
 **Critério de encerramento técnico:** CI e testes REST funcionais homologados, PR draft e documentação; ativação em produção permanece HOLD enquanto credenciais, aprovações e staging externo não existirem.
+
+
+## Evidência executada — 20/11/2026
+
+- GitHub Actions run: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44797951737
+- Job disposable-staging: **SUCCESS**.
+- Instalação WordPress + ativação do plugin **SUCCESS apenas no container descartável**.
+- 24/24 verificações reais HTTP REST **PASS**.
+- Confirmação externa via WP-CLI: **2 eventos privados _fwb_audit_event** após criação e atualização.
+- **0 novas publicações indevidas**; apenas o post publicado criado previamente como fixture.
+- Docker Compose teardown e remoção de volumes **SUCCESS**.
+- Não houve requisição autenticada ao domínio público, instalação na hospedagem, secrets de produção, consumo WPVibe, merge ou deploy.
+
+**Classificação:** homologação funcional em laboratório = PASS. Autenticação no domínio da Forja, integração com plugins reais e ativação em produção = HOLD (credenciais e staging externo não preparados).
