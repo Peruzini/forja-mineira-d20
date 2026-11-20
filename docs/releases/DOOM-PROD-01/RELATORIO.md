@@ -41,10 +41,18 @@ A relação exata de arquivos alterados em comparação com a instalação está
 
 Evidências JSON anexas: `producao-http.json`, `niveis-desktop.json`, `celular.json` e `smoke-browser.json`. Capturas locais: `doom-n18-desktop.jpg` e `doom-n20-celular.jpg`.
 
-## Limitação registrada
+## Observações de verificação
 
-No celular, o botão flutuante preexistente “Pergunte à IA” se sobrepõe ao atalho “Ir para o nível” do dock e impediu a abertura desse menu no teste. Os links anterior/próximo funcionam e permitem percorrer a build. Não foi alterado o componente de IA nem outro plugin. Há ainda linguagem histórica de proposta em trechos editoriais homologados; as escolhas e regras foram preservadas, sem reabrir revisão editorial.
+O teste móvel foi feito na sessão administrativa. Nela, o botão “Pergunte à IA” se sobrepõe ao atalho do dock; o responsável confirmou que esse botão existe somente no acesso de administração. A resposta HTTP anônima não contém “Pergunte à IA”, `wpadminbar` nem `hostinger-ai`. Portanto, a sobreposição observada não é registrada como bloqueio público. Os links anterior/próximo foram efetivamente testados entre os níveis 19 e 20.
+
+Há linguagem histórica de proposta em trechos editoriais homologados; as escolhas e regras foram preservadas, sem reabrir revisão editorial.
+
+O envio opcional de uma cópia extra do backup ao Drive foi rejeitado pela revisão automática por falta de autorização específica para transmitir essa cópia. O backup verificado permanece local, no diretório desta entrega. A restauração está disponível por esse ZIP; não depende do envio ao Drive.
 
 ## Registro oficial
 
-A documentação consolidada do Drive será atualizada no mesmo ID `11sBZ0i1XcM52Q1Vu6gkVvshxdQbvmgY8`; o ZIP final substituirá o candidato no mesmo ID, mantendo uma única release oficial. O backup permanece separado e identificado como restauração.
+ZIP final substituído no mesmo ID do Drive `1LhzY-ByMGLFQPmrPIPUIG5b3r_yZycEE`, com nome de produção e 10.978.874 bytes confirmados. A documentação consolidada usa o mesmo ID `11sBZ0i1XcM52Q1Vu6gkVvshxdQbvmgY8`, preservando abaixo o relatório histórico DOOM-FINAL-01.
+
+Commit do código instalado: `42326136ce805e5aee83352025e93ab73b3ace2a`, enviado a `main`: https://github.com/Peruzini/forja-mineira-d20/commit/42326136ce805e5aee83352025e93ab73b3ace2a
+
+A regra de atributos Git preserva os bytes do plugin, pois o manifesto valida SHA256 dos JSON. Todos os 131 arquivos do plugin no índice Git foram comparados byte a byte com a release instalada. Alteração preexistente no README do plugin de invocações ficou fora do commit; nenhum merge do PR #13 foi realizado.
