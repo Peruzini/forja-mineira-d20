@@ -174,9 +174,10 @@ def probe():
     caps = profile.get("capabilities")
     can_edit = caps.get("edit_posts") if type(caps) is dict else None
     can_publish = caps.get("publish_posts") if type(caps) is dict else None
-    print("FWB PROBE: autenticação WordPress confirmada (somente leitura).")
-    print(f"FWB PROBE: edit_posts={can_edit!r}; publish_posts={can_publish!r}.")
-    # 404 is expected if FWB plugin has not been installed yet; no need to call it here.
+    if can_edit is not True or can_publish is not False:
+        raise FWBError("Conta REST não tem perfil de serviço seguro (exigir edit_posts=true e publish_posts=false).")
+    print("FWB PROBE: autenticação REST confirmada, permissões mínimas PASS (somente leitura).")
+    # O plugin Bridge não precisa estar instalado para este diagnóstico.
 
 
 def require_github_approval():

@@ -80,6 +80,20 @@ class ManifestTests(unittest.TestCase):
         with self.assertRaises(fwb.FWBError):
             json.loads('{"operation":"create","operation":"publish"}', object_pairs_hook=fwb._no_duplicate_keys)
 
+    def test_probe_rejects_privileged_account(self):
+        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"edit_posts": True, "publish_posts": True}}):
+            with self.assertRaises(fwb.FWBError):
+                fwb.probe()
+
+    def test_probe_rejects_missing_capabilities(self):
+        with patch.object(fwb, "wp_request", return_value={"id": 7}):
+            with self.assertRaises(fwb.FWBError):
+                fwb.probe()
+
+    def test_probe_accepts_least_privileged_account(self):
+        with patch.object(fwb, "wp_request", return_value={"id": 7, "capabilities": {"edit_posts": True, "publish_posts": False}}):
+            fwb.probe()
+
     def test_apply_rejects_no_approval_without_network(self):
         with patch.dict(os.environ, {}, clear=True), self.assertRaises(fwb.FWBError):
             fwb.require_github_approval()
