@@ -71,3 +71,18 @@ Referências:
 - https://developer.wordpress.org/rest-api/reference/application-passwords/
 - https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
 - https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments
+
+
+## 8. Evidências de execução do FWB-04C — 20/11/2026
+
+- PR draft #19: https://github.com/Peruzini/forja-mineira-d20/pull/19
+- GitHub Actions WordPress isolado: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44802040573 — **SUCCESS**.
+- 31/31 verificações HTTP REST em WordPress descartável **PASS**, inclusive autenticação e introspecção da senha de aplicação de um Assinante, proibição de edição/publicação por Assinante, conta Contribuidor separada e proteção da API nativa.
+- Eventos de auditoria de criação/edição confirmados por WP-CLI independente: 2.
+- Nenhuma publicação indevida; stack e volumes removidos no fim do job.
+- Testes do cliente FWB-03: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44802039938 — **SUCCESS**, 23 testes Python e 11 testes de ledger PHP aprovados.
+- Pré-verificação pública FWB-04B: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44802039725 — **SUCCESS**, exclusivamente GET anônimo.
+
+**Gate técnico de laboratório: PASS. Gate de primeira autenticação no domínio público: PENDENTE (não há conta de leitura ou segredos autenticados fornecidos para o novo fluxo).**
+
+Nenhuma criação de usuário real, cadastro de secret, merge, instalação, deploy ou escrita de produção foi executada.
