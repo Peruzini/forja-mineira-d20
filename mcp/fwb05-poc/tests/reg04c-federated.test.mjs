@@ -40,7 +40,7 @@ test('only signed caller subject chooses the Keycloak account; attaches and chec
   assert.deepEqual(m.attributes().fwb_site_id,[site]);
   assert.deepEqual(m.attributes().fwb_connection_id,[connection]);
   assert.deepEqual(m.attributes().email_verified,['true']);
-  assert.equal(m.calls.length,4);
+  assert.equal(m.calls.length,3);
   await assert.rejects(()=>m.client.attach(user,'bad site',connection),/binding_invalid/);
   await assert.rejects(()=>m.client.attach('other',site,connection),/keycloak_subject_invalid/);
   await assert.rejects(()=>m.client.attach(user,site,connection),/user_already_has_binding/);
