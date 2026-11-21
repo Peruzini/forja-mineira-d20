@@ -108,7 +108,10 @@ jobs:
           HTTP_PROXY: ''
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
-        run: node tests/fwb-reg04d-r2b2/isolated-admin-e2e.mjs
+        run: |
+          test ! -e node_modules
+          ln -s mcp/fwb05-poc/node_modules node_modules
+          node tests/fwb-reg04d-r2b2/isolated-admin-e2e.mjs
       - name: Real Account REST — separate least-privilege PKCE client and protected writes
         env:
           FWB_LAB_TLS_CERT: /tmp/fwb-r1-lab-cert.pem
