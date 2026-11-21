@@ -1,0 +1,135 @@
+name: FWB-REG-04B — Real Keycloak OAuth + durable PostgreSQL lab
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb05-poc/reg04/**'
+      - 'mcp/fwb05-poc/reg04b/**'
+      - 'mcp/fwb05-poc/app/api/gateway-mcp/**'
+      - 'mcp/fwb05-poc/package.json'
+      - 'mcp/fwb05-poc/tests/reg04b-*.test.mjs'
+      - 'tests/fwb-reg04b/**'
+      - '.github/workflows/fwb-reg04b-real-oauth.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-durable-site-bindings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: fwb_lab
+          POSTGRES_USER: fwb
+          POSTGRES_PASSWORD: ephemeral-reg04b-ci-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fwb -d fwb_lab"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Test real persistent PostgreSQL binding and complete REG suites
+        working-directory: mcp/fwb05-poc
+        env:
+          NODE_ENV: test
+          FWB_REG04B_PG_STORAGE: enabled
+          FWB_REG04B_INSECURE_DB_TEST_ONLY: enabled
+          FWB_REG04B_REAL_POSTGRES_TEST: enabled
+          FWB_REG04B_DATABASE_URL: postgresql://fwb:ephemeral-reg04b-ci-only@127.0.0.1:5432/fwb_lab
+        run: npm test
+      - name: Compile gateway and test routes
+        working-directory: mcp/fwb05-poc
+        run: npm run build
+
+  keycloak-real-authorization-code:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install verifier dependencies
+        run: |
+          cd mcp/fwb05-poc && npm install --no-audit --no-fund
+          python -m pip install requests beautifulsoup4 "PyJWT[crypto]"
+      - name: Boot real, disposable Keycloak 26.8.2 with realm and PKCE
+        run: |
+          docker run --detach --rm --name fwb-reg04b-keycloak \
+            --publish 127.0.0.1:8080:8080 \
+            --env KC_BOOTSTRAP_ADMIN_USERNAME=lab-admin \
+            --env KC_BOOTSTRAP_ADMIN_PASSWORD=only-temporary-ci-admin \
+            --env KC_HOSTNAME=https://auth-lab.example.org \
+            --env KC_PROXY_HEADERS=xforwarded \
+            --volume "$PWD/tests/fwb-reg04b/keycloak-realm.json:/opt/keycloak/data/import/fwb-reg04b-lab-realm.json:ro" \
+            quay.io/keycloak/keycloak:26.8.2 \
+            start-dev --features=cimd,resource-indicators --import-realm
+          for i in $(seq 1 90); do
+            if curl --silent --fail http://127.0.0.1:8080/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null; then break; fi
+            sleep 3
+          done
+          curl --silent --fail http://127.0.0.1:8080/realms/fwb-reg04b-lab/.well-known/openid-configuration > /dev/null
+      - name: Bootstrap disposable HTTPS TLS with trusted CI-only certificate
+        run: |
+          openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days 1 \
+            -keyout /tmp/fwb-lab-key.pem -out /tmp/fwb-lab-cert.pem \
+            -subj '/CN=auth-lab.example.org' \
+            -addext 'subjectAltName=DNS:auth-lab.example.org' >/dev/null 2>&1
+          echo '127.0.0.1 auth-lab.example.org' | sudo tee -a /etc/hosts >/dev/null
+          sudo env FWB_LAB_TLS_KEY=/tmp/fwb-lab-key.pem \
+            FWB_LAB_TLS_CERT=/tmp/fwb-lab-cert.pem \
+            "$(command -v node)" tests/fwb-reg04b/tls-test-proxy.mjs \
+            > /tmp/fwb-reg04b-proxy.log 2>&1 &
+          for i in $(seq 1 15); do
+            if curl --silent --fail --cacert /tmp/fwb-lab-cert.pem \
+              https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null; then break; fi
+            sleep 2
+          done
+          curl --silent --fail --cacert /tmp/fwb-lab-cert.pem \
+            https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration > /dev/null
+      - name: Verify genuine user login + consent + PKCE and token lifecycle
+        env:
+          FWB_LAB_TLS_CERT: /tmp/fwb-lab-cert.pem
+          REQUESTS_CA_BUNDLE: /tmp/fwb-lab-cert.pem
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
+        run: python tests/fwb-reg04b/keycloak-oauth-e2e.py
+      - name: Verify Keycloak-signed JWT against actual gateway resource validator
+        env:
+          NODE_EXTRA_CA_CERTS: /tmp/fwb-lab-cert.pem
+          FWB_REG04_STAGING: enabled
+          FWB_REG04_PROVIDER: keycloak
+          FWB_REG04_ISSUER: https://auth-lab.example.org/realms/fwb-reg04b-lab
+          FWB_REG04_JWKS_URL: https://auth-lab.example.org/realms/fwb-reg04b-lab/protocol/openid-connect/certs
+          FWB_REG04_RESOURCE: https://mcp.example.org/api/gateway-mcp
+          FWB_REG04_ALLOWED_WP_HOSTS: wp-one.example.org
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
+        run: |
+          export FWB_REG04_ENCRYPTION_KEY_B64URL="$(node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")"
+          node tests/fwb-reg04b/verify-real-keycloak-token.mjs
+      - name: Destroy disposable OAuth server
+        if: always()
+        run: |
+          docker rm -f fwb-reg04b-keycloak >/dev/null 2>&1 || true
+          rm -f /tmp/fwb-reg04b-access-token.jwt /tmp/fwb-lab-key.pem /tmp/fwb-lab-cert.pem

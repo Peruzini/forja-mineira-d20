@@ -70,9 +70,26 @@ export class EphemeralSiteStore {
 
 export function readCentralConfig(env=process.env) {
   if (env.FWB_REG04_STAGING!=='enabled') throw new OnboardingDenied('REG04_NOT_ENABLED');
-  const issuer=httpsUrl(env.FWB_REG04_ISSUER,'issuer').href.replace(/\/$/,'');
+  const provider=env.FWB_REG04_PROVIDER==='keycloak'?'keycloak':'legacy';
+  let issuer,jwks;
+  if(provider==='keycloak') {
+    const raw=env.FWB_REG04_ISSUER;
+    let u;
+    try {u=new URL(raw);} catch {throw new OnboardingDenied('issuer_invalid');}
+    if(typeof raw!=='string' || raw!==u.href || u.protocol!=='https:' || u.port ||
+      u.username || u.password || u.search || u.hash || isIP(u.hostname)!==0 ||
+      !u.hostname.includes('.') || !/^\/realms\/[a-z][a-z0-9_-]{2,63}$/.test(u.pathname)) {
+      throw new OnboardingDenied('issuer_invalid');
+    }
+    issuer=u.href;
+    const expected=issuer+'/protocol/openid-connect/certs';
+    if(env.FWB_REG04_JWKS_URL!==expected) throw new OnboardingDenied('keycloak_jwks_invalid');
+    jwks=expected;
+  } else {
+    issuer=httpsUrl(env.FWB_REG04_ISSUER,'issuer').href.replace(/\/$/,'');
+    jwks=httpsUrl(env.FWB_REG04_JWKS_URL,'jwks','/oauth/jwks.json').href;
+  }
   const resource=httpsUrl(env.FWB_REG04_RESOURCE,'resource','/api/gateway-mcp').href;
-  const jwks=httpsUrl(env.FWB_REG04_JWKS_URL,'jwks','/oauth/jwks.json').href;
   if(new URL(jwks).origin!==new URL(issuer).origin) throw new OnboardingDenied('jwks_origin_mismatch');
   const rawHosts=env.FWB_REG04_ALLOWED_WP_HOSTS;
   if (!strictString(rawHosts,1024)) throw new OnboardingDenied('allowed_hosts_missing');
@@ -88,7 +105,7 @@ export function readCentralConfig(env=process.env) {
   }
   const key=Buffer.from(keyText,'base64url');
   if (key.length!==32) throw new OnboardingDenied('encryption_key_invalid');
-  return {issuer, resource, jwks, hosts:Object.freeze(hosts), key};
+  return {issuer, resource, jwks, provider, hosts:Object.freeze(hosts), key};
 }
 
 function parseUnverifiedSubject(authorization) {
