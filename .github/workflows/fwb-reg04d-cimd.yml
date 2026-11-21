@@ -40,6 +40,10 @@ jobs:
           exit 1
       - name: Verify authorization using live ChatGPT metadata and reject disallowed requests
         run: python3 tests/fwb-reg04d/check-cimd.py check-live
+      - name: Record sanitized CIMD rejection diagnostics
+        if: failure()
+        run: |
+          docker logs --tail 100 fwb-reg04d-keycloak 2>&1 | grep -E "CIMD|cimd|metadata|resource|clientId|LOGIN_ERROR" | sed -E "s/(state|session_code|code_challenge|tab_id|client_data)=([^ ,&\"]+)/\1=[redacted]/g" | tail -n 25 || true
       - name: Stop Keycloak
         if: always()
         run: docker rm -f fwb-reg04d-keycloak >/dev/null 2>&1 || true
