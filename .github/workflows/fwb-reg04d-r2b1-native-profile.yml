@@ -5,6 +5,8 @@ on:
     paths:
       - 'tests/fwb-reg04d-r2b1/**'
       - 'tests/fwb-reg04d-r2b1-c1/**'
+      - 'tests/fwb-reg04d-r2b2/**'
+      - 'mcp/fwb05-poc/reg04d-r2b2/**'
       - 'mcp/fwb05-poc/reg04d-r2b1/**'
       - '.github/workflows/fwb-reg04d-r2b1-native-profile.yml'
   workflow_dispatch:
@@ -32,7 +34,21 @@ jobs:
 
   keycloak-native-profile:
     runs-on: ubuntu-latest
-    timeout-minutes: 16
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: fwb_r2b2_lab
+          POSTGRES_USER: fwb_ci_admin
+          POSTGRES_PASSWORD: only-r2b2-ci-postgres-admin
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U fwb_ci_admin -d fwb_r2b2_lab"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -85,6 +101,17 @@ jobs:
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
         run: node tests/fwb-reg04d-r2b1/native-profile-e2e.mjs
+      - name: R2B2 private admin — real Keycloak and PostgreSQL concurrent safety
+        env:
+          NODE_EXTRA_CA_CERTS: /tmp/fwb-r1-lab-cert.pem
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
+        run: |
+          test ! -e node_modules
+          ln -s mcp/fwb05-poc/node_modules node_modules
+          node tests/fwb-reg04d-r2b2/isolated-admin-e2e.mjs
       - name: Real Account REST — separate least-privilege PKCE client and protected writes
         env:
           FWB_LAB_TLS_CERT: /tmp/fwb-r1-lab-cert.pem
