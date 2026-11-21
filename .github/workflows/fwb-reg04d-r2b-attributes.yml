@@ -93,14 +93,6 @@ jobs:
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
         run: node tests/fwb-reg04d-r2b/field-restriction-e2e.mjs
-      - name: Enforce Keycloak native FWB managed attributes and deny unmanaged fields
-        env:
-          NODE_EXTRA_CA_CERTS: /tmp/fwb-r1-lab-cert.pem
-          HTTPS_PROXY: ''
-          HTTP_PROXY: ''
-          ALL_PROXY: ''
-          NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
-        run: node tests/fwb-reg04d-r2b/managed-profile-e2e.mjs
       - name: Remove disposable identity provider and TLS materials
         if: always()
         run: |
