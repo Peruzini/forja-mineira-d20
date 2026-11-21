@@ -1,6 +1,6 @@
 # FWB-REG-04C — Staging integrado, onboarding federado e compatibilidade CIMD
 
-**Status:** implementação em PR draft; registrar conclusão e números de CI somente após execução com evidências verificadas.
+**Status: REG-04C LAB PASS (integração real em CI). PR #33 permanece draft, NO-GO para staging público, ChatGPT normal e merge automático.**
 
 ## Objetivo
 Demonstrar o primeiro caminho sem credenciais inventadas:
@@ -24,7 +24,7 @@ Demonstrar o primeiro caminho sem credenciais inventadas:
 
 - **Nenhuma credencial de administrador WordPress persistida** no banco de dados. As Application Passwords de WordPress e o admin bearer Keycloak são utilizados somente na CI e não devem constar em issues, chats, Git ou logs.
 - No projeto WordPress real de produção (forjamineirad20.com.br), **nenhuma instalação, credencial, escrita, query, deploy ou conexão é autorizada** neste bloco.
-- O administrador Keycloak do laboratório usa token de admin-cli temporário. **Isso não é adequado a produção**: o serviço real precisa de client credentials isoladas com apenas `manage-users` (ou privilégio equivalente mínimo) e controles de auditoria e rotação. Não existe UI pública para inserir credenciais de usuários.
+- O laboratório emprega política Keycloak `ADMIN_EDIT` para atributos não gerenciados, admitindo edição **somente pela API administrativa**, nunca pelo usuário final. Ela não substitui o esquema estrito de atributos gerenciados necessário à produção. O administrador Keycloak do laboratório usa token de admin-cli temporário. **Isso não é adequado a produção**: o serviço real precisa de client credentials isoladas com apenas `manage-users` (ou privilégio equivalente mínimo) e controles de auditoria e rotação. Não existe UI pública para inserir credenciais de usuários.
 - O usuário precisa **reautorizar** o gateway após conectar o site para obter novo JWT `site_id/connection_id` e não reaproveitar sessão/token anterior.
 - A implementação atual permite um vínculo ativo anunciado por assunto Keycloak; multi-sites simultâneos exigem uma seleção de conexão confiável no fluxo de autorização, ainda pendente.
 - Desconectar bloqueia o gateway, mas **não revoga automaticamente** Application Password WordPress; concluir revogação de origem requer ação separada. Tokens expirados/replay/rotina IdP e requisitos LGPD/backup/egress também exigem revisão.
@@ -40,3 +40,14 @@ Demonstrar o primeiro caminho sem credenciais inventadas:
 - https://www.keycloak.org/securing-apps/mcp-authz-server
 - https://developers.openai.com/plugins/build/auth
 - https://chatgpt.com/oauth/client.json (documento de terceiro, ler; **não replicar ou alterar**)
+
+## Evidência final — REG-04C integração real em CI (21/11/2026)
+
+- [Run #44912809777](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44912809777): job `integrated-federated-lab` com conclusão **success**, sem etapas falhas. Código validado no commit `172c97a83306bac246477fc8ae71a810d04e659c`.
+- Suíte `npm test`: **55 testes descobertos, 53 PASS, 0 FAIL, 2 SKIP** (testes que exigem serviços reais, chamados separadamente). `npm run build`: **PASS**, Next.js compila.
+- Teste real isolado após ativar serviços: **1 PASS, 0 FAIL**. WordPress via `wp-env` com administrador e autor reais, Application Passwords temporárias, rascunho criado para ID real do autor. Keycloak 26.8.2 e PostgreSQL 16 reais, HTTPS com certificado temporário validado somente no runner.
+- Marcas verificadas diretamente nos logs: `REG04C_KEYCLOAK_ADMIN_EDIT_LAB_POLICY_PASS`, `REG04C_KEYCLOAK_REAL_UNBOUND_SUBJECT_PASS`, `REG04C_REAL_WORDPRESS_OWNER_AUTHOR_ONBOARDED`, `REG04C_REAL_KEYCLOAK_UPDATED_SIGNED_BINDING`, `REG04C_REAL_WORDPRESS_POSTS_VIA_KEYCLOAK_MCP_PASS`, `REG04C_REAL_CROSS_SERVICE_REVOCATION_PASS`.
+- Correção editorial: `status=any` explicitamente em listagem WordPress REST autenticada, porque a consulta padrão excluía o rascunho. Autor filtrado por ID e cada resposta continua verificada, impedindo leitura de posts de outro autor.
+- [REG-03 regressão #44912809753](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44912809753) e [REG-02 regressão #44912809758](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44912809758): **success**.
+
+**Veredito limitado:** aprovado o fluxo Keycloak OAuth → autorização WordPress real → persistência PostgreSQL → vínculo Keycloak assinado → leitura MCP → exclusão/revogação do vínculo em ambiente **descartável de GitHub Actions**. O teste de contrato CIMD prova requisitos do documento e rejeição de configurações inseguras, **NÃO** prova registro dinâmico real CIMD no Keycloak, troca de token com `private_key_jwt` do ChatGPT, handshake ChatGPT normal, domínio HTTPS público, rotação de credenciais, nem política de user-profile adequada a produção. Estes itens seguem NO-GO.
