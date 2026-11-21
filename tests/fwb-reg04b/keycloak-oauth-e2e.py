@@ -54,13 +54,31 @@ def begin_flow(discovery,wrong=False):
     body.update({'username':'fwb-lab-user','password':PASSWORD})
     r=s.post(action,data=body,allow_redirects=False,timeout=25)
     check(r.status_code in (200,302,303),'keycloak-real-user-login')
-    if r.status_code==200:
-        action,body,el=form(r,'form#kc-consent-form')
-        submit=el.find('button',{'name':'accept'}) or el.find('input',{'name':'accept'})
-        body['accept']=(submit.get('value') or 'Yes') if submit else 'Yes'
-        r=s.post(action,data=body,allow_redirects=False,timeout=25)
-        check(r.status_code in (302,303),'keycloak-real-consent-granted')
-    location=r.headers.get('Location','')
+    location=''
+    consent_seen=False
+    for hop in range(8):
+        if r.status_code in (302,303):
+            location=urljoin(r.url,r.headers.get('Location',''))
+            if location.startswith(REDIRECT+'?'): break
+            parsed=urlparse(location)
+            if parsed.scheme!='https' or parsed.netloc!='auth-lab.example.org':
+                raise AssertionError('unexpected_redirect_origin')
+            r=s.get(location,allow_redirects=False,timeout=25)
+            continue
+        if r.status_code==200:
+            soup=BeautifulSoup(r.text,'html.parser')
+            consent=soup.select_one('form#kc-consent-form')
+            if consent is None:
+                forms=[el.get('id','') for el in soup.find_all('form')]
+                raise AssertionError('unexpected_keycloak_interaction_form_'+','.join(forms)[:120])
+            action,body,el=form(r,'form#kc-consent-form')
+            submit=el.find('button',{'name':'accept'}) or el.find('input',{'name':'accept'})
+            body['accept']=(submit.get('value') or 'Yes') if submit else 'Yes'
+            consent_seen=True
+            r=s.post(action,data=body,allow_redirects=False,timeout=25)
+            continue
+        raise AssertionError('keycloak_unexpected_response_'+str(r.status_code))
+    check(consent_seen,'keycloak-real-consent-granted')
     check(location.startswith(REDIRECT+'?'),'keycloak-authorized-callback')
     query=parse_qs(urlparse(location).query)
     check(query.get('state',[''])[0]==state and bool(query.get('code',[''])[0]),
