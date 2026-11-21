@@ -56,11 +56,14 @@ function fwb_reg02b_trusted_publishers( $publishers ) {
 	return $publishers;
 }
 
-add_filter( 'wpmedia_mcp_oauth_server_enabled', 'fwb_reg02b_enabled', PHP_INT_MAX );
-add_filter( 'wpmedia_mcp_oauth_allow_untrusted_providers', '__return_false', PHP_INT_MAX );
-add_filter( 'wpmedia_mcp_oauth_trusted_publishers', 'fwb_reg02b_trusted_publishers', PHP_INT_MAX );
-// Do not provide the MCP Adapter's Basic-auth default server on this staging.
-add_filter( 'mcp_adapter_create_default_server', '__return_false', PHP_INT_MAX );
+// Make absolutely no changes to other MCP plugins when this addon is disabled.
+if ( fwb_reg02b_enabled() && '' !== fwb_reg02b_client_id() ) {
+	add_filter( 'wpmedia_mcp_oauth_server_enabled', 'fwb_reg02b_enabled', PHP_INT_MAX );
+	add_filter( 'wpmedia_mcp_oauth_allow_untrusted_providers', '__return_false', PHP_INT_MAX );
+	add_filter( 'wpmedia_mcp_oauth_trusted_publishers', 'fwb_reg02b_trusted_publishers', PHP_INT_MAX );
+	// Disable the standard MCP Adapter Basic-auth endpoint in this staging only.
+	add_filter( 'mcp_adapter_create_default_server', '__return_false', PHP_INT_MAX );
+}
 
 add_action( 'plugins_loaded', function () {
 	if ( ! fwb_reg02b_enabled() || '' === fwb_reg02b_client_id() ) {
