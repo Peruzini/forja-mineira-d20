@@ -45,7 +45,7 @@ function validateUser(raw,sub){
   const safeProfile=Object.fromEntries(PROFILE.filter(key=>
     Object.prototype.hasOwnProperty.call(raw,key)).map(key=>[key,raw[key]]));
   return {attrs:Object.freeze({...attrs}),site,connection,
-    profile:JSON.stringify(safeProfile)};
+    profile:JSON.stringify(safeProfile),preserved:Object.freeze(safeProfile)};
 }
 function verifyConfig(config) {
   if(!config?.issuer||!config?.adminEndpoint||!config?.tokenEndpoint||
@@ -120,9 +120,11 @@ export function makeFieldRestrictedKeycloakAdmin({config,fetcher=globalThis.fetc
         denied('r2b_binding_mismatch');
       attributes={};
     }else denied('r2b_admin_operation_denied');
-    // Never forward profile, groups, roles, arbitrary field/value or untrusted
-    // account properties from the caller. Keycloak only sees this fixed schema.
-    await request(endpoint,token,'PUT',{attributes});
+    // Keycloak native validation requires core user fields to survive a PUT.
+    // Preserve only the whitelisted profile from the verified Admin API GET.
+    // Never forward caller-supplied fields, groups, role mappings or arbitrary
+    // properties. After writing, the full core snapshot must still match.
+    await request(endpoint,token,'PUT',{...before.preserved,attributes});
     const after=validateUser(await request(endpoint,token),sub);
     profileUnchanged(before,after);
     if(action==='attach'?(after.site!==siteId||after.connection!==connectionId):
