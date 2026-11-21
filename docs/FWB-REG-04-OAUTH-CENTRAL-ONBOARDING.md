@@ -1,6 +1,6 @@
 # FWB-REG-04 — OAuth central interoperável e onboarding de sites WordPress
 
-**Estado:** protótipo de contrato OAuth + onboarding em PR draft; **NÃO é um provedor OAuth implantado nem um onboarding público operacional**.
+**Estado:** **REG-04A LAB PASS em CI** (contrato OAuth + onboarding); PR #31 draft. **NÃO é um provedor OAuth implantado nem um onboarding público operacional**.
 
 ## Desenho escolhido
 
@@ -65,3 +65,12 @@ O onboarding implementado é um **serviço interno com contrato e testes**, não
 4. Fechar revisões PRs anteriores na ordem, nunca merge automático ou instalação no WordPress de produção.
 
 Referências: https://developers.openai.com/plugins/build/auth ; https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization ; RFC 8414/8707/9728.
+
+## Evidência auditada — 21/11/2026
+
+- [Run GitHub Actions REG-04 #44907542702](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44907542702): `success`, **44/44 testes PASS**, zero falhas, `npm run build` PASS. Teste adicional comprova dois sujeitos/dominios com credenciais independentes e impede transplantar envelope criptografado de um vínculo ao outro.
+- [REG-02 regressão #44907542824](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44907542824): `success` e build PASS.
+- [REG-01 gate #44907542748](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44907542748): `success`, publicação continua bloqueada.
+- Nenhuma conexão live com o ChatGPT, nenhum provedor central autenticação real, nenhum banco/vault de staging e nenhuma edição no WordPress de produção.
+
+**Veredito:** encerrar somente a implementação/testes do **REG-04A**, manter **REG-04B bloqueado** até IdP real + banco persistente + fluxo de consentimento/token + validação HTTPS e conexão no Chat normal quando autorizado.
