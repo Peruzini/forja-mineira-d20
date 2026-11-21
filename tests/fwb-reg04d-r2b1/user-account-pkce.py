@@ -1,50 +1,130 @@
 #!/usr/bin/env python3
-"""Disposable R2B1: end-user OAuth PKCE and account-profile field denial."""
+"""R2B1-C1: disposable Keycloak 26.8.2 self-service Account REST proof.
+Normal user's account roles only (view-profile, manage-account); no admin roles.
+Never print passwords, access tokens, profile payloads or OAuth codes.
+"""
 import importlib.util
-import os
+import json
+import base64
 from pathlib import Path
-import requests
+from copy import deepcopy
 
-p=Path(__file__).parents[1]/"fwb-reg04b"/"keycloak-oauth-e2e.py"
-spec=importlib.util.spec_from_file_location("fwb_lab_login",p)
-mod=importlib.util.module_from_spec(spec)
+p = Path(__file__).parents[1] / "fwb-reg04b" / "keycloak-oauth-e2e.py"
+spec = importlib.util.spec_from_file_location("fwb_lab_login", p)
+mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
-s=mod.s
-issuer=mod.ISSUER
-discovery=s.get(issuer+"/.well-known/openid-configuration",timeout=25).json()
-code,verifier=mod.begin_flow(discovery)
-response=mod.exchange(discovery,code,verifier)
-assert response.status_code==200,"keycloak user OAuth PKCE exchange failed"
-user_token=response.json()["access_token"]
-assert user_token and len(user_token)>100
-print("REG04D_R2B1_REAL_END_USER_OAUTH_PKCE_PASS")
+s = mod.s
+issuer = mod.ISSUER
+admin_root = "https://auth-lab.example.org/admin/realms/fwb-reg04b-lab"
+account_url = issuer + "/account/"
+# All privileged setup below is confined to a disposable CI Keycloak container.
+master = s.post("https://auth-lab.example.org/realms/master/protocol/openid-connect/token",
+    data={"grant_type":"password", "client_id":"admin-cli",
+          "username":"lab-admin", "password":"only-temporary-ci-admin"}, timeout=25)
+assert master.status_code == 200, "disposable lab admin login"
+admin_bearer = master.json()["access_token"]
+admin_headers = {"Authorization":"Bearer " + admin_bearer, "Accept":"application/json"}
+def get_admin(path):
+    r = s.get(admin_root + path, headers=admin_headers, timeout=25)
+    assert r.status_code == 200, "lab admin read failed " + str(r.status_code)
+    return r.json()
+def mutate_admin(path, body, method="POST"):
+    r = s.request(method, admin_root + path,
+        headers={**admin_headers, "Content-Type":"application/json"},
+        json=body, timeout=25)
+    assert r.status_code in (200, 201, 204), "lab admin configuration failed HTTP " + str(r.status_code)
+    return r
 
-realm=issuer.split("/")[-1]
-root="https://auth-lab.example.org/admin/realms/"+realm
-master=s.post("https://auth-lab.example.org/realms/master/protocol/openid-connect/token",
- data={"grant_type":"password","client_id":"admin-cli",
-       "username":"lab-admin","password":"only-temporary-ci-admin"},timeout=25)
-assert master.status_code==200
-admin_token=master.json()["access_token"]
-admin_headers={"Authorization":"Bearer "+admin_token}
-user_headers={"Authorization":"Bearer "+user_token}
-user=s.get(root+"/users?username=fwb-lab-user&exact=true",
- headers=admin_headers,timeout=25).json()[0]
-user_id=user["id"]
-denial=s.get(root+"/users/"+user_id,headers=user_headers,timeout=25)
-assert denial.status_code in (401,403),"regular user reached admin REST"
-account_url=issuer+"/account/v1/"
-account=s.get(account_url,headers=user_headers,timeout=25)
-print("REG04D_R2B1_ACCOUNT_GET_HTTP",account.status_code)
-assert account.status_code==200,"Keycloak self-service account API unavailable"
+users = get_admin("/users?username=fwb-lab-user&exact=true")
+assert len(users) == 1
+uid = users[0]["id"]
+account_client = get_admin("/clients?clientId=account")
+oauth_client = get_admin("/clients?clientId=fwb-reg04b-lab-client")
+assert len(account_client) == 1 and len(oauth_client) == 1
+account_id = account_client[0]["id"]
+oauth_id = oauth_client[0]["id"]
+# This grants ONLY the standard end-user self-service permissions. The
+# realm-management client, users beyond this subject, and master realm stay untouched.
+roles = [get_admin("/clients/"+account_id+"/roles/"+role)
+         for role in ("view-profile","manage-account")]
+mutate_admin("/users/"+uid+"/role-mappings/clients/"+account_id, roles)
+# Attach built-in roles scope and explicit account audience to this test client
+# so that its user token is accepted by Account REST *as an account token*.
+scopes = get_admin("/client-scopes")
+roles_scope = next(x for x in scopes if x["name"] == "roles")
+mutate_admin("/clients/"+oauth_id+"/default-client-scopes/"+roles_scope["id"], {}, "PUT")
+mutate_admin("/clients/"+oauth_id+"/protocol-mappers/models", {
+    "name":"r2b1-ci-account-audience", "protocol":"openid-connect",
+    "protocolMapper":"oidc-audience-mapper",
+    "config":{"included.client.audience":"account",
+              "access.token.claim":"true", "id.token.claim":"false"}
+})
+print("REG04D_R2B1_C1_LAB_USER_ACCOUNT_ROLES_ONLY_PASS")
+
+discovery = s.get(issuer + "/.well-known/openid-configuration",timeout=25).json()
+code, verifier = mod.begin_flow(discovery)
+exchange = mod.exchange(discovery, code, verifier)
+assert exchange.status_code == 200, "real user PKCE token exchange"
+user_token = exchange.json()["access_token"]
+assert isinstance(user_token,str) and len(user_token)>100
+claims = json.loads(base64.urlsafe_b64decode(user_token.split(".")[1] + "==="))
+aud = claims.get("aud",[])
+aud = [aud] if isinstance(aud,str) else aud
+account_roles = claims.get("resource_access",{}).get("account",{}).get("roles",[])
+assert "account" in aud, "missing Account REST audience"
+assert "manage-account" in account_roles and "view-profile" in account_roles, "missing ordinary account permissions"
+assert "realm-admin" not in claims.get("realm_access",{}).get("roles",[])
+assert "realm-management" not in claims.get("resource_access",{})
+print("REG04D_R2B1_C1_OAUTH_PKCE_USER_ACCOUNT_AUDIENCE_PASS")
+user_headers={"Authorization":"Bearer "+user_token,"Accept":"application/json"}
+admin_denied=s.get(admin_root+"/users/"+uid,headers=user_headers,timeout=25)
+assert admin_denied.status_code in (401,403), "ordinary user gained Keycloak Admin API"
+print("REG04D_R2B1_C1_USER_ADMIN_REST_DENIED_PASS")
+
+# Read full account JSON and preserve all unrelated fields in POST.
+account=s.get(account_url,headers=user_headers,timeout=25,allow_redirects=False)
+assert account.status_code==200, "Account REST read HTTP "+str(account.status_code)
+assert "json" in account.headers.get("Content-Type","").lower(), "Account REST returned HTML"
 profile=account.json()
-profile["attributes"]={
- "fwb_site_id":["rogue_site"],
- "fwb_connection_id":["rogue_connection_12345678901234"]
-}
-attempt=s.post(account_url,headers=user_headers,json=profile,timeout=25)
-assert attempt.status_code in (200,204,400,401,403,405)
-checked=s.get(root+"/users/"+user_id,headers=admin_headers,timeout=25).json()
-assert checked.get("attributes",{}).get("fwb_site_id") is None
-assert checked.get("attributes",{}).get("fwb_connection_id") is None
-print("REG04D_R2B1_REAL_END_USER_ADMIN_ONLY_FIELDS_BLOCKED_PASS")
+assert isinstance(profile,dict), "unexpected Account REST object"
+baseline=get_admin("/users/"+uid)
+baseline_core={k:baseline.get(k) for k in ("email","firstName","lastName","username","enabled","emailVerified")}
+assert baseline.get("attributes",{}).get("fwb_site_id") is None
+assert baseline.get("attributes",{}).get("fwb_connection_id") is None
+print("REG04D_R2B1_C1_ACCOUNT_REST_READ_PASS")
+
+# Positive control: allowed ordinary profile change really works; this ensures
+# a denied FWB mutation is denied by per-attribute policy, not an unrelated 401.
+positive=deepcopy(profile)
+positive["firstName"]="R2B1C1 Self Service Test"
+ok=s.post(account_url,headers=user_headers,json=positive,timeout=25,allow_redirects=False)
+assert ok.status_code in (200,204), "positive self-service update failed HTTP "+str(ok.status_code)
+changed=get_admin("/users/"+uid)
+assert changed.get("firstName")=="R2B1C1 Self Service Test", "positive self-service write not persisted"
+print("REG04D_R2B1_C1_POSITIVE_SELF_EDIT_PASS")
+
+# User attempts two FWB bindings plus an undeclared attribute through the
+# *same*, otherwise working Account REST POST. No user-admin delegation.
+malicious=deepcopy(positive)
+malicious["attributes"]={**(positive.get("attributes") or {}),
+    "fwb_site_id":["rogue_site"],"fwb_connection_id":["unauthorized_test_connection_12345678"],
+    "fwb_r2b1_undeclared":["must_not_persist"]}
+attempt=s.post(account_url,headers=user_headers,json=malicious,timeout=25,allow_redirects=False)
+assert attempt.status_code in (200,204,400,403), "unexpected Account REST mutation HTTP "+str(attempt.status_code)
+after=get_admin("/users/"+uid)
+for name in ("fwb_site_id","fwb_connection_id","fwb_r2b1_undeclared"):
+    assert after.get("attributes",{}).get(name) is None, "end-user wrote protected attribute"
+assert after.get("firstName")=="R2B1C1 Self Service Test", "denied request changed allowed profile unexpectedly"
+print("REG04D_R2B1_C1_REAL_ACCOUNT_FWB_SELF_EDIT_DENIED_PASS")
+
+# Restore test-only profile. Keycloak Admin API PUT requires complete core
+# fields; only trusted previous admin snapshot is used.
+restore={k:v for k,v in baseline.items() if k in (
+    "id","username","email","firstName","lastName","emailVerified","enabled","requiredActions")}
+restore["attributes"]=baseline.get("attributes") or {}
+mutate_admin("/users/"+uid,restore,"PUT")
+final=get_admin("/users/"+uid)
+assert {k:final.get(k) for k in baseline_core}==baseline_core
+for name in ("fwb_site_id","fwb_connection_id","fwb_r2b1_undeclared"):
+    assert final.get("attributes",{}).get(name) is None
+print("REG04D_R2B1_C1_PROFILE_RESTORE_AND_NO_FWB_BINDING_PASS")
