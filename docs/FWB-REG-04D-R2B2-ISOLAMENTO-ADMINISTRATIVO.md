@@ -59,7 +59,7 @@ Na falta de qualquer prova, **FAIL/NO-GO**. Não considerar alteração de manif
 
 ## Evidência
 
-CI do PR R2B2: a preencher somente após execução real. O sucesso no CI prova **mecanismo de software**, não uma rede privada implantada.
+**LAB PASS — [GitHub Actions #44930131319](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44930131319), 2/2 jobs SUCCESS, commit de código `9443aa9c38f08507c820e7a3b9f3b4d25e90e53b`.** Evidências efetivas: duas instâncias concorrentes serializadas, scoped FGAP attach/detach, journal pseudonimizado persistente, rejeição de nova chave HMAC, perda de resposta após PUT e proibição de retry, papel PostgreSQL sem DELETE, regressões de OAuth Account REST R2B1 e testes unitários/build. O sucesso no CI prova **mecanismo de software**, não uma rede privada implantada.
 
 ## Proteção contra rotação de chave e alteração do journal
 
