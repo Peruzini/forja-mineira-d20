@@ -1,0 +1,50 @@
+name: FWB-REG-02B — WordPress OAuth library compatibility
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/forja-wp-oauth-stage/**'
+      - '.github/workflows/fwb-reg02b-wp-oauth.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wordPress-oauth-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          extensions: curl, openssl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: PHP lint
+        run: |
+          php -l plugins/forja-wp-oauth-stage/forja-wp-oauth-stage.php
+          php -l plugins/forja-wp-oauth-stage/includes/class-fwb-reg02b-abilities.php
+          php plugins/forja-wp-oauth-stage/tests/staging-permissions.php
+      - name: Install isolated PHP dependencies
+        working-directory: plugins/forja-wp-oauth-stage
+        run: composer update --no-dev --no-interaction --prefer-dist --no-progress --no-scripts --no-plugins
+      - name: Patch ONLY CIMD public-client method intersection
+        run: node plugins/forja-wp-oauth-stage/tools/patch-cimd.mjs
+      - name: Verify actual vendor code in PHP
+        run: |
+          php plugins/forja-wp-oauth-stage/tests/cimd-compatibility.php
+          php -l plugins/forja-wp-oauth-stage/vendor/wp-media/mcp-oauth/inc/Auth/CimdResolver.php
+          php -l plugins/forja-wp-oauth-stage/vendor/wp-media/mcp-oauth/inc/Auth/ClaudeClientVerifier.php
+      - name: Zip staging only (no installation or deploy)
+        run: |
+          cd plugins
+          zip -qr fwb-reg02b-oauth-stage.zip forja-wp-oauth-stage -x '*/tests/*' -x '*/tools/*'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fwb-reg02b-wordpress-oauth-staging
+          path: plugins/fwb-reg02b-oauth-stage.zip
+          retention-days: 7
