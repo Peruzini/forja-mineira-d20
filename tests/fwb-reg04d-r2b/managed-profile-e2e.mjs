@@ -41,6 +41,8 @@ profile.unmanagedAttributePolicy='DISABLED';
 const put=await call('/users/profile','PUT',profile);
 if(!put.ok){
   // No upstream body, user details, bearer or credential in logs.
+  const data=await put.json().catch(()=>({}));
+  console.log('REG04D_R2B_SCHEMA_ERROR_KIND',String(data.errorMessage||data.error||'unknown').slice(0,70));
   throw Error('REG04D_R2B_MANAGED_PROFILE_CONFIGURATION_REJECTED_HTTP_'+put.status);
 }
 const updated=await call('/users/profile');
