@@ -21,8 +21,10 @@ const read=async()=>{
 const write=async(label,config)=>{
   const r=await fetch(prefix,{method:'PUT',redirect:'error',headers,
     body:JSON.stringify(config)});
+  const failure=await r.text();
+  const limited=failure.length<250 ? failure.replace(/[^a-zA-Z0-9 _"{}:,.\\-]/g,'_') : 'response_too_large';
   const fresh=await read();
-  console.log('R2B1_PROBE',label,r.status,fresh.unmanagedAttributePolicy,
+  console.log('R2B1_PROBE',label,r.status,limited,fresh.unmanagedAttributePolicy,
     fresh.attributes?.length);
   return r.status;
 };
@@ -32,6 +34,9 @@ console.log('R2B1_BEFORE',original.unmanagedAttributePolicy,
 await write('roundtrip',original);
 await write('disabled_complete',{...await read(),unmanagedAttributePolicy:'DISABLED'});
 await write('policy_only',{unmanagedAttributePolicy:'DISABLED'});
+await write('admin_view_complete',{...await read(),unmanagedAttributePolicy:'ADMIN_VIEW'});
+await write('enabled_complete',{...await read(),unmanagedAttributePolicy:'ENABLED'});
+await write('restore_admin_edit',{...await read(),unmanagedAttributePolicy:'ADMIN_EDIT'});
 for(const extra of [
  [{name:'fwb_site_id'},{name:'fwb_connection_id'}],
  [{name:'fwb_site_id',permissions:{view:['admin'],edit:['admin']}},
@@ -43,4 +48,5 @@ for(const extra of [
    unmanagedAttributePolicy:'ADMIN_EDIT',
    attributes:[...state.attributes,...extra]});
 }
+await write('disabled_with_managed_fields',{...await read(),unmanagedAttributePolicy:'DISABLED'});
 console.log('R2B1_PROFILE_PROBES_COMPLETED');
