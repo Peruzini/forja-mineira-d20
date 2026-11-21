@@ -1,4 +1,5 @@
-import { AccessDenied, verifyAccessToken, metadata } from '../reg02/auth.mjs';
+import { AccessDenied, verifyAccessToken } from '../reg02/auth.mjs';
+import { isIP } from 'node:net';
 import { makeEditorialMcp } from '../reg02/secure-server.mjs';
 import { createMcpHandler } from '@modelcontextprotocol/server';
 
@@ -10,7 +11,7 @@ function secureUrl(value, label) {
   let url;
   try { url = new URL(value); } catch { throw Error(label + '_invalid'); }
   if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.port
-      || !url.hostname.includes('.') || /^(localhost|127\.|10\.|192\.168\.|169\.254\.)/.test(url.hostname)
+      || !url.hostname.includes('.') || isIP(url.hostname) !== 0 || url.hostname === 'localhost'
       || /\.(local|internal|localhost)$/.test(url.hostname) || url.hostname.includes(':')) {
     throw Error(label + '_invalid');
   }
@@ -58,7 +59,8 @@ export function readGatewayConfig(env = process.env) {
     seen.add(pair);
     return Object.freeze({sub:r.subject, siteId:r.site_id, wpBase:wp.origin,
       wpUser:r.wordpress_user, wpPassword:r.wordpress_app_password,
-      wpUserId:r.wordpress_user_id, ownPostsOnly:true, enableWrites:false});
+      wpUserId:r.wordpress_user_id, ownPostsOnly:true, enableWrites:false,
+      registerWriteTools:false});
   });
   const issuer = issuerUrl.href.replace(/\/$/, '');
   return Object.freeze({
@@ -97,7 +99,8 @@ export async function authenticateGateway(authorization, gateway, {fetcher=globa
 }
 
 export function gatewayMetadata(gateway) {
-  return metadata(gateway);
+  return {resource:gateway.resource, authorization_servers:[gateway.issuer],
+    scopes_supported:['posts:read']};
 }
 
 export async function handleGatewayMcp(request, {env=process.env,fetcher=globalThis.fetch,keys,now=Date.now()}={}) {
