@@ -1,0 +1,39 @@
+name: FWB-REG-04 — OAuth central and WordPress onboarding contract
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb05-poc/reg04/**'
+      - 'mcp/fwb05-poc/app/api/gateway-mcp/**'
+      - 'mcp/fwb05-poc/app/.well-known/oauth-protected-resource/api/gateway-mcp/**'
+      - 'mcp/fwb05-poc/tests/reg04-*.test.mjs'
+      - '.github/workflows/fwb-reg04-central-onboarding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  central-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Run all REG-02, REG-03 and REG-04 tests
+        working-directory: mcp/fwb05-poc
+        run: npm test
+      - name: Next.js production compilation, with central routes gated
+        working-directory: mcp/fwb05-poc
+        run: npm run build
+      - name: Ensure no REG-04 staging encryption or service credentials are versioned
+        run: |
+          if grep -R -E 'FWB_REG04_ENCRYPTION_KEY_B64URL[[:space:]]*=' mcp/fwb05-poc/reg04/; then
+            echo 'Inline encryption key found'; exit 1
+          fi
+          echo 'No inline REG-04 environment secrets found'
