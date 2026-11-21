@@ -43,7 +43,10 @@ const fetcher=(url,options)=>{
     writes++;
     assert.equal(url,uri,'R2B must never update another user or admin endpoint');
     const body=JSON.parse(options.body);
-    assert.deepEqual(Object.keys(body),['attributes']);
+    assert.ok(Object.keys(body).every(k=>['id','username','email','firstName',
+       'lastName','emailVerified','enabled','totp','requiredActions',
+       'attributes'].includes(k)));
+     assert.equal(typeof body.username,'string');
     assert.deepEqual(Object.keys(body.attributes).sort(),
       Object.keys(body.attributes).filter(k=>['fwb_site_id','fwb_connection_id'].includes(k)).sort());
   }
