@@ -54,8 +54,10 @@ jobs:
           wp-env start --update
           wp-env run cli wp user create e2eauthor e2eauthor@example.invalid \
             --role=author --user_pass=ephemeral-author-password-for-ci
+          author_id="$(wp-env run cli wp user get e2eauthor --field=ID | tail -n 1 | tr -d '\r')"
+          test "$author_id" -gt 1
           wp-env run cli wp post create --post_type=post --post_status=draft \
-            --post_title='REG04C Verified Draft' --post_author=e2eauthor
+            --post_title='REG04C Verified Draft' --post_author="$author_id"
           wp-env run cli wp user get admin --field=ID
           wp-env run cli wp user get e2eauthor --field=ID
       - name: Create per-user WordPress Application Passwords (ephemeral file, no logs)
@@ -107,6 +109,14 @@ jobs:
           curl -fsS --cacert /tmp/fwb-lab-cert.pem \
             https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null
           curl -fsS --cacert /tmp/fwb-lab-cert.pem https://wp-lab.example.org/wp-json/ >/dev/null
+      - name: Configure Keycloak user profile with admin-only managed bindings
+        env:
+          NODE_EXTRA_CA_CERTS: /tmp/fwb-lab-cert.pem
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,wp-lab.example.org,127.0.0.1,localhost
+        run: node tests/fwb-reg04c/configure-keycloak-profile.mjs
       - name: Keycloak real OAuth consent and PKCE for unbound subject
         env:
           FWB_LAB_TLS_CERT: /tmp/fwb-lab-cert.pem
