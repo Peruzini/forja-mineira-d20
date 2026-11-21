@@ -93,7 +93,9 @@ function tenantHint(header, gateway) {
 
 export async function authenticateGateway(authorization, gateway, {fetcher=globalThis.fetch,keys,now=Date.now()}={}) {
   const binding = tenantHint(authorization,gateway);
-  const config = {...gateway,...binding};
+  // Never carry credentials for OTHER tenants into a request-scoped MCP handler.
+  const {tenants: _registry, ...gatewayMetadataOnly} = gateway;
+  const config = {...gatewayMetadataOnly,...binding};
   const identity = await verifyAccessToken(authorization, config, {fetcher,keys,now});
   return {identity:Object.freeze({...identity,siteId:binding.siteId}),config};
 }
