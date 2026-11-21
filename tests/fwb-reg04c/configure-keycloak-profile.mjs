@@ -36,7 +36,7 @@ for(const attr of attrs){
 profile.unmanagedAttributePolicy='DISABLED';
 const updated=await fetch(endpoint,{method:'PUT',redirect:'error',
   headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify(profile)});
-if(!updated.ok)throw Error('KEYCLOAK_PROFILE_PUT_'+updated.status);
+if(!updated.ok){const info=await updated.json().catch(()=>({})); throw Error('KEYCLOAK_PROFILE_PUT_'+updated.status+'_'+String(info.errorMessage||info.error||'invalid_config').slice(0,150));}
 const current=await fetchProfile();
 for(const attr of attrs){
   const got=current.attributes.find(x=>x.name===attr.name);
