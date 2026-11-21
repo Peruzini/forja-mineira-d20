@@ -82,6 +82,7 @@ mcp_account=s.get(account_url,headers={
     "Authorization":"Bearer "+mcp_token,"Accept":"application/json"},
     timeout=25,allow_redirects=False)
 print("REG04D_R2B1_C1_MCP_ACCOUNT_HTTP",mcp_account.status_code,mcp_account.headers.get("Content-Type","").split(";")[0])
+print("REG04D_R2B1_C1_MCP_ACCOUNT_CONTENT_LENGTH",len(mcp_account.content))
 assert mcp_account.status_code in (401,403), "MCP audience unexpectedly accepted by Account REST"
 print("REG04D_R2B1_C1_MCP_ACCOUNT_AUDIENCE_ISOLATION_PASS")
 
