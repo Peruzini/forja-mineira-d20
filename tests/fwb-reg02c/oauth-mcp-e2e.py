@@ -177,7 +177,43 @@ def e2e():
         'name':'mcp-adapter-discover-abilities','arguments':{}
     },103,session)
     check(bool(discovered), 'mcp-abilities-discovery')
-    print('MCP_DISCOVERY_SUMMARY',json.dumps(discovered,ensure_ascii=False)[:1250])
+    def parse_tool_result(result):
+        content = result.get('content', [])
+        check(bool(content) and content[0].get('type') == 'text', 'mcp-tool-text-content')
+        return json.loads(content[0]['text'])
+    abilities = parse_tool_result(discovered).get('abilities', [])
+    ability_names = {a['name'] for a in abilities}
+    required_abilities = {
+        'forja-bridge/list-posts',
+        'forja-bridge/get-post',
+        'forja-bridge/validate-draft',
+    }
+    check(required_abilities.issubset(ability_names), 'forja-abilities-visible',str(ability_names))
+
+    def execute(ability_name, parameters, call_id):
+        result, _ = mcp_call(token,'tools/call',{
+            'name':'mcp-adapter-execute-ability',
+            'arguments':{'ability_name':ability_name,'parameters':parameters}
+        },call_id,session)
+        return parse_tool_result(result)
+    listed = execute('forja-bridge/list-posts', {'limit':5}, 104)
+    check(listed.get('success') is True and
+          any(p.get('title')=='E2EOwnDraft' for p in listed.get('data',{}).get('posts',[])),
+          'forja-list-own-post-over-oauth',str(listed)[:300])
+    own = execute('forja-bridge/get-post',{'id':4},105)
+    check(own.get('success') is True and own.get('data',{}).get('title')=='E2EOwnDraft',
+          'forja-get-own-post-over-oauth',str(own)[:300])
+    validation = execute('forja-bridge/validate-draft',{
+        'title':'E2E Valid Draft','content':'Conteudo apenas validado'
+    },106)
+    check(validation.get('success') is True and
+          validation.get('data',{}).get('dry_run') is True,
+          'forja-validate-draft-over-oauth',str(validation)[:300])
+    foreign = execute('forja-bridge/get-post', {'id':1}, 107)
+    check(foreign.get('success') is False,
+          'forja-deny-foreign-post-over-oauth',str(foreign)[:300])
+
+    print('MCP_DISCOVERY_SUMMARY',json.dumps([a for a in abilities if a['name'] in required_abilities],ensure_ascii=False)[:1000])
     print('REG02C_END_TO_END_LOCAL_HTTP_PASS',len(checked))
 
 if __name__ == '__main__':
