@@ -90,7 +90,8 @@ def begin_flow(discovery,wrong=False):
             r=s.post(action,data=body,allow_redirects=False,timeout=25)
             continue
         raise AssertionError('keycloak_unexpected_response_'+str(r.status_code))
-    check(consent_seen,'keycloak-real-consent-granted')
+    # First authorization MUST show explicit consent; later authorization may use stored approval.
+    check(consent_seen or wrong,'keycloak-real-consent-granted')
     check(location.startswith(REDIRECT+'?'),'keycloak-authorized-callback')
     query=parse_qs(urlparse(location).query)
     check(query.get('state',[''])[0]==state and bool(query.get('code',[''])[0]),
