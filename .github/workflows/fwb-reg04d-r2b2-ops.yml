@@ -73,10 +73,10 @@ jobs:
             -e FWB_REALM=fwb-reg04b-lab
             -e FWB_IDP_UPSTREAM=127.0.0.1:18080
             -v "$PWD/infra/fwb-reg04d-r2b2-ops/Caddyfile:/etc/caddy/Caddyfile:ro")
-          docker run --rm "${args[@]}" caddy:2.10.2-alpine validate \
+          docker run --rm "${args[@]}" caddy:2.10.2-alpine caddy validate \
             --config /etc/caddy/Caddyfile --adapter caddyfile
           docker run -d --rm --name fwb-ops-lab-ingress "${args[@]}" \
-            caddy:2.10.2-alpine run --config /etc/caddy/Caddyfile --adapter caddyfile
+            caddy:2.10.2-alpine caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
           ready=0
           for i in $(seq 1 25); do
             status="$(curl --silent --output /dev/null --max-time 3 --write-out '%{http_code}' \
