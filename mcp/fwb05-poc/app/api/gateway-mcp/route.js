@@ -1,3 +1,4 @@
+import { createAltAuth0Gateway } from '../../../alt01/gateway.mjs';
 import { handleGatewayMcp } from '../../../reg03/gateway.mjs';
 import { handleCentralMcp } from '../../../reg04/central-gateway.mjs';
 import { getRuntimePostgresStore } from '../../../reg04b/postgres-store.mjs';
@@ -22,7 +23,17 @@ function protectedOutbound(env) {
 }
 const unavailable=()=>Response.json({error:'central_gateway_not_configured'},
   {status:503,headers:{'Cache-Control':'no-store'}});
+let auth0Gateway;
 const handle = request => {
+  if (process.env.FWB_ALT_AUTH0_STAGING === 'enabled') {
+    try {
+      auth0Gateway ??= createAltAuth0Gateway();
+      return auth0Gateway.handle(request);
+    } catch {
+      return Response.json({error:'auth0_gateway_not_configured'},
+        {status:503,headers:{'Cache-Control':'no-store'}});
+    }
+  }
   if(process.env.FWB_REG04_STAGING !== 'enabled') return handleGatewayMcp(request);
   if(process.env.FWB_REG04B_PG_STORAGE !== 'enabled') return handleCentralMcp(request);
   // Opt-in R1 environment MUST use a pinned egress connector. An accidental
