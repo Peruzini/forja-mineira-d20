@@ -1,0 +1,164 @@
+{
+  "realm": "fwb-reg04b-lab",
+  "enabled": true,
+  "sslRequired": "external",
+  "accessTokenLifespan": 300,
+  "clientScopes": [
+    {
+      "name": "posts:read",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true"
+      }
+    },
+    {
+      "name": "sites:connect",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true"
+      }
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "fwb-reg04b-lab-client",
+      "name": "Forja WP Bridge ephemeral OAuth CI client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "consentRequired": true,
+      "redirectUris": [
+        "https://callback-lab.example.org/complete"
+      ],
+      "webOrigins": [],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "access.token.header.type.rfc9068": "true"
+      },
+      "defaultClientScopes": [
+        "basic",
+        "posts:read",
+        "sites:connect"
+      ],
+      "protocolMappers": [
+        {
+          "name": "Subject (sub)",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "access.token.claim": "true",
+            "id.token.claim": "true"
+          }
+        },
+        {
+          "name": "fwb-site-id",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "fwb_site_id",
+            "claim.name": "site_id",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "false"
+          }
+        },
+        {
+          "name": "fwb-connection-id",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "fwb_connection_id",
+            "claim.name": "connection_id",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "false"
+          }
+        },
+        {
+          "name": "fwb-mcp-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "https://mcp.example.org/api/gateway-mcp",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "fwb-onboarding",
+      "name": "FWB R1 disposable scoped-service client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "r1-disposable-only-scoped-ci-secret-20261121",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "consentRequired": false,
+      "defaultClientScopes": [
+        "kc-admin-api",
+        "roles",
+        "profile"
+      ],
+      "protocolMappers": [
+        {
+          "name": "Scoped service query role mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "usermodel.clientRoleMapping.clientId": "realm-management",
+            "claim.name": "resource_access.realm-management.roles",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "fwb-lab-user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Staging",
+      "lastName": "User",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "ephemeral-lab-password-not-real",
+          "temporary": false
+        }
+      ],
+      "attributes": {},
+      "email": "fwb-lab-user@example.invalid"
+    },
+    {
+      "username": "fwb-foreign-user",
+      "enabled": true,
+      "email": "fwb-foreign-user@example.invalid",
+      "emailVerified": true,
+      "firstName": "Foreign",
+      "lastName": "User"
+    }
+  ],
+  "adminPermissionsEnabled": false
+}
