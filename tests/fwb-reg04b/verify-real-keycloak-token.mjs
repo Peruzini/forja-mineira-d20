@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { readCentralConfig,verifyCentralIdentity } from '../../mcp/fwb05-poc/reg04/onboarding.mjs';
+import { verifyCentralOAuthMetadata } from '../../mcp/fwb05-poc/reg04/oauth-profile.mjs';
+
+const env=process.env;
+const cfg=readCentralConfig(env);
+assert.equal(cfg.provider,'keycloak');
+const profile=await verifyCentralOAuthMetadata(cfg);
+assert.equal(profile.issuer,cfg.issuer);
+assert.equal(profile.pkce,'S256');
+assert.match(profile.authorizationEndpoint,/\/protocol\/openid-connect\/auth$/);
+const token=readFileSync('/tmp/fwb-reg04b-access-token.jwt','utf8').trim();
+const id=await verifyCentralIdentity('Bearer '+token,cfg,{now:Date.now(),scope:'posts:read'});
+assert.equal(id.siteId,'site_lab');
+assert.equal(id.connectionId,'exampleconnectionId0123456789');
+assert.ok(id.scopes.has('posts:read'));
+assert.ok(id.scopes.has('sites:connect'));
+assert.ok(id.sub);
+await assert.rejects(()=>verifyCentralIdentity('Bearer '+token.slice(0,-3)+'zzz',cfg));
+console.log('REG04B_REAL_KEYCLOAK_GATEWAY_SIGNATURE_PASS');
