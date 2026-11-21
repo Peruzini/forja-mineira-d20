@@ -65,6 +65,15 @@ result=await adminCall(authz+'/permission/scope','POST',{
 });
 assert.equal(result.status,201,'create strictly resource-scoped FGAP admin permission');
 console.log('REG04D_R1_KEYCLOAK_FGAP_V2_RESOURCE_PERMISSION_CREATED');
+// This is Keycloak's limited discovery role, not view-users or manage-users.
+// FGAP controls which user can actually be viewed and updated.
+const mgmt=(await json(await adminCall('/clients?clientId=realm-management')))[0];
+assert.ok(mgmt?.id);
+const queryRole=await json(await adminCall('/clients/'+mgmt.id+'/roles/query-users'));
+assert.equal(queryRole.name,'query-users');
+const roleGrant=await adminCall('/users/'+serviceAccount.id+'/role-mappings/clients/'+mgmt.id,
+  'POST',[queryRole]);
+assert.equal(roleGrant.status,204);
 
 const token=await requestScopedServiceToken(conf);
 const visible=await api(prefix+'/users/'+eligible.id,{token});
