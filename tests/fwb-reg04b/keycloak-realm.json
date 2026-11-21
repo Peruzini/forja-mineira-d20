@@ -48,6 +48,16 @@
       ],
       "protocolMappers": [
         {
+          "name": "Subject (sub)",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "access.token.claim": "true",
+            "id.token.claim": "true"
+          }
+        },
+        {
           "name": "fwb-site-id",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usermodel-attribute-mapper",
