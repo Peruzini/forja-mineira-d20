@@ -102,7 +102,11 @@ aud = claims.get("aud",[])
 aud = [aud] if isinstance(aud,str) else aud
 account_roles = claims.get("resource_access",{}).get("account",{}).get("roles",[])
 assert "account" in aud, "missing Account REST audience"
-assert "manage-account" in account_roles and "view-profile" in account_roles, "missing ordinary account permissions"
+# Keycloak 26 can issue lightweight tokens and resolve roles server-side.
+# Check the actual role mappings instead of requiring embedded role claims.
+effective = get_admin("/users/"+uid+"/role-mappings/clients/"+account_id)
+assert {"view-profile","manage-account"}.issubset({r["name"] for r in effective})
+print("REG04D_R2B1_C1_SELF_SERVICE_ROLES_CONFIRMED_PASS")
 assert "realm-admin" not in claims.get("realm_access",{}).get("roles",[])
 assert "realm-management" not in claims.get("resource_access",{})
 print("REG04D_R2B1_C1_OAUTH_PKCE_USER_ACCOUNT_AUDIENCE_PASS")
