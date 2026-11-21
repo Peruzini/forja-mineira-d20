@@ -68,6 +68,17 @@ console.log('REG04D_R1_KEYCLOAK_FGAP_V2_RESOURCE_PERMISSION_CREATED');
 
 const token=await requestScopedServiceToken(conf);
 const visible=await api(prefix+'/users/'+eligible.id,{token});
+if(visible.status!==200){
+  // Only generic response header and boolean claim properties; never emit bearer.
+  const claims=JSON.parse(Buffer.from(token.split('.')[1],'base64url').toString('utf8'));
+  const challenge=(visible.headers.get('www-authenticate')||'none').slice(0,200);
+  console.log('REG04D_R1_FGAP_DIAG',JSON.stringify({
+    status:visible.status,challenge,aud:claims.aud||null,
+    hasRealmManagement:!!claims.resource_access?.['realm-management'],
+    hasScope:typeof claims.scope==='string',
+    azp:claims.azp
+  }));
+}
 assert.equal(visible.status,200,'scoped user read should be allowed');
 const prohibited=await api(prefix+'/users/'+foreign.id,{token});
 assert.ok([403,404].includes(prohibited.status),'foreign user read unexpectedly allowed');
