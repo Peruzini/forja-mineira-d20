@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
     <div class="catalog-head">
       <div class="catalog-top">
         <div class="search-wrap"><input class="search" id="fmmg-search" placeholder="Buscar magia, função ou efeito…" autocomplete="off"></div>
-        <button class="mobile-filter-btn" id="fmmg-openFilters">Filtros</button>
+        <button class="mobile-filter-btn" id="fmmg-openFilters" type="button" aria-haspopup="dialog" aria-controls="fmmg-filterSheet" aria-expanded="false">Filtros</button>
         <div class="result-meta"><strong id="fmmg-resultCount">94 resultados</strong><span id="fmmg-activeState">Todos os filtros</span></div>
         <button class="clear-btn" id="fmmg-clearFilters">Limpar filtros</button>
       </div>
@@ -60,9 +60,9 @@ do_action( 'forja_d20_cluster_slot', 'bruxo', 'magias' );
 
 <div class="sheet-backdrop" id="fmmg-backdrop"></div>
 
-<div class="mobile-filter-sheet" id="fmmg-filterSheet" aria-hidden="true">
+<div class="mobile-filter-sheet" id="fmmg-filterSheet" role="dialog" aria-modal="true" aria-labelledby="fmmg-filterSheetTitle" aria-hidden="true" tabindex="-1">
   <div class="sheet-grip"></div>
-  <div class="sheet-header"><strong>Filtros</strong><button class="sheet-close" data-close="filters">×</button></div>
+  <div class="sheet-header"><strong id="fmmg-filterSheetTitle">Filtros</strong><button type="button" class="sheet-close" data-close="filters" aria-label="Fechar filtros">×</button></div>
   <div class="sheet-body">
     <div class="filter-row"><div class="filter-label">Função</div><div class="pills" id="fmmg-mFunctionPills"></div></div>
     <div class="filter-row"><div class="filter-label">Escola</div><div class="pills" id="fmmg-mSchoolPills"></div></div>
@@ -73,9 +73,9 @@ do_action( 'forja_d20_cluster_slot', 'bruxo', 'magias' );
   </div>
 </div>
 
-<div class="mobile-detail-sheet" id="fmmg-detailSheet" aria-hidden="true">
+<div class="mobile-detail-sheet" id="fmmg-detailSheet" role="dialog" aria-modal="true" aria-labelledby="fmmg-detailSheetTitle" aria-hidden="true" tabindex="-1">
   <div class="sheet-grip"></div>
-  <div class="sheet-header"><strong>Detalhes da magia</strong><button class="sheet-close" data-close="detail">×</button></div>
+  <div class="sheet-header"><strong id="fmmg-detailSheetTitle">Detalhes da magia</strong><button type="button" class="sheet-close" data-close="detail" aria-label="Fechar detalhes da magia">×</button></div>
   <div id="fmmg-mobileDetail"></div>
 </div>
 </div>
