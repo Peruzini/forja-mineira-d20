@@ -33,7 +33,7 @@ user=s.get(root+"/users?username=fwb-lab-user&exact=true",
 user_id=user["id"]
 denial=s.get(root+"/users/"+user_id,headers=user_headers,timeout=25)
 assert denial.status_code in (401,403),"regular user reached admin REST"
-account_url=issuer+"/account/"
+account_url=issuer+"/account/v1/"
 account=s.get(account_url,headers=user_headers,timeout=25)
 print("REG04D_R2B1_ACCOUNT_GET_HTTP",account.status_code)
 assert account.status_code==200,"Keycloak self-service account API unavailable"
