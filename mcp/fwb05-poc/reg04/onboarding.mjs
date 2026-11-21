@@ -102,7 +102,10 @@ function parseUnverifiedSubject(authorization) {
   try { claims=JSON.parse(Buffer.from(parts[1],'base64url').toString('utf8')); }
   catch { throw new AccessDenied('invalid_token'); }
   if (!strictString(claims?.sub,200) || (claims.site_id!==undefined &&
-       (typeof claims.site_id!=='string' || !SITE_ID.test(claims.site_id)))) {
+       (typeof claims.site_id!=='string' || !SITE_ID.test(claims.site_id) ||
+        typeof claims.connection_id!=='string' ||
+        !/^[A-Za-z0-9_-]{22,64}$/.test(claims.connection_id))) ||
+      (claims.site_id===undefined && claims.connection_id!==undefined)) {
     throw new AccessDenied('invalid_token');
   }
   // Hint is NOT authorization. Signature, audience, issuer and scope are verified below.
@@ -115,7 +118,8 @@ export async function verifyCentralIdentity(authorization,config,
   const identity=await verifyAccessToken(authorization,{issuer:config.issuer,resource:config.resource,
     jwks:config.jwks,sub:claims.sub},{keys,fetcher,now});
   requireScope(identity,scope);
-  return Object.freeze({sub:identity.sub,siteId:claims.site_id||null,scopes:identity.scopes});
+  return Object.freeze({sub:identity.sub,siteId:claims.site_id||null,
+    connectionId:claims.connection_id||null,scopes:identity.scopes});
 }
 
 async function wordpressUser(base, user, password, fetcher) {
@@ -176,12 +180,13 @@ export function makeOnboardingService({config,store,fetcher=globalThis.fetch}) {
     if(author.capabilities.edit_posts!==true || author.capabilities.manage_options===true ||
        author.id===admin.id) throw new OnboardingDenied('least_privilege_author_required');
     const record={wpBase:wp.origin,wpUser:payload.author_user,
-      wpPassword:payload.author_app_password,wpUserId:author.id};
+      wpPassword:payload.author_app_password,wpUserId:author.id,
+      connectionId:randomBytes(16).toString('base64url')};
     const stored=await store.createIfAbsent(shaKey(identity.sub,payload.site_id),
       seal(record,config.key,identity.sub,payload.site_id));
     if(stored!==true) throw new OnboardingDenied('site_already_connected');
     return Object.freeze({site_id:payload.site_id,host:wp.hostname,status:'connected',
-      role:'author',read_only:true});
+      role:'author',read_only:true,connection_id:record.connectionId});
   }
   async function resolve(identity,siteId) {
     requireScope(identity,'posts:read');
@@ -193,7 +198,8 @@ export function makeOnboardingService({config,store,fetcher=globalThis.fetch}) {
     const r=unseal(packet,config.key,identity.sub,siteId);
     if(typeof r?.wpBase!=='string' || !strictString(r.wpUser,120) ||
       !strictString(r.wpPassword,256) || !Number.isSafeInteger(r.wpUserId) || r.wpUserId<1 ||
-      !config.hosts.includes(httpsUrl(r.wpBase+'/','wordpress_url').hostname)) {
+      !config.hosts.includes(httpsUrl(r.wpBase+'/','wordpress_url').hostname) ||
+      typeof r.connectionId!=='string' || identity.connectionId!==r.connectionId) {
       throw new OnboardingDenied('encrypted_connection_invalid');
     }
     return Object.freeze({sub:identity.sub,siteId,wpBase:r.wpBase,wpUser:r.wpUser,
