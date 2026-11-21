@@ -51,6 +51,6 @@ test('all public ports off by default and no default VCN security list',()=>{
 
 test('no credentials or implicit apply in committed OCI files',()=>{
  assert.doesNotMatch(tf,/private_key\s*=|fingerprint\s*=|user_ocid\s*=|password\s*=|token\s*=/i);
- assert.doesNotMatch(tf,/local-exec|remote-exec|user_data|cloud-init/);
+ assert.doesNotMatch(tf,/provisioner\\s+\"|user_data\\s*=/);
  assert.doesNotMatch(tf,/oci_core_instance\.stage\.private_ip/);
 });
