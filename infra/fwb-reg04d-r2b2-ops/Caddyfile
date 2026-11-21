@@ -1,0 +1,24 @@
+# R2B2-OPS: allowlist public OIDC paths for exactly one staging realm.
+# No /admin, /realms/master, /metrics, /health, / or wildcard reverse proxy.
+# FWB_SITE_ADDRESS is a real staging hostname in a deployed host; only the
+# synthetic GitHub CI harness uses :18480 with HTTP loopback.
+{$FWB_SITE_ADDRESS} {
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+        -Server
+    }
+    route {
+        @realm path /realms/{$FWB_REALM} /realms/{$FWB_REALM}/*
+        handle @realm {
+            reverse_proxy {$FWB_IDP_UPSTREAM}
+        }
+
+        @themes path /resources/*
+        handle @themes {
+            reverse_proxy {$FWB_IDP_UPSTREAM}
+        }
+
+        respond 404
+    }
+}
