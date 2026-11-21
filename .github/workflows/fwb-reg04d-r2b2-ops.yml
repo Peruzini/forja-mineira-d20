@@ -1,0 +1,110 @@
+name: FWB-REG-04D-R2B2-OPS — Private ingress contract (ephemeral laboratory)
+
+on:
+  pull_request:
+    paths:
+      - 'infra/fwb-reg04d-r2b2-ops/**'
+      - '.github/workflows/fwb-reg04d-r2b2-ops.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  topology-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate fail-closed topology and ingress policy
+        run: node --test infra/fwb-reg04d-r2b2-ops/verify-topology.test.mjs
+      - name: Validate Docker Compose with CI-only synthetic vault files
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          printf 'KC_DB_PASSWORD=synthetic-ci-keycloak-only\nKC_BOOTSTRAP_ADMIN_USERNAME=synthetic-admin\nKC_BOOTSTRAP_ADMIN_PASSWORD=synthetic-bootstrap-only\n' > "${RUNNER_TEMP}/kc.env"
+          printf 'POSTGRES_PASSWORD=synthetic-ci-keycloak-only\n' > "${RUNNER_TEMP}/pg-kc.env"
+          printf 'POSTGRES_PASSWORD=synthetic-ci-journal-only\n' > "${RUNNER_TEMP}/pg-audit.env"
+          export FWB_KC_VAULT_ENV_PATH="${RUNNER_TEMP}/kc.env"
+          export FWB_PG_KC_VAULT_ENV_PATH="${RUNNER_TEMP}/pg-kc.env"
+          export FWB_PG_JOURNAL_VAULT_ENV_PATH="${RUNNER_TEMP}/pg-audit.env"
+          export FWB_PUBLIC_BIND_IP=127.0.0.1
+          export FWB_AUTH_HOST=auth-stage.example.invalid
+          export FWB_REALM=fwb_stage
+          docker compose -f infra/fwb-reg04d-r2b2-ops/compose.staging.yaml config --quiet
+          echo 'REG04D_R2B2_OPS_COMPOSE_SCHEMA_VALID_LAB_PASS'
+
+  ingress-real-keycloak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Start synthetic Keycloak on CI runner loopback only
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run -d --rm --name fwb-ops-lab-idp \
+            --publish 127.0.0.1:18080:8080 \
+            --env KC_BOOTSTRAP_ADMIN_USERNAME=synthetic-ci-admin \
+            --env KC_BOOTSTRAP_ADMIN_PASSWORD=only-synthetic-ci-admin \
+            --env KC_HOSTNAME=http://127.0.0.1:18480 \
+            -v "$PWD/tests/fwb-reg04d-r1/keycloak-realm.json:/opt/keycloak/data/import/fwb-reg04b-lab-realm.json:ro" \
+            quay.io/keycloak/keycloak:26.8.2 start-dev --import-realm
+          ready=0
+          for i in $(seq 1 100); do
+            if curl -fsS --max-time 3 http://127.0.0.1:18080/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null 2>&1; then ready=1; break; fi
+            sleep 2
+          done
+          test "$ready" = 1
+      - name: Validate and launch exact candidate Caddy ingress rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(--network host
+            -e FWB_SITE_ADDRESS=:18480
+            -e FWB_REALM=fwb-reg04b-lab
+            -e FWB_IDP_UPSTREAM=127.0.0.1:18080
+            -v "$PWD/infra/fwb-reg04d-r2b2-ops/Caddyfile:/etc/caddy/Caddyfile:ro")
+          docker run --rm "${args[@]}" caddy:2.10.2-alpine validate \
+            --config /etc/caddy/Caddyfile --adapter caddyfile
+          docker run -d --rm --name fwb-ops-lab-ingress "${args[@]}" \
+            caddy:2.10.2-alpine run --config /etc/caddy/Caddyfile --adapter caddyfile
+          ready=0
+          for i in $(seq 1 25); do
+            status="$(curl --silent --output /dev/null --max-time 3 --write-out '%{http_code}' \
+              http://127.0.0.1:18480/realms/fwb-reg04b-lab/.well-known/openid-configuration || true)"
+            if [ "$status" = 200 ]; then ready=1; break; fi
+            sleep 1
+          done
+          test "$ready" = 1
+          echo 'REG04D_R2B2_OPS_PUBLIC_REALM_DISCOVERY_ALLOWED_LAB_PASS'
+      - name: Reject administrative and non-staging paths via public ingress
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=http://127.0.0.1:18480
+          for path in / /admin/ /admin/realms/master \
+             /realms/master/.well-known/openid-configuration \
+             /realms/another-realm/.well-known/openid-configuration \
+             /metrics /health/ready /q/health/ready; do
+             status="$(curl --path-as-is --max-time 8 --silent --show-error \
+                --output /dev/null --write-out '%{http_code}' "$base$path")"
+             test "$status" = 404 || { echo "Unexpected public HTTP $status on a denied test path"; exit 1; }
+          done
+          status="$(curl -X POST --max-time 8 --silent --show-error \
+            --output /dev/null --write-out '%{http_code}' "$base/admin/realms/master")"
+          test "$status" = 404
+          echo 'REG04D_R2B2_OPS_PUBLIC_ADMIN_AND_MASTER_DENIED_LAB_PASS'
+      - name: Remove all synthetic identity provider and ingress containers
+        if: always()
+        shell: bash
+        run: |
+          docker rm -f fwb-ops-lab-ingress fwb-ops-lab-idp >/dev/null 2>&1 || true
