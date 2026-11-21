@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import secrets
+import ssl
 import sys
 from urllib.parse import urljoin, urlparse, parse_qs
 
@@ -119,7 +120,8 @@ def run():
     header=jwt.get_unverified_header(access)
     check(header.get('alg')=='RS256' and header.get('typ')=='at+jwt',
       'keycloak-real-rs256-at-jwt-header')
-    signing_key=jwt.PyJWKClient(discovery['jwks_uri']).get_signing_key_from_jwt(access).key
+    trust=ssl.create_default_context(cafile=os.environ['FWB_LAB_TLS_CERT'])
+    signing_key=jwt.PyJWKClient(discovery['jwks_uri'],ssl_context=trust).get_signing_key_from_jwt(access).key
     claims=jwt.decode(access,signing_key,algorithms=['RS256'],audience=MCP,issuer=ISSUER)
     check(claims.get('site_id')=='site_lab','keycloak-signed-site-binding')
     check(claims.get('connection_id')=='exampleconnectionId0123456789',
