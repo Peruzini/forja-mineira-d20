@@ -4,12 +4,17 @@ Base [PR #33](https://github.com/Peruzini/forja-mineira-d20/pull/33), commit `de
 
 | Critério | Estado | Evidência exigida ou disponível |
 | --- | --- | --- |
-| Documento CIMD e JWKS do ChatGPT | Documento público consultado | Identidade e callback estáveis, preferência `private_key_jwt`, algoritmo RS256 e URI JWKS publicados. O documento também anuncia `none`; a política de staging deve exigir cliente confidencial. |
-| Keycloak com CIMD real, PKCE S256 e política restritiva | Executado pelo job `keycloak-live-cimd` quando a CI estiver disponível | A admissão só recebe PASS quando o Keycloak sem cliente pré-cadastrado chega à tela de login com o documento ao vivo e rejeita origem, callback, resource e PKCE fora da política. Consulte o resultado do run para o commit do PR. |
+| Documento CIMD e JWKS do ChatGPT | **PASS em CI** | Identidade e callback estáveis, preferência `private_key_jwt`, algoritmo RS256 e URI JWKS publicados. O documento também anuncia `none`; a política de staging deve exigir cliente confidencial. |
+| Keycloak 26.8.2 com CIMD real | **FAIL em CI** | A configuração de descoberta respondeu, mas a autorização retornou HTTP 400 antes do login. O parser rejeitou o campo `token_endpoint_auth_methods_supported`. Os testes negativos da política e de PKCE ficaram pendentes. |
 | Troca `private_key_jwt` real e MCP no ChatGPT | Bloqueado | Fluxo real iniciado por uma conta de teste do ChatGPT contra staging público, assertiva assinada e aceita, token com emissor e audiência validados e chamada MCP na interface normal. |
 | Onboarding e revogação | PASS no laboratório REG-04C; bloqueado em staging | [CI do PR #33](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44912809777) com WordPress, Keycloak e PostgreSQL reais. O cliente MCP do teste e o administrador de laboratório faziam parte do ambiente local. |
 | Conta de serviço de privilégio mínimo | Bloqueado | Realm de staging e acesso de provisionamento indisponíveis. O adaptador herdado usa `FWB_REG04C_ADMIN_BEARER` como primitiva de laboratório. |
 | HTTPS público, segredos, isolamento, egress/DNS e logs | Bloqueado | A consulta Vercel encontrou apenas `forja-wp-bridge-mcp-poc`. Faltam host de staging autorizado, Keycloak, PostgreSQL privado, WordPress de teste, gerenciador de segredos e controle de egress. |
+
+## Evidência CI
+
+- [Run 44913980866](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44913980866) no commit `288e25bce91625654602187e1fee3e92abc60882`. O realm iniciou, a descoberta foi validada e `REG04D_CHATGPT_PUBLIC_CIMD_AND_JWKS_PASS` confirmou os endpoints públicos. A requisição de autorização falhou com `UnrecognizedPropertyException` no campo plural e `Client Metadata fetch failed`.
+- A primeira execução falhou ao importar o realm. O nome do arquivo foi alinhado ao realm e a execução acima comprova que o startup foi corrigido. A incompatibilidade do parser é registrada na [issue Keycloak #51236](https://github.com/keycloak/keycloak/issues/51236), com correção no upstream [#51235](https://github.com/keycloak/keycloak/pull/51235) e [backport #55366](https://github.com/keycloak/keycloak/pull/55366). Em 21/11/2026, a [versão oficial disponível](https://www.keycloak.org/downloads) ainda era 26.8.2.
 
 ## Keycloak
 
@@ -31,6 +36,6 @@ No staging, use um realm dedicado, domínio público exclusivo e admin em rede p
 3. Injete segredos em runtime, criptografe os vínculos e verifique rotação. Revise logs do proxy, Keycloak, gateway e onboarding para garantir ausência de cabeçalhos de autenticação, códigos OAuth, assertivas, cookies, tokens e senhas de aplicativo.
 4. Faça a conexão do plugin privado em modo Chat normal e registre apenas eventos sanitizados de descoberta, autorização, troca assinada e execução MCP. Teste acesso ao rascunho do autor e negativa cruzada. Revogue o vínculo e a Application Password no WordPress e comprove que o token anterior não acessa o MCP e a credencial anterior não autentica no WordPress. Registre status e IDs de eventos sem registrar credenciais.
 
-Próximo passo: disponibilizar um host de staging autorizado, DNS/TLS e acesso de provisionamento ao ambiente isolado. Usar um gerenciador de segredos para as credenciais. Com o staging disponível, provisionar a conta de serviço, validar seu escopo e executar o fluxo real no ChatGPT normal.
+Próximo passo: repetir esta CI com uma release oficial que inclua a correção do parser CIMD. Em paralelo, disponibilizar host de staging autorizado, DNS/TLS e acesso de provisionamento ao ambiente isolado com gerenciador de segredos. Com a CI aprovada, provisionar a conta de serviço, validar seu escopo e executar o fluxo real no ChatGPT normal.
 
 Referências: [OpenAI · Autenticação](https://developers.openai.com/plugins/build/auth), [ChatGPT · CIMD](https://chatgpt.com/oauth/client.json), [Keycloak · MCP/CIMD](https://www.keycloak.org/securing-apps/mcp-authz-server), [Keycloak 26.8.2 · constantes da API](https://www.keycloak.org/docs-api/26.8.2/javadocs/constant-values.html).
