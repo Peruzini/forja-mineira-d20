@@ -28,6 +28,7 @@ jobs:
         run: |
           php -l plugins/forja-wp-oauth-stage/forja-wp-oauth-stage.php
           php -l plugins/forja-wp-oauth-stage/includes/class-fwb-reg02b-abilities.php
+          php plugins/forja-wp-oauth-stage/tests/staging-permissions.php
       - name: Install isolated PHP dependencies
         working-directory: plugins/forja-wp-oauth-stage
         run: composer update --no-dev --no-interaction --prefer-dist --no-progress --no-scripts --no-plugins
