@@ -70,7 +70,11 @@ def begin_flow(discovery,wrong=False):
             consent=soup.select_one('form#kc-consent-form')
             if consent is None:
                 forms=[el.get('id','') for el in soup.find_all('form')]
-                raise AssertionError('unexpected_keycloak_interaction_form_'+','.join(forms)[:120])
+                title=soup.title.get_text(' ',strip=True)[:100] if soup.title else 'no-title'
+                message=soup.select_one('#kc-error-message, .alert-error, #kc-info-message')
+                note=message.get_text(' ',strip=True)[:140] if message else 'no-feedback'
+                page=urlparse(r.url).path
+                raise AssertionError('unexpected_keycloak_page forms='+','.join(forms)[:80]+' title='+title+' note='+note+' path='+page[:90])
             action,body,el=form(r,'form#kc-consent-form')
             submit=el.find('button',{'name':'accept'}) or el.find('input',{'name':'accept'})
             body['accept']=(submit.get('value') or 'Yes') if submit else 'Yes'
