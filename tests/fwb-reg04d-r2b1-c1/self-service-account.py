@@ -167,7 +167,7 @@ def authenticate():
             r = s.post(action, data=body, allow_redirects=False, timeout=25)
         else:
             raise AssertionError("OAUTH_UNEXPECTED_HTTP_" + str(r.status_code))
-    ensure(consent_seen and callback is not None, "PKCE_CONSENT_CALLBACK_MISSING")
+    ensure(consent_seen and callback is not None, "PKCE_CONSENT_CALLBACK_MISSING_HTTP_" + str(r.status_code) + "_PATH_" + urlparse(r.url).path)
     values = parse_qs(urlparse(callback).query)
     ensure(values.get("state", [""])[0] == state and
            len(values.get("code", [])) == 1, "OAUTH_STATE_OR_CODE_MISMATCH")
