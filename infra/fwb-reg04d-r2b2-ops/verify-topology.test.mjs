@@ -7,10 +7,12 @@ const compose=readFileSync(files+'compose.staging.yaml','utf8');
 const caddy=readFileSync(files+'Caddyfile','utf8');
 
 function service(name){
-  const escaped=name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  const match=compose.match(new RegExp('^  '+escaped+':\\n([\\s\\S]*?)(?=^  [a-z][a-z0-9-]*:|^networks:|$)','m'));
-  assert.ok(match,'service '+name+' not declared');
-  return match[1];
+ const marker='\n  '+name+':\n';
+ const start=compose.indexOf(marker);
+ assert.ok(start>=0,'service '+name+' not declared');
+ const rest=compose.slice(start+marker.length);
+ const end=rest.search(/\n  [a-z][a-z0-9-]*:|\nnetworks:/);
+ return end<0?rest:rest.slice(0,end);
 }
 
 test('only public auth ingress publishes host ports',()=>{
