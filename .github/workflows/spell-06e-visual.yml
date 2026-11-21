@@ -1,0 +1,47 @@
+name: SPELL-06E homologação visual independente
+on:
+  pull_request:
+    paths:
+      - 'qa/spell-06e/**'
+      - '.github/workflows/spell-06e-visual.yml'
+      - 'plugins/forja-mineira-guia-magias/assets/**'
+      - 'plugins/forja-mineira-guia-magias/templates/guide-spells.php'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar prévia derivada do template real
+        run: node qa/spell-06e/build-static.cjs --verify
+      - name: Preparar Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Testar desktop e mobile com Chromium e gerar screenshots
+        run: node qa/spell-06e/browser-check.cjs
+      - name: Regressão SPELL-06D
+        run: node --test qa/spell-06d/guide-regression.test.cjs
+      - name: Preparar ZIP de prévia e evidências
+        if: always()
+        run: |
+          mkdir -p bundle/qa/spell-06e bundle/plugins/forja-mineira-guia-magias/assets/css bundle/plugins/forja-mineira-guia-magias/assets/js bundle/plugins/forja-mineira-guia-magias/assets/images
+          cp qa/spell-06e/index.html bundle/qa/spell-06e/
+          cp plugins/forja-mineira-guia-magias/assets/css/guide-spells.css bundle/plugins/forja-mineira-guia-magias/assets/css/
+          cp plugins/forja-mineira-guia-magias/assets/js/guide-spells.js bundle/plugins/forja-mineira-guia-magias/assets/js/
+          cp plugins/forja-mineira-guia-magias/assets/images/guia-magias-bruxo-hero-aprovado.webp bundle/plugins/forja-mineira-guia-magias/assets/images/
+          if test -d qa/spell-06e/output; then cp -R qa/spell-06e/output bundle/qa/spell-06e/; fi
+      - name: Publicar ZIP da prévia e capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SPELL-06E-preview-desktop-mobile
+          path: bundle/
+          if-no-files-found: error
+          retention-days: 30
