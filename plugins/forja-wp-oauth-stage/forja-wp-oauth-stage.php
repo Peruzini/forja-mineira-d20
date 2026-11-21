@@ -89,6 +89,11 @@ if ( fwb_reg02b_enabled() && '' !== fwb_reg02b_client_id() ) {
 		if ( in_array( $path, array(
 			'/.well-known/oauth-protected-resource',
 			'/.well-known/oauth-authorization-server',
+			'/oauth/authorize',
+			'/oauth/authorize-callback',
+			'/oauth/consent',
+			'/oauth/token',
+			'/oauth/revoke',
 		), true ) ) {
 			return false;
 		}

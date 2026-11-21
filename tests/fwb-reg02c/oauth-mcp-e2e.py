@@ -79,7 +79,7 @@ def authorize(a, purpose, state=None):
         'resource': BASE + '/wp-json/mcp/mcp-oauth-server'
     })
     check(r.status_code in (302, 303) and '/oauth/authorize-callback' in r.headers.get('Location',''),
-          purpose+'-authorization-redirect', str(r.status_code) + ' ' + r.text[:160])
+          purpose+'-authorization-redirect', str(r.status_code) + ' location=' + r.headers.get('Location','')[:180] + ' ' + r.text[:160])
     r = send('GET', r.headers['Location'])
     check(r.status_code == 200 and 'mcp_consent_nonce' in r.text,
           purpose+'-consent-visible', f'{r.status_code} {r.text[:150]}')
