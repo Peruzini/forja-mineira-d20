@@ -1,0 +1,18 @@
+{
+  "core": null,
+  "phpVersion": "8.3",
+  "port": 8888,
+  "plugins": [
+    "../../plugins/forja-wp-oauth-stage"
+  ],
+  "mappings": {
+    "wp-content/mu-plugins": "./mu-plugins"
+  },
+  "config": {
+    "WP_ENVIRONMENT_TYPE": "local",
+    "FWB_REG02B_OAUTH_STAGING": true,
+    "FWB_REG02B_CIMD_COMPAT_PATCHED": true,
+    "FWB_REG02B_CHATGPT_CIMD_URL": "https://chatgpt.com/oauth/client.json",
+    "WP_DEBUG_DISPLAY": false
+  }
+}
