@@ -89,3 +89,16 @@ A OCI VCN isola o tráfego na interface da VM por Network Security Group, com su
 - **R2B2-OPS full / R2C / ChatGPT normal:** NO-GO até Keycloak, worker, vault e Postgres realmente isolados com TLS, ACL e auditoria, além da correção CIMD do Keycloak.
 
 Não transferir recursos de produção. Não fazer merge automático nem assumir que um `apply` gratuito fornece SLA ou aptidão de produção.
+
+## Evidência final do GitHub Actions
+
+[**Run #44932291525 — SUCCESS (21/11/2026)**](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44932291525). A suíte confirmou:
+- `REG04D_R2B2_OPS_P1_ALWAYS_FREE_RESOURCE_ALLOWLIST_PASS`
+- `REG04D_R2B2_OPS_P1_MANUAL_APPROVAL_GATE_PASS`
+- `REG04D_R2B2_OPS_P1_PUBLIC_PORTS_DENY_BY_DEFAULT_PASS`
+- `REG04D_R2B2_OPS_P1_TERRAFORM_VALIDATE_NO_DEPLOY_PASS`
+- `REG04D_R2B2_OPS_P1_NO_ACCOUNT_DEPLOYMENT_PASS`
+
+Terraform 1.10.5 e provider `oracle/oci v7.26.1`: `terraform init -backend=false` e `terraform validate` passaram. Não se executou `terraform plan`, `apply` nem acesso a API OCI; nenhum OCID real, VM ou fatura foi consultado. A CI comprova somente integridade declarativa do código e os bloqueios estáticos.
+
+Arquivos `*.tfvars`, `*.tfstate`, planos e configurações locais são ignorados pelo Git neste diretório. Não copiar segredos ou state para artefatos do GitHub Actions.
