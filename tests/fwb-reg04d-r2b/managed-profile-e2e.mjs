@@ -34,9 +34,7 @@ for(const [name,max] of [['fwb_site_id',64],['fwb_connection_id',64]]){
   assert.equal(names.has(name),false,'existing custom schema collision');
   profile.attributes.push({
     name,displayName:'Forja Bridge '+name,
-    multivalued:false,
-    permissions:{view:['admin'],edit:['admin']},
-    validations:{length:{min:3,max}}
+    permissions:{view:['admin'],edit:['admin']}
   });
 }
 profile.unmanagedAttributePolicy='DISABLED';
