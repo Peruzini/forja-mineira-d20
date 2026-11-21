@@ -1,5 +1,12 @@
 # Forja Mineira D20
 
+## Atualização FWB-REG — 21/11/2026
+
+A iniciativa **Forja WP Bridge** evoluiu para uma proposta de publicação de aplicativo MCP com **OAuth, Keycloak, PostgreSQL, gateway HTTPS, isolamento multiusuário e controles de staging**. Os blocos [FWB-REG-01 a FWB-REG-04D-R1](https://github.com/Peruzini/forja-mineira-d20/pulls) permanecem **PRs draft empilhados**, fora da `main`. Os resultados de laboratório, configurações e testes em CI **não equivalem** a registro oficial do aplicativo no ChatGPT nem a conexão MCP operacional no Chat normal.
+
+**Gate de liberação:** comprovar registro CIMD efetivo, HTTPS público isolado, permissões mínimas, autenticação interoperável e execução MCP real antes de declarar uma integração publicada. Nenhuma mudança em WordPress de produção ou cobrança foi autorizada por esta atualização documental.
+
+
 ## Forja WP Bridge 2.0 — plano diretor (20/11/2026)
 
 O plano de evolução da integração própria ChatGPT ↔ WordPress está em [docs/FWB-PLANO-DIRETOR-V2.md](docs/FWB-PLANO-DIRETOR-V2.md). O objetivo é executar tarefas WordPress diretamente pela conversa, sem depender da cota do WPVibe. **Planejamento registrado; conector direto ainda não homologado.** FWB-05C passou em hospedagem/teste remoto; [FWB-05C.1](docs/FWB-05C1-ATIVACAO-CHATGPT-WEB-2026-11-20.md) identificou pendência de registro do aplicativo MCP no ChatGPT Web antes de iniciar FWB-05D.
