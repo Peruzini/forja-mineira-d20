@@ -1,6 +1,6 @@
 # FWB-REG-03 — Gateway HTTPS e isolamento de usuários/sites WordPress
 
-Status: **IMPLEMENTAÇÃO EM PR DRAFT; validação CI obrigatória antes de GO de laboratório**.
+Status: **PASS EM CI / LABORATÓRIO; PR #30 draft em revisão. HTTPS público e login ChatGPT NÃO homologados.**
 Base: FWB-REG-02C, PR #29 (WordPress efêmero OAuth/MCP 54 checks PASS).
 
 ## Arquitetura entregue
@@ -44,3 +44,11 @@ Workflow `.github/workflows/fwb-reg03-tenant-gateway.yml` roda `npm test` (inclu
 ## Próximo bloco sugerido
 
 **FWB-REG-04 — Provedor OAuth central e onboarding de sites:** decidir como obter tokens RS256 do gateway a partir de login/autorização real WordPress, gerenciar associação de contas com comprovação de posse de domínio, vault/rotação de segredos e revogação. Esse bloco é uma dependência material antes do review OpenAI.
+
+## Evidência final de CI do código REG-03
+
+- [Run REG-03 44905639504](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44905639504): **success**, 33/33 testes Node PASS, 0 falhas, `next build` PASS. Rotas `/api/gateway-mcp` e `/.well-known/oauth-protected-resource/api/gateway-mcp` aparecem no build como dinâmicas.
+- [Run REG-02 44905639510](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44905639510): **success**, 33/33 testes PASS e build PASS, confirmando regressão de gateway anterior sem falha.
+- Commit testado: `eb14acf233a1a37156147cd500afe8fa5838b2ca`.
+- REG-01 gate de segurança e REG-03 também passaram nas execuções anteriores do PR. Sem merge, sem deploy real, sem segredos de usuário.
+- **GO exclusivamente para encerrar o bloco de código/teste.** **NO-GO** para alegar gateway HTTPS funcional publicamente, interoperabilidade entre HS256 WordPress/RS256 Vercel, isolamento multi-tenant persistente, publicação oficial ou conexão no Chat normal.
