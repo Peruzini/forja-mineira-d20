@@ -50,9 +50,16 @@ roles = [get_admin("/clients/"+account_id+"/roles/"+role)
 mutate_admin("/users/"+uid+"/role-mappings/clients/"+account_id, roles)
 # Attach built-in roles scope and explicit account audience to this test client
 # so that its user token is accepted by Account REST *as an account token*.
-scopes = get_admin("/client-scopes")
-roles_scope = next(x for x in scopes if x["name"] == "roles")
-mutate_admin("/clients/"+oauth_id+"/default-client-scopes/"+roles_scope["id"], {}, "PUT")
+# The freshly imported realm has no built-in "roles" client scope.
+# Add only an account-role mapper to the disposable OAuth client instead.
+mutate_admin("/clients/"+oauth_id+"/protocol-mappers/models", {
+    "name":"r2b1-ci-account-roles", "protocol":"openid-connect",
+    "protocolMapper":"oidc-usermodel-client-role-mapper",
+    "config":{"usermodel.clientRoleMapping.clientId":"account",
+              "claim.name":"resource_access.account.roles",
+              "jsonType.label":"String","multivalued":"true",
+              "access.token.claim":"true", "id.token.claim":"false"}
+})
 mutate_admin("/clients/"+oauth_id+"/protocol-mappers/models", {
     "name":"r2b1-ci-account-audience", "protocol":"openid-connect",
     "protocolMapper":"oidc-audience-mapper",
