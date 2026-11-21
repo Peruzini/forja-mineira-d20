@@ -1,6 +1,6 @@
 # FWB-REG-04D-R2B — Restrição de atributos de vínculo (21/11/2026)
 
-**Estado: INTERFACE PRIVADA LAB PASS; política nativa do Keycloak em investigação; staging real NO-GO.**
+**Estado: INTERFACE PRIVADA LAB PASS; perfil nativo Keycloak FAIL em experimento; staging real NO-GO.**
 
 Base: PR #36 R2A, PR draft #37. Nenhum merge, deploy ou alteração no WordPress de produção.
 
@@ -35,7 +35,7 @@ A camada `makeVerifiedFieldRestrictedOnboarding` obriga entrada com **JWT Keyclo
 3. GET seguido de PUT é read-modify-write e **não é transação**; alterações concorrentes entre as duas operações podem perder atualização. Um fluxo com mutação atômica ou mecanismo server-side precisará ser demonstrado para uso geral.
 4. A comparação de perfil após atualizar detecta algumas alterações inesperadas, mas não reverte automaticamente mudanças já aplicadas. Se a escrita falhar depois do envio, registrar reconciliação manual; não fazer retry cego.
 5. A interface não foi conectada a nenhum endpoint HTTP externo. O shell Vercel R2A continua respondendo 503 para MCP; não foi feito OAuth ChatGPT nem alteração no site real.
-6. Configuração gerenciada nativa `unmanagedAttributePolicy=DISABLED` com os dois campos FWB **ainda não homologada**: o teste inicial no Keycloak devolveu HTTP 400, sem relaxar permissões para contornar. A CI exploratória registra a falha de forma separada.
+6. Configuração gerenciada nativa `unmanagedAttributePolicy=DISABLED` **FAIL em experimento**: o Keycloak 26.8.2 devolveu HTTP 400 `unknown_error` tanto ao adicionar os dois campos quanto ao testar a política `DISABLED` sem adicionar nenhum campo. Não houve fallback permissivo. Evidência: [CI #44920801631](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44920801631), etapa nativa FAIL. O script exploratório permanece em `tests/fwb-reg04d-r2b/managed-profile-e2e.mjs` para análise futura, separado do gate da interface privada.
 
 ## Próximos gates
 
