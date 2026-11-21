@@ -59,7 +59,7 @@ test('OAuth discovery points to exact public HTTPS gateway resource',()=>{
   assert.deepEqual(gatewayMetadata(gateway),{
     resource:'https://mcp.example.org/api/gateway-mcp',
     authorization_servers:['https://login.example.org'],
-    scopes_supported:['posts:read','drafts:write']
+    scopes_supported:['posts:read']
   });
   assert.equal(gateway.metadataUrl,'https://mcp.example.org/.well-known/oauth-protected-resource/api/gateway-mcp');
 });
@@ -137,8 +137,8 @@ test('real MCP transport routes two identities only to their registered WordPres
       assert.equal(posts.structuredContent.posts[0].id,id);
       const get=await client.callTool({name:'forja_post_get',arguments:{id}});
       assert.equal(get.structuredContent.post.content,'Private draft');
-      const write=await client.callTool({name:'forja_draft_create',arguments:{title:'No',operation_id:'operationId_123456'}});
-      assert.equal(write.isError,true);
+      assert.equal(list.tools.some(t=>t.name==='forja_draft_create'),false);
+      assert.equal(list.tools.some(t=>t.name==='forja_draft_update'),false);
     } finally {await client.close();}
   }
   await session({sub:'principal-a',site_id:'site_alpha'},sites[0],14);
