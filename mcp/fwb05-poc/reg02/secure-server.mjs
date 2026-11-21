@@ -37,6 +37,7 @@ export function makeEditorialMcp({identity,config,fetcher=globalThis.fetch}) {
     z.object({id:z.number().int().positive()}),({id})=>api.getPost(id));
   register(mcp,'forja_draft_validate','Validar um rascunho sem gravar no WordPress de homologação.',
     z.object(draftFields),data=>api.validateDraft(data));
+  if (config.registerWriteTools !== false) {
   register(mcp,'forja_draft_create','Criar somente rascunho no staging, com operação idempotente e confirmação.',
     z.object({...draftFields,operation_id:opId}),
     ({operation_id,...data})=>api.createDraft(data,operation_id),true);
@@ -45,6 +46,7 @@ export function makeEditorialMcp({identity,config,fetcher=globalThis.fetch}) {
       expected_modified_gmt:z.string().regex(/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/)}),
     ({id,operation_id,expected_modified_gmt,...data})=>
       api.updateDraft(id,data,expected_modified_gmt,operation_id),true);
+  }
   return mcp;
 }
 export async function handleSecureMcp(request, {
