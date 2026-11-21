@@ -25,7 +25,8 @@ async function metrics(page){
     results:document.querySelector('#fmmg-resultCount')?.textContent,
     heroBackground:getComputedStyle(document.querySelector('.hero')).backgroundImage,
     cssLoaded:getComputedStyle(guide).fontFamily.includes('Inter'),
-    images:[...document.images].map(im=>({src:im.src,loaded:im.complete&&im.naturalWidth>0}))};
+    images:[...document.images].map(im=>({src:im.src,loaded:im.complete&&im.naturalWidth>0})),
+    filterButton:(()=>{const btn=document.querySelector('#fmmg-openFilters'),catalog=document.querySelector('#fmmg-catalogo');if(!btn||!catalog)return null;const b=btn.getBoundingClientRect(),c=catalog.getBoundingClientRect();return {left:b.left,right:b.right,catalogRight:c.right,visibleWidth:Math.max(0,Math.min(b.right,c.right)-Math.max(b.left,c.left)),width:b.width,clipped:b.right>c.right+1};})()};
  });
 }
 async function main(){
@@ -46,6 +47,8 @@ async function main(){
    // Network console warnings (e.g. remote font blocked) remain visible in the evidence.
    evidence.checks.push({name:settings.name+' console/network issues',status:failures.length?'WARN':'PASS',details:failures});
    if(m.scrollWidth>settings.width+2)inc(settings.name+' horizontal overflow','scrollWidth '+m.scrollWidth+' vs viewport '+settings.width);
+   if(settings.name!=='desktop' && m.filterButton?.clipped)
+     inc(settings.name+' BOTÃO FILTROS CORTADO','Botão ultrapassa a borda do catálogo em '+Math.round(m.filterButton.right-m.filterButton.catalogRight)+' px; overflow:clip esconde parte do controle. BLOQUEIO VISUAL.');
    await capture(page,settings.name+'-initial');
    if(settings.name==='desktop'){
      const hof=page.locator('#fmmg-sourcePills button[data-value="HoF"]');
@@ -89,7 +92,7 @@ async function main(){
  }finally {await browser.close();}
 }
 main().then(()=>{
- evidence.status=evidence.knownFindings.length?'PASS_WITH_KNOWN_RISKS':'PASS';
+ evidence.status=evidence.knownFindings.some(f=>f.name.includes('BOTÃO FILTROS CORTADO'))?'VISUAL_FAIL_WITH_TESTS_PASSING':evidence.knownFindings.length?'PASS_WITH_KNOWN_RISKS':'PASS';
  fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(evidence,null,2)+'\n');
  fs.writeFileSync(path.join(out,'REPORT.md'),[
  '# SPELL-06E — Evidência Playwright independente',
