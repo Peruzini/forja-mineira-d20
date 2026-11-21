@@ -16,9 +16,23 @@ CREATE TABLE IF NOT EXISTS fwb_admin_operation_log (
     OR (state='manual_review' AND code='uncertain_external_write' AND finished_at IS NOT NULL)
   )
 );
-CREATE INDEX IF NOT EXISTS fwb_admin_operation_unresolved_idx
+CREATE UNIQUE INDEX IF NOT EXISTS fwb_admin_operation_unresolved_idx
   ON fwb_admin_operation_log(subject_digest)
   WHERE state IN ('started','manual_review');
+
+
+-- Stable fingerprint of the HMAC epoch. The runtime role can initialize it
+-- once but must never UPDATE/DELETE it. Rotating the key without a reviewed
+-- migration otherwise breaks unresolved-operation lookups.
+CREATE TABLE IF NOT EXISTS fwb_admin_key_epoch (
+  singleton smallint PRIMARY KEY CHECK (singleton=1),
+  key_marker char(64) NOT NULL CHECK (key_marker ~ '^[a-f0-9]{64} must be provisioned out-of-band by infrastructure:
+-- dedicated runtime role -> USAGE on schema, SELECT/INSERT/UPDATE(state,code,finished_at) on this
+-- operation table; SELECT/INSERT only on fwb_admin_key_epoch. Explicitly\n-- NO DELETE, DDL, BYPASSRLS or superuser.
+-- Do not grant any browser, WordPress or gateway identity direct SQL access.
+),
+  established_at timestamptz NOT NULL DEFAULT clock_timestamp()
+);
 
 -- Roles and grants must be provisioned out-of-band by infrastructure:
 -- dedicated runtime role -> USAGE on schema, SELECT/INSERT/UPDATE on this
