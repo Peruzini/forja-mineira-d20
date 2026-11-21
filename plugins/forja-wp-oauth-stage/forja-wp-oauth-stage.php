@@ -81,6 +81,26 @@ add_action( 'plugins_loaded', function () {
 	}
 }, 10 );
 
+// WordPress canonical redirects must not rewrite OAuth discovery paths.
+// Disabled outside of the explicit staging-only REG-02B gate.
+if ( fwb_reg02b_enabled() && '' !== fwb_reg02b_client_id() ) {
+	add_filter( 'redirect_canonical', static function ( $redirect, $requested_url ) {
+		$path = (string) wp_parse_url( $requested_url, PHP_URL_PATH );
+		if ( in_array( $path, array(
+			'/.well-known/oauth-protected-resource',
+			'/.well-known/oauth-authorization-server',
+			'/oauth/authorize',
+			'/oauth/authorize-callback',
+			'/oauth/consent',
+			'/oauth/token',
+			'/oauth/revoke',
+		), true ) ) {
+			return false;
+		}
+		return $redirect;
+	}, PHP_INT_MAX, 2 );
+}
+
 require_once __DIR__ . '/includes/class-fwb-reg02b-abilities.php';
 add_action( 'wp_abilities_api_categories_init', array( 'FWB_REG02B_Abilities', 'register_category' ) );
 add_action( 'wp_abilities_api_init', array( 'FWB_REG02B_Abilities', 'register' ) );

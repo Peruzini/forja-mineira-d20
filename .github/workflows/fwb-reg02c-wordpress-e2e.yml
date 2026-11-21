@@ -1,0 +1,70 @@
+name: FWB-REG-02C — Ephemeral WordPress real OAuth MCP E2E
+
+on:
+  pull_request:
+    paths:
+      - 'tests/fwb-reg02c/**'
+      - 'plugins/forja-wp-oauth-stage/**'
+      - '.github/workflows/fwb-reg02c-wordpress-e2e.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-wordpress-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          extensions: curl, openssl
+      - name: Compile patched OAuth provider (test-only)
+        working-directory: plugins/forja-wp-oauth-stage
+        run: |
+          composer update --no-dev --no-interaction --prefer-dist --no-progress --no-scripts --no-plugins
+          node tools/patch-cimd.mjs
+          php tests/cimd-compatibility.php
+          php tests/staging-permissions.php
+      - name: Install official WordPress wp-env
+        run: npm install --global @wordpress/env --no-audit --no-fund
+      - name: Boot isolated real WordPress and database
+        working-directory: tests/fwb-reg02c
+        run: wp-env start --update
+      - name: Install official MCP Adapter only in disposable WordPress
+        working-directory: tests/fwb-reg02c
+        run: |
+          wp-env run cli wp plugin install mcp-adapter
+          wp-env run cli wp plugin activate mcp-adapter
+          wp-env run cli wp plugin activate forja-wp-oauth-stage
+          wp-env run cli wp rewrite flush
+          wp-env run cli wp user create e2eauthor e2eauthor@example.invalid --role=author --user_pass=ephemeral-test-only-do-not-reuse
+          wp-env run cli wp post create --post_type=post --post_status=draft --post_title=E2EOwnDraft --post_author=2
+          wp-env run cli wp plugin list
+      - name: Diagnose OAuth plugin activation and discovery without credentials
+        working-directory: tests/fwb-reg02c
+        run: |
+          wp-env run cli wp option get home
+          wp-env run cli wp option get siteurl
+          wp-env run cli wp eval 'echo "FWB_STAGE=" . (function_exists("fwb_reg02b_enabled") && fwb_reg02b_enabled() ? "YES" : "NO") . PHP_EOL;'
+          wp-env run cli wp eval 'echo "OAUTH_BOOTSTRAP=" . (class_exists("\\WPMedia\\MCP\\OAuth\\Bootstrap") ? "YES" : "NO") . PHP_EOL;'
+          wp-env run cli wp eval 'echo "MCP_ADAPTER=" . (class_exists("\\WP\\MCP\\Core\\McpAdapter") ? "YES" : "NO") . PHP_EOL;'
+          wp-env run cli wp eval 'foreach ((array) get_option("rewrite_rules") as $pattern => $target) { if (strpos($pattern,"oauth") !== false) { echo "OAUTH_REWRITE=" . $pattern . " -> " . $target . PHP_EOL; } }'
+          curl --silent --show-error --head http://localhost:8888/.well-known/oauth-protected-resource || true
+      - name: Verify real OAuth/PKCE/consent/token/MCP over localhost
+        env:
+          FWB_E2E_PASSWORD: ephemeral-test-only-do-not-reuse
+          FWB_E2E_BASE: http://localhost:8888
+        run: |
+          python3 -m pip install --user requests --quiet
+          python3 tests/fwb-reg02c/oauth-mcp-e2e.py
+      - name: Tear down ephemeral WordPress
+        if: always()
+        working-directory: tests/fwb-reg02c
+        run: wp-env stop || true
