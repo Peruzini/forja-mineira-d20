@@ -1,0 +1,139 @@
+name: FWB-REG-04C — Integrated Keycloak WordPress PostgreSQL staging lab
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb05-poc/reg04c/**'
+      - 'mcp/fwb05-poc/tests/reg04c-*.test.mjs'
+      - 'tests/fwb-reg04c/**'
+      - '.github/workflows/fwb-reg04c-integrated.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrated-federated-lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: fwb_lab
+          POSTGRES_USER: fwb
+          POSTGRES_PASSWORD: disposable-reg04c-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fwb -d fwb_lab"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install isolated dependencies and test client
+        run: |
+          cd mcp/fwb05-poc && npm install --no-audit --no-fund
+          npm install --global @wordpress/env --no-audit --no-fund
+          python -m pip install requests beautifulsoup4 "PyJWT[crypto]"
+      - name: Verify full regression, CIMD contract, federation rollback and build
+        working-directory: mcp/fwb05-poc
+        run: |
+          npm test
+          npm run build
+      - name: Start genuine disposable WordPress database and REST API
+        working-directory: tests/fwb-reg04c
+        run: |
+          wp-env start --update
+          wp-env run cli wp user create e2eauthor e2eauthor@example.invalid \
+            --role=author --user_pass=ephemeral-author-password-for-ci
+          wp-env run cli wp post create --post_type=post --post_status=draft \
+            --post_title='REG04C Verified Draft' --post_author=e2eauthor
+          wp-env run cli wp user get admin --field=ID
+          wp-env run cli wp user get e2eauthor --field=ID
+      - name: Create per-user WordPress Application Passwords (ephemeral file, no logs)
+        working-directory: tests/fwb-reg04c
+        run: |
+          set -e
+          admin_pw="$(wp-env run cli wp user application-password create admin fwb-reg04c-ci-admin --porcelain | tail -n 1 | tr -d '\r')"
+          author_pw="$(wp-env run cli wp user application-password create e2eauthor fwb-reg04c-ci-author --porcelain | tail -n 1 | tr -d '\r')"
+          test "${#admin_pw}" -gt 12
+          test "${#author_pw}" -gt 12
+          APP_ADMIN="$admin_pw" APP_AUTHOR="$author_pw" node --input-type=module -e '
+            import fs from "node:fs";
+            fs.writeFileSync("/tmp/fwb-reg04c-wp-credentials.json",JSON.stringify({
+              admin_user:"admin",admin_password:process.env.APP_ADMIN,
+              author_user:"e2eauthor",author_password:process.env.APP_AUTHOR
+            }),{mode:0o600});
+          '
+      - name: Boot genuine Keycloak 26.8.2 without pre-connected site claims
+        run: |
+          docker run --detach --rm --name fwb-reg04c-keycloak \
+            --publish 127.0.0.1:8080:8080 \
+            --env KC_BOOTSTRAP_ADMIN_USERNAME=lab-admin \
+            --env KC_BOOTSTRAP_ADMIN_PASSWORD=only-temporary-ci-admin \
+            --env KC_HOSTNAME=https://auth-lab.example.org \
+            --env KC_PROXY_HEADERS=xforwarded \
+            --volume "$PWD/tests/fwb-reg04c/keycloak-realm.json:/opt/keycloak/data/import/fwb-reg04b-lab-realm.json:ro" \
+            quay.io/keycloak/keycloak:26.8.2 \
+            start-dev --features=cimd,resource-indicators --import-realm
+          for i in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:8080/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null; then break; fi
+            sleep 3
+          done
+          curl -fsS http://127.0.0.1:8080/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null
+      - name: Start isolated trusted HTTPS reverse proxy for WordPress and Keycloak
+        run: |
+          openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days 1 \
+            -keyout /tmp/fwb-lab-key.pem -out /tmp/fwb-lab-cert.pem \
+            -subj '/CN=auth-lab.example.org' \
+            -addext 'subjectAltName=DNS:auth-lab.example.org,DNS:wp-lab.example.org' >/dev/null 2>&1
+          echo '127.0.0.1 auth-lab.example.org wp-lab.example.org' | sudo tee -a /etc/hosts >/dev/null
+          sudo env FWB_LAB_TLS_KEY=/tmp/fwb-lab-key.pem FWB_LAB_TLS_CERT=/tmp/fwb-lab-cert.pem \
+            "$(command -v node)" tests/fwb-reg04c/tls-integrated-proxy.mjs \
+            > /tmp/fwb-reg04c-proxy.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl --silent --fail --cacert /tmp/fwb-lab-cert.pem \
+              https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS --cacert /tmp/fwb-lab-cert.pem \
+            https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null
+          curl -fsS --cacert /tmp/fwb-lab-cert.pem https://wp-lab.example.org/wp-json/ >/dev/null
+      - name: Keycloak real OAuth consent and PKCE for unbound subject
+        env:
+          FWB_LAB_TLS_CERT: /tmp/fwb-lab-cert.pem
+          REQUESTS_CA_BUNDLE: /tmp/fwb-lab-cert.pem
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,wp-lab.example.org,127.0.0.1,localhost
+        run: python tests/fwb-reg04c/auth-before-binding.py
+      - name: Federate verified WordPress accounts, bind Keycloak, call MCP, revoke
+        working-directory: mcp/fwb05-poc
+        env:
+          FWB_REG04C_REAL_INTEGRATION: enabled
+          FWB_REG04B_PG_STORAGE: enabled
+          FWB_REG04B_DATABASE_URL: postgresql://fwb:disposable-reg04c-only@127.0.0.1:5432/fwb_lab
+          FWB_REG04B_INSECURE_DB_TEST_ONLY: enabled
+          NODE_ENV: test
+          NODE_EXTRA_CA_CERTS: /tmp/fwb-lab-cert.pem
+          HTTPS_PROXY: ''
+          HTTP_PROXY: ''
+          ALL_PROXY: ''
+          NO_PROXY: auth-lab.example.org,wp-lab.example.org,127.0.0.1,localhost
+        run: node --test tests/reg04c-integration-real.test.mjs
+      - name: Destroy isolated services, credentials and certificates
+        if: always()
+        run: |
+          cd tests/fwb-reg04c && wp-env stop || true
+          docker rm -f fwb-reg04c-keycloak >/dev/null 2>&1 || true
+          rm -f /tmp/fwb-reg04c-before-binding.json /tmp/fwb-reg04c-wp-credentials.json \
+            /tmp/fwb-lab-key.pem /tmp/fwb-lab-cert.pem
