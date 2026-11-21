@@ -49,7 +49,9 @@ try{
  await adminPool.query('GRANT CONNECT ON DATABASE fwb_r2b2_lab TO fwb_r2b2_runtime');
  await adminPool.query('GRANT USAGE ON SCHEMA public TO fwb_r2b2_runtime');
  await adminPool.query(
-  'GRANT SELECT,INSERT,UPDATE ON fwb_admin_operation_log TO fwb_r2b2_runtime');
+  'GRANT SELECT,INSERT ON fwb_admin_operation_log TO fwb_r2b2_runtime');
+ await adminPool.query('GRANT UPDATE(state,code,finished_at) ON fwb_admin_operation_log TO fwb_r2b2_runtime');
+ await adminPool.query('GRANT SELECT,INSERT ON fwb_admin_key_epoch TO fwb_r2b2_runtime');
  const master=await adminToken();
  const entries=await keycloak(master,'/users?username=fwb-lab-user&exact=true');
  assert.equal(entries.length,1);
