@@ -94,6 +94,15 @@ def configure_probe():
             "config": {"included.custom.audience": "account",
                        "access.token.claim": "true",
                        "id.token.claim": "false"}
+        }, {
+            "name": "ci-account-only-roles",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usermodel-client-role-mapper",
+            "consentRequired": False,
+            "config": {"usermodel.clientRoleMapping.clientId": "account",
+                       "claim.name": "resource_access.account.roles",
+                       "jsonType.label": "String", "multivalued": "true",
+                       "access.token.claim": "true", "id.token.claim": "false"}
         }]
     }
     created = admin_request("/clients", method="POST", payload=probe)
@@ -108,13 +117,6 @@ def configure_probe():
                            "/scope-mappings/clients/" + account_id,
                            method="POST", payload=roles)
     ensure(mapped.status_code == 204, "ACCOUNT_PROBE_ROLE_SCOPE_FAILED")
-    scopes = admin_json("/client-scopes")
-    roles_scope = next((x for x in scopes if x["name"] == "roles"), None)
-    ensure(roles_scope is not None, "BUILTIN_ROLES_SCOPE_MISSING")
-    attached = admin_request("/clients/" + probe_id +
-                             "/default-client-scopes/" + roles_scope["id"],
-                             method="PUT")
-    ensure(attached.status_code == 204, "ACCOUNT_PROBE_ROLES_MAPPER_FAILED")
 
     # No changes to the original FWB MCP PKCE client.
     ensure(admin_json("/clients/" + original[0]["id"]) == original_client,
