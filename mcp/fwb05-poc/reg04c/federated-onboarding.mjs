@@ -102,7 +102,7 @@ export function makeKeycloakBindingAdmin({config,fetcher=globalThis.fetch}){
 
 // One caller identity / one Keycloak subject: no bearer from the request may
 // override the admin API token or select a different Keycloak account.
-export function makeFederatedOnboarding({service,keycloak}){
+export function makeFederatedOnboarding({service,keycloak,onDiagnostic}){
   if(typeof service?.connect!=='function'||typeof service?.disconnect!=='function'||
     typeof service?.resolve!=='function'||typeof keycloak?.attach!=='function'||
     typeof keycloak?.detach!=='function') {
@@ -112,7 +112,11 @@ export function makeFederatedOnboarding({service,keycloak}){
     const connected=await service.connect(identity,payload);
     try{
       await keycloak.attach(identity.sub,connected.site_id,connected.connection_id);
-    }catch{
+    }catch(error){
+      // Only a fixed internal error code, never upstream payload, IDs or tokens.
+      if(typeof onDiagnostic==='function'){
+        onDiagnostic(error instanceof OnboardingDenied ? error.code : 'unknown_idp_error');
+      }
       // Do not leave an active MCP binding after a failed/uncertain IdP update.
       try{await service.disconnect(identity,connected.site_id);}catch{
         throw new OnboardingDenied('federation_rollback_failed_manual_review');
