@@ -1,0 +1,40 @@
+name: FWB-REG-03 — Staging HTTPS gateway tenant isolation
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb05-poc/reg03/**'
+      - 'mcp/fwb05-poc/reg02/editorial.mjs'
+      - 'mcp/fwb05-poc/app/api/gateway-mcp/**'
+      - 'mcp/fwb05-poc/app/.well-known/oauth-protected-resource/api/gateway-mcp/**'
+      - 'mcp/fwb05-poc/tests/reg03-*.test.mjs'
+      - '.github/workflows/fwb-reg03-tenant-gateway.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tenant-isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated MCP dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Run all MCP tests, REG-02 regression and REG-03 isolation
+        working-directory: mcp/fwb05-poc
+        run: npm test
+      - name: Compile Next.js HTTPS gateway and discovery routes
+        working-directory: mcp/fwb05-poc
+        run: npm run build
+      - name: Verify REG-03 contains no live staging registry
+        run: |
+          if grep -R -E 'FWB_REG03_TENANTS_JSON[[:space:]]*=' mcp/fwb05-poc/reg03/; then
+            echo 'Unexpected inline tenant registry'; exit 1
+          fi
+          echo 'No inline tenant registry'

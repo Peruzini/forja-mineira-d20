@@ -79,14 +79,24 @@ export function makeEditorial({identity,config,fetcher=globalThis.fetch}) {
       context:'edit',per_page:String(limit),
       _fields:'id,slug,status,link,title,excerpt,modified_gmt'
     });
+    if (config.ownPostsOnly) {
+      params.set('author',String(config.wpUserId));
+      params.set('_fields','id,author,slug,status,link,title,excerpt,modified_gmt');
+    }
     const result=await call('GET','wp/v2/posts?'+params.toString());
     if (!Array.isArray(result)) throw new EditorialFailure('wordpress_invalid_response');
-    return {site:'staging',count:result.length,posts:result.map(summary)};
+    if (config.ownPostsOnly && result.some(post => post?.author !== config.wpUserId)) {
+      throw new EditorialFailure('post_owner_mismatch');
+    }
+    return {site:config.siteId || 'staging',count:result.length,posts:result.map(summary)};
   }
   async function getPost(id) {
     requireScope(identity,'posts:read');
     const result=await call('GET','wp/v2/posts/'+requirePositiveId(id)+'?context=edit');
-    return {site:'staging',post:{...summary(result),
+    if (config.ownPostsOnly && result?.author !== config.wpUserId) {
+      throw new EditorialFailure('post_owner_mismatch');
+    }
+    return {site:config.siteId || 'staging',post:{...summary(result),
       content:typeof result.content?.raw==='string'?result.content.raw.slice(0,80000):''}};
   }
   async function validateDraft(draft) {
@@ -94,7 +104,7 @@ export function makeEditorial({identity,config,fetcher=globalThis.fetch}) {
     const fields=cleanDraft(draft);
     const result=await call('POST','forja-bridge/v1/drafts/validate',{body:{...fields,dry_run:true}});
     if (result?.valid!==true || result?.dry_run!==true) throw new EditorialFailure('wordpress_validation_failed');
-    return {site:'staging',valid:true,dry_run:true,would_change:result.would_change||[]};
+    return {site:config.siteId || 'staging',valid:true,dry_run:true,would_change:result.would_change||[]};
   }
   async function createDraft(draft,operationId) {
     requireScope(identity,'drafts:write');
@@ -114,7 +124,7 @@ export function makeEditorial({identity,config,fetcher=globalThis.fetch}) {
     if (confirmed?.id!==created.id || confirmed?.status!=='draft') {
       throw new EditorialFailure('uncertain_write_verify_manually');
     }
-    return {site:'staging',id:created.id,status:'draft',verified:true,replayed:created.replayed===true};
+    return {site:config.siteId || 'staging',id:created.id,status:'draft',verified:true,replayed:created.replayed===true};
   }
   async function updateDraft(id,changes,expectedModifiedGmt,operationId) {
     requireScope(identity,'drafts:write');
@@ -138,7 +148,7 @@ export function makeEditorial({identity,config,fetcher=globalThis.fetch}) {
     if (confirmed?.id!==postId || confirmed?.status!=='draft') {
       throw new EditorialFailure('uncertain_write_verify_manually');
     }
-    return {site:'staging',id:postId,status:'draft',verified:true,replayed:result.replayed===true};
+    return {site:config.siteId || 'staging',id:postId,status:'draft',verified:true,replayed:result.replayed===true};
   }
   return { listPosts,getPost,validateDraft,createDraft,updateDraft };
 }
