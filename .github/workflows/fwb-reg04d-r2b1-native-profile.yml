@@ -76,14 +76,6 @@ jobs:
           done
           curl --silent --fail --cacert /tmp/fwb-r1-lab-cert.pem \
             https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null
-      - name: Install Keycloak CI-only admin-managed attribute profile
-        env:
-          NODE_EXTRA_CA_CERTS: /tmp/fwb-r1-lab-cert.pem
-          HTTPS_PROXY: ''
-          HTTP_PROXY: ''
-          ALL_PROXY: ''
-          NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
-        run: node tests/fwb-reg04c/configure-keycloak-profile.mjs
       - name: Keycloak real FGAP setup, then enforce field-only binding writes and negative cases
         env:
           NODE_EXTRA_CA_CERTS: /tmp/fwb-r1-lab-cert.pem
