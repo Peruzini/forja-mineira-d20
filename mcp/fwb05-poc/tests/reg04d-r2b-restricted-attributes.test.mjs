@@ -151,7 +151,7 @@ test('verified onboarding rejects forged caller subject and uses only signed sub
  assert.equal(result.federated,true);
  assert.equal(attachedSub,id);
  assert.deepEqual(m.records.get(id).attributes,{fwb_site_id:[site],fwb_connection_id:[conn]});
- await assert.rejects(()=>wrapper.disconnect(makeUserBearer(id,{site_id:site,connection_id:'wrong-connection-id'}),site),
+ await assert.rejects(()=>wrapper.disconnect(makeUserBearer(id,{site_id:site,connection_id:'wrong_connection_id_0123456'}),site),
    /r2b_binding_mismatch|binding_revoked_idp_cleanup_pending/);
  // The existing federated-onboarding disconnect removes DB before Keycloak cleanup:
  // use a fresh isolated mock for the successful disconnect proof.
