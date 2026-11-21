@@ -29,3 +29,23 @@ Provas executadas pela suíte `tests/fwb-reg04d-r2b1-c1/self-service-account.py`
 **Evidência:** consultar a nova execução de GitHub Actions no PR draft C1. Não marcar PASS antes da conclusão real da CI.
 
 **Sem Worker, merge automático, deploy ou acesso ao WordPress em produção.**
+
+
+## Fechamento R2B1-C1-R1 — comprovação em CI (21/11/2026)
+
+**Resultado de laboratório: PASS (ambos os jobs, 2/2)** em [GitHub Actions #44927705973](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44927705973), commit `02ba23b70b47a3c1a3bfe77c3a93b2f4d90141a8`. A palavra PASS se limita ao realm Keycloak 26.8.2 descartável.
+
+**Diagnóstico e reparos:** o callback OAuth era recebido diretamente, sem tela de consentimento intermediária; o ensaio antigo exigia consentimento visual e falhava indevidamente. O novo ensaio valida o callback, `state`, código único, PKCE, assinatura/JWKS, emissor, audience `account`, `sub` e ausência de roles administrativas. O realm importado não fornece automaticamente `sub` ou client scope padrão `roles`; o client de CI recebeu mapeadores explícitos para `sub` e dois papéis de conta. A versão REST deste Keycloak é `v1alpha1`, e não `v1` (ver `AccountRestApiVersion` em Keycloak 26.8.2). O workflow aplica uma substituição exata, protegida por `grep -Fq`, da rota do ensaio R1b para `/account/v1alpha1/`, sem alterar permissões do provedor.
+
+**Marcos reais na CI:**
+- `R2B1_C1_R1_ISOLATED_ACCOUNT_CLIENT_PASS` — cliente dedicado sem mudança no cliente MCP original.
+- `R2B1_C1_R1_VERIFIED_ACCOUNT_PKCE_PASS` — token de usuário verificado; somente acesso à conta.
+- `R2B1_C1_R1_ADMIN_FIELDS_HIDDEN_PASS` — os dois atributos administrativos ausentes da leitura da Account REST.
+- `R2B1_C1_R1_SELF_EDIT_POSITIVE_PASS` — `firstName` persistido via Account REST (prova de endpoint operacional).
+- `R2B1_C1_R1_PROTECTED_WRITE_NEGATIVE_PASS` — tentativas de sobrescrever atributos reservados e incluir atributo não declarado não persistem; Admin GET confirma valores anteriores.
+- `R2B1_C1_R1_CORE_PROFILE_PRESERVED_PASS` — restauração e integridade dos campos básicos.
+- `R2B1_C1_R1_ACCOUNT_REST_POLICY_PASS` — fechamento da suíte autenticada.
+
+Os testes nativos e FGAP anteriores também passaram no mesmo run, incluindo não persistência de atributos não declarados e attach/detach.
+
+**Decisão:** R2B1-C1-R1 **LAB PASS**, libera planejamento de R2B2 para isolamento administrativo. **Não libera staging público, migração de realm preexistente, produção, publicação CIMD nem ChatGPT normal.** Esses gates dependem de R2B2 (ACL, segredos, concorrência, auditoria), R2C e R3. PR permanece draft; nenhum merge/deploy/alteração na produção.
