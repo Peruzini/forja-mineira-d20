@@ -1,0 +1,40 @@
+name: FWB-REG-04D — Keycloak with live ChatGPT CIMD
+
+on:
+  pull_request:
+    paths:
+      - 'tests/fwb-reg04d/**'
+      - '.github/workflows/fwb-reg04d-cimd.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  keycloak-live-cimd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Start isolated Keycloak realm without a pre-registered ChatGPT client
+        run: |
+          python3 tests/fwb-reg04d/check-cimd.py write-realm "$RUNNER_TEMP/fwb-reg04d-realm.json"
+          docker run --detach --rm --name fwb-reg04d-keycloak \
+            --publish 127.0.0.1:8080:8080 \
+            --volume "$RUNNER_TEMP/fwb-reg04d-realm.json:/opt/keycloak/data/import/fwb-reg04d-realm.json:ro" \
+            quay.io/keycloak/keycloak:26.8.2 \
+            start-dev --features=cimd,resource-indicators --import-realm
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8080/realms/fwb-reg04d-ci/.well-known/openid-configuration >/dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo 'Keycloak discovery did not become ready'
+          exit 1
+      - name: Verify authorization using live ChatGPT metadata and reject disallowed requests
+        run: python3 tests/fwb-reg04d/check-cimd.py check-live
+      - name: Stop Keycloak
+        if: always()
+        run: docker rm -f fwb-reg04d-keycloak >/dev/null 2>&1 || true
