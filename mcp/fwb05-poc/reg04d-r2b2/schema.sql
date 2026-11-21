@@ -1,6 +1,5 @@
--- R2B2: apply with a dedicated DBA/migration identity, never via the
--- runtime keycloak service account. No Keycloak tokens or subject IDs stored.
--- The schema intentionally has no administrative API and no DELETE support.
+-- R2B2: executed only with a dedicated migration identity.
+-- No raw Keycloak subjects, sites, connections or credentials stored.
 CREATE TABLE IF NOT EXISTS fwb_admin_operation_log (
   op_id uuid PRIMARY KEY,
   subject_digest char(64) NOT NULL CHECK (subject_digest ~ '^[a-f0-9]{64}$'),
@@ -20,21 +19,17 @@ CREATE UNIQUE INDEX IF NOT EXISTS fwb_admin_operation_unresolved_idx
   ON fwb_admin_operation_log(subject_digest)
   WHERE state IN ('started','manual_review');
 
-
--- Stable fingerprint of the HMAC epoch. The runtime role can initialize it
--- once but must never UPDATE/DELETE it. Rotating the key without a reviewed
--- migration otherwise breaks unresolved-operation lookups.
+-- The worker may initialize this identity exactly once and compare it on
+-- every operation. It must not have UPDATE or DELETE privileges here.
 CREATE TABLE IF NOT EXISTS fwb_admin_key_epoch (
   singleton smallint PRIMARY KEY CHECK (singleton=1),
-  key_marker char(64) NOT NULL CHECK (key_marker ~ '^[a-f0-9]{64} must be provisioned out-of-band by infrastructure:
--- dedicated runtime role -> USAGE on schema, SELECT/INSERT/UPDATE(state,code,finished_at) on this
--- operation table; SELECT/INSERT only on fwb_admin_key_epoch. Explicitly\n-- NO DELETE, DDL, BYPASSRLS or superuser.
--- Do not grant any browser, WordPress or gateway identity direct SQL access.
-),
+  key_marker char(64) NOT NULL CHECK (key_marker ~ '^[a-f0-9]{64}$'),
   established_at timestamptz NOT NULL DEFAULT clock_timestamp()
 );
 
--- Roles and grants must be provisioned out-of-band by infrastructure:
--- dedicated runtime role -> USAGE on schema, SELECT/INSERT/UPDATE on this
--- single table. Explicitly NO DELETE, DDL, BYPASSRLS or superuser.
--- Do not grant any browser, WordPress or gateway identity direct SQL access.
+-- DBA provisions a dedicated role out of band:
+-- GRANT USAGE ON SCHEMA public
+-- GRANT SELECT,INSERT ON fwb_admin_operation_log
+-- GRANT UPDATE(state,code,finished_at) ON fwb_admin_operation_log
+-- GRANT SELECT,INSERT ON fwb_admin_key_epoch
+-- NEVER GRANT DELETE, DDL, superuser or BYPASSRLS.
