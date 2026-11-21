@@ -70,6 +70,7 @@ test('only signed subject+site pair with correct issuer, audience, scope and tim
   assert.equal(config.wpBase,'https://wp-a.example.org');
   assert.equal(config.ownPostsOnly,true);
   assert.equal(config.wpUserId,101);
+  assert.equal(Object.hasOwn(config,'tenants'),false);
   assert.equal(config.enableWrites,false);
   const second=await auth(jwt({sub:'principal-b',site_id:'site_beta'}));
   assert.equal(second.config.wpUser,'wp-author-b');
