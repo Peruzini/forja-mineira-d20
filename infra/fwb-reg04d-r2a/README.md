@@ -17,6 +17,16 @@
 - CI de contrato: `node --test infra/fwb-reg04d-r2a/test-shell.mjs`.
 - CI de rede pública: `.github/workflows/fwb-reg04d-r2a-shell.yml` consulta o alias via HTTPS de um runner externo; valida certificado e respostas. Não testa a infraestrutura Keycloak/WP/Postgres porque ainda não existe.
 
+
+## Homologação realizada no GitHub Actions
+
+- **[Run #44918955996](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44918955996)** — **2/2 jobs SUCCESS**.
+- `isolated-shell-contract`: 2/2 testes PASS, sem failures.
+- `isolated-public-https-smoke`: runner externo consultou `https://forja-wp-bridge-staging-r2a.vercel.app/api/status` com validação da cadeia TLS e hostname; HTTP 200, JSON de shell, sem cache. Marcador `REG04D_R2A_PUBLIC_TLS_STATUS_SHELL_PASS`.
+- Mesmo runner comprovou resposta HTTP 503 para GET, POST, DELETE e OPTIONS em `/api/gateway-mcp` com conteúdo `staging_mcp_disabled`. Marcador `REG04D_R2A_PUBLIC_MCP_FAIL_CLOSED_PASS`.
+- Auditoria Vercel após deploy: **0 variáveis de ambiente e 0 conexões a serviços externos** no projeto `forja-wp-bridge-staging-r2a`; domínio nativo `vercel.app` verificado. Não há segredos nem aplicações de produção vinculadas.
+- Evidência prova **HTTPS público e indisponibilidade intencional MCP**, não autenticação, login, federação ou persistência.
+
 ### Topologia de homologação **a provisionar em fornecedor próprio**
 
 | Componente | Exposição e controle | Estado |
