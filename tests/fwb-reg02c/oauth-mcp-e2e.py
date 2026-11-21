@@ -46,7 +46,7 @@ def b64url(data):
 
 def metadata():
     r = send('GET', '/.well-known/oauth-protected-resource')
-    check(r.status_code == 200, 'protected-resource-metadata', f'{r.status_code} {r.text[:180]}')
+    check(r.status_code == 200, 'protected-resource-metadata', f'{r.status_code} location={r.headers.get("Location", "")} {r.text[:180]}')
     m = json_response(r)
     check(m.get('resource') == BASE + '/wp-json/mcp/mcp-oauth-server', 'resource-audience-bound')
     r = send('GET', '/.well-known/oauth-authorization-server')
