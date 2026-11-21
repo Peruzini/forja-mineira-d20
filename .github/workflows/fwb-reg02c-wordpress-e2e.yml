@@ -40,12 +40,13 @@ jobs:
       - name: Install official MCP Adapter only in disposable WordPress
         working-directory: tests/fwb-reg02c
         run: |
-          wp-env run cli "wp plugin install mcp-adapter --activate"
-          wp-env run cli "wp plugin activate forja-wp-oauth-stage"
-          wp-env run cli "wp rewrite flush --hard"
-          wp-env run cli "wp user create e2eauthor e2eauthor@example.invalid --role=author --user_pass=ephemeral-test-only-do-not-reuse"
-          wp-env run cli "wp post create --post_type=post --post_status=draft --post_title='E2E Own Draft' --post_author=2"
-          wp-env run cli "wp plugin list --fields=name,status,version"
+          wp-env run cli wp plugin install mcp-adapter
+          wp-env run cli wp plugin activate mcp-adapter
+          wp-env run cli wp plugin activate forja-wp-oauth-stage
+          wp-env run cli wp rewrite flush
+          wp-env run cli wp user create e2eauthor e2eauthor@example.invalid --role=author --user_pass=ephemeral-test-only-do-not-reuse
+          wp-env run cli wp post create --post_type=post --post_status=draft --post_title=E2EOwnDraft --post_author=2
+          wp-env run cli wp plugin list
       - name: Verify real OAuth/PKCE/consent/token/MCP over localhost
         env:
           FWB_E2E_PASSWORD: ephemeral-test-only-do-not-reuse
