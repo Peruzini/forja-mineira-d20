@@ -129,6 +129,11 @@ for candidate in (issuer+"/account/",issuer+"/account",issuer+"/account/v1/"):
         account,account_url=probe,candidate
         break
 assert account is not None, "no working JSON Account REST route in Keycloak test realm"
+mcp_on_real_account=s.get(account_url,headers={
+    "Authorization":"Bearer "+mcp_token,"Accept":"application/json",
+    "Content-Type":"application/json"},timeout=25,allow_redirects=False)
+print("REG04D_R2B1_C1_REAL_ACCOUNT_MCP_BOUND_TOKEN_HTTP",mcp_on_real_account.status_code)
+assert mcp_on_real_account.status_code in (401,403), "MCP-only token accessed working Account REST"
 profile=account.json()
 assert isinstance(profile,dict), "unexpected Account REST object"
 baseline=get_admin("/users/"+uid)
