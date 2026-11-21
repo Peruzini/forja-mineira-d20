@@ -55,8 +55,12 @@ function rejectBroadRoles(token,config){
   try {claims=JSON.parse(Buffer.from(p[1],'base64url').toString('utf8'));}
   catch {throw new OnboardingDenied('scoped_token_invalid');}
   const audiences=Array.isArray(claims?.aud)?claims.aud:[claims?.aud];
+  const expectedAdminApi=config.adminEndpoint;
+  const scopes=typeof claims?.scope==='string'?claims.scope.split(/\s+/):[];
+  // Keycloak 26.8 Admin REST enforces *both* the actual Admin API audience
+  // and the built-in kc-admin-api scope, independent of FGAP grants.
   if(claims?.iss!==config.issuer||claims?.azp!==config.clientId||
-    !audiences.includes('realm-management')||
+    !audiences.includes(expectedAdminApi)||!scopes.includes('kc-admin-api')||
     typeof claims.exp!=='number'||claims.exp<=Math.floor(Date.now()/1000)+5)
     throw new OnboardingDenied('scoped_token_claims_invalid');
   const roles=claims.resource_access?.['realm-management']?.roles||[];
