@@ -81,6 +81,9 @@ export function makeEditorial({identity,config,fetcher=globalThis.fetch}) {
     });
     if (config.ownPostsOnly) {
       params.set('author',String(config.wpUserId));
+      // WordPress REST defaults to status=publish even with context=edit.
+      // Include the connected author's draft and published posts.
+      params.set('status','any');
       params.set('_fields','id,author,slug,status,link,title,excerpt,modified_gmt');
     }
     const result=await call('GET','wp/v2/posts?'+params.toString());
