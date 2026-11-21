@@ -115,7 +115,7 @@ resource "oci_core_internet_gateway" "stage" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.stage.id
   display_name   = "fwb-stage-igw"
-  is_enabled     = true
+  enabled        = true
 }
 
 resource "oci_core_route_table" "stage" {
@@ -164,7 +164,7 @@ resource "oci_core_network_security_group_security_rule" "oidc_public" {
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  is_stateless              = false
+  stateless                 = false
   tcp_options {
     destination_port_range {
       min = tonumber(each.value)
@@ -182,7 +182,7 @@ resource "oci_core_network_security_group_security_rule" "ssh" {
   protocol                  = "6"
   source                    = var.ssh_allow_cidr
   source_type               = "CIDR_BLOCK"
-  is_stateless              = false
+  stateless                 = false
   tcp_options {
     destination_port_range {
       min = 22
@@ -200,7 +200,7 @@ resource "oci_core_network_security_group_security_rule" "web_egress" {
   protocol                  = "6"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  is_stateless              = false
+  stateless                 = false
   tcp_options {
     destination_port_range {
       min = tonumber(each.value)
@@ -215,7 +215,7 @@ resource "oci_core_network_security_group_security_rule" "dns_egress" {
   protocol                  = "17"
   destination               = "169.254.169.254/32"
   destination_type          = "CIDR_BLOCK"
-  is_stateless              = false
+  stateless                 = false
   udp_options {
     destination_port_range {
       min = 53
