@@ -116,6 +116,11 @@ try{
  assert.equal(auditCodes.every(code=>['r2b2_operation_started',
    'r2b2_operation_confirmed','r2b2_manual_review_required'].includes(code)),true);
  console.log('REG04D_R2B2_DURABLE_PSEUDONYMOUS_AUDIT_PASS');
+ const rotated=makeR2B2PrivateAdmin({scopedConfig:config,pool:firstPool,
+   auditHmacKey:Buffer.alloc(32,44)});
+ await assert.rejects(()=>rotated.attach(subject,siteId,connectionId),
+   /r2b2_audit_key_epoch_changed/);
+ console.log('REG04D_R2B2_HMAC_EPOCH_MISMATCH_DENIED_PASS');
 
  // Even after an actual external PUT succeeds, connection loss may hide its
  // result. No automatic retry or detachment is permitted: manual review.
