@@ -112,21 +112,11 @@
       "authorizationServicesEnabled": false,
       "consentRequired": false,
       "defaultClientScopes": [
+        "kc-admin-api",
         "roles",
         "profile"
       ],
       "protocolMappers": [
-        {
-          "name": "realm-management audience (no administrative roles)",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "realm-management",
-            "access.token.claim": "true",
-            "id.token.claim": "false"
-          }
-        },
         {
           "name": "Scoped service query role mapper",
           "protocol": "openid-connect",
