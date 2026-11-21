@@ -60,3 +60,11 @@ Na falta de qualquer prova, **FAIL/NO-GO**. Não considerar alteração de manif
 ## Evidência
 
 CI do PR R2B2: a preencher somente após execução real. O sucesso no CI prova **mecanismo de software**, não uma rede privada implantada.
+
+## Proteção contra rotação de chave e alteração do journal
+
+A tabela adicional `fwb_admin_key_epoch` armazena somente um marcador HMAC irreversível de época. A fachada cria o registro único por `INSERT ... ON CONFLICT DO NOTHING` e compara o marcador antes de qualquer operação. Se os executores usam uma nova chave sem migração supervisionada, devolve `r2b2_audit_key_epoch_changed` e não alcança a Admin REST. **Nunca** trocar automaticamente esse registro para desbloquear o ambiente: reconciliar operações antigas, manter histórico e planejar a troca de epoch com DBA/auditoria independentes.
+
+O índice de operações pendentes é **único** por `subject_digest`. O papel runtime recebe somente `SELECT/INSERT` na tabela de operações e `UPDATE(state,code,finished_at)`, além de `SELECT/INSERT` no marcador de época. Assim não pode excluir linhas, alterar o identificador da operação ou reescrever o sujeito pseudonimizado pelas permissões SQL concedidas.
+
+**A evidência adicional** deve incluir `REG04D_R2B2_HMAC_EPOCH_MISMATCH_DENIED_PASS` em CI real. Esta prova não substitui vault e política de rotação em ambiente persistente.
