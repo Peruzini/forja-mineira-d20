@@ -126,7 +126,7 @@ jobs:
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
         run: |
-          echo "FWB_REG04_ENCRYPTION_KEY_B64URL=$(node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")" >> "$GITHUB_ENV"
+          export FWB_REG04_ENCRYPTION_KEY_B64URL="$(node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")"
           node tests/fwb-reg04b/verify-real-keycloak-token.mjs
       - name: Destroy disposable OAuth server
         if: always()
