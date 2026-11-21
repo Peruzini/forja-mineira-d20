@@ -1,0 +1,52 @@
+name: SPELL-06E.1 grid mobile + acessibilidade (preview)
+on:
+  pull_request:
+    paths:
+      - 'qa/spell-06e1/**'
+      - 'qa/spell-06e/index.html'
+      - 'qa/spell-06d/guide-regression.test.cjs'
+      - 'plugins/forja-mineira-guia-magias/assets/css/guide-spells.css'
+      - 'plugins/forja-mineira-guia-magias/assets/js/guide-spells.js'
+      - 'plugins/forja-mineira-guia-magias/templates/guide-spells.php'
+      - '.github/workflows/spell-06e1-visual.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: HTML estatico fiel ao template PHP
+        run: node qa/spell-06e/build-static.cjs --verify
+      - name: Regressao do Guia real, 94 cards e dependencias
+        run: |
+          node --test qa/spell-06d/guide-regression.test.cjs
+          node --test qa/spell-05e/adapter.test.cjs qa/spell-06b/exporter.test.cjs qa/spell-06c/preview.test.cjs
+      - name: Chromium Playwright em Ubuntu 24.04
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validar grid mobile, ARIA, foco e capturas
+        run: node qa/spell-06e1/browser-check.cjs
+      - name: Empacotar preview original e evidencias
+        if: always()
+        run: |
+          mkdir -p bundle/qa/spell-06e bundle/qa/spell-06e1 bundle/plugins/forja-mineira-guia-magias/assets/css bundle/plugins/forja-mineira-guia-magias/assets/js bundle/plugins/forja-mineira-guia-magias/assets/images
+          cp qa/spell-06e/index.html bundle/qa/spell-06e/
+          cp plugins/forja-mineira-guia-magias/assets/css/guide-spells.css bundle/plugins/forja-mineira-guia-magias/assets/css/
+          cp plugins/forja-mineira-guia-magias/assets/js/guide-spells.js bundle/plugins/forja-mineira-guia-magias/assets/js/
+          cp plugins/forja-mineira-guia-magias/assets/images/guia-magias-bruxo-hero-aprovado.webp bundle/plugins/forja-mineira-guia-magias/assets/images/
+          if test -d qa/spell-06e1/output; then cp -R qa/spell-06e1/output bundle/qa/spell-06e1/; fi
+      - name: Publicar ZIP de preview para aprovacao visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SPELL-06E1-preview-mobile-a11y
+          path: bundle/
+          if-no-files-found: error
+          retention-days: 30

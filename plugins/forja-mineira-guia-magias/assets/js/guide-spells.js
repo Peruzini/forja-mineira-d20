@@ -143,13 +143,57 @@ function resetFilters(){
   document.getElementById("fmmg-search").value="";
   renderFilters();render();
 }
-function openFilters(){document.getElementById("fmmg-filterSheet").classList.add("open");document.getElementById("fmmg-backdrop").classList.add("open")}
-function openDetail(){document.getElementById("fmmg-detailSheet").classList.add("open");document.getElementById("fmmg-backdrop").classList.add("open")}
-function closeSheets(){
-  document.getElementById("fmmg-filterSheet").classList.remove("open");
-  document.getElementById("fmmg-detailSheet").classList.remove("open");
-  document.getElementById("fmmg-backdrop").classList.remove("open");
+/* SPELL-06E.1 — controle de visibilidade e foco para os dois dialogos mobile. */
+let activeMobileSheet=null;
+let mobileReturnFocus=null;
+function openMobileSheet(id,trigger){
+  if(activeMobileSheet)closeSheets(false);
+  const sheet=document.getElementById(id);
+  activeMobileSheet=sheet;
+  mobileReturnFocus=trigger||document.activeElement;
+  sheet.classList.add("open");
+  sheet.setAttribute("aria-hidden","false");
+  document.getElementById("fmmg-backdrop").classList.add("open");
+  if(id==="fmmg-filterSheet"){
+    document.getElementById("fmmg-openFilters").setAttribute("aria-expanded","true");
+  }
+  const closeButton=sheet.querySelector("[data-close]");
+  if(closeButton)closeButton.focus();
+  else sheet.focus();
 }
+function openFilters(){openMobileSheet("fmmg-filterSheet",document.getElementById("fmmg-openFilters"))}
+function openDetail(){openMobileSheet("fmmg-detailSheet",document.getElementById("fmmg-spellList").querySelector(".spell-row.selected"))}
+function closeSheets(restoreFocus=true){
+  const previous=mobileReturnFocus;
+  const wasOpen=activeMobileSheet!==null;
+  for(const id of ["fmmg-filterSheet","fmmg-detailSheet"]){
+    const sheet=document.getElementById(id);
+    sheet.classList.remove("open");
+    sheet.setAttribute("aria-hidden","true");
+  }
+  document.getElementById("fmmg-openFilters").setAttribute("aria-expanded","false");
+  document.getElementById("fmmg-backdrop").classList.remove("open");
+  activeMobileSheet=null;
+  mobileReturnFocus=null;
+  if(wasOpen&&restoreFocus){
+    const candidate=previous&&previous.isConnected
+      ? previous : document.getElementById("fmmg-spellList").querySelector(".spell-row.selected");
+    if(candidate&&typeof candidate.focus==="function")candidate.focus();
+  }
+}
+function handleMobileSheetKeys(event){
+  if(!activeMobileSheet)return;
+  if(event.key==="Escape"){event.preventDefault();closeSheets();return}
+  if(event.key!=="Tab")return;
+  const selectors='button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const controls=[...activeMobileSheet.querySelectorAll(selectors)]
+    .filter(el=>el.getClientRects().length>0&&getComputedStyle(el).visibility!=="hidden");
+  if(!controls.length){event.preventDefault();activeMobileSheet.focus();return}
+  const first=controls[0],last=controls[controls.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+}
+document.addEventListener("keydown",handleMobileSheetKeys);
 
 document.getElementById("fmmg-search").addEventListener("input",e=>{state.q=e.target.value;render()});
 document.getElementById("fmmg-clearFilters").onclick=resetFilters;

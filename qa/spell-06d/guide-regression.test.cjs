@@ -34,6 +34,8 @@ class FakeElement {
     this.value = '';
     this.textContent = '';
     this.listeners = {};
+    this.attrs = {};
+    this.isConnected = true;
     this._classes = new Set();
     this.classList = {
       add: (...names) => names.forEach(n => this._classes.add(n)),
@@ -50,8 +52,17 @@ class FakeElement {
   set innerHTML(html) { this._html = String(html); this.children = []; this._rows = []; }
   get innerHTML() { return this._html; }
   appendChild(node) { this.children.push(node); return node; }
+  setAttribute(name,value) { this.attrs[name]=String(value); }
+  getAttribute(name) { return this.attrs[name] ?? null; }
+  focus() { if(typeof FakeElement.focusController === 'function')FakeElement.focusController(this); }
+  querySelector(selector) {
+    if (selector === '[data-close]')return this.closeButton || (this.closeButton=new FakeElement('button'));
+    if (selector === '.spell-row.selected')return (this._rows || []).find(b=>b.dataset.id === this.selectedId) || (this._rows || [])[0] || null;
+    return null;
+  }
   querySelectorAll(selector) {
     if (selector !== '.spell-row') return [];
+    this.selectedId=(this._html.match(/<button class="spell-row selected" data-id="([^"]+)"/)||[])[1] || null;
     this._rows = [...this._html.matchAll(/<button class="spell-row [^"]*" data-id="([^"]+)"/g)]
       .map(m => { const button = new FakeElement('button'); button.dataset.id = m[1]; return button; });
     return this._rows;
@@ -67,15 +78,19 @@ function harness(mobile=false) {
   const nodes = new Map();
   const closers = [new FakeElement('button'), new FakeElement('button')];
   const document = {
+    activeElement:null,
+    listeners:{},
+    addEventListener(name,callback){this.listeners[name]=callback;},
     getElementById(id) { if (!nodes.has(id)) nodes.set(id, new FakeElement()); return nodes.get(id); },
     createElement(tag) { return new FakeElement(tag); },
     querySelectorAll(query) { return query === '[data-close]' ? closers : []; }
   };
+  FakeElement.focusController=(node)=>{document.activeElement=node};
   const window = { matchMedia: query => ({ matches: mobile && query === '(max-width:820px)' }) };
   const context = vm.createContext({ document, window });
   vm.runInContext(src, context, { filename: 'guide-spells.js', timeout: 5000 });
   const evalJs = expression => vm.runInContext(expression, context);
-  return { get: document.getElementById, closers, evalJs, spells: evalJs('SPELLS'), filters: evalJs('FILTERS'), state: evalJs('state'), run: expression => evalJs(expression) };
+  return { get: document.getElementById, document, closers, evalJs, spells: evalJs('SPELLS'), filters: evalJs('FILTERS'), state: evalJs('state'), run: expression => evalJs(expression) };
 }
 function clickPill(h, id, value) {
   const el = h.get(id).children.find(c => c.dataset.value === value);
@@ -87,10 +102,10 @@ function rows(h) { return h.get('fmmg-spellList')._rows || []; }
 function renderNames(h) { return rows(h).map(b => b.dataset.id); }
 function json(x) { return JSON.parse(JSON.stringify(x)); }
 
-test('hashes: actual 1.0.9 production assets unchanged vs reference audited on 20/11/2026', () => {
-  assert.equal(blobSha(src), '6892a172aa4d847f294fba1f0c6431d6121008a8');
-  assert.equal(blobSha(css), 'ee2adc87acd707e68d77ce326cb36193056143df');
-  assert.equal(blobSha(php), '0e1df4280f0448c475e15d13155811250e007ec0');
+test('hashes: 06E.1 isolated changes to CSS, JS, and template; 94 cards and plugin PHP preserved', () => {
+  assert.equal(blobSha(src), '1c98c873d2739da27f2320688392c7f76b28515c');
+  assert.equal(blobSha(css), '7c8a9ccf41de5731ecf22b88bdebf7ad7aa22be3');
+  assert.equal(blobSha(php), '5b853bd66904d0f9d87231b96284642f05f33501');
   assert.equal(blobSha(plugin), 'b29a7d99dcff198987e6d2f9966fcbd21c26edfc');
 });
 
@@ -261,6 +276,21 @@ test('PHP template, shortcode and CSS preserve legacy contracts and responsive b
   assert.doesNotMatch(plugin, /spell-adapter\.js/);
 });
 
-test.todo('A11Y mobile: sincronizar aria-hidden dos sheets com classe open (necessita aprovação UX)');
+test('A11Y mobile: aria-hidden sync, expanded state and Escape restore visibility',()=>{
+  const h=harness(true);
+  assert.equal(h.get('fmmg-filterSheet').getAttribute('aria-hidden'),null); // initial aria is in PHP, not DOM stub
+  h.get('fmmg-openFilters').onclick();
+  assert.equal(h.get('fmmg-filterSheet').getAttribute('aria-hidden'),'false');
+  assert.equal(h.get('fmmg-openFilters').getAttribute('aria-expanded'),'true');
+  assert.equal(h.document.activeElement,h.get('fmmg-filterSheet').querySelector('[data-close]'));
+  h.document.listeners.keydown({key:'Escape',preventDefault(){}});
+  assert.equal(h.get('fmmg-filterSheet').getAttribute('aria-hidden'),'true');
+  assert.equal(h.get('fmmg-openFilters').getAttribute('aria-expanded'),'false');
+  assert.equal(h.document.activeElement,h.get('fmmg-openFilters'));
+  const button=rows(h)[0]; button.focus(); button.onclick();
+  assert.equal(h.get('fmmg-detailSheet').getAttribute('aria-hidden'),'false');
+  h.get('fmmg-backdrop').onclick();
+  assert.equal(h.get('fmmg-detailSheet').getAttribute('aria-hidden'),'true');
+});
 test.todo('Visual/browser: screenshots e fluxos com DOM/CSS real, sem WordPress, aguardam ambiente de browser');
 test.todo('WordPress real: PHP, shortcode e responsividade do site aguardam acesso ao staging');
