@@ -84,7 +84,7 @@ test('restricted facade exports only attach/detach and writes only the two owned
  assert.deepEqual(m.records.get(id).attributes,{});
  assert.equal(m.calls.filter(x=>x.type==='write').length,2);
  assert.equal(m.calls.filter(x=>x.type==='write').every(x=>
-  Object.keys(x.body).join(',')==='attributes'),true);
+  x.body.username==='alice' && x.body.email==='alice@example.invalid' && !!x.body.attributes),true);
 });
 test('no foreign subject, invalid values, mismatches or partially bound state can reach Keycloak PUT',async()=>{
  const m=mock();
