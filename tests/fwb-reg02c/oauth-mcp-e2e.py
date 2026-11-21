@@ -209,9 +209,34 @@ def e2e():
     check(validation.get('success') is True and
           validation.get('data',{}).get('dry_run') is True,
           'forja-validate-draft-over-oauth',str(validation)[:300])
-    foreign = execute('forja-bridge/get-post', {'id':1}, 107)
-    check(foreign.get('success') is False,
-          'forja-deny-foreign-post-over-oauth',str(foreign)[:300])
+    foreign_result, _ = mcp_call(token,'tools/call',{
+        'name':'mcp-adapter-execute-ability',
+        'arguments':{'ability_name':'forja-bridge/get-post','parameters':{'id':1}}
+    },107,session)
+    foreign_text=' '.join(x.get('text','') for x in foreign_result.get('content',[]))
+    try:
+        foreign_payload=json.loads(foreign_text)
+    except (ValueError, TypeError):
+        foreign_payload={}
+    rejected = (foreign_result.get('isError') is True or
+                foreign_payload.get('success') is False or
+                'Post unavailable' in foreign_text)
+    check(rejected and 'E2EOwnDraft' not in foreign_text,
+          'forja-deny-foreign-post-over-oauth',
+          f'isError={foreign_result.get("isError")} message={foreign_text[:160]}')
+
+    revoke = send('POST',a['revocation_endpoint'],
+                  data={'token':token,'client_id':CLIENT})
+    check(revoke.status_code == 200,
+          'oauth-session-revoked',f'{revoke.status_code} {revoke.text[:140]}')
+    after = send('POST','/wp-json/mcp/mcp-oauth-server',
+                 json={'jsonrpc':'2.0','id':108,'method':'tools/list','params':{}},
+                 headers={'Authorization':'Bearer '+token,
+                          'Content-Type':'application/json',
+                          'Accept':'application/json, text/event-stream',
+                          'MCP-Protocol-Version':'2025-11-25'})
+    check(after.status_code == 401,'revoked-token-mcp-denied',
+          f'status={after.status_code} body={after.text[:130]}')
 
     print('MCP_DISCOVERY_SUMMARY',json.dumps([a for a in abilities if a['name'] in required_abilities],ensure_ascii=False)[:1000])
     print('REG02C_END_TO_END_LOCAL_HTTP_PASS',len(checked))
