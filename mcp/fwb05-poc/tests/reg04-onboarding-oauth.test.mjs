@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateKeyPairSync, randomBytes, sign } from 'node:crypto';
+import { createHash, generateKeyPairSync, randomBytes, sign } from 'node:crypto';
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { readCentralConfig, verifyCentralIdentity, makeOnboardingService, EphemeralSiteStore } from '../reg04/onboarding.mjs';
 import { verifyCentralOAuthMetadata } from '../reg04/oauth-profile.mjs';
@@ -233,4 +233,58 @@ test('signed central OAuth client exercises MCP read-only against connected Word
       headers:{Authorization:'Bearer '+access}}),{env,now,keys:[pub],store,fetcher});
     assert.equal(revoked.status,401);
   } finally {await client.close();}
+});
+
+test('two different principals onboard separate sites without sharing credentials or binding envelopes',async()=>{
+  const alt={
+    site_id:'site_two',wordpress_url:'https://wp-two.example.org/',
+    admin_user:'admin-other',admin_app_password:'another-fake-admin-secret',
+    author_user:'writer-other',author_app_password:'another-fake-writer-secret'
+  };
+  const expected={
+    [onboarding.wordpress_url]:{admin:onboarding.admin_user+':'+onboarding.admin_app_password,
+      author:onboarding.author_user+':'+onboarding.author_app_password,id:23},
+    [alt.wordpress_url]:{admin:alt.admin_user+':'+alt.admin_app_password,
+      author:alt.author_user+':'+alt.author_app_password,id:55}
+  };
+  const calls=[],store=new EphemeralSiteStore();
+  const service=makeOnboardingService({config,store,fetcher:async(url,opts)=>{
+    calls.push(url);
+    const site=expected[new URL(url).origin+'/'];
+    assert.ok(site);
+    const value=Buffer.from(opts.headers.Authorization.slice(6),'base64').toString('utf8');
+    if(value===site.admin)return response({id:1,capabilities:{manage_options:true}});
+    if(value===site.author)return response({id:site.id,capabilities:{edit_posts:true}});
+    return response({error:'wrong credentials'},401);
+  }});
+  const ownerA=await verify(jwt());
+  const ownerB=await verify(jwt({sub:'subject-b'}));
+  const a=await service.connect(ownerA,onboarding);
+  const b=await service.connect(ownerB,alt);
+  assert.equal(await store.count(),2);
+  const aIdentity=await verify(jwt({site_id:a.site_id,connection_id:a.connection_id}),'posts:read');
+  const bIdentity=await verify(jwt({sub:'subject-b',site_id:b.site_id,
+    connection_id:b.connection_id}),'posts:read');
+  const aRecord=await service.resolve(aIdentity,a.site_id);
+  const bRecord=await service.resolve(bIdentity,b.site_id);
+  assert.equal(aRecord.wpUserId,23);
+  assert.equal(bRecord.wpUserId,55);
+  assert.notEqual(aRecord.wpPassword,bRecord.wpPassword);
+  await assert.rejects(()=>service.resolve(aIdentity,b.site_id),/site_not_connected/);
+  await assert.rejects(()=>service.resolve(bIdentity,a.site_id),/site_not_connected/);
+  const storageKey=(sub,site)=>createHash('sha256')
+    .update(JSON.stringify([sub,site])).digest('hex');
+  const envelope=await store.get(storageKey(ownerA.sub,a.site_id));
+  assert.ok(envelope);
+  const blob=JSON.stringify(envelope);
+  for(const secret of [onboarding.admin_app_password,onboarding.author_app_password,
+    alt.admin_app_password,alt.author_app_password]) assert.equal(blob.includes(secret),false);
+  const otherStore=new EphemeralSiteStore();
+  await otherStore.createIfAbsent(storageKey(ownerB.sub,b.site_id),envelope);
+  const otherService=makeOnboardingService({config,store:otherStore,fetcher:async()=>{
+    throw Error('no network expected');
+  }});
+  await assert.rejects(()=>otherService.resolve(bIdentity,b.site_id),
+    /encrypted_connection_invalid/);
+  assert.equal(calls.length,4);
 });
