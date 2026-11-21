@@ -48,6 +48,8 @@ oauth_id = oauth_client[0]["id"]
 roles = [get_admin("/clients/"+account_id+"/roles/"+role)
          for role in ("view-profile","manage-account")]
 mutate_admin("/users/"+uid+"/role-mappings/clients/"+account_id, roles)
+# Bound which ordinary account roles this OAuth client may place in tokens.
+mutate_admin("/clients/"+oauth_id+"/scope-mappings/clients/"+account_id, roles)
 # Attach built-in roles scope and explicit account audience to this test client
 # so that its user token is accepted by Account REST *as an account token*.
 # The freshly imported realm has no built-in "roles" client scope.
