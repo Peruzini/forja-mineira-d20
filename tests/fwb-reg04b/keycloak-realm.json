@@ -109,7 +109,8 @@
         "fwb_connection_id": [
           "exampleconnectionId0123456789"
         ]
-      }
+      },
+      "email": "fwb-lab-user@example.invalid"
     }
   ]
 }
