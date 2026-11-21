@@ -55,6 +55,7 @@ jobs:
           wp-env run cli wp eval 'echo "FWB_STAGE=" . (function_exists("fwb_reg02b_enabled") && fwb_reg02b_enabled() ? "YES" : "NO") . PHP_EOL;'
           wp-env run cli wp eval 'echo "OAUTH_BOOTSTRAP=" . (class_exists("\\WPMedia\\MCP\\OAuth\\Bootstrap") ? "YES" : "NO") . PHP_EOL;'
           wp-env run cli wp eval 'echo "MCP_ADAPTER=" . (class_exists("\\WP\\MCP\\Core\\McpAdapter") ? "YES" : "NO") . PHP_EOL;'
+          wp-env run cli wp eval 'foreach ((array) get_option("rewrite_rules") as $pattern => $target) { if (strpos($pattern,"oauth") !== false) { echo "OAUTH_REWRITE=" . $pattern . " -> " . $target . PHP_EOL; } }'
           curl --silent --show-error --head http://localhost:8888/.well-known/oauth-protected-resource || true
       - name: Verify real OAuth/PKCE/consent/token/MCP over localhost
         env:
