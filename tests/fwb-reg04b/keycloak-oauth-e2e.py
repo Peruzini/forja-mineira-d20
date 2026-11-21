@@ -42,13 +42,14 @@ def form(response,selector=None):
         if name: data[name]=item.get('value','')
     return action,data,el
 
-def begin_flow(discovery,wrong=False):
+def begin_flow(discovery,wrong=False,resource=MCP):
     verifier=base64.urlsafe_b64encode(secrets.token_bytes(48)).decode().rstrip('=')
     challenge=base64.urlsafe_b64encode(hashlib.sha256(verifier.encode()).digest()).decode().rstrip('=')
     state='fwb-ci-'+secrets.token_hex(16)
     params={'response_type':'code','client_id':CLIENT,'redirect_uri':REDIRECT,
        'scope':'openid posts:read sites:connect','code_challenge':challenge,
-       'code_challenge_method':'S256','state':state,'resource':MCP}
+       'code_challenge_method':'S256','state':state}
+    if resource is not None: params['resource']=resource
     r=s.get(discovery['authorization_endpoint'],params=params,allow_redirects=False,timeout=25)
     check(r.status_code in (200,302,303),'keycloak-real-authorization-page')
     if r.status_code==200:
@@ -102,11 +103,11 @@ def begin_flow(discovery,wrong=False):
       'authorization-code-state-pinned')
     return query['code'][0],verifier
 
-def exchange(discovery,code,verifier):
-    return s.post(discovery['token_endpoint'],data={
-       'grant_type':'authorization_code','client_id':CLIENT,'code':code,
-       'redirect_uri':REDIRECT,'code_verifier':verifier,'resource':MCP
-    },timeout=25)
+def exchange(discovery,code,verifier,resource=MCP):
+    data={'grant_type':'authorization_code','client_id':CLIENT,'code':code,
+          'redirect_uri':REDIRECT,'code_verifier':verifier}
+    if resource is not None: data['resource']=resource
+    return s.post(discovery['token_endpoint'],data=data,timeout=25)
 
 def run():
     discovery=s.get(ISSUER+'/.well-known/openid-configuration',timeout=25).json()
