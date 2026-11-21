@@ -103,7 +103,7 @@ function renderNames(h) { return rows(h).map(b => b.dataset.id); }
 function json(x) { return JSON.parse(JSON.stringify(x)); }
 
 test('hashes: 06E.1 isolated changes to CSS, JS, and template; 94 cards and plugin PHP preserved', () => {
-  assert.equal(blobSha(src), '196fbf8e277f5615823bc5e696ced0b4b4c0832f');
+  assert.equal(blobSha(src), '1c98c873d2739da27f2320688392c7f76b28515c');
   assert.equal(blobSha(css), '7c8a9ccf41de5731ecf22b88bdebf7ad7aa22be3');
   assert.equal(blobSha(php), '5b853bd66904d0f9d87231b96284642f05f33501');
   assert.equal(blobSha(plugin), 'b29a7d99dcff198987e6d2f9966fcbd21c26edfc');
