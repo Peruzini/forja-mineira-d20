@@ -49,4 +49,6 @@ for(const extra of [
    attributes:[...state.attributes,...extra]});
 }
 await write('disabled_with_managed_fields',{...await read(),unmanagedAttributePolicy:'DISABLED'});
+const {unmanagedAttributePolicy:ignored,...without}=await read();
+await write('without_explicit_policy',without);
 console.log('R2B1_PROFILE_PROBES_COMPLETED');
