@@ -20,7 +20,7 @@ O experimento foi executado exclusivamente em Keycloak **26.8.2 descartável** n
 Fluxo `tests/fwb-reg04d-r2b1/user-account-pkce.py`:
 
 1. Configuração prévia realizada por admin **descartável da CI**: roles `view-profile` e `manage-account` do cliente `account` para um usuário de laboratório, escopos de client limitados e mapper de audiência; nenhuma permissão administrativa sobre outros usuários.
-2. Token OAuth PKCE com `resource=MCP`: valida que `aud` contém o MCP e não contém `account`. O probe HTTP na URL versionada é apenas diagnóstico, **não** a garantia de isolamento da Account REST.
+2. Token OAuth PKCE com `resource=MCP`: valida que `aud` contém o MCP e não contém `account`. O probe HTTP na URL versionada é apenas diagnóstico. A garantia adicional foi confirmada por uma requisição ao **endpoint JSON funcional** de Account REST: o token vinculado ao MCP recebeu **HTTP 401**, enquanto o token de conta conseguiu ler e editar o campo comum.
 3. Segundo token OAuth PKCE **sem o recurso MCP**: confirma `aud=account`, mapeamentos efetivos e ausência de `realm-management`. Requisição à Keycloak Admin REST para o próprio usuário retorna 401/403.
 4. `GET /account/`: HTTP 200 com `Content-Type: application/json`.
 5. Controle positivo: `POST /account/` altera `firstName`; leitura posterior da Admin REST confirma que **persistiu**.
@@ -31,17 +31,18 @@ Isso demonstra restrição de atributo no próprio Keycloak para contexto **self
 
 ## Evidência CI
 
-- **[CI C1 #44925787264](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44925787264): 2/2 jobs SUCCESS**.
+- **[CI C1 FINAL #44926136445](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44926136445): 2/2 jobs SUCCESS**.
   - `security-unit-build`: **71 testes descobertos; 69 PASS, 0 FAIL, 2 SKIP**; Next.js build PASS.
   - `keycloak-native-profile`: Keycloak real 26.8.2; FGAP, perfil nativo, preservação do core, PKCE, autoedição e bloqueios PASS. Marcadores:
     - `REG04D_R2B1_C1_OAUTH_PKCE_USER_ACCOUNT_AUDIENCE_PASS`
     - `REG04D_R2B1_C1_USER_ADMIN_REST_DENIED_PASS`
+    - `REG04D_R2B1_C1_REAL_ACCOUNT_MCP_BOUND_TOKEN_HTTP 401`
     - `REG04D_R2B1_C1_ACCOUNT_REST_READ_PASS`
     - `REG04D_R2B1_C1_POSITIVE_SELF_EDIT_PASS`
     - `REG04D_R2B1_C1_REAL_ACCOUNT_FWB_SELF_EDIT_DENIED_PASS`
     - `REG04D_R2B1_C1_PROFILE_RESTORE_AND_NO_FWB_BINDING_PASS`
-- **[REG-04B #44925787315](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44925787315): SUCCESS**, inclusive fluxo histórico de Code+PKCE com `resource=MCP`.
-- **[R2B1 #44925787302](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44925787302): SUCCESS**, valida a política nativa e FGAP.
+- **[REG-04B #44926136442](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44926136442): SUCCESS**, inclusive fluxo histórico de Code+PKCE com `resource=MCP`.
+- **[R2B1 #44926136444](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44926136444): SUCCESS**, valida a política nativa e FGAP.
 
 ## Limitações e próximos gates
 
