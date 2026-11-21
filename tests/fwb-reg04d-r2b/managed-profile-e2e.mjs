@@ -43,6 +43,9 @@ if(!put.ok){
   // No upstream body, user details, bearer or credential in logs.
   const data=await put.json().catch(()=>({}));
   console.log('REG04D_R2B_SCHEMA_ERROR_KIND',String(data.errorMessage||data.error||'unknown').slice(0,70));
+  const baseline={...profile,attributes:profile.attributes.filter(a=>a.name!=='fwb_site_id'&&a.name!=='fwb_connection_id')};
+  const baselineResult=await call('/users/profile','PUT',baseline);
+  console.log('REG04D_R2B_NATIVE_DISABLED_BASELINE_HTTP',baselineResult.status);
   throw Error('REG04D_R2B_MANAGED_PROFILE_CONFIGURATION_REJECTED_HTTP_'+put.status);
 }
 const updated=await call('/users/profile');
