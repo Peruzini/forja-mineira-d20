@@ -16,7 +16,7 @@ spec.loader.exec_module(mod)
 s = mod.s
 issuer = mod.ISSUER
 admin_root = "https://auth-lab.example.org/admin/realms/fwb-reg04b-lab"
-account_url = issuer + "/account/"
+account_url = issuer + "/account/v1/"
 # All privileged setup below is confined to a disposable CI Keycloak container.
 master = s.post("https://auth-lab.example.org/realms/master/protocol/openid-connect/token",
     data={"grant_type":"password", "client_id":"admin-cli",
