@@ -50,15 +50,18 @@ const baseBefore=Object.fromEntries(baseFields.map(k=>[k,before[k]]));
 // The runtime MUST discard undeclared attributes even if the Admin API
 // returns 204. If the write is rejected, assert no partial persistence.
 const unmanagedName='fwb_r2b1_undeclared_attempt';
+const core=Object.fromEntries(baseFields.filter(k=>
+  Object.prototype.hasOwnProperty.call(before,k)).map(k=>[k,before[k]]));
 const unexpected=await api('/users/'+eligible.id,'PUT',{
- username:before.username,
- attributes:{[unmanagedName]:['should_not_store']}
+ ...core,attributes:{[unmanagedName]:['should_not_store']}
 });
 assert.ok([200,204,400,403].includes(unexpected.status),
  'unexpected native-profile unmanaged-write response');
 const after=await read('/users/'+eligible.id);
 assert.equal(after.attributes?.[unmanagedName],undefined,
  'UNMANAGED ATTRIBUTE PERSISTED: default policy is NOT safe');
+assert.deepEqual(Object.fromEntries(baseFields.map(k=>[k,after[k]])),baseBefore,
+ 'native unmanaged-write test must preserve core user profile');
 console.log('REG04D_R2B1_REAL_UNMANAGED_ATTR_WRITE_NOT_PERSISTED_PASS');
 
 // Prove that the existing least-privilege service still functions under the
