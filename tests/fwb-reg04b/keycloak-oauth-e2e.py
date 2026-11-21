@@ -67,7 +67,8 @@ def begin_flow(discovery,wrong=False):
             continue
         if r.status_code==200:
             soup=BeautifulSoup(r.text,'html.parser')
-            consent=soup.select_one('form#kc-consent-form')
+            # Keycloak 26.8 default theme uses #kc-oauth form WITHOUT a form id.
+            consent=soup.select_one('form#kc-consent-form') or soup.select_one('#kc-oauth form')
             if consent is None:
                 forms=[el.get('id','') for el in soup.find_all('form')]
                 title=soup.title.get_text(' ',strip=True)[:100] if soup.title else 'no-title'
@@ -82,7 +83,7 @@ def begin_flow(discovery,wrong=False):
                                     ':'+el.get_text(' ',strip=True)[:32])
                 # Never log href values, query strings, codes, browser cookies or form inputs.
                 raise AssertionError('unexpected_keycloak_page forms='+','.join(forms)[:80]+' title='+title+' note='+note+' path='+page[:90]+' detail='+detail+' controls='+'|'.join(controls)[:240])
-            action,body,el=form(r,'form#kc-consent-form')
+            action,body,el=form(r,'form#kc-consent-form' if soup.select_one('form#kc-consent-form') else '#kc-oauth form')
             submit=el.find('button',{'name':'accept'}) or el.find('input',{'name':'accept'})
             body['accept']=(submit.get('value') or 'Yes') if submit else 'Yes'
             consent_seen=True
