@@ -46,7 +46,8 @@ test('real Keycloak login + real WordPress owner/author + PostgreSQL + MCP and r
   try{
     await store.migrateForDisposableTest();
     const service=makeOnboardingService({config,store});
-    const federation=makeFederatedOnboarding({service,keycloak:admin});
+    const federation=makeFederatedOnboarding({service,keycloak:admin,
+      onDiagnostic:code=>console.log('REG04C_KEYCLOAK_SYNC_DIAG',code)});
     const result=await federation.connect(identity,{
       site_id:'site_lab',wordpress_url:'https://wp-lab.example.org/',
       admin_user:wp.admin_user,admin_app_password:wp.admin_password,
