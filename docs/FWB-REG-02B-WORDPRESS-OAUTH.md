@@ -39,3 +39,14 @@ A publicação do aplicativo exige endpoint MCP **único e estável**. A rota MC
 - https://packagist.org/packages/wp-media/mcp-oauth
 - https://github.com/WordPress/mcp-adapter
 - https://github.com/WordPress/mcp-adapter/blob/trunk/docs/guides/creating-abilities.md
+
+## Resultado da integração de laboratório (CI validada)
+
+- **GitHub Actions run:** https://github.com/Peruzini/forja-mineira-d20/actions/runs/44842368779 — **PASS**.
+- Composer instalou `wp-media/mcp-oauth v2.0` e `wp-media/apply-filters-typed v1.2`.
+- Lint do plugin e das classes PHP: **PASS**.
+- Permissões simuladas de staging: **PASS**, incluindo bloqueio do domínio principal, autor diferente e tentativa de campo `status=publish`.
+- Patch CIMD de interseção de métodos aplicado ao vendor: **PASS**; cinco verificações na implementação real, incluindo documentação ChatGPT com método singular `private_key_jwt` + lista plural `none`, rejeição de cliente que oferece só `private_key_jwt` e cliente ID divergente.
+- ZIP compilado **somente para staging**: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44842368779/artifacts/14681532130, com lib PHP e notices GPL. **NÃO instalar em produção.** O artifact expira automaticamente.
+
+**Bloqueios que permanecem:** não houve WordPress real, servidor OAuth real, envio/recebimento de bearer token real, entrada no Chat normal, Vercel OAuth integrada ao WP, teste de callback da OpenAI nem publicação do plugin. O próximo teste deve usar WordPress descartável/staging, jamais o site público da Forja.
