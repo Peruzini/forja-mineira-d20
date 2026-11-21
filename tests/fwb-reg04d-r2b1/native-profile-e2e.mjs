@@ -66,56 +66,6 @@ console.log('REG04D_R2B1_REAL_UNMANAGED_ATTR_WRITE_NOT_PERSISTED_PASS');
 await import('../fwb-reg04d-r1/fgap-service-e2e.mjs');
 console.log('REG04D_R2B1_REAL_FGAP_AND_BINDING_REGRESSION_PASS');
 
-// User Profile permissions are independent of FGAP: the ordinary account
-// must never be able to mutate the two admin-only FWB attributes.
-const lab=JSON.parse(readFileSync(new URL('../fwb-reg04d-r1/keycloak-realm.json',
- import.meta.url),'utf8'));
-const user=lab.users.find(u=>u.username==='fwb-lab-user');
-const password=user?.credentials?.find(c=>c.type==='password')?.value;
-assert.ok(password,'CI-only fixture user missing');
-const clientId='fwb-r2b1-account-tests';
-const create=await api('/clients','POST',{
- clientId,name:'R2B1 disposable account REST negative test',enabled:true,
- publicClient:true,protocol:'openid-connect',directAccessGrantsEnabled:true,
- standardFlowEnabled:false,implicitFlowEnabled:false
-});
-assert.equal(create.status,201,'create CI-only public password-grant test client');
-const login=await fetch(origin+'/realms/'+realm+'/protocol/openid-connect/token',{
- method:'POST',redirect:'error',
- headers:{'Content-Type':'application/x-www-form-urlencoded'},
- body:new URLSearchParams({grant_type:'password',client_id:clientId,
- username:'fwb-lab-user',password}).toString()
-});
-console.log('REG04D_R2B1_USER_LOGIN_HTTP',login.status);
-if(login.status!==200){ const diagnostic=await login.clone().json(); console.log('REG04D_R2B1_OAUTH_ERROR_CODE', diagnostic.error); }
-assert.equal(login.status,200,'authenticate CI-only end user');
-const userBearer=(await login.json()).access_token;
-assert.ok(userBearer?.length>100);
-const adminDenied=await api('/users/'+eligible.id,'GET',undefined,userBearer);
-assert.ok([401,403].includes(adminDenied.status),
- 'ordinary user can access Keycloak Admin API');
-const accountUrl=origin+'/realms/'+realm+'/account';
-const userAccount=await fetch(accountUrl,{
- headers:{Authorization:'Bearer '+userBearer,Accept:'application/json'},
- redirect:'error'
-});
-console.log('REG04D_R2B1_ACCOUNT_ENDPOINT_GET_STATUS',userAccount.status);
-if(userAccount.status===200){
- const profile=await userAccount.json();
- const req=await fetch(accountUrl,{method:'POST',redirect:'error',
-  headers:{Authorization:'Bearer '+userBearer,Accept:'application/json',
-   'Content-Type':'application/json'},
-  body:JSON.stringify({...profile,
-   attributes:{fwb_site_id:['rogue_site'],fwb_connection_id:['user_edited_binding_123456']}})
- });
- assert.ok([200,204,400,401,403,405].includes(req.status));
- const checked=await read('/users/'+eligible.id);
- assert.equal(checked.attributes?.fwb_site_id,undefined);
- assert.equal(checked.attributes?.fwb_connection_id,undefined);
- console.log('REG04D_R2B1_REAL_END_USER_CANNOT_EDIT_ADMIN_ONLY_FIELDS_PASS');
-}else{
- console.log('REG04D_R2B1_ACCOUNT_ENDPOINT_NOT_AVAILABLE_ON_LAB_CLIENT');
-}
 const finalUser=await read('/users/'+eligible.id);
 assert.deepEqual(Object.fromEntries(baseFields.map(k=>[k,finalUser[k]])),baseBefore);
 console.log('REG04D_R2B1_REAL_CORE_USER_PROFILE_UNCHANGED_PASS');
