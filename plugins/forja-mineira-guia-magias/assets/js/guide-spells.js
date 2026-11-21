@@ -162,7 +162,7 @@ function openMobileSheet(id,trigger){
   else sheet.focus();
 }
 function openFilters(){openMobileSheet("fmmg-filterSheet",document.getElementById("fmmg-openFilters"))}
-function openDetail(){openMobileSheet("fmmg-detailSheet",document.activeElement)}
+function openDetail(){openMobileSheet("fmmg-detailSheet",document.getElementById("fmmg-spellList").querySelector(".spell-row.selected"))}
 function closeSheets(restoreFocus=true){
   const previous=mobileReturnFocus;
   const wasOpen=activeMobileSheet!==null;
