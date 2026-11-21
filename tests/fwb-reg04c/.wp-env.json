@@ -1,0 +1,9 @@
+{
+  "core": null,
+  "phpVersion": "8.3",
+  "port": 8888,
+  "config": {
+    "WP_ENVIRONMENT_TYPE": "local",
+    "WP_DEBUG_DISPLAY": false
+  }
+}
