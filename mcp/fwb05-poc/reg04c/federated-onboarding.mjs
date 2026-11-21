@@ -65,9 +65,17 @@ export function makeKeycloakBindingAdmin({config,fetcher=globalThis.fetch}){
     }
     return result;
   }
-  async function putAndVerify(sub,attrs,expectedSite,expectedConnection){
+  async function putAndVerify(sub,attrs,expectedSite,expectedConnection,original){
     const path=config.endpoint+'/users/'+encodeURIComponent(sub);
-    await request(path,'PUT',{attributes:attrs});
+    // Keycloak 26.8 native User Profile validation can clear omitted core
+    // fields in a full user PUT. Preserve only trusted fields read from the
+    // Keycloak Admin API, never caller-supplied profile data or roles.
+    const preserved=Object.fromEntries(
+      ['id','username','email','firstName','lastName','emailVerified',
+       'enabled','requiredActions'].filter(k=>
+         Object.prototype.hasOwnProperty.call(original,k)).map(k=>[k,original[k]])
+    );
+    await request(path,'PUT',{...preserved,attributes:attrs});
     const updated=await user(sub);
     if(bound(updated.attributes,'fwb_site_id')!==expectedSite||
        bound(updated.attributes,'fwb_connection_id')!==expectedConnection) {
@@ -81,7 +89,7 @@ export function makeKeycloakBindingAdmin({config,fetcher=globalThis.fetch}){
       throw new OnboardingDenied('user_already_has_binding');
     }
     const attrs={...existing.attributes,fwb_site_id:[siteId],fwb_connection_id:[connectionId]};
-    await putAndVerify(sub,attrs,siteId,connectionId);
+    await putAndVerify(sub,attrs,siteId,connectionId,existing);
     return {site_id:siteId,status:'federated'};
   }
   async function detach(sub,siteId,connectionId){
@@ -94,7 +102,7 @@ export function makeKeycloakBindingAdmin({config,fetcher=globalThis.fetch}){
     const attrs={...existing.attributes};
     delete attrs.fwb_site_id;
     delete attrs.fwb_connection_id;
-    await putAndVerify(sub,attrs,null,null);
+    await putAndVerify(sub,attrs,null,null,existing);
     return {site_id:siteId,status:'federation_revoked'};
   }
   return {attach,detach};

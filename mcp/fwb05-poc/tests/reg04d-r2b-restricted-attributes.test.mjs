@@ -54,7 +54,10 @@ function mock(initial={},opts={}){
    if(options.method==='PUT'){
      const body=JSON.parse(options.body);
      calls.push({type:'write',body});
-     assert.deepEqual(Object.keys(body),['attributes']);
+     assert.ok(Object.keys(body).every(k=>['id','username','email','firstName',
+       'lastName','emailVerified','enabled','totp','requiredActions',
+       'attributes'].includes(k)));
+     assert.equal(typeof body.username,'string');
      assert.deepEqual(Object.keys(body.attributes).sort(),
        Object.keys(body.attributes).filter(x=>['fwb_site_id','fwb_connection_id'].includes(x)).sort());
      const u=records.get(id);
@@ -81,7 +84,7 @@ test('restricted facade exports only attach/detach and writes only the two owned
  assert.deepEqual(m.records.get(id).attributes,{});
  assert.equal(m.calls.filter(x=>x.type==='write').length,2);
  assert.equal(m.calls.filter(x=>x.type==='write').every(x=>
-  Object.keys(x.body).join(',')==='attributes'),true);
+  x.body.username==='alice' && x.body.email==='alice@example.invalid' && !!x.body.attributes),true);
 });
 test('no foreign subject, invalid values, mismatches or partially bound state can reach Keycloak PUT',async()=>{
  const m=mock();
