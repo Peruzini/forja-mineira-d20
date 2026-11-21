@@ -128,7 +128,14 @@ def run():
       'keycloak-signed-connection-binding')
     check('posts:read' in claims.get('scope','').split() and
       'sites:connect' in claims.get('scope','').split(),'keycloak-scoped-access')
-    check(claims.get('sub') and isinstance(claims.get('exp'),int),'real-user-subject-and-exp')
+    if not (bool(claims.get('sub')) and isinstance(claims.get('exp'),int)):
+        print('REG04B_CLAIM_DIAG',json.dumps({
+          'sub_present':bool(claims.get('sub')),
+          'exp_type':type(claims.get('exp')).__name__,
+          'claim_keys':sorted(claims.keys())[:30]
+        }))
+    check(bool(claims.get('sub')) and isinstance(claims.get('exp'),int),
+      'real-user-subject-and-exp')
     replay=exchange(discovery,code,verifier)
     check(replay.status_code==400,'real-keycloak-code-replay-denied')
     other_code,other_verifier=begin_flow(discovery,True)
