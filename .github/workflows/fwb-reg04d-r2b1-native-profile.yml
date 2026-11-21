@@ -1,4 +1,4 @@
-name: FWB-REG-04D-R2B1 — Native profile schema diagnostics
+name: FWB-REG-04D-R2B1 — Native locked profile real Keycloak
 
 on:
   pull_request:
@@ -83,7 +83,7 @@ jobs:
           HTTP_PROXY: ''
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
-        run: node tests/fwb-reg04d-r2b1/profile-forensics.mjs
+        run: node tests/fwb-reg04d-r2b1/native-profile-e2e.mjs
       - name: Sanitized Keycloak errors for User Profile API diagnostic
         if: always()
         shell: bash
