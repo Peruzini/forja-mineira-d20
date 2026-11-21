@@ -60,7 +60,9 @@ function rejectBroadRoles(token,config){
     typeof claims.exp!=='number'||claims.exp<=Math.floor(Date.now()/1000)+5)
     throw new OnboardingDenied('scoped_token_claims_invalid');
   const roles=claims.resource_access?.['realm-management']?.roles||[];
-  if(!Array.isArray(roles)||roles.length>0||
+  // Keycloak needs the limited query-users discovery role to enter the
+  // Admin REST API; FGAP V2 still restricts resource-level view/manage.
+  if(!Array.isArray(roles)||roles.some(role=>role!=='query-users')||
     (Array.isArray(claims.realm_access?.roles)&&
     claims.realm_access.roles.some(x=>['admin','realm-admin'].includes(x)))) {
     throw new OnboardingDenied('scoped_privileges_excessive');
