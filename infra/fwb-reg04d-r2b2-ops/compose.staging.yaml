@@ -1,0 +1,105 @@
+# STAGING TOPOLOGY CANDIDATE ONLY — requires an independently approved host
+# and separate vault-injected env files. Not applied by CI or Vercel.
+name: fwb-reg04d-r2b2-ops
+
+services:
+  auth-ingress:
+    image: caddy:2.10.2-alpine
+    restart: unless-stopped
+    read_only: true
+    ports:
+      - "${FWB_PUBLIC_BIND_IP:?set-approved-public-ip}:80:80"
+      - "${FWB_PUBLIC_BIND_IP:?set-approved-public-ip}:443:443"
+    environment:
+      FWB_SITE_ADDRESS: ${FWB_AUTH_HOST:?set-staging-auth-domain}
+      FWB_REALM: ${FWB_REALM:?set-dedicated-staging-realm}
+      FWB_IDP_UPSTREAM: keycloak:8080
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    tmpfs:
+      - /tmp:mode=1777
+    networks:
+      - edge
+      - auth-restricted
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.2
+    restart: unless-stopped
+    command: ["start"]
+    # This env file must be placed in a root-only tmpfs by an external vault
+    # at deploy time. The file must include an independent KC_DB_PASSWORD
+    # and bootstrap administrator identity. Never commit filled env files.
+    env_file:
+      - ${FWB_KC_VAULT_ENV_PATH:?external-secrets-required}
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME: https://${FWB_AUTH_HOST:?set-staging-auth-domain}
+      KC_HEALTH_ENABLED: "true"
+    expose:
+      - "8080"
+    networks:
+      - auth-restricted
+      - admin-private
+    depends_on:
+      - keycloak-db
+
+  keycloak-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - ${FWB_PG_KC_VAULT_ENV_PATH:?external-secrets-required}
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+    volumes:
+      - keycloak-postgres:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - admin-private
+
+  journal-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - ${FWB_PG_JOURNAL_VAULT_ENV_PATH:?external-secrets-required}
+    environment:
+      POSTGRES_DB: fwb_admin
+      POSTGRES_USER: fwb_migration_owner
+    volumes:
+      - journal-postgres:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - admin-private
+
+  # One-off manual network probe, NOT an administrative worker. The worker
+  # from R2B2 is not reachable publicly and is not started by this compose.
+  admin-internal-probe:
+    profiles: ["ops-probe"]
+    image: curlimages/curl:8.16.0
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - "curl --max-time 5 --silent --show-error --output /dev/null http://keycloak:8080/realms/master; echo PRIVATE_NAME_RESOLVED"
+    networks:
+      - admin-private
+
+networks:
+  edge: {}
+  auth-restricted:
+    internal: true
+  admin-private:
+    internal: true
+
+volumes:
+  caddy-data: {}
+  caddy-config: {}
+  keycloak-postgres: {}
+  journal-postgres: {}
