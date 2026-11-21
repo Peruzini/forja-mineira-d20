@@ -61,3 +61,14 @@ Nenhum caminho usa credenciais reais. Arquivos de vault devem ser colocados em d
 - **PRODUÇÃO / R3 NO-GO:** não realizar merge, deploy de produção nem exposição do MCP até aprovações específicas.
 
 Referências: [Keycloak, reverse proxy](https://www.keycloak.org/server/reverseproxy) (a documentação recomenda não expor a Admin API nem o realm master) e [Caddy reverse_proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy).
+
+## Evidência de CI — 21/11/2026
+
+**LAB PASS:** [GitHub Actions #44931425210](https://github.com/Peruzini/forja-mineira-d20/actions/runs/44931425210), **2/2 jobs SUCCESS**.
+
+- `topology-contract`: tests estáticos de redes e portas internas mais `docker compose config --quiet` com envs inteiramente sintéticos PASS (nunca executa `up`).
+- `ingress-real-keycloak`: mesma configuração Caddyfile foi validada e executada diante de Keycloak 26.8.2 **descartável**; discovery do realm permitido respondeu com sucesso: `REG04D_R2B2_OPS_PUBLIC_REALM_DISCOVERY_ALLOWED_LAB_PASS`.
+- GET a `/admin/`, `/admin/realms/master`, `/realms/master/.well-known/openid-configuration`, outro realm e rotas de saúde/métricas respondeu HTTP 404, além de POST para `/admin/realms/master`: `REG04D_R2B2_OPS_PUBLIC_ADMIN_AND_MASTER_DENIED_LAB_PASS`.
+- O contêiner da CI usou **HTTP em loopback para teste de regra**, não um certificado público real nem ACL/VPC gerenciada. Esse resultado **não** é equivalente a uma rede privada persistente provisionada.
+
+**OPS NO-GO:** ainda faltam host/VPC, DNS/TLS público, TLS de banco, vault, worker privado realmente implantado, backups e testes de entrada/saída vistos de duas redes independentes. O probe `external-https-probe.mjs` não foi executado contra um host real inexistente.
