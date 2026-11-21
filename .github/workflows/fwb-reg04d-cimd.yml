@@ -19,19 +19,24 @@ jobs:
           persist-credentials: false
       - name: Start isolated Keycloak realm without a pre-registered ChatGPT client
         run: |
-          python3 tests/fwb-reg04d/check-cimd.py write-realm "$RUNNER_TEMP/fwb-reg04d-realm.json"
-          docker run --detach --rm --name fwb-reg04d-keycloak \
+          python3 tests/fwb-reg04d/check-cimd.py write-realm "$RUNNER_TEMP/fwb-reg04d-ci-realm.json"
+          docker run --detach --name fwb-reg04d-keycloak \
             --publish 127.0.0.1:8080:8080 \
-            --volume "$RUNNER_TEMP/fwb-reg04d-realm.json:/opt/keycloak/data/import/fwb-reg04d-realm.json:ro" \
+            --volume "$RUNNER_TEMP/fwb-reg04d-ci-realm.json:/opt/keycloak/data/import/fwb-reg04d-ci-realm.json:ro" \
             quay.io/keycloak/keycloak:26.8.2 \
             start-dev --features=cimd,resource-indicators --import-realm
           for attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:8080/realms/fwb-reg04d-ci/.well-known/openid-configuration >/dev/null 2>&1; then
               exit 0
             fi
+            if [ "$(docker inspect --format '{{.State.Running}}' fwb-reg04d-keycloak)" != true ]; then
+              break
+            fi
             sleep 2
           done
           echo 'Keycloak discovery did not become ready'
+          docker logs --tail 40 fwb-reg04d-keycloak 2>&1
+          curl -sS -o /dev/null -w 'Discovery HTTP %{http_code}\\n' http://127.0.0.1:8080/realms/fwb-reg04d-ci/.well-known/openid-configuration || true
           exit 1
       - name: Verify authorization using live ChatGPT metadata and reject disallowed requests
         run: python3 tests/fwb-reg04d/check-cimd.py check-live
