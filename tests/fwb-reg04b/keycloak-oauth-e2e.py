@@ -50,11 +50,14 @@ def begin_flow(discovery,wrong=False):
        'scope':'openid posts:read sites:connect','code_challenge':challenge,
        'code_challenge_method':'S256','state':state,'resource':MCP}
     r=s.get(discovery['authorization_endpoint'],params=params,allow_redirects=False,timeout=25)
-    check(r.status_code==200,'keycloak-real-authorization-page')
-    action,body,_=form(r,'form#kc-form-login')
-    body.update({'username':'fwb-lab-user','password':PASSWORD})
-    r=s.post(action,data=body,allow_redirects=False,timeout=25)
-    check(r.status_code in (200,302,303),'keycloak-real-user-login')
+    check(r.status_code in (200,302,303),'keycloak-real-authorization-page')
+    if r.status_code==200:
+        action,body,_=form(r,'form#kc-form-login')
+        body.update({'username':'fwb-lab-user','password':PASSWORD})
+        r=s.post(action,data=body,allow_redirects=False,timeout=25)
+        check(r.status_code in (200,302,303),'keycloak-real-user-login')
+    else:
+        check(wrong,'keycloak-session-reuse-only-for-negative-pkce')
     location=''
     consent_seen=False
     for hop in range(8):
