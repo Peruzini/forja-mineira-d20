@@ -87,3 +87,26 @@ Rodar em PR via \`.github/workflows/fwb-reg02-staging.yml\`:
 - https://developers.openai.com/plugins/build/plugins
 - https://developers.openai.com/plugins/deploy/submission
 - https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
+
+## Pesquisa aplicada: Authorization Server sem assinatura adicional
+
+Depois de implementar e testar o resource server, foi inspecionado código aberto de implementações WordPress que poderiam fornecer **login OAuth real** usando o banco de dados e as contas já existentes no WordPress. Nenhuma foi instalada ou declarada compatível sem teste.
+
+| Alternativa | O que a fonte comprova | Problema para o gateway FWB-REG-02 |
+| --- | --- | --- |
+| `wp-media/mcp-oauth` (https://github.com/wp-media/mcp-oauth) | OAuth 2.1 + CIMD + PKCE, consentimento, refresh, metadados `.well-known`, integração com `wordpress/mcp-adapter`; projeto publicado no Packagist | JWT do projeto usa **HS256**, `typ:JWT`, escopo `mcp` e audience WordPress MCP. Nosso gateway exige RS256 `typ:at+jwt`, `posts:read` e `aud` do MCP Vercel. **Não são interoperáveis sem uma ponte segura adicional**. Não copiar chave HMAC WordPress para Vercel |
+| `wenisch-tech/wordpress-keystone-oidc` (https://github.com/wenisch-tech/wordpress-keystone-oidc) | WordPress como provedor OIDC, Authorization Code + PKCE, chaves RSA e JWKS, refresh tokens, contas WordPress sem IdP externo; v3.0.1 disponível em 19/11/2026 | Escopos anunciados: `openid/profile/email/roles`; não há prova de emissão do `resource` e `aud` específicos do MCP Vercel, `typ:at+jwt` ou CIMD/DCR. Precisa ensaio de interoperabilidade e talvez adaptação |
+| `consigcody94/wordpress-mcp-modern` (https://github.com/consigcody94/wordpress-mcp-modern) | MCP/WordPress com OAuth 2.1 experimental (DCR e PKCE), muitas ferramentas editoriais e admin | README declara **sem refresh tokens**, access token de um dia, OAuth opt-in experimental. Não tratar como provedor de produção homologado |
+
+**Conclusão técnica:** há projetos gratuitos para **estudar e integrar como IdP WordPress**, o que reduz a necessidade de inventar login. Contudo, nem o código-fonte dos candidatos nem a documentação demonstram que já emitem access tokens no **formato exato exigido por nosso gateway**. A etapa correta é um teste de integração em WordPress descartável, verificando issuer/audience/scopes/JWKS/PKCE/revogação, antes de mexer no código do servidor ou no WordPress real. Se necessário, ajustar o resource server a um perfil OAuth seguro e especificado; **nunca relaxar validação de assinatura, audience, subject ou permissão** para forçar compatibilidade.
+
+O gateway existente é single-tenant de staging: uma conta WordPress do proprietário. Para uma publicação que qualquer pessoa possa instalar, também será preciso onboarding de domínios por usuário, storage criptografado e isolamento auditado. Nenhum desses pontos pode ser considerado concluído por apenas usar um IdP pronto.
+
+## Evidência concreta da CI
+
+- PR draft: https://github.com/Peruzini/forja-mineira-d20/pull/26
+- CI REG-02 https://github.com/Peruzini/forja-mineira-d20/actions/runs/44841251698 — **26 testes, 26 PASS, zero falhas**, compilação Next.js **PASS**, ausência de credenciais hardcoded **PASS**.
+- CI REG-01 reaplicada neste PR: https://github.com/Peruzini/forja-mineira-d20/actions/runs/44841251744 — PASS com estado de publicação **corretamente bloqueado**.
+- Todos os testes editoriais usaram WordPress **simulado** e tokens OAuth de teste gerados localmente na CI. Não se realizou autenticação real por ChatGPT, WordPress real, provedor de identidade externo, deploy Vercel ou submissão no diretório.
+
+**Gate REG-02:** implementação de servidor de recursos e MVP editorial **validada em laboratório**; FWB-REG-02 **não homologado ponta a ponta** até haver IdP real e staging WordPress. Não habilitar produção.
