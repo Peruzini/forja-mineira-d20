@@ -16,7 +16,7 @@ const cfg=readScopedServiceConfig(env);
 const token=(overrides={})=>{
  const h=Buffer.from(JSON.stringify({alg:'RS256',typ:'JWT'})).toString('base64url');
  const p=Buffer.from(JSON.stringify({iss:issuer,azp:cfg.clientId,
-   sub:'service-account-ephemeral',aud:'realm-management',exp:Math.floor(Date.now()/1000)+240,...overrides})).toString('base64url');
+   sub:'service-account-ephemeral',aud:cfg.adminEndpoint,scope:'kc-admin-api',exp:Math.floor(Date.now()/1000)+240,...overrides})).toString('base64url');
  return h+'.'+p+'.'+('x'.repeat(80));
 };
 test('service account starts disabled and refuses legacy bearer, master realm, arbitrary clients, no trusted subjects',()=>{
@@ -53,7 +53,8 @@ test('service client_credentials never uses password grant and keeps token/secre
    {access_token:token({realm_access:{roles:['realm-admin']}}),token_type:'Bearer',expires_in:240},
    {access_token:token({iss:'https://attacker.example.org'}),token_type:'Bearer',expires_in:240},
    {access_token:token({azp:'other-client'}),token_type:'Bearer',expires_in:240},
-   {access_token:token({aud:'unrelated'}),token_type:'Bearer',expires_in:240}
+   {access_token:token({aud:'unrelated'}),token_type:'Bearer',expires_in:240},
+   {access_token:token({scope:'openid'}),token_type:'Bearer',expires_in:240}
  ]) {
    await assert.rejects(()=>requestScopedServiceToken(cfg,async()=>({
       ok:true,text:async()=>JSON.stringify(bad)
