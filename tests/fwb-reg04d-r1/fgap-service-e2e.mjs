@@ -115,7 +115,7 @@ const updated=await json(await adminCall('/users/'+eligible.id));
 assert.equal(updated.attributes.fwb_site_id?.[0],'site_lab');
 assert.equal(updated.attributes.fwb_connection_id?.[0],binding);
 assert.equal((await scoped.detach(eligible.id,'site_lab',binding)).status,'federation_revoked');
-assert.equal((await json(await adminCall('/users/'+eligible.id))).attributes.fwb_site_id,undefined);
+assert.equal((await json(await adminCall('/users/'+eligible.id))).attributes?.fwb_site_id,undefined);
 await assert.rejects(()=>scoped.attach(foreign.id,'site_lab',binding),/scoped_subject_not_approved/);
 console.log('REG04D_R1_FGAP_SCOPED_ATTACH_DETACH_PASS');
 console.log('REG04D_R1_FGAP_FOREIGN_USER_AND_CLIENTS_DENIED_PASS');
