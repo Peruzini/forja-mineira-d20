@@ -69,12 +69,30 @@ mutate_admin("/clients/"+oauth_id+"/protocol-mappers/models", {
 print("REG04D_R2B1_C1_LAB_USER_ACCOUNT_ROLES_ONLY_PASS")
 
 discovery = s.get(issuer + "/.well-known/openid-configuration",timeout=25).json()
+# First exercise the existing MCP-specific Resource Indicator binding.
 code, verifier = mod.begin_flow(discovery)
 exchange = mod.exchange(discovery, code, verifier)
-assert exchange.status_code == 200, "real user PKCE token exchange"
-user_token = exchange.json()["access_token"]
+assert exchange.status_code == 200, "MCP-bound user PKCE token exchange"
+mcp_token = exchange.json()["access_token"]
+mcp_claims = json.loads(base64.urlsafe_b64decode(mcp_token.split(".")[1] + "==="))
+mcp_aud = mcp_claims.get("aud",[])
+mcp_aud = [mcp_aud] if isinstance(mcp_aud,str) else mcp_aud
+assert mod.MCP in mcp_aud and "account" not in mcp_aud, "MCP token widened to Account REST"
+mcp_account=s.get(account_url,headers={
+    "Authorization":"Bearer "+mcp_token,"Accept":"application/json"},
+    timeout=25,allow_redirects=False)
+assert mcp_account.status_code==401, "MCP audience unexpectedly accepted by Account REST"
+print("REG04D_R2B1_C1_MCP_ACCOUNT_AUDIENCE_ISOLATION_PASS")
+
+# Then acquire a SECOND token for the normal user self-service audience.
+# No RFC8707 MCP resource is requested; the OAuth client's account audience
+# mapper and standard manage-account role apply only to this user flow.
+code,verifier=mod.begin_flow(discovery,True,resource=None)
+exchange=mod.exchange(discovery,code,verifier,resource=None)
+assert exchange.status_code==200, "Account-scoped user PKCE token exchange"
+user_token=exchange.json()["access_token"]
 assert isinstance(user_token,str) and len(user_token)>100
-claims = json.loads(base64.urlsafe_b64decode(user_token.split(".")[1] + "==="))
+claims=json.loads(base64.urlsafe_b64decode(user_token.split(".")[1] + "==="))
 aud = claims.get("aud",[])
 aud = [aud] if isinstance(aud,str) else aud
 account_roles = claims.get("resource_access",{}).get("account",{}).get("roles",[])
