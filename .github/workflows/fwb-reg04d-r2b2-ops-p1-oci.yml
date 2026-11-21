@@ -1,0 +1,44 @@
+name: FWB-REG-04D-R2B2-OPS-P1 — OCI Always Free infrastructure contract
+
+on:
+  pull_request:
+    paths:
+      - 'infra/fwb-reg04d-r2b2-ops-p1/**'
+      - '.github/workflows/fwb-reg04d-r2b2-ops-p1-oci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  oci-cost-and-network-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test no-cost and deny-by-default infrastructure invariants
+        run: node --test infra/fwb-reg04d-r2b2-ops-p1/validate-oci.test.mjs
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+      - name: Initialize OCI provider and validate HCL syntax (NO OCI credentials)
+        working-directory: infra/fwb-reg04d-r2b2-ops-p1/oci-free
+        env:
+          TF_IN_AUTOMATION: 'true'
+        run: |
+          set -euo pipefail
+          terraform init -backend=false -input=false -no-color
+          terraform validate -no-color
+          echo 'REG04D_R2B2_OPS_P1_TERRAFORM_VALIDATE_NO_DEPLOY_PASS'
+      - name: Verify CI never received provider credentials
+        run: |
+          test -z "${OCI_CLI_AUTH:-}"
+          test -z "${OCI_CLI_KEY_FILE:-}"
+          test -z "${OCI_PRIVATE_KEY:-}"
+          echo 'REG04D_R2B2_OPS_P1_NO_ACCOUNT_DEPLOYMENT_PASS'
+# Deliberately contains no plan/apply step and no access to OCI secrets.
