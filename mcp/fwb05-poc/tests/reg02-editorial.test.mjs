@@ -118,3 +118,16 @@ test('untrusted WordPress response/error never leaks service secret',async()=>{
     return true;
   });
 });
+
+test('payload with unexpected WordPress status or URL is rejected before network',async()=>{
+  let calls=0;
+  const api=makeEditorial({identity:principal,config:{...cfg,enableWrites:true},
+    fetcher:async()=>{calls++;return body({id:1,status:'draft'});}});
+  await assert.rejects(()=>api.createDraft({
+    title:'X',status:'publish'
+  },'operationId_123456'),/unexpected_draft_field/);
+  await assert.rejects(()=>api.validateDraft({
+    title:'X',site_url:'https://other.example.org'
+  }),/unexpected_draft_field/);
+  assert.equal(calls,0);
+});

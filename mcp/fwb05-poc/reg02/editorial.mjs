@@ -15,8 +15,12 @@ function requireOpId(op) {
 }
 function cleanDraft(data) {
   if (!data || typeof data !== 'object' || Array.isArray(data)) throw new EditorialFailure('invalid_draft');
+  const allowed = new Set(['title','content','excerpt','slug']);
+  for (const key of Object.keys(data)) {
+    if (!allowed.has(key)) throw new EditorialFailure('unexpected_draft_field');
+  }
   const obj = {};
-  for (const name of ['title','content','excerpt','slug']) {
+  for (const name of allowed) {
     if (Object.prototype.hasOwnProperty.call(data,name)) {
       const str = data[name];
       if (typeof str !== 'string' || str.length > (name === 'content' ? 80000 : 5000)) {
