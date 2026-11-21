@@ -94,7 +94,7 @@ jobs:
           NO_PROXY: auth-lab.example.org,127.0.0.1,localhost
         run: |
           python -m pip install --disable-pip-version-check --quiet requests PyJWT beautifulsoup4
-          python tests/fwb-reg04d-r2b1-c1/account-r1.py
+          python tests/fwb-reg04d-r2b1-c1/account-r1b.py
       - name: Sanitized Keycloak errors for User Profile API diagnostic
         if: always()
         shell: bash
