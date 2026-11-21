@@ -20,7 +20,7 @@ O experimento foi executado exclusivamente em Keycloak **26.8.2 descartável** n
 Fluxo `tests/fwb-reg04d-r2b1/user-account-pkce.py`:
 
 1. Configuração prévia realizada por admin **descartável da CI**: roles `view-profile` e `manage-account` do cliente `account` para um usuário de laboratório, escopos de client limitados e mapper de audiência; nenhuma permissão administrativa sobre outros usuários.
-2. Token OAuth PKCE com `resource=MCP`: valida `aud` exato do MCP, sem adicionar `account`. O probe HTTP na URL versionada é apenas diagnóstico, **não** a garantia de isolamento da Account REST.
+2. Token OAuth PKCE com `resource=MCP`: valida que `aud` contém o MCP e não contém `account`. O probe HTTP na URL versionada é apenas diagnóstico, **não** a garantia de isolamento da Account REST.
 3. Segundo token OAuth PKCE **sem o recurso MCP**: confirma `aud=account`, mapeamentos efetivos e ausência de `realm-management`. Requisição à Keycloak Admin REST para o próprio usuário retorna 401/403.
 4. `GET /account/`: HTTP 200 com `Content-Type: application/json`.
 5. Controle positivo: `POST /account/` altera `firstName`; leitura posterior da Admin REST confirma que **persistiu**.
