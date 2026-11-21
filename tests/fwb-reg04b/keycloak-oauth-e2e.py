@@ -75,9 +75,13 @@ def begin_flow(discovery,wrong=False):
                 note=message.get_text(' ',strip=True)[:140] if message else 'no-feedback'
                 page=urlparse(r.url).path
                 message_text=soup.select_one('#kc-content-wrapper, #kc-page-title, main')
-                detail=(message_text.get_text(' ',strip=True) if message_text else soup.get_text(' ',strip=True))[:220]
-                # Only titles/visible page labels from disposable test identity; never URLs, inputs or tokens.
-                raise AssertionError('unexpected_keycloak_page forms='+','.join(forms)[:80]+' title='+title+' note='+note+' path='+page[:90]+' detail='+detail)
+                detail=(message_text.get_text(' ',strip=True) if message_text else soup.get_text(' ',strip=True))[:280]
+                controls=[]
+                for el in soup.select('button, input[type=submit], a[href]')[:12]:
+                    controls.append(el.name+':'+el.get('id','')+':'+el.get('name','')+
+                                    ':'+el.get_text(' ',strip=True)[:32])
+                # Never log href values, query strings, codes, browser cookies or form inputs.
+                raise AssertionError('unexpected_keycloak_page forms='+','.join(forms)[:80]+' title='+title+' note='+note+' path='+page[:90]+' detail='+detail+' controls='+'|'.join(controls)[:240])
             action,body,el=form(r,'form#kc-consent-form')
             submit=el.find('button',{'name':'accept'}) or el.find('input',{'name':'accept'})
             body['accept']=(submit.get('value') or 'Yes') if submit else 'Yes'
