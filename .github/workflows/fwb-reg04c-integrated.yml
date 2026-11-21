@@ -89,6 +89,12 @@ jobs:
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,wp-lab.example.org,127.0.0.1,localhost
         run: node tests/fwb-reg04c/configure-keycloak-profile.mjs
+      - name: Diagnose Keycloak managed-profile setup failures without credentials
+        if: failure()
+        run: |
+          docker logs fwb-reg04c-keycloak 2>&1 \
+            | grep -E 'ERROR|WARN|Exception|UserProfile|Validation|user profile' \
+            | tail -n 45 || true
       - name: Start genuine disposable WordPress database and REST API
         working-directory: tests/fwb-reg04c
         run: |
