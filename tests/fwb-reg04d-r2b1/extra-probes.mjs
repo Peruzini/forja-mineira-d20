@@ -1,1 +1,1 @@
-export const followup='test default policy without explicit value';
+export const followup='test native policy on unconfigured realm';
