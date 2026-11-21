@@ -38,7 +38,7 @@ O onboarding implementado é um **serviço interno com contrato e testes**, não
 
 ## Segurança e limitações reais
 
-**Comprovável por CI isolada:** troca de identidade vinculada a RS256, bloqueio de issuer/audience errados, escopos e expiração, verificação de privilégios WordPress pela API simulada, AES-GCM sem exposição do segredo administrativo, isolamento `sub/site_id/connection_id`, bloqueio de callbacks cross-site, revogação por exclusão do vínculo e transporte MCP real com cliente de teste.
+**Comprovável por CI isolada:** troca de identidade vinculada a RS256, bloqueio de issuer/audience errados, escopos e expiração, verificação de privilégios WordPress pela API simulada, AES-GCM sem exposição do segredo administrativo, isolamento `sub/site_id/connection_id`, bloqueio de troca de site entre identidades e proteção criptográfica contra transplante de vínculos, revogação por exclusão do vínculo e transporte MCP real com cliente de teste.
 
 **Não comprovado / bloqueio para produção:**
 
