@@ -42,6 +42,7 @@
         "access.token.header.type.rfc9068": "true"
       },
       "defaultClientScopes": [
+        "basic",
         "posts:read",
         "sites:connect"
       ],
