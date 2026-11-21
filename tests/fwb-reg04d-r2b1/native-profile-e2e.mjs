@@ -87,6 +87,7 @@ const login=await fetch(origin+'/realms/'+realm+'/protocol/openid-connect/token'
  username:'fwb-lab-user',password}).toString()
 });
 console.log('REG04D_R2B1_USER_LOGIN_HTTP',login.status);
+if(login.status!==200){ const diagnostic=await login.clone().json(); console.log('REG04D_R2B1_OAUTH_ERROR_CODE', diagnostic.error); }
 assert.equal(login.status,200,'authenticate CI-only end user');
 const userBearer=(await login.json()).access_token;
 assert.ok(userBearer?.length>100);
