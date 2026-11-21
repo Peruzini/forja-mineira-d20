@@ -112,6 +112,7 @@
       "authorizationServicesEnabled": false,
       "consentRequired": false,
       "defaultClientScopes": [
+        "roles",
         "profile"
       ],
       "protocolMappers": [
