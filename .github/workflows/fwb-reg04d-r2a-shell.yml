@@ -1,0 +1,49 @@
+name: FWB-REG-04D-R2A — Public HTTPS shell smoke (not OAuth)
+
+on:
+  pull_request:
+    paths:
+      - 'infra/fwb-reg04d-r2a/**'
+      - '.github/workflows/fwb-reg04d-r2a-shell.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-shell-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test fail-closed staging function contracts
+        run: node --test infra/fwb-reg04d-r2a/test-shell.mjs
+
+  isolated-public-https-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      STAGING_ORIGIN: https://forja-wp-bridge-staging-r2a.vercel.app
+    steps:
+      - name: Verify external DNS, HTTPS CA, hostname and disabled MCP
+        shell: bash
+        run: |
+          set -euo pipefail
+          flags=(--proto '=https' --tlsv1.2 --max-redirs 0 --max-time 25 --retry 2 --retry-delay 2 --silent --show-error)
+          status="$(curl "${flags[@]}" -D /tmp/fwb-r2a-status-headers.txt -o /tmp/fwb-r2a-status.json -w '%{http_code}' "${STAGING_ORIGIN}/api/status")"
+          test "$status" = '200'
+          jq -e '.component=="isolated_https_shell" and .status=="SHELL_ONLY" and .oauth=="NOT_CONFIGURED" and .mcp=="DISABLED" and .production_wordpress=="NOT_CONNECTED"' /tmp/fwb-r2a-status.json >/dev/null
+          grep -Eqi '^cache-control:.*no-store' /tmp/fwb-r2a-status-headers.txt
+          echo 'REG04D_R2A_PUBLIC_TLS_STATUS_SHELL_PASS'
+          for verb in GET POST DELETE OPTIONS; do
+            response="$(curl "${flags[@]}" -X "$verb" -o /tmp/fwb-r2a-mcp.json -w '%{http_code}' "${STAGING_ORIGIN}/api/gateway-mcp")"
+            test "$response" = '503'
+            jq -e '.error=="staging_mcp_disabled"' /tmp/fwb-r2a-mcp.json >/dev/null
+          done
+          echo 'REG04D_R2A_PUBLIC_MCP_FAIL_CLOSED_PASS'
+          # The probe is deliberately not a real OAuth/login/MCP interoperability test.
