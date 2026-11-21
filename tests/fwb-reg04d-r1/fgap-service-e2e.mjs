@@ -34,6 +34,17 @@ const eligible=(await json(await adminCall('/users?username=fwb-lab-user&exact=t
 const foreign=(await json(await adminCall('/users?username=fwb-foreign-user&exact=true')))[0];
 assert.ok(eligible?.id && foreign?.id && eligible.id!==foreign.id);
 
+// The built-in kc-admin-api scope may not be linked to a freshly imported
+// confidential client during realm import: attach it explicitly via Admin API.
+const serviceEntry=(await json(await adminCall('/clients?clientId=fwb-onboarding')))[0];
+assert.ok(serviceEntry?.id);
+const adminScope=(await json(await adminCall('/client-scopes'))).find(s=>s.name==='kc-admin-api');
+assert.ok(adminScope?.id,'Keycloak 26.8.2 builtin kc-admin-api scope not found');
+const attachedScope=await adminCall('/clients/'+serviceEntry.id+
+  '/default-client-scopes/'+adminScope.id,'PUT');
+assert.equal(attachedScope.status,204,'attach built-in Keycloak admin API scope');
+console.log('REG04D_R1_BUILTIN_KC_ADMIN_API_SCOPE_ATTACHED');
+
 const conf=readScopedServiceConfig({
  FWB_REG04D_R1_SERVICE:'enabled',FWB_REG04C_FEDERATION:'enabled',
  FWB_REG04_PROVIDER:'keycloak',FWB_REG04_ISSUER:issuer,
