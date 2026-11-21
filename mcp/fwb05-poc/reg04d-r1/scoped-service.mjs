@@ -54,7 +54,9 @@ function rejectBroadRoles(token,config){
   let claims;
   try {claims=JSON.parse(Buffer.from(p[1],'base64url').toString('utf8'));}
   catch {throw new OnboardingDenied('scoped_token_invalid');}
+  const audiences=Array.isArray(claims?.aud)?claims.aud:[claims?.aud];
   if(claims?.iss!==config.issuer||claims?.azp!==config.clientId||
+    !audiences.includes('realm-management')||
     typeof claims.exp!=='number'||claims.exp<=Math.floor(Date.now()/1000)+5)
     throw new OnboardingDenied('scoped_token_claims_invalid');
   const roles=claims.resource_access?.['realm-management']?.roles||[];
