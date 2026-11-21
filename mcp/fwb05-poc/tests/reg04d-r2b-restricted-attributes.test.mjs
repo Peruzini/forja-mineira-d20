@@ -54,7 +54,10 @@ function mock(initial={},opts={}){
    if(options.method==='PUT'){
      const body=JSON.parse(options.body);
      calls.push({type:'write',body});
-     assert.deepEqual(Object.keys(body),['attributes']);
+     assert.ok(Object.keys(body).every(k=>['id','username','email','firstName',
+       'lastName','emailVerified','enabled','totp','requiredActions',
+       'attributes'].includes(k)));
+     assert.equal(typeof body.username,'string');
      assert.deepEqual(Object.keys(body.attributes).sort(),
        Object.keys(body.attributes).filter(x=>['fwb_site_id','fwb_connection_id'].includes(x)).sort());
      const u=records.get(id);
