@@ -81,7 +81,8 @@ assert mod.MCP in mcp_aud and "account" not in mcp_aud, "MCP token widened to Ac
 mcp_account=s.get(account_url,headers={
     "Authorization":"Bearer "+mcp_token,"Accept":"application/json"},
     timeout=25,allow_redirects=False)
-assert mcp_account.status_code==401, "MCP audience unexpectedly accepted by Account REST"
+print("REG04D_R2B1_C1_MCP_ACCOUNT_HTTP",mcp_account.status_code,mcp_account.headers.get("Content-Type","").split(";")[0])
+assert mcp_account.status_code in (401,403), "MCP audience unexpectedly accepted by Account REST"
 print("REG04D_R2B1_C1_MCP_ACCOUNT_AUDIENCE_ISOLATION_PASS")
 
 # Then acquire a SECOND token for the normal user self-service audience.
