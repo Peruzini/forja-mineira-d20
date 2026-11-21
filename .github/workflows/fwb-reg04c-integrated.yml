@@ -48,33 +48,6 @@ jobs:
         run: |
           npm test
           npm run build
-      - name: Start genuine disposable WordPress database and REST API
-        working-directory: tests/fwb-reg04c
-        run: |
-          wp-env start --update
-          wp-env run cli wp user create e2eauthor e2eauthor@example.invalid \
-            --role=author --user_pass=ephemeral-author-password-for-ci
-          author_id="$(wp-env run cli wp user get e2eauthor --field=ID | tail -n 1 | tr -d '\r')"
-          test "$author_id" -gt 1
-          wp-env run cli wp post create --post_type=post --post_status=draft \
-            --post_title='REG04C Verified Draft' --post_author="$author_id"
-          wp-env run cli wp user get admin --field=ID
-          wp-env run cli wp user get e2eauthor --field=ID
-      - name: Create per-user WordPress Application Passwords (ephemeral file, no logs)
-        working-directory: tests/fwb-reg04c
-        run: |
-          set -e
-          admin_pw="$(wp-env run cli wp user application-password create admin fwb-reg04c-ci-admin --porcelain | tail -n 1 | tr -d '\r')"
-          author_pw="$(wp-env run cli wp user application-password create e2eauthor fwb-reg04c-ci-author --porcelain | tail -n 1 | tr -d '\r')"
-          test "${#admin_pw}" -gt 12
-          test "${#author_pw}" -gt 12
-          APP_ADMIN="$admin_pw" APP_AUTHOR="$author_pw" node --input-type=module -e '
-            import fs from "node:fs";
-            fs.writeFileSync("/tmp/fwb-reg04c-wp-credentials.json",JSON.stringify({
-              admin_user:"admin",admin_password:process.env.APP_ADMIN,
-              author_user:"e2eauthor",author_password:process.env.APP_AUTHOR
-            }),{mode:0o600});
-          '
       - name: Boot genuine Keycloak 26.8.2 without pre-connected site claims
         run: |
           docker run --detach --rm --name fwb-reg04c-keycloak \
@@ -108,7 +81,6 @@ jobs:
           done
           curl -fsS --cacert /tmp/fwb-lab-cert.pem \
             https://auth-lab.example.org/realms/fwb-reg04b-lab/.well-known/openid-configuration >/dev/null
-          curl -fsS --cacert /tmp/fwb-lab-cert.pem https://wp-lab.example.org/wp-json/ >/dev/null
       - name: Configure Keycloak user profile with admin-only managed bindings
         env:
           NODE_EXTRA_CA_CERTS: /tmp/fwb-lab-cert.pem
@@ -117,6 +89,35 @@ jobs:
           ALL_PROXY: ''
           NO_PROXY: auth-lab.example.org,wp-lab.example.org,127.0.0.1,localhost
         run: node tests/fwb-reg04c/configure-keycloak-profile.mjs
+      - name: Start genuine disposable WordPress database and REST API
+        working-directory: tests/fwb-reg04c
+        run: |
+          wp-env start --update
+          wp-env run cli wp user create e2eauthor e2eauthor@example.invalid \
+            --role=author --user_pass=ephemeral-author-password-for-ci
+          author_id="$(wp-env run cli wp user get e2eauthor --field=ID | tail -n 1 | tr -d '\r')"
+          test "$author_id" -gt 1
+          wp-env run cli wp post create --post_type=post --post_status=draft \
+            --post_title='REG04C Verified Draft' --post_author="$author_id"
+          wp-env run cli wp user get admin --field=ID
+          wp-env run cli wp user get e2eauthor --field=ID
+      - name: Create per-user WordPress Application Passwords (ephemeral file, no logs)
+        working-directory: tests/fwb-reg04c
+        run: |
+          set -e
+          admin_pw="$(wp-env run cli wp user application-password create admin fwb-reg04c-ci-admin --porcelain | tail -n 1 | tr -d '\r')"
+          author_pw="$(wp-env run cli wp user application-password create e2eauthor fwb-reg04c-ci-author --porcelain | tail -n 1 | tr -d '\r')"
+          test "${#admin_pw}" -gt 12
+          test "${#author_pw}" -gt 12
+          APP_ADMIN="$admin_pw" APP_AUTHOR="$author_pw" node --input-type=module -e '
+            import fs from "node:fs";
+            fs.writeFileSync("/tmp/fwb-reg04c-wp-credentials.json",JSON.stringify({
+              admin_user:"admin",admin_password:process.env.APP_ADMIN,
+              author_user:"e2eauthor",author_password:process.env.APP_AUTHOR
+            }),{mode:0o600});
+          '
+      - name: Check WordPress HTTPS REST gateway
+        run: curl -fsS --cacert /tmp/fwb-lab-cert.pem https://wp-lab.example.org/wp-json/ >/dev/null
       - name: Keycloak real OAuth consent and PKCE for unbound subject
         env:
           FWB_LAB_TLS_CERT: /tmp/fwb-lab-cert.pem
