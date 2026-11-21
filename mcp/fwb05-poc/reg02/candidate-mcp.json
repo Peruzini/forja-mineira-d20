@@ -1,0 +1,26 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "forja_bridge_editorial": {
+      "type": "streamable-http",
+      "url": "https://forja-wp-bridge-mcp-96zafqia3-ur-25.vercel.app/api/secure-mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "cimd"
+            },
+            "baseScopes": [
+              "posts:read"
+            ],
+            "defaultScopes": [
+              "posts:read",
+              "drafts:write"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

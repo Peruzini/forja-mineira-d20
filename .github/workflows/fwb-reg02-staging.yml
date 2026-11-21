@@ -1,0 +1,39 @@
+name: FWB-REG-02 — Protected MCP and editorial staging tests
+
+on:
+  pull_request:
+    paths:
+      - 'mcp/fwb05-poc/reg02/**'
+      - 'mcp/fwb05-poc/app/api/secure-mcp/**'
+      - 'mcp/fwb05-poc/app/.well-known/oauth-protected-resource/**'
+      - 'mcp/fwb05-poc/tests/reg02-*.test.mjs'
+      - '.github/workflows/fwb-reg02-staging.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  protected-editorial-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        working-directory: mcp/fwb05-poc
+        run: npm install --no-audit --no-fund
+      - name: Test anonymous PoC and REG-02 secure staging gateway
+        working-directory: mcp/fwb05-poc
+        run: npm test
+      - name: Compile Next.js routes
+        working-directory: mcp/fwb05-poc
+        run: npm run build
+      - name: Assert no REG-02 production secrets are embedded in repo
+        run: |
+          if grep -R -E 'FWB_WP_SERVICE_APP_PASSWORD[[:space:]]*=[[:space:]]*[^#[:space:]]' mcp/fwb05-poc/reg02/; then
+            echo 'Found potential hardcoded service secret'; exit 1
+          fi
+          echo 'No embedded environment secrets found'
