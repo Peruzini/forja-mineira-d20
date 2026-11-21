@@ -65,6 +65,15 @@ export function makeR2B2PrivateAdmin({scopedConfig,pool,auditHmacKey,
     catch {fail('r2b2_audit_storage_unavailable');}
     let locked=false, discard=false, operationId=null;
     try {
+      const marker=createHmac('sha256',auditHmacKey)
+        .update('fwb-r2b2-hmac-epoch-v1').digest('hex');
+      await query(client,
+        'INSERT INTO fwb_admin_key_epoch(singleton,key_marker) VALUES(1,$1) ON CONFLICT (singleton) DO NOTHING',
+        [marker]);
+      const epoch=await query(client,
+        'SELECT key_marker FROM fwb_admin_key_epoch WHERE singleton=1',[]);
+      if(epoch.rows.length!==1||epoch.rows[0].key_marker.trim()!==marker)
+        fail('r2b2_audit_key_epoch_changed');
       const lock=await query(client,
         'SELECT pg_try_advisory_lock($1::bigint) AS acquired',[advisoryKey]);
       locked=lock.rows[0]?.acquired===true;
