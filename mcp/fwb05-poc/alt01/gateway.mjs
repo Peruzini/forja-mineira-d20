@@ -103,9 +103,12 @@ function makeServer(config, identity, fetcher) {
       z.object({limit: z.number().int().min(1).max(20).default(5)}).strict(),
       ({limit}) => listPublicPosts(limit, fetcher), true);
   }
-  if (config.drafts?.subject === identity.sub) {
+  const canCreateDraft = config.drafts?.subject === identity.sub;
+  if (canCreateDraft || config.draftPreviewSubject === identity.sub) {
     register('forja_wp_preview_draft', 'Conferir o texto e gerar o identificador de aprova��o, sem gravar.',
       draftInput, previewDraft, false);
+  }
+  if (canCreateDraft) {
     register('forja_wp_create_draft', 'Criar um rascunho previamente aprovado no WordPress da Forja.',
       draftInput, input => createDraft(input, {identity, config: config.drafts, fetcher}), true, true);
   }

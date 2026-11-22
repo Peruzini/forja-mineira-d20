@@ -247,6 +247,27 @@ test('production public posts use only fixed unauthenticated GET and reject non-
   } finally { await gateway.close(); }
 });
 
+test('preview-only with one allowed subject uses read scope and makes no WordPress call', async () => {
+  const previewEnv = {...env, FWB_ALT02_DRAFT_PREVIEW: 'enabled'};
+  assert.equal(readAltAuth0Config(previewEnv).draftPreviewSubject, null);
+  previewEnv.FWB_ALT_AUTH0_SUBJECTS_JSON = JSON.stringify([subjects[0]]);
+  assert.deepEqual(altAuth0Metadata(readAltAuth0Config(previewEnv)).scopes_supported, ['posts:read']);
+  const gateway = createAltAuth0Gateway({env: previewEnv, now: () => now, fetcher: async url => {
+    assert.equal(url, config.jwks);
+    return Response.json({keys: [jwk]});
+  }});
+  try {
+    await withMcp(gateway, token(), async client => {
+      assert.deepEqual((await client.listTools()).tools.map(tool => tool.name),
+        ['forja_auth0_status', 'forja_wp_preview_draft']);
+      const input = {title: 'Pr�via', content: 'Texto de teste'};
+      const result = await client.callTool({name: 'forja_wp_preview_draft', arguments: input});
+      assert.deepEqual(result.structuredContent, {...input, status: 'draft',
+        approvalDigest: createHash('sha256').update(JSON.stringify(input)).digest('hex')});
+    });
+  } finally { await gateway.close(); }
+});
+
 test('draft creation is opt-in and requires the configured subject and write scope', async () => {
   const secret = 'a1'.repeat(32);
   const draftEnv = {...env, FWB_ALT02_DRAFTS: 'enabled', FWB_ALT02_SUBJECT: subjects[0], FWB_ALT02_SIGNING_KEY: secret};

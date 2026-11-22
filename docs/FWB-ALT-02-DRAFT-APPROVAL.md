@@ -4,6 +4,8 @@ O ChatGPT continua autenticando no Auth0. O WordPress atribui o rascunho ao ID d
 
 ## Prepara��o e ativa��o
 
+Para disponibilizar s� a pr�via antes da etapa de escrita, use `FWB_ALT02_DRAFT_PREVIEW=enabled`. A pr�via exige uma lista Auth0 com um �nico sujeito permitido e o escopo `posts:read`. Ela n�o precisa de chave de assinatura, n�o anuncia `drafts:write` e n�o faz requisi��es ao WordPress. Depois do deploy, atualize as ferramentas na conex�o do ChatGPT.
+
 1. Revise o PR e confirme separadamente a instala��o do plugin `plugins/forja-draft-approval/` e a concess�o de escrita no gateway. A rota � fechada por padr�o. Identifique o ID da conta autora no painel WordPress.
 2. Configure `FWB_ALT02_SUBJECT` no gateway com o sujeito Auth0 j� autorizado para a Forja. Gere uma chave independente de 32 bytes e armazene sua representa��o hexadecimal em `FWB_ALT02_SIGNING_KEY` no Vercel e na configura��o protegida do WordPress. Conceda `drafts:write` apenas � conex�o Auth0 correspondente e defina `FWB_ALT02_DRAFTS=enabled` no gateway. Atualize o cat�logo do plugin e reautorize a conex�o quando solicitado.
 3. Envie t�tulo e conte�do em texto simples para `forja_wp_preview_draft`. Confira os dois campos. A ferramenta devolve um SHA-256 dos bytes exatos do JSON e n�o grava nada. S� depois da aprova��o do propriet�rio, configure no WordPress `FWB_ALT02_AUTHOR_ID` como inteiro, `FWB_ALT02_APPROVED_DIGEST` com o hash mostrado, `FWB_ALT02_APPROVAL_EXPIRES` como timestamp Unix futuro e `FWB_ALT02_ENABLED` como booleano `true`.
