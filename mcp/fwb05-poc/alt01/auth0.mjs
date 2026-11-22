@@ -2,6 +2,7 @@ import { createPublicKey, verify } from 'node:crypto';
 import { isIP } from 'node:net';
 import { AccessDenied, getJwks } from '../reg02/auth.mjs';
 import { readGatewayConfig } from '../reg03/gateway.mjs';
+import { draftConfig, WRITE_SCOPE } from './drafts.mjs';
 
 const AUTH0_HOST = /^[a-z0-9](?:[a-z0-9-]{0,62})(?:\.[a-z0-9-]{1,24})?\.auth0\.com$/;
 const USER_SUBJECT = /^[A-Za-z0-9_-]{1,50}\|[A-Za-z0-9_.:|+-]{1,149}$/;
@@ -69,7 +70,9 @@ export function readAltAuth0Config(env = process.env) {
     resource: resource.href,
     metadataUrl: new URL('/.well-known/oauth-protected-resource/api/gateway-mcp', resource).href,
     jwks, registration, subjects, clientIds, tenants,
-    publicPosts: env.FWB_ALT_AUTH0_PUBLIC_POSTS === 'enabled'
+    publicPosts: env.FWB_ALT_AUTH0_PUBLIC_POSTS === 'enabled',
+    draftPreviewSubject: env.FWB_ALT02_DRAFT_PREVIEW === 'enabled' && subjects.length === 1 ? subjects[0] : null,
+    drafts: draftConfig(env, subjects)
   });
 }
 
@@ -147,7 +150,7 @@ export function altAuth0Metadata(config) {
   return {
     resource: config.resource,
     authorization_servers: [config.issuer],
-    scopes_supported: [READ_SCOPE],
+    scopes_supported: config.drafts ? [READ_SCOPE, WRITE_SCOPE] : [READ_SCOPE],
     bearer_methods_supported: ['header']
   };
 }

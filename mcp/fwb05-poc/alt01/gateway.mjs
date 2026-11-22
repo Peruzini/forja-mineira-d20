@@ -5,6 +5,7 @@ import { makeEditorial } from '../reg02/editorial.mjs';
 import { makeStrictEgressPolicy } from '../reg04d-r1/pinned-egress.mjs';
 import { makeAltPinnedEgress } from './egress.mjs';
 import { READ_SCOPE, readAltAuth0Config, verifyAltAuth0Access } from './auth0.mjs';
+import { createDraft, DRAFT_ROUTE, draftInput, previewDraft, WRITE_SCOPE } from './drafts.mjs';
 
 const response = (status, error, headers = {}) => Response.json({error}, {
   status, headers: {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers}
@@ -50,6 +51,7 @@ function policyFor(config) {
   });
   return {assertUrl(raw) {
     if (raw === config.jwks) return;
+    if (config.drafts && raw === DRAFT_ROUTE) return;
     const url = new URL(raw);
     if (config.publicPosts && url.origin === publicSite) {
       const limit = Number(url.searchParams.get('per_page'));
@@ -79,11 +81,11 @@ function cachedKeys(config, fetcher) {
 
 function makeServer(config, identity, fetcher) {
   const server = new McpServer({name: 'forja-wp-bridge-auth0-staging', version: '0.1.0'});
-  const securitySchemes = [{type: 'oauth2', scopes: [READ_SCOPE]}];
-  function register(name, description, schema, operation, openWorldHint) {
+  function register(name, description, schema, operation, openWorldHint, writes = false) {
+    const securitySchemes = [{type: 'oauth2', scopes: writes ? [READ_SCOPE, WRITE_SCOPE] : [READ_SCOPE]}];
     server.registerTool(name, {
       title: description, description, inputSchema: schema,
-      annotations: {readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint},
+      annotations: {readOnlyHint: !writes, destructiveHint: false, idempotentHint: !writes, openWorldHint},
       _meta: {securitySchemes}
     }, async input => {
       try {
@@ -100,6 +102,15 @@ function makeServer(config, identity, fetcher) {
     register('forja_wp_list_posts', 'Listar IDs e links de posts p�blicos da Forja Mineira D20.',
       z.object({limit: z.number().int().min(1).max(20).default(5)}).strict(),
       ({limit}) => listPublicPosts(limit, fetcher), true);
+  }
+  const canCreateDraft = config.drafts?.subject === identity.sub;
+  if (canCreateDraft || config.draftPreviewSubject === identity.sub) {
+    register('forja_wp_preview_draft', 'Conferir o texto e gerar o identificador de aprova��o, sem gravar.',
+      draftInput, previewDraft, false);
+  }
+  if (canCreateDraft) {
+    register('forja_wp_create_draft', 'Criar um rascunho previamente aprovado no WordPress da Forja.',
+      draftInput, input => createDraft(input, {identity, config: config.drafts, fetcher}), true, true);
   }
   const binding = config.tenants.find(tenant => tenant.sub === identity.sub);
   if (binding) {
