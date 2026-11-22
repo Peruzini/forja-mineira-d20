@@ -68,7 +68,8 @@ export function readAltAuth0Config(env = process.env) {
     issuer: issuer.href,
     resource: resource.href,
     metadataUrl: new URL('/.well-known/oauth-protected-resource/api/gateway-mcp', resource).href,
-    jwks, registration, subjects, clientIds, tenants
+    jwks, registration, subjects, clientIds, tenants,
+    publicPosts: env.FWB_ALT_AUTH0_PUBLIC_POSTS === 'enabled'
   });
 }
 

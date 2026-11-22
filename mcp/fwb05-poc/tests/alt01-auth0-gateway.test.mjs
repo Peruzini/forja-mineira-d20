@@ -219,6 +219,33 @@ test('only signed sub chooses WordPress, no writes or cross-author exposure', as
   } finally { await gateway.close(); }
 });
 
+test('production public posts use only fixed unauthenticated GET and reject non-public results', async () => {
+  const site = 'https://forjamineirad20.com.br';
+  const post = {id: 418, link: site + '/post/', status: 'publish'};
+  let status = 'publish';
+  const gateway = createAltAuth0Gateway({
+    env: {...env, FWB_ALT_AUTH0_PUBLIC_POSTS: 'enabled'}, now: () => now,
+    fetcher: async (url, options) => {
+      if (url === config.jwks) return Response.json({keys: [jwk]});
+      assert.equal(url, site + '/wp-json/wp/v2/posts?context=view&status=publish&per_page=1&_fields=id%2Clink%2Cstatus');
+      assert.equal(options.method, 'GET');
+      assert.equal(options.redirect, 'error');
+      assert.deepEqual(options.headers, {Accept: 'application/json'});
+      return Response.json([{...post, status}]);
+    }
+  });
+  try {
+    await withMcp(gateway, token(), async client => {
+      const catalog = await client.listTools();
+      assert.deepEqual(catalog.tools.map(t => t.name), ['forja_auth0_status', 'forja_wp_list_posts']);
+      const call = () => client.callTool({name: 'forja_wp_list_posts', arguments: {limit: 1}});
+      assert.deepEqual((await call()).structuredContent, {site, posts: [{id: post.id, link: post.link}]});
+      status = 'draft';
+      assert.equal((await call()).isError, true);
+    });
+  } finally { await gateway.close(); }
+});
+
 test('upstream failure response is sanitized and does not disclose credentials', async () => {
   const gateway = createAltAuth0Gateway({
     env, now: () => now, fetcher: async () => { throw Error('synthetic-internal-secret'); }

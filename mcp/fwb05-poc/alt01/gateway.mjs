@@ -9,6 +9,31 @@ import { READ_SCOPE, readAltAuth0Config, verifyAltAuth0Access } from './auth0.mj
 const response = (status, error, headers = {}) => Response.json({error}, {
   status, headers: {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers}
 });
+const publicSite = 'https://forjamineirad20.com.br';
+const publicPostsPath = '/wp-json/wp/v2/posts';
+
+function publicPostsUrl(limit) {
+  const url = new URL(publicPostsPath, publicSite);
+  url.search = new URLSearchParams({context: 'view', status: 'publish',
+    per_page: String(limit), _fields: 'id,link,status'}).toString();
+  return url.href;
+}
+
+async function listPublicPosts(limit, fetcher) {
+  const result = await fetcher(publicPostsUrl(limit), {
+    method: 'GET', headers: {Accept: 'application/json'}, signal: AbortSignal.timeout(5000)
+  });
+  if (!result.ok) throw Error('public_posts_unavailable');
+  const posts = await result.json();
+  if (!Array.isArray(posts) || posts.length > limit) throw Error('public_posts_invalid');
+  return {site: publicSite, posts: posts.map(post => {
+    if (post?.status !== 'publish' || !Number.isSafeInteger(post.id) || post.id < 1 ||
+        typeof post.link !== 'string') throw Error('public_posts_invalid');
+    const link = new URL(post.link);
+    if (link.origin !== publicSite || link.username || link.password) throw Error('public_posts_invalid');
+    return {id: post.id, link: link.href};
+  })};
+}
 
 function challenge(config, status, code) {
   const extra = code ? ', error="' + code + '"' : '';
@@ -26,6 +51,11 @@ function policyFor(config) {
   return {assertUrl(raw) {
     if (raw === config.jwks) return;
     const url = new URL(raw);
+    if (config.publicPosts && url.origin === publicSite) {
+      const limit = Number(url.searchParams.get('per_page'));
+      if (Number.isInteger(limit) && limit >= 1 && limit <= 20 && raw === publicPostsUrl(limit)) return;
+      throw Error('auth0_alternative_egress_denied');
+    }
     if (url.origin === new URL(config.issuer).origin ||
         !/^\/wp-json\/wp\/v2\/posts(?:\/[1-9]\d*)?$/.test(url.pathname)) {
       throw Error('auth0_alternative_egress_denied');
@@ -64,15 +94,20 @@ function makeServer(config, identity, fetcher) {
       }
     });
   }
-  register('forja_auth0_status', 'Verificar autenticação OAuth no gateway de homologação.',
+  register('forja_auth0_status', 'Verificar autentica��o OAuth no gateway de homologa��o.',
     z.object({}).strict(), () => ({authenticated: true, provider: 'auth0', scope: READ_SCOPE}), false);
+  if (config.publicPosts) {
+    register('forja_wp_list_posts', 'Listar IDs e links de posts p�blicos da Forja Mineira D20.',
+      z.object({limit: z.number().int().min(1).max(20).default(5)}).strict(),
+      ({limit}) => listPublicPosts(limit, fetcher), true);
+  }
   const binding = config.tenants.find(tenant => tenant.sub === identity.sub);
   if (binding) {
     const editorial = makeEditorial({identity, config: binding, fetcher});
-    register('forja_posts_list', 'Listar posts próprios no WordPress de homologação.',
+    register('forja_posts_list', 'Listar posts pr�prios no WordPress de homologa��o.',
       z.object({limit: z.number().int().min(1).max(20).default(5)}).strict(),
       ({limit}) => editorial.listPosts(limit), true);
-    register('forja_post_get', 'Consultar um post próprio no WordPress de homologação.',
+    register('forja_post_get', 'Consultar um post pr�prio no WordPress de homologa��o.',
       z.object({id: z.number().int().positive()}).strict(), ({id}) => editorial.getPost(id), true);
   }
   return server;
