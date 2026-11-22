@@ -1,9 +1,9 @@
-import {createHash, createHmac} from 'node:crypto';
+import {createHash, createPrivateKey, sign} from 'node:crypto';
 import * as z from 'zod/v4';
 
 export const WRITE_SCOPE = 'drafts:write';
 export const DRAFT_ROUTE = 'https://forjamineirad20.com.br/wp-json/forja-drafts/v1/create';
-const signingContext = 'forja-draft-v1\n';
+const signingContext = 'forja-draft-rsa-v1\n';
 
 export const draftInput = z.object({
   title: z.string().min(1).max(180).refine(value => value === value.trim() && !/[<>\x00-\x1f\x7f]/u.test(value)),
@@ -21,11 +21,16 @@ export function previewDraft(input) {
 export function draftConfig(env, subjects) {
   if (env.FWB_ALT02_DRAFTS !== 'enabled') return null;
   const subject = env.FWB_ALT02_SUBJECT;
-  const secret = env.FWB_ALT02_SIGNING_KEY;
-  if (!subjects.includes(subject) || typeof secret !== 'string' || !/^[a-f0-9]{64}$/u.test(secret)) {
+  const approvedDigest = env.FWB_ALT02_APPROVED_DIGEST;
+  if (!subjects.includes(subject) || !env.FWB_ALT02_SIGNING_KEY ||
+      typeof approvedDigest !== 'string' || !/^[a-f0-9]{64}$/u.test(approvedDigest)) {
     throw Error('forja_draft_config_invalid');
   }
-  return Object.freeze({subject, secret});
+  const key = createPrivateKey(env.FWB_ALT02_SIGNING_KEY);
+  if (key.asymmetricKeyType !== 'rsa' || key.asymmetricKeyDetails.modulusLength !== 2048) {
+    throw Error('forja_draft_config_invalid');
+  }
+  return Object.freeze({subject, key, approvedDigest});
 }
 
 export async function createDraft(input, {identity, config, fetcher}) {
@@ -33,8 +38,10 @@ export async function createDraft(input, {identity, config, fetcher}) {
     throw Error('forja_draft_not_authorized');
   }
   const body = draftBody(input);
-  const signature = createHmac('sha256', Buffer.from(config.secret, 'hex'))
-    .update(signingContext).update(body).digest('hex');
+  if (createHash('sha256').update(body).digest('hex') !== config.approvedDigest) {
+    throw Error('forja_draft_not_approved');
+  }
+  const signature = sign('RSA-SHA256', Buffer.from(signingContext + body), config.key).toString('base64');
   const response = await fetcher(DRAFT_ROUTE, {
     method: 'POST', headers: {'Content-Type': 'application/json', 'X-Forja-Draft-Signature': signature},
     body, signal: AbortSignal.timeout(8000)

@@ -3,7 +3,8 @@
 define('ABSPATH', __DIR__);
 define('FWB_ALT02_ENABLED', true);
 define('FWB_ALT02_AUTHOR_ID', 42);
-define('FWB_ALT02_SIGNING_KEY', str_repeat('ab', 32));
+$key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
+define('FWB_ALT02_PUBLIC_KEY', openssl_pkey_get_details($key)['key']);
 define('FWB_ALT02_APPROVAL_EXPIRES', time() + 60);
 $body = '{"title":"Rascunho de teste","content":"A < B"}';
 define('FWB_ALT02_APPROVED_DIGEST', hash('sha256', $body));
@@ -54,7 +55,9 @@ function check($condition) {
 }
 
 require __DIR__ . '/../forja-draft-approval.php';
-$signature = hash_hmac('sha256', "forja-draft-v1\n" . $body, hex2bin(FWB_ALT02_SIGNING_KEY));
+$signed = openssl_sign("forja-draft-rsa-v1\n" . $body, $signature, $key, OPENSSL_ALGO_SHA256);
+check($signed);
+$signature = base64_encode($signature);
 $request = new Request($body, $signature);
 check(Forja\DraftApproval\authorize(new Request($body, 'invalid')) instanceof WP_Error);
 check(Forja\DraftApproval\authorize(new Request($body . ' ', $signature)) instanceof WP_Error);

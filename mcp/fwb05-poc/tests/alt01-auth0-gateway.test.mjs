@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash, createHmac, generateKeyPairSync, sign } from 'node:crypto';
+import { createHash, generateKeyPairSync, sign, verify } from 'node:crypto';
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { altAuth0Metadata, readAltAuth0Config, verifyAltAuth0Access } from '../alt01/auth0.mjs';
 import { createAltAuth0Gateway } from '../alt01/gateway.mjs';
@@ -269,11 +269,12 @@ test('preview-only with one allowed subject uses read scope and makes no WordPre
 });
 
 test('draft creation is opt-in and requires the configured subject and write scope', async () => {
-  const secret = 'a1'.repeat(32);
-  const draftEnv = {...env, FWB_ALT02_DRAFTS: 'enabled', FWB_ALT02_SUBJECT: subjects[0], FWB_ALT02_SIGNING_KEY: secret};
+  const signingKey = privateKey.export({format: 'pem', type: 'pkcs8'});
+  const input = {title: 'Rascunho da Forja', content: 'Primeira linha.\nSegunda linha.'};
+  const draftEnv = {...env, FWB_ALT02_DRAFTS: 'enabled', FWB_ALT02_SUBJECT: subjects[0],
+    FWB_ALT02_SIGNING_KEY: signingKey, FWB_ALT02_APPROVED_DIGEST: createHash('sha256').update(JSON.stringify(input)).digest('hex')};
   assert.throws(() => readAltAuth0Config({...draftEnv, FWB_ALT02_SUBJECT: 'auth0|unlisted'}));
   assert.deepEqual(altAuth0Metadata(readAltAuth0Config(draftEnv)).scopes_supported, ['posts:read', 'drafts:write']);
-  const input = {title: 'Rascunho da Forja', content: 'Primeira linha.\nSegunda linha.'};
   const call = (client, args = input) => client.callTool({name: 'forja_wp_create_draft', arguments: args});
   let writes = 0;
   const gateway = createAltAuth0Gateway({env: draftEnv, now: () => now, fetcher: async (url, options) => {
@@ -283,8 +284,8 @@ test('draft creation is opt-in and requires the configured subject and write sco
     assert.equal(options.redirect, 'error');
     assert.equal(options.headers.Authorization, undefined);
     assert.equal(options.body, JSON.stringify(input));
-    assert.equal(options.headers['X-Forja-Draft-Signature'], createHmac('sha256', Buffer.from(secret, 'hex'))
-      .update('forja-draft-v1\n' + options.body).digest('hex'));
+    assert.equal(verify('RSA-SHA256', Buffer.from('forja-draft-rsa-v1\n' + options.body), publicKey,
+      Buffer.from(options.headers['X-Forja-Draft-Signature'], 'base64')), true);
     writes++;
     return Response.json({id: 418, status: 'draft'}, {status: 201});
   }});
@@ -304,6 +305,7 @@ test('draft creation is opt-in and requires the configured subject and write sco
       assert.equal(create.annotations.readOnlyHint, false);
       assert.deepEqual(create._meta.securitySchemes[0].scopes, ['posts:read', 'drafts:write']);
       assert.equal((await call(client, {...input, status: 'publish'})).isError, true);
+      assert.equal((await call(client, {...input, content: 'Texto alterado'})).isError, true);
       assert.deepEqual((await call(client)).structuredContent, {id: 418, status: 'draft',
         editUrl: 'https://forjamineirad20.com.br/wp-admin/post.php?post=418&action=edit'});
     });

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forja Draft Approval
  * Description: Creates a single preapproved draft attributed to the configured Forja author.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Requires PHP: 7.4
  */
 
@@ -10,14 +10,20 @@ namespace Forja\DraftApproval;
 
 defined('ABSPATH') || exit;
 
+// A deployment may include one approval and its RSA public key. All values are non-secret.
+$approval_file = __DIR__ . '/approval.php';
+if (is_file($approval_file)) {
+    require $approval_file;
+}
+
 function denied() {
     return new \WP_Error('forja_draft_denied', 'Draft authorization rejected.', ['status' => 403]);
 }
 
 function authorize($request) {
     if (!defined('FWB_ALT02_ENABLED') || FWB_ALT02_ENABLED !== true ||
-        !defined('FWB_ALT02_SIGNING_KEY') || !is_string(FWB_ALT02_SIGNING_KEY) ||
-        !preg_match('/\A[a-f0-9]{64}\z/', FWB_ALT02_SIGNING_KEY) ||
+        !function_exists('openssl_verify') || !defined('FWB_ALT02_PUBLIC_KEY') ||
+        !is_string(FWB_ALT02_PUBLIC_KEY) ||
         !defined('FWB_ALT02_APPROVED_DIGEST') || !is_string(FWB_ALT02_APPROVED_DIGEST) ||
         !defined('FWB_ALT02_APPROVAL_EXPIRES') || !is_int(FWB_ALT02_APPROVAL_EXPIRES) ||
         FWB_ALT02_APPROVAL_EXPIRES <= time()) {
@@ -28,8 +34,17 @@ function authorize($request) {
     if (strlen($body) > 75000 || !hash_equals(FWB_ALT02_APPROVED_DIGEST, hash('sha256', $body))) {
         return denied();
     }
-    $signature = hash_hmac('sha256', "forja-draft-v1\n" . $body, hex2bin(FWB_ALT02_SIGNING_KEY));
-    return hash_equals($signature, (string) $request->get_header('x-forja-draft-signature')) ? true : denied();
+    $encoded = (string) $request->get_header('x-forja-draft-signature');
+    if (!preg_match('/\A[A-Za-z0-9+\/]{342}==\z/', $encoded)) {
+        return denied();
+    }
+    $signature = base64_decode($encoded, true);
+    if ($signature === false || strlen($signature) !== 256) {
+        return denied();
+    }
+    $key = openssl_pkey_get_public(FWB_ALT02_PUBLIC_KEY);
+    return $key && openssl_verify("forja-draft-rsa-v1\n" . $body, $signature, $key, OPENSSL_ALGO_SHA256) === 1
+        ? true : denied();
 }
 
 function create($request) {
