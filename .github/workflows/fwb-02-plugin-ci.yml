@@ -1,0 +1,53 @@
+name: FWB-02 — Validate and Package Forja WP Bridge
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/forja-wp-bridge/**'
+      - '.github/workflows/fwb-02-plugin-ci.yml'
+  push:
+    branches:
+      - 'feature/fwb-02-forja-wp-bridge-20261120'
+    paths:
+      - 'plugins/forja-wp-bridge/**'
+      - '.github/workflows/fwb-02-plugin-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: PHP runtime
+        run: php -v
+
+      - name: Lint all PHP
+        run: |
+          set -euo pipefail
+          find plugins/forja-wp-bridge -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Offline security / validator tests
+        run: php plugins/forja-wp-bridge/tests/validator-test.php
+
+      - name: Create installable package (NO DEPLOY)
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cd plugins
+          zip -qr ../dist/forja-wp-bridge-v0.1.0.zip forja-wp-bridge \
+            -x 'forja-wp-bridge/tests/*'
+          cd ..
+          unzip -t dist/forja-wp-bridge-v0.1.0.zip
+
+      - name: Upload ZIP for manual review only
+        uses: actions/upload-artifact@v4
+        with:
+          name: forja-wp-bridge-v0.1.0-review-only
+          path: dist/forja-wp-bridge-v0.1.0.zip
+          if-no-files-found: error
+          retention-days: 7
