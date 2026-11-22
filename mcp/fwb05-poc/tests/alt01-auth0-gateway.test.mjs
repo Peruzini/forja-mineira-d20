@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateKeyPairSync, sign } from 'node:crypto';
+import { createHash, createHmac, generateKeyPairSync, sign } from 'node:crypto';
 import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { altAuth0Metadata, readAltAuth0Config, verifyAltAuth0Access } from '../alt01/auth0.mjs';
 import { createAltAuth0Gateway } from '../alt01/gateway.mjs';
 import { makeAltPinnedEgress } from '../alt01/egress.mjs';
 import { checkAltAuth0Readiness } from '../alt01/preflight.mjs';
+import { DRAFT_ROUTE } from '../alt01/drafts.mjs';
 
 const issuer = 'https://forja-lab.us.auth0.com/';
 const resource = 'https://mcp-lab.example.org/api/gateway-mcp';
@@ -243,6 +244,49 @@ test('production public posts use only fixed unauthenticated GET and reject non-
       status = 'draft';
       assert.equal((await call()).isError, true);
     });
+  } finally { await gateway.close(); }
+});
+
+test('draft creation is opt-in and requires the configured subject and write scope', async () => {
+  const secret = 'a1'.repeat(32);
+  const draftEnv = {...env, FWB_ALT02_DRAFTS: 'enabled', FWB_ALT02_SUBJECT: subjects[0], FWB_ALT02_SIGNING_KEY: secret};
+  assert.throws(() => readAltAuth0Config({...draftEnv, FWB_ALT02_SUBJECT: 'auth0|unlisted'}));
+  assert.deepEqual(altAuth0Metadata(readAltAuth0Config(draftEnv)).scopes_supported, ['posts:read', 'drafts:write']);
+  const input = {title: 'Rascunho da Forja', content: 'Primeira linha.\nSegunda linha.'};
+  const call = (client, args = input) => client.callTool({name: 'forja_wp_create_draft', arguments: args});
+  let writes = 0;
+  const gateway = createAltAuth0Gateway({env: draftEnv, now: () => now, fetcher: async (url, options) => {
+    if (url === config.jwks) return Response.json({keys: [jwk]});
+    assert.equal(url, DRAFT_ROUTE);
+    assert.equal(options.method, 'POST');
+    assert.equal(options.redirect, 'error');
+    assert.equal(options.headers.Authorization, undefined);
+    assert.equal(options.body, JSON.stringify(input));
+    assert.equal(options.headers['X-Forja-Draft-Signature'], createHmac('sha256', Buffer.from(secret, 'hex'))
+      .update('forja-draft-v1\n' + options.body).digest('hex'));
+    writes++;
+    return Response.json({id: 418, status: 'draft'}, {status: 201});
+  }});
+  try {
+    await withMcp(gateway, token(), async client => {
+      const preview = await client.callTool({name: 'forja_wp_preview_draft', arguments: input});
+      assert.deepEqual(preview.structuredContent, {...input, status: 'draft',
+        approvalDigest: createHash('sha256').update(JSON.stringify(input)).digest('hex')});
+      assert.equal((await call(client)).isError, true);
+    });
+    await withMcp(gateway, token({sub: subjects[1], scope: 'posts:read drafts:write'}), async client => {
+      assert.deepEqual((await client.listTools()).tools.map(tool => tool.name), ['forja_auth0_status']);
+    });
+    assert.equal(writes, 0);
+    await withMcp(gateway, token({scope: 'posts:read drafts:write'}), async client => {
+      const create = (await client.listTools()).tools.find(tool => tool.name === 'forja_wp_create_draft');
+      assert.equal(create.annotations.readOnlyHint, false);
+      assert.deepEqual(create._meta.securitySchemes[0].scopes, ['posts:read', 'drafts:write']);
+      assert.equal((await call(client, {...input, status: 'publish'})).isError, true);
+      assert.deepEqual((await call(client)).structuredContent, {id: 418, status: 'draft',
+        editUrl: 'https://forjamineirad20.com.br/wp-admin/post.php?post=418&action=edit'});
+    });
+    assert.equal(writes, 1);
   } finally { await gateway.close(); }
 });
 
